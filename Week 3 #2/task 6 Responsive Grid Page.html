@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<style>
+  :root {
+    --primary: #0f766e;
+    --accent: #14b8a6;
+    --bg: #f0fdfa;
+    --text: #134e4a;
+    --radius: 12px;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 30px;
+  }
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  @media (min-width: 640px) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .card {
+    border: 2px solid var(--primary);
+    padding: 20px;
+    border-radius: var(--radius);
+    transition: transform 0.3s;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+  }
+
+  .card[data-icon]::before {
+    content: attr(data-icon) '  ';
+    font-size: 2rem;
+    display: block;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --primary: #2dd4bf;
+      --accent: #5eead4;
+      --bg: #134e4a;
+      --text: #f0fdfa;
+    }
+  }
+</style>
+</head>
+<body>
+  <h1>Anar's Skills</h1>
+  <div class="grid">
+    <div class="card" data-icon="🐍">Python — Beginner Level</div>
+    <div class="card" data-icon="🎮">Unreal Engine — Basics</div>
+    <div class="card" data-icon="🧊">Blender — Beginner Level</div>
+    <div class="card" data-icon="🎬">Video Editing — Adobe After Effects</div>
+    <div class="card" data-icon="🎞️">Video Editing — DaVinci Resolve</div>
+    <div class="card" data-icon="💻">Computer Programming — Beginner Level</div>
+  </div>
+</body>
+</html>

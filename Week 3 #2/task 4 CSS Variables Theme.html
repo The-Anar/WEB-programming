@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+<style>
+  :root {
+    --primary: #0f766e;
+    --accent: #14b8a6;
+    --bg: #f0fdfa;
+    --text: #134e4a;
+    --radius: 12px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --primary: #2dd4bf;
+      --accent: #5eead4;
+      --bg: #134e4a;
+      --text: #f0fdfa;
+    }
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: sans-serif;
+    padding: 20px;
+  }
+
+  .btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+
+  .card {
+    background: var(--bg);
+    border: 2px solid var(--accent);
+    border-radius: var(--radius);
+    padding: 20px;
+    margin-top: 16px;
+  }
+</style>
+</head>
+<body>
+  <button class="btn">Anar's Button</button>
+  <div class="card">My CSS Variables Theme</div>
+</body>
+</html>

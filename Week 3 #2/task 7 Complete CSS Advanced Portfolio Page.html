@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Anar's CSS Advanced Page</title>
+
+<style>
+  :root {
+    --primary: #0f766e;
+    --accent: #14b8a6;
+    --bg: #f0fdfa;
+    --text: #134e4a;
+    --card-bg: white;
+    --radius: 12px;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding-top: 60px;
+  }
+
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #1e293b;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+  }
+
+  nav span {
+    color: white;
+    font-weight: bold;
+  }
+
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+  }
+
+  nav a:hover {
+    color: var(--accent);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .hero {
+    text-align: center;
+    padding: 70px 20px;
+    animation: fadeIn 1s ease-in;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+  }
+
+  .skills-section {
+    padding: 30px 20px;
+  }
+
+  .sticky-h2 {
+    position: sticky;
+    top: 60px;
+    background: var(--bg);
+    padding: 12px 0;
+    margin-bottom: 20px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  @media (min-width: 640px) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 2px solid var(--primary);
+    padding: 20px;
+    border-radius: var(--radius);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 20px rgba(20, 184, 166, 0.4);
+  }
+
+  .card[data-icon]::before {
+    content: attr(data-icon) '  ';
+    font-size: 2rem;
+    display: block;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --primary: #2dd4bf;
+      --accent: #5eead4;
+      --bg: #134e4a;
+      --text: #f0fdfa;
+      --card-bg: #1e293b;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+  <nav>
+    <span>Anar's Portfolio</span>
+    <div>
+      <a href="#">Home</a>
+      <a href="#skills">Skills</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>Hello, I am Anar</h1>
+    <p>Computer Engineering · Gachon University · CSS Advanced</p>
+  </section>
+
+  <section class="skills-section" id="skills">
+    <h2 class="sticky-h2">My Skills</h2>
+
+    <div class="grid">
+      <div class="card" data-icon="🐍">Python — Beginner Level</div>
+      <div class="card" data-icon="🎮">Unreal Engine — Basics</div>
+      <div class="card" data-icon="🧊">Blender — Beginner Level</div>
+      <div class="card" data-icon="🎬">Video Editing — After Effects</div>
+      <div class="card" data-icon="🎞️">Video Editing — DaVinci Resolve</div>
+      <div class="card" data-icon="🧩">Rubik's Cubes — 6 Types</div>
+      <div class="card" data-icon="♟️">Chess — 1200 Elo</div>
+    </div>
+  </section>
+
+</body>
+</html>

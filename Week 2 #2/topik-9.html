@@ -1,0 +1,44 @@
+```html
+<!-- ✗ Div soup — generic divs without meaningful structure -->
+<div class="course-page">
+  <div class="top">
+    <div class="menu">...</div>
+  </div>
+
+  <div class="content">
+    <div class="lesson">...</div>
+    <div class="extra-info">...</div>
+  </div>
+
+  <div class="bottom">...</div>
+</div>
+
+
+<!-- ✓ Semantic HTML — elements describe their purpose -->
+<div class="course-page">
+  <header>
+    <h1>My Web Programming Coursework</h1>
+    <nav>
+      ...
+    </nav>
+  </header>
+
+  <div class="content-grid">
+    <main>
+      <article>
+        <h2>HTML and CSS Lessons</h2>
+        <p>Here I organize my weekly programming exercises.</p>
+      </article>
+    </main>
+
+    <aside>
+      <h2>Related Information</h2>
+      <p>Extra notes and useful resources.</p>
+    </aside>
+  </div>
+
+  <footer>
+    <p>Created by Batsuren Anar</p>
+  </footer>
+</div>
+```

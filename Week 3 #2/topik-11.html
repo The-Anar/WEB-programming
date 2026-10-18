@@ -1,0 +1,125 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flexbox Layout — Week 3</title>
+
+  <style>
+    /* Made by: Batsuren Anar | Student ID: 202637018 */
+
+    body {
+      font-family: sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #6d28d9;
+    }
+
+    /* flex-wrap: cards move to new rows when space is limited */
+    .card-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 16px;
+      background: #ede9fe;
+      border-radius: 14px;
+    }
+
+    .card {
+      flex: 1;
+      min-width: 160px;
+      background: #334155;
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .card.featured {
+      order: -1;
+      flex: 2;
+      background: #7c3aed;
+    }
+
+    /* Sidebar + main content layout */
+    .sidebar-layout {
+      display: flex;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .sidebar {
+      width: 180px;
+      flex-shrink: 0;
+      background: #ddd6fe;
+      color: #4c1d95;
+      padding: 16px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    .main {
+      flex: 1;
+      background: white;
+      border: 2px solid #a78bfa;
+      padding: 20px;
+      border-radius: 10px;
+      min-width: 0;
+    }
+
+    /* Stack the sidebar above the content on narrow screens */
+    @media (max-width: 520px) {
+      .sidebar-layout {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Anar's Game Dev Dashboard</h1>
+  <p>My learning projects and coding workspace.</p>
+
+  <div class="card-grid">
+    <div class="card">HTML<br>Page Structure</div>
+    <div class="card">CSS<br>Visual Design</div>
+    <div class="card featured">
+      MAIN PROJECT<br>
+      Flexbox Layout
+    </div>
+    <div class="card">Python<br>Programming</div>
+    <div class="card">JavaScript<br>Interactivity</div>
+  </div>
+
+  <div class="sidebar-layout">
+    <aside class="sidebar">
+      <strong>MY WORKSPACE</strong>
+      <p>Dashboard</p>
+      <p>My Projects</p>
+      <p>Weekly Practice</p>
+    </aside>
+
+    <main class="main">
+      <h2>Current Focus: Flexbox</h2>
+      <p>
+        I'm learning how to arrange elements, wrap cards onto new rows,
+        and control their sizes using CSS Flexbox.
+      </p>
+    </main>
+  </div>
+
+  <p style="margin-top: 24px;">
+    <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+  </p>
+</body>
+</html>

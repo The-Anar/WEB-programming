@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Event Listeners</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f3ff;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 520px;
+            margin: auto;
+            padding: 30px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px #4c1d9515;
+        }
+
+        h1 {
+            color: #6d28d9;
+        }
+
+        #my-btn {
+            background: #7c3aed;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input {
+            width: 85%;
+            padding: 12px;
+            margin: 20px 0 10px;
+            border: 2px solid #c4b5fd;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .output {
+            background: #f5f3ff;
+            border-radius: 8px;
+            padding: 14px;
+            margin-top: 15px;
+            text-align: left;
+            overflow-wrap: anywhere;
+        }
+
+        .label {
+            color: #6d28d9;
+            font-weight: bold;
+        }
+
+        mark {
+            display: inline-block;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Event Listener Lab</h1>
+        <p>Click the button, then type something in the input.</p>
+
+        <button id="my-btn">Click Me!</button>
+
+        <div class="output">
+            <p class="label">Button event:</p>
+            <p id="click-result">Waiting for your click...</p>
+        </div>
+
+        <label for="my-input">Try the input event:</label><br>
+        <input id="my-input" type="text" placeholder="Type anything here...">
+
+        <div class="output">
+            <p class="label">Input value:</p>
+            <p id="input-result">Nothing typed yet.</p>
+        </div>
+
+        <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+    </div>
+
+    <script>
+        const btn = document.querySelector('#my-btn');
+
+        // Standard function callback
+        btn.addEventListener('click', function() {
+            console.log('Button was clicked!');
+            document.querySelector('#click-result').textContent =
+                'Button was clicked!';
+        });
+
+        // Arrow function callback — same event, another message
+        btn.addEventListener('click', () => {
+            console.log('Also clicked!');
+            document.querySelector('#click-result').textContent +=
+                ' Also clicked!';
+        });
+
+        // The input event fires whenever the value changes
+        const inp = document.querySelector('input');
+
+        inp.addEventListener('input', () => {
+            console.log('Input value:', inp.value);
+
+            document.querySelector('#input-result').textContent =
+                inp.value || 'Nothing typed yet.';
+        });
+    </script>
+</body>
+</html>

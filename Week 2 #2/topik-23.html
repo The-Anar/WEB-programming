@@ -1,0 +1,36 @@
+<body>
+  <h2>HTML and ARIA Accessibility</h2>
+
+  <!-- 1. Native HTML already has an implicit role -->
+  <button>Submit Assignment</button>
+
+  <nav>
+    <a href="#html">HTML</a>
+    <a href="#css">CSS</a>
+  </nav>
+
+  <main>
+    <h3>Web Programming Notes</h3>
+    <p>Semantic HTML helps assistive technologies understand page structure.</p>
+  </main>
+
+  <!-- 2. ARIA roles can describe custom widgets -->
+  <div role="tablist" aria-label="Programming topics">
+    <div role="tab" aria-selected="true" tabindex="0">HTML</div>
+    <div role="tab" aria-selected="false" tabindex="-1">CSS</div>
+  </div>
+
+  <div role="tabpanel">
+    <p id="html">HTML content goes here.</p>
+  </div>
+
+  <!-- Screen readers announce updates inside an alert region -->
+  <div role="alert" id="status"></div>
+
+  <!-- Avoid redundant roles on native semantic elements -->
+  <!-- <nav role="navigation"> is usually unnecessary -->
+
+  <p>
+    <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+  </p>
+</body>

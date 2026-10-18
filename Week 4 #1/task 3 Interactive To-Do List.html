@@ -1,0 +1,203 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My To-Do List</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 30px 20px;
+      max-width: 430px;
+      margin: 40px auto;
+      background: #f0fdf4;
+      color: #1f2937;
+    }
+
+    h2 {
+      color: #166534;
+      text-align: center;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 24px;
+    }
+
+    .add-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    input {
+      flex: 1;
+      min-width: 0;
+      padding: 10px 12px;
+      border: 2px solid #bbf7d0;
+      border-radius: 8px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #16a34a;
+    }
+
+    button {
+      padding: 9px 14px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .add-btn {
+      background: #15803d;
+      color: white;
+    }
+
+    #todo-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .todo-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 11px 12px;
+      margin-bottom: 8px;
+      background: white;
+      border: 1px solid #bbf7d0;
+      border-radius: 10px;
+      overflow-wrap: anywhere;
+    }
+
+    .del-btn {
+      flex-shrink: 0;
+      background: #fee2e2;
+      color: #b91c1c;
+      padding: 5px 9px;
+      font-size: 13px;
+    }
+
+    #empty-msg {
+      color: #9ca3af;
+      text-align: center;
+      padding: 18px;
+    }
+
+    #task-count {
+      color: #166534;
+      font-size: 13px;
+      text-align: right;
+    }
+
+    mark {
+      background: #dcfce7;
+      color: #166534;
+      padding: 4px 7px;
+      border-radius: 5px;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>🌿 My To-Do List</h2>
+  <p class="subtitle">One task at a time.</p>
+
+  <div class="add-row">
+    <input id="todo-input" type="text" placeholder="What needs to be done?">
+    <button id="add-btn" class="add-btn">+ Add</button>
+  </div>
+
+  <p id="task-count">Tasks: 0</p>
+  <ul id="todo-list"></ul>
+  <p id="empty-msg">No tasks yet! Add one above.</p>
+
+  <p><mark>Made by: Batsuren Anar | Student ID: 202637018</mark></p>
+
+  <script>
+    // 1. Select the elements
+    const input = document.querySelector('#todo-input');
+    const addBtn = document.querySelector('#add-btn');
+    const todoList = document.querySelector('#todo-list');
+    const emptyMsg = document.querySelector('#empty-msg');
+    const taskCount = document.querySelector('#task-count');
+
+    // Update the empty message and task counter
+    function updateList() {
+      emptyMsg.style.display =
+        todoList.children.length === 0 ? 'block' : 'none';
+
+      taskCount.textContent = 'Tasks: ' + todoList.children.length;
+    }
+
+    // 2. Add a task
+    function addTask() {
+      const taskText = input.value.trim();
+
+      // Skip empty input
+      if (taskText === '') {
+        return;
+      }
+
+      // Create the list item
+      const li = document.createElement('li');
+      li.classList.add('todo-item');
+
+      // Create the task text
+      const span = document.createElement('span');
+      span.textContent = taskText;
+
+      // Create the delete button
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = '✕';
+      deleteBtn.classList.add('del-btn');
+      deleteBtn.setAttribute('aria-label', 'Delete task');
+
+      // Put the text and button inside the list item
+      li.appendChild(span);
+      li.appendChild(deleteBtn);
+
+      // Add the item to the list
+      todoList.appendChild(li);
+
+      // Clear the input
+      input.value = '';
+
+      // Update the message and counter
+      updateList();
+
+      // Focus the input again
+      input.focus();
+    }
+
+    // 3. Add a task when the Add button is clicked
+    addBtn.addEventListener('click', addTask);
+
+    // 4. Add a task when Enter is pressed
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        addTask();
+      }
+    });
+
+    // 5. Event delegation: handle delete clicks on the list
+    todoList.addEventListener('click', function(e) {
+      if (e.target.matches('.del-btn')) {
+        const li = e.target.closest('li');
+        li.remove();
+        updateList();
+      }
+    });
+
+    // Set the initial empty message
+    updateList();
+  </script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Search</title>
+
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      padding: 28px 20px;
+      max-width: 440px;
+      margin: 35px auto;
+      background: #f0fdf4;
+      color: #1f2937;
+    }
+
+    h2 {
+      color: #166534;
+      text-align: center;
+    }
+
+    .subtitle {
+      color: #6b7280;
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    #search {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 11px 14px;
+      font-size: 15px;
+      border: 2px solid #86efac;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      outline: none;
+    }
+
+    #search:focus {
+      border-color: #16a34a;
+    }
+
+    .student {
+      padding: 12px 14px;
+      margin-bottom: 9px;
+      background: white;
+      border-radius: 10px;
+      border: 1px solid #bbf7d0;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .student strong {
+      color: #166534;
+      font-size: 15px;
+    }
+
+    .course {
+      color: #6b7280;
+      font-size: 13px;
+    }
+
+    mark {
+      background: #fde68a;
+      color: #713f12;
+      border-radius: 3px;
+      padding: 1px 2px;
+      font-weight: bold;
+    }
+
+    #no-results {
+      display: none;
+      color: #9ca3af;
+      text-align: center;
+      padding: 20px;
+    }
+
+    #result-count {
+      font-size: 13px;
+      color: #166534;
+      text-align: right;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>🎓 Student Search</h2>
+  <p class="subtitle">Find a student by name instantly.</p>
+
+  <input
+    id="search"
+    type="text"
+    placeholder="Type a student's name..."
+  >
+
+  <p id="result-count">Showing 7 students</p>
+
+  <div id="student-list">
+    <!-- Anar's student card -->
+    <div class="student" data-name="Batsuren Anar">
+      <strong>Batsuren Anar</strong><br>
+      <span class="course">Software Engineering</span>
+    </div>
+
+    <div class="student" data-name="Park Minjun">
+      <strong>Park Minjun</strong><br>
+      <span class="course">Computer Science</span>
+    </div>
+
+    <div class="student" data-name="Lee Sooyeon">
+      <strong>Lee Sooyeon</strong><br>
+      <span class="course">Software Engineering</span>
+    </div>
+
+    <div class="student" data-name="Choi Hyunwoo">
+      <strong>Choi Hyunwoo</strong><br>
+      <span class="course">Artificial Intelligence</span>
+    </div>
+
+    <div class="student" data-name="Jung Yuna">
+      <strong>Jung Yuna</strong><br>
+      <span class="course">Data Science</span>
+    </div>
+
+    <div class="student" data-name="Kang Seojun">
+      <strong>Kang Seojun</strong><br>
+      <span class="course">Web Programming</span>
+    </div>
+
+    <!-- Anar's student card -->
+    <div class="student" data-name="Batsuren Anar">
+      <strong>Batsuren Anar</strong><br>
+      <span class="course">Software Engineering</span>
+    </div>
+  </div>
+
+  <p id="no-results">🔎 No students found.</p>
+
+  <p>
+    <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+  </p>
+
+  <script>
+    // 1. Select the elements
+    const search = document.querySelector('#search');
+    const students = document.querySelectorAll('.student');
+    const noResults = document.querySelector('#no-results');
+    const resultCount = document.querySelector('#result-count');
+
+    // Save the original HTML for resetting highlights
+    students.forEach(function(student) {
+      student.dataset.original = student.innerHTML;
+    });
+
+    // 2. Filter students as the user types
+    search.addEventListener('input', function(e) {
+      // Get the search term
+      const term = e.target.value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      // Check every student
+      students.forEach(function(student) {
+        const name = student.getAttribute('data-name');
+        const lowerName = name.toLowerCase();
+
+        if (lowerName.includes(term)) {
+          // Show matching students
+          student.style.display = '';
+          visibleCount++;
+
+          // Restore the original card before highlighting
+          student.innerHTML = student.dataset.original;
+
+          // Highlight matching text
+          if (term !== '') {
+            const escapedTerm = term.replace(
+              /[.*+?^${}()|[\]\\]/g,
+              '\\$&'
+            );
+
+            const regex = new RegExp(
+              '(' + escapedTerm + ')',
+              'gi'
+            );
+
+            const nameElement = student.querySelector('strong');
+
+            nameElement.innerHTML = nameElement.textContent.replace(
+              regex,
+              '<mark>$1</mark>'
+            );
+          }
+        } else {
+          // Hide non-matching students
+          student.style.display = 'none';
+        }
+      });
+
+      // Update the result count
+      resultCount.textContent =
+        'Showing ' + visibleCount +
+        (visibleCount === 1 ? ' student' : ' students');
+
+      // Show the no-results message if needed
+      noResults.style.display =
+        visibleCount === 0 ? 'block' : 'none';
+    });
+  </script>
+</body>
+</html>

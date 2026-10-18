@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TOPIK 1 - DOM Selection</title>
+
+  <style>
+    body {
+      background: #f5f3ff;
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      color: #312e81;
+    }
+
+    .demo-card {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 28px;
+      background: white;
+      border: 2px solid #ddd6fe;
+      border-radius: 14px;
+    }
+
+    #greeting {
+      color: #6d28d9;
+      transition: color 0.3s;
+    }
+
+    button {
+      background: #6d28d9;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .credit {
+      margin-top: 24px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="demo-card">
+    <h2>DOM Selection</h2>
+
+    <p>
+      JavaScript can select an HTML element by its ID
+      and change its text and appearance.
+    </p>
+
+    <h1 id="greeting">Hello, world!</h1>
+
+    <button onclick="changeGreeting()">Change Heading</button>
+
+    <p class="credit">
+      <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+    </p>
+  </div>
+
+  <script>
+    // Find the element with id="greeting"
+    const heading = document.getElementById('greeting');
+
+    // Change its text and appearance
+    function changeGreeting() {
+      heading.textContent = 'Welcome to my page!';
+      heading.style.color = '#8b5cf6';
+      heading.style.fontSize = '32px';
+      heading.style.backgroundColor = '#f3e8ff';
+    }
+  </script>
+
+</body>
+</html>

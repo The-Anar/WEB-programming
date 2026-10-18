@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dev Academy</title>
+
+  <style>
+    :root {
+      --primary: #6d28d9;
+      --accent: #a78bfa;
+      --bg: #f5f3ff;
+      --card: #ffffff;
+      --text: #2e1065;
+      --radius: 16px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: sans-serif;
+      padding: 28px;
+      color: var(--text);
+    }
+
+    .page-title {
+      margin-bottom: 8px;
+      font-size: 28px;
+    }
+
+    .subtitle {
+      margin-bottom: 30px;
+      color: #7c6b9b;
+      font-size: 14px;
+    }
+
+    /* Responsive grid */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+    }
+
+    @media (min-width: 640px) {
+      .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border: 2px solid #ddd6fe;
+      border-radius: var(--radius);
+      padding: 26px 22px;
+      position: relative;
+      transition: transform 0.25s ease,
+                  box-shadow 0.25s ease,
+                  border-color 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 14px 30px rgba(109, 40, 217, 0.18);
+      border-color: var(--accent);
+    }
+
+    /* Absolute badge */
+    .badge {
+      position: absolute;
+      top: -11px;
+      right: 14px;
+      background: var(--primary);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 20px;
+    }
+
+    .card-title::before {
+      content: "✦ ";
+      color: var(--accent);
+    }
+
+    .card-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: #786b91;
+      line-height: 1.7;
+      min-height: 70px;
+    }
+
+    /* Three separate currencies */
+    .prices {
+      display: grid;
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 10px;
+      border-radius: 8px;
+      background: #f5f3ff;
+    }
+
+    .currency {
+      color: #786b91;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .price {
+      color: var(--primary);
+      font-size: 16px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .card-label {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 5px 9px;
+      border-radius: 6px;
+      background: #ede9fe;
+      color: #5b21b6;
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .credit {
+      margin-top: 28px;
+      font-size: 13px;
+    }
+
+    /* Dark mode */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #171126;
+        --card: #241a38;
+        --text: #ede9fe;
+      }
+
+      .card {
+        border-color: #45345f;
+      }
+
+      .card-desc,
+      .subtitle,
+      .currency {
+        color: #c4b5fd;
+      }
+
+      .price-row {
+        background: #332447;
+      }
+
+      .card-label {
+        background: #3b2b55;
+        color: #ddd6fe;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1 class="page-title">Dev Academy</h1>
+  <p class="subtitle">Choose your next skill and start building.</p>
+
+  <div class="grid">
+
+    <!-- CSS course -->
+    <div class="card">
+      <span class="badge">NEW</span>
+
+      <h3 class="card-title">CSS Mastery</h3>
+
+      <p class="card-desc">
+        Learn layouts, animations, variables, and responsive web design.
+      </p>
+
+      <div class="prices">
+        <div class="price-row">
+          <span class="currency">🇰🇷 Korean Won</span>
+          <span class="price">₩45,000</span>
+        </div>
+
+        <div class="price-row">
+          <span class="currency">🇺🇸 US Dollar</span>
+          <span class="price">$33</span>
+        </div>
+
+        <div class="price-row">
+          <span class="currency">🇲🇳 Mongolian Tugrik</span>
+          <span class="price">₮115,000</span>
+        </div>
+      </div>
+
+      <span class="card-label">DESIGN</span>
+    </div>
+
+    <!-- JavaScript course -->
+    <div class="card">
+      <h3 class="card-title">JavaScript Lab</h3>
+
+      <p class="card-desc">
+        Practice programming logic, functions, and modern JavaScript.
+      </p>
+
+      <div class="prices">
+        <div class="price-row">
+          <span class="currency">🇰🇷 Korean Won</span>
+          <span class="price">₩65,000</span>
+        </div>
+
+        <div class="price-row">
+          <span class="currency">🇺🇸 US Dollar</span>
+          <span class="price">$48</span>
+        </div>
+
+        <div class="price-row">
+          <span class="currency">🇲🇳 Mongolian Tugrik</span>
+          <span class="price">₮165,000</span>
+        </div>
+      </div>
+
+      <span class="card-label">CODING</span>
+    </div>
+
+    <!-- Full Stack course -->
+    <div class="card">
+      <span class="badge">POPULAR</span>
+
+      <h3 class="card-title">Full Stack Dev</h3>
+
+      <p class="card-desc">
+        Connect frontend interfaces with servers and databases.
+      </p>
+
+      <div class="prices">
+        <div class="price-row">
+          <span class="currency">🇰🇷 Korean Won</span>
+          <span class="price">₩119,000</span>
+        </div>
+
+        <div class="price-row">
+          <span class="currency">🇺🇸 US Dollar</span>
+          <span class="price">$88</span>
+        </div>
+
+        <div class="price-row">
+          <span class="currency">🇲🇳 Mongolian Tugrik</span>
+          <span class="price">₮300,000</span>
+        </div>
+      </div>
+
+      <span class="card-label">ADVANCED</span>
+    </div>
+
+  </div>
+
+  <p class="credit">
+    <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+  </p>
+
+</body>
+</html>

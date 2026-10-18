@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>innerHTML vs textContent</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0fdfa;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 560px;
+            margin: auto;
+            padding: 28px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 6px 18px #134e4a18;
+        }
+
+        h1 {
+            color: #0f766e;
+        }
+
+        #box {
+            min-height: 55px;
+            margin: 20px 0;
+            padding: 18px;
+            border: 2px dashed #5eead4;
+            border-radius: 10px;
+            background: #f0fdfa;
+            overflow-wrap: anywhere;
+        }
+
+        input {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #99f6e4;
+            border-radius: 7px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 14px;
+            margin: 4px;
+            border: none;
+            border-radius: 7px;
+            background: #0f766e;
+            color: white;
+            cursor: pointer;
+        }
+
+        .safe {
+            background: #2563eb;
+        }
+
+        .warning {
+            color: #b91c1c;
+            font-size: 14px;
+        }
+
+        mark {
+            display: inline-block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>innerHTML vs textContent</h1>
+        <p>See the difference between HTML formatting and plain text.</p>
+
+        <div id="box">Your result will appear here.</div>
+
+        <button onclick="showFormatted()">Show formatted HTML</button>
+        <button class="safe" onclick="showSafeText()">Show safe text</button>
+
+        <hr>
+
+        <h3>Try your own text</h3>
+        <input id="userInput" type="text"
+               placeholder="Type text or something like <b>Hello</b>">
+
+        <button onclick="useInnerHTML()">Insert with innerHTML</button>
+        <button class="safe" onclick="useTextContent()">Insert safely</button>
+
+        <p class="warning">
+            Security lesson: never insert untrusted input directly into innerHTML.
+        </p>
+
+        <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+    </div>
+
+    <script>
+        const box = document.querySelector('#box');
+        const userInput = document.querySelector('#userInput');
+
+        // OK: HTML written and controlled by the developer
+        function showFormatted() {
+            box.innerHTML = '<strong>Bold</strong> and <em>italic</em>';
+        }
+
+        // Safe: display everything as plain text
+        function showSafeText() {
+            box.textContent = '<strong>These tags are just text!</strong>';
+        }
+
+        // DANGER: do not use this with untrusted input
+        function useInnerHTML() {
+            box.innerHTML = userInput.value;
+        }
+
+        // SAFE: user input is displayed as text
+        function useTextContent() {
+            box.textContent = userInput.value;
+        }
+    </script>
+</body>
+</html>

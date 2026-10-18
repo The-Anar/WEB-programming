@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Layers & Overflow — Week 3</title>
+
+  <style>
+    /* Made by: Batsuren Anar | Student ID: 202637018 */
+
+    body {
+      font-family: sans-serif;
+      background: #f8fafc;
+      padding: 20px;
+      color: #1e293b;
+    }
+
+    /* ── Layer stacking demo ── */
+    .stack {
+      position: relative;
+      height: 230px;
+      margin-bottom: 20px;
+    }
+
+    .layer {
+      position: absolute;
+      width: 190px;
+      height: 110px;
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      box-shadow: 0 4px 10px #00000020;
+    }
+
+    .layer-1 {
+      background: #0f766e;
+      color: white;
+      top: 10px;
+      left: 10px;
+      z-index: 1;
+    }
+
+    .layer-2 {
+      background: #f59e0b;
+      color: #422006;
+      top: 45px;
+      left: 100px;
+      z-index: 3;
+    }
+
+    .layer-3 {
+      background: #7c3aed;
+      color: white;
+      top: 85px;
+      left: 190px;
+      z-index: 2;
+    }
+
+    /* ── Overflow demo ── */
+    .overflow-demo {
+      width: 280px;
+      height: 110px;
+      overflow: auto;
+      border: 2px solid #7c3aed;
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 16px;
+      background: white;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>CSS Layer Stacking</h2>
+
+  <div class="stack">
+    <div class="layer layer-1">
+      Layer 1<br>
+      z-index: 1
+    </div>
+
+    <div class="layer layer-2">
+      Layer 2<br>
+      z-index: 3 — top
+    </div>
+
+    <div class="layer layer-3">
+      Layer 3<br>
+      z-index: 2
+    </div>
+  </div>
+
+  <h2>Overflow: Auto</h2>
+
+  <div class="overflow-demo">
+    <strong>Try scrolling inside this box!</strong><br>
+    This text is longer than the available space.
+    CSS overflow controls what happens when content
+    doesn't fit inside its container.
+    Keep scrolling to read this extra sentence.
+    One more line to demonstrate the scrollable area.
+  </div>
+
+  <p style="margin-top: 24px;">
+    <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+  </p>
+</body>
+</html>

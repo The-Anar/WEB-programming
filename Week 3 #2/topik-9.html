@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Variables — Week 3</title>
+
+  <style>
+    /* Made by: Batsuren Anar | Student ID: 202637018 */
+
+    /* Global design tokens */
+    :root {
+      --color-primary: #2563eb;
+      --color-accent: #38bdf8;
+      --color-bg: #0f172a;
+      --color-card: #1e293b;
+      --color-text: #e2e8f0;
+      --radius-card: 16px;
+      --shadow-card: 0 6px 24px rgba(0, 0, 0, 0.25);
+      --spacing-md: 20px;
+    }
+
+    /* Automatic light mode */
+    @media (prefers-color-scheme: light) {
+      :root {
+        --color-bg: #eff6ff;
+        --color-card: #ffffff;
+        --color-text: #1e293b;
+      }
+    }
+
+    body {
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: sans-serif;
+      padding: 30px;
+    }
+
+    .btn {
+      background: var(--color-primary);
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--color-accent);
+    }
+
+    .card {
+      background: var(--color-card);
+      border: 2px solid var(--color-accent);
+      border-radius: var(--radius-card);
+      padding: var(--spacing-md);
+      box-shadow: var(--shadow-card);
+      margin-top: var(--spacing-md);
+      max-width: 320px;
+      color: var(--color-text);
+    }
+
+    /* Local override — this card uses green */
+    .card.success {
+      --color-primary: #16a34a;
+      --color-accent: #4ade80;
+    }
+
+    /* Local override — this card uses red */
+    .card.danger {
+      --color-primary: #e11d48;
+      --color-accent: #fb7185;
+    }
+
+    .card .btn {
+      margin-top: 12px;
+      background: var(--color-primary);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Anar's CSS Dashboard</h1>
+  <p>One set of variables, different card themes.</p>
+
+  <button class="btn">Main Button</button>
+
+  <div class="card">
+    <strong>Default Card</strong>
+    <p>Uses the global blue accent.</p>
+    <button class="btn">Open Project</button>
+  </div>
+
+  <div class="card success">
+    <strong>Success Card</strong>
+    <p>Local override: green theme.</p>
+    <button class="btn">Completed</button>
+  </div>
+
+  <div class="card danger">
+    <strong>Danger Card</strong>
+    <p>Local override: red theme.</p>
+    <button class="btn">Warning</button>
+  </div>
+
+  <p style="margin-top: 28px;">
+    <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+  </p>
+</body>
+</html>

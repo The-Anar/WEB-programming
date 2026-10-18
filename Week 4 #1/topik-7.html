@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Event Object</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #ecfeff;
+            color: #164e63;
+            text-align: center;
+            padding: 35px 18px;
+        }
+
+        .container {
+            max-width: 520px;
+            margin: auto;
+            padding: 28px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 18px #164e6318;
+        }
+
+        h1 {
+            color: #0e7490;
+        }
+
+        button {
+            padding: 11px 18px;
+            margin: 8px;
+            border: none;
+            border-radius: 8px;
+            background: #0891b2;
+            color: white;
+            cursor: pointer;
+        }
+
+        input {
+            width: 85%;
+            padding: 12px;
+            border: 2px solid #a5f3fc;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        .panel {
+            background: #f0fdfa;
+            padding: 14px;
+            margin-top: 16px;
+            border-radius: 9px;
+            text-align: left;
+            overflow-wrap: anywhere;
+        }
+
+        #message {
+            font-weight: bold;
+            color: #0e7490;
+        }
+
+        mark {
+            display: inline-block;
+            margin-top: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>The Event Object</h1>
+        <p>Click the button to inspect the event.</p>
+
+        <button id="my-btn">Click Me</button>
+
+        <div class="panel">
+            <strong>Click event details</strong>
+            <p id="click-info">Waiting for a click...</p>
+        </div>
+
+        <hr>
+
+        <p>Type a message and press Enter:</p>
+        <input id="message-input" type="text"
+               placeholder="Write something...">
+
+        <div class="panel">
+            <strong>Keyboard event details</strong>
+            <p id="key-info">Press any key to see its name.</p>
+            <p id="message">Your message will appear here.</p>
+        </div>
+
+        <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+    </div>
+
+    <script>
+        const btn = document.querySelector('#my-btn');
+        const input = document.querySelector('#message-input');
+
+        // 'e' is the event object passed automatically
+        btn.addEventListener('click', (e) => {
+            console.log(e.type);
+            console.log(e.target);
+            console.log(e.target.id);
+
+            document.querySelector('#click-info').textContent =
+                'Type: ' + e.type +
+                ' | Target ID: ' + e.target.id;
+        });
+
+        // Keyboard events have e.key
+        document.addEventListener('keydown', (e) => {
+            console.log(e.key);
+
+            document.querySelector('#key-info').textContent =
+                'Key pressed: ' + e.key;
+
+            if (e.key === 'Enter' &&
+                document.activeElement === input) {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            const message = input.value.trim();
+
+            if (message !== '') {
+                document.querySelector('#message').textContent =
+                    'Sent: ' + message;
+                input.value = '';
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    /* rgb(Red 0-255, Green 0-255, Blue 0-255) */
+    .ex1 { background-color: rgb(255, 0, 0); color: white; }   /* red  */
+    .ex2 { background-color: rgb(21, 128, 61); color: white; } /* green*/
+    .ex3 { background-color: rgb(29, 78, 216); color: white; } /* blue */
+    .ex4 { background-color: rgb(100, 100, 100); color: white; }/* grey*/
+
+    /* rgba — 4th value = alpha (opacity 0.0–1.0) */
+    .overlay {
+      background-color: rgba(0, 0, 0, 0.5); /* 50% transparent black */
+      color: white;
+      padding: 20px;
+    }
+    .glass {
+      background-color: rgba(21, 128, 61, 0.15); /* translucent green */
+      border: 1px solid rgba(21, 128, 61, 0.4);
+      padding: 12px;
+    }
+
+    div {
+      padding: 8px 16px;
+      margin: 6px;
+    }
+
+    /* Small personal touch */
+    div:hover {
+      outline: 2px solid #64748b;
+    }
+
+    mark {
+      background-color: #ffd700;
+      padding: 3px 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="ex1">rgb(255, 0, 0) — Red</div>
+  <div class="ex2">rgb(21, 128, 61) — Green</div>
+  <div class="ex3">rgb(29, 78, 216) — Blue</div>
+  <div class="ex4">rgb(100, 100, 100) — Grey</div>
+  <div class="overlay">rgba(0,0,0,0.5) — 50% black overlay</div>
+  <div class="glass">rgba green 15% — glassmorphism card</div>
+
+  <p><mark>Made by: Batsuren Anar | Student ID: 202637018</mark></p>
+</body>
+</html>

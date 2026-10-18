@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive CSS Grid — Week 3</title>
+
+  <style>
+    /* Made by: Batsuren Anar | Student ID: 202637018 */
+
+    /* BASE STYLES — mobile-first */
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background: #f5f3ff;
+      color: #312e81;
+    }
+
+    h1 {
+      color: #6d28d9;
+    }
+
+    .grid {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .card {
+      background: white;
+      border: 2px solid #a78bfa;
+      border-radius: 14px;
+      padding: 24px;
+      font-size: 16px;
+      color: #4c1d95;
+      flex: 1;
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #6d28d9;
+    }
+
+    .breakpoint-label {
+      font-size: 14px;
+      background: #6d28d9;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+
+    /* TABLET ≥ 640px — cards sit side by side */
+    @media (min-width: 640px) {
+      .grid {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .card {
+        flex: 1 1 200px;
+      }
+    }
+
+    /* DARK MODE */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: #171329;
+        color: #ede9fe;
+      }
+
+      .card {
+        background: #25203b;
+        border-color: #8b5cf6;
+        color: #ede9fe;
+      }
+
+      .card h2 {
+        color: #c4b5fd;
+      }
+    }
+
+    /* PRINT — hide the decorative label */
+    @media print {
+      .breakpoint-label {
+        display: none;
+      }
+
+      body {
+        background: white;
+        color: black;
+      }
+
+      .card {
+        background: white;
+        color: black;
+        border: 1px solid #999;
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Anar's Developer Dashboard</h1>
+
+  <div class="breakpoint-label">
+    Resize your browser to see the layout change
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>HTML</h2>
+      <p>Building the structure of web pages.</p>
+      <strong>Progress: Learning</strong>
+    </div>
+
+    <div class="card">
+      <h2>CSS</h2>
+      <p>Styling pages with colors, spacing, and layouts.</p>
+      <strong>Progress: Practicing</strong>
+    </div>
+
+    <div class="card">
+      <h2>Flexbox</h2>
+      <p>Arranging elements and making responsive layouts.</p>
+      <strong>Progress: Improving</strong>
+    </div>
+  </div>
+
+  <p style="margin-top: 24px;">
+    <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+  </p>
+</body>
+</html>

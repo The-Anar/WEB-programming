@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Positioning — Week 3</title>
+
+  <style>
+    /* Made by: Batsuren Anar | Student ID: 202637018 */
+
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      color: #1e293b;
+    }
+
+    /* Fixed nav — stays at the top while scrolling */
+    .fixed-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #172554;
+      color: white;
+      padding: 16px 24px;
+      z-index: 100;
+    }
+
+    .content {
+      padding-top: 58px;
+    }
+
+    /* Sticky title — sticks below the navigation */
+    .sticky-header {
+      position: sticky;
+      top: 54px;
+      background: #dbeafe;
+      border-left: 5px solid #3b82f6;
+      padding: 12px 16px;
+      font-weight: bold;
+      color: #1d4ed8;
+    }
+
+    .section-body {
+      padding: 20px;
+      height: 260px;
+      background: #f8fafc;
+      line-height: 1.8;
+    }
+
+    .section-body:nth-child(2) {
+      background: #eff6ff;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="fixed-nav">
+    Anar's CSS Lab | Fixed Navigation
+  </nav>
+
+  <div class="content">
+    <section>
+      <div class="sticky-header">Section 1 — HTML & CSS</div>
+      <div class="section-body">
+        <h2>Learning the basics</h2>
+        The navigation stays at the top of the screen.
+        Scroll down and watch this section title stick below it.
+      </div>
+    </section>
+
+    <section>
+      <div class="sticky-header">Section 2 — Flexbox</div>
+      <div class="section-body">
+        <h2>Practicing layouts</h2>
+        This section has its own sticky title.
+        Keep scrolling to see how the next section behaves.
+      </div>
+    </section>
+
+    <section>
+      <div class="sticky-header">Section 3 — Positioning</div>
+      <div class="section-body">
+        <h2>Understanding CSS</h2>
+        The fixed navigation remains visible, while each sticky
+        heading sticks only within its own section.
+      </div>
+    </section>
+  </div>
+
+  <p style="padding: 16px;">
+    <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+  </p>
+</body>
+</html>

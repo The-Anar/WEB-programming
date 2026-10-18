@@ -1,0 +1,31 @@
+/* ─────────────────────────────────────────────
+   TYPOGRAPHY STYLES
+   Used on all pages — last updated 2026-10-18
+   Made by: Batsuren Anar | Student ID: 202637018
+───────────────────────────────────────────── */
+
+body {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  /* color: red; */   /* temporarily disabled — was too harsh */
+  color: #1e293b;
+}
+
+/* Navigation */
+nav {
+  display: flex;
+  gap: 16px;
+}
+
+/* Small mobile adjustment */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/* These do NOT work in CSS: */
+/* // This is NOT a CSS comment — JavaScript only */
+/* <!-- This is NOT a CSS comment — HTML only --> */

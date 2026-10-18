@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    /* Which wins? Match the selector and count the score */
+
+    p           { color: gray; }    /* score: 0,0,0,1 — type */
+    .highlight  { color: blue; }    /* score: 0,0,1,0 — class */
+    p.highlight { color: purple; }  /* score: 0,0,1,1 — type+class */
+    #note       { color: green; }   /* score: 0,1,0,0 — ID */
+
+    /* Combinators add up */
+    div p          { font-style: italic; }   /* 0,0,0,2 */
+    div .highlight { font-weight: bold; }     /* 0,0,1,1 */
+
+    mark {
+      background-color: #ffd700;
+      padding: 3px 6px;
+    }
+  </style>
+</head>
+<body>
+  <!-- gray: only the type selector matches -->
+  <p>I'm learning how CSS styles a paragraph.</p>
+
+  <!-- purple: p.highlight beats p and .highlight -->
+  <p class="highlight">This paragraph uses a class selector.</p>
+
+  <!-- green: the ID selector has higher specificity -->
+  <p class="highlight" id="note">
+    This is my main note — the ID selector wins!
+  </p>
+
+  <p><mark>Made by: Batsuren Anar | Student ID: 202637018</mark></p>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- METHOD 1: External stylesheet (BEST for real projects) -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- METHOD 2: Internal <style> block (good for single pages / demos) -->
+  <style>
+    h2 { color: #15803d; }
+    p  { font-family: Georgia, serif; }
+
+    /* My small customization */
+    h2 { border-bottom: 2px solid #bbf7d0; }
+  </style>
+</head>
+<body>
+  <!-- METHOD 3: Inline style attribute (avoid — hard to maintain) -->
+  <p style="color: red; font-size: 20px;">
+    Inline styled paragraph — this style applies only to this paragraph.
+  </p>
+
+  <h2>Internal style heading</h2>
+  <p>Internal style paragraph. The font is controlled by the internal CSS.</p>
+
+  <p>
+    <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+  </p>
+</body>
+</html>

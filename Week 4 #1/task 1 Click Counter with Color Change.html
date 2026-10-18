@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E1 - Click Counter</title>
+
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            background: #eff6ff;
+            padding: 35px 20px;
+            text-align: center;
+        }
+
+        .counter-card {
+            max-width: 420px;
+            margin: 30px auto;
+            padding: 32px 24px;
+            background: white;
+            border-radius: 18px;
+            box-shadow: 0 8px 24px #1e40af18;
+        }
+
+        h1 {
+            color: #1e3a8a;
+        }
+
+        #clicker {
+            padding: 14px 32px;
+            font-size: 18px;
+            border: none;
+            background: #7c3aed;
+            color: white;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        #clicker:active {
+            transform: scale(0.96);
+        }
+
+        .done {
+            background: #16a34a !important;
+        }
+
+        #count {
+            font-size: 42px;
+            font-weight: bold;
+            color: #7c3aed;
+            margin: 20px 0 8px;
+        }
+
+        #message {
+            font-size: 16px;
+            color: #64748b;
+            min-height: 24px;
+        }
+
+        mark {
+            display: inline-block;
+            margin-top: 24px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="counter-card">
+        <h1>Click Counter</h1>
+        <p>Reach 5 clicks to complete the challenge!</p>
+
+        <button id="clicker">Click me!</button>
+
+        <p id="count">0</p>
+        <p id="message">Keep clicking, soldier!</p>
+
+        <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+    </div>
+
+    <script>
+        // 1. Select the button and paragraphs
+        const button = document.querySelector('#clicker');
+        const countText = document.querySelector('#count');
+        const message = document.querySelector('#message');
+
+        // 2. Start the counter at 0
+        let count = 0;
+
+        // 3. Add a click event listener
+        button.addEventListener('click', () => {
+
+            // 4. Increase the counter and update the page
+            count++;
+            countText.textContent = count;
+
+            // 5. Change the button and message after 5 clicks
+            if (count >= 5) {
+                button.classList.add('done');
+                message.textContent = 'Congratulations! Mission accomplished!';
+            } else {
+                message.textContent =
+                    'Keep going! ' + (5 - count) + ' clicks remaining.';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Animations — Week 3</title>
+
+  <style>
+    /* Made by: Batsuren Anar | Student ID: 202637018 */
+
+    body {
+      background: #0f172a;
+      color: #e2e8f0;
+      font-family: sans-serif;
+      padding: 30px;
+    }
+
+    /* Fade + slide in */
+    @keyframes fadeSlideIn {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Pulse */
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.12);
+        opacity: 0.65;
+      }
+    }
+
+    /* Spinning loader */
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .hero {
+      animation: fadeSlideIn 1s ease-out forwards;
+      font-size: 28px;
+      font-weight: bold;
+      color: #38bdf8;
+      padding: 20px 0;
+    }
+
+    .description {
+      color: #94a3b8;
+      animation: fadeSlideIn 1.3s ease-out both;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #7c3aed;
+      color: white;
+      padding: 8px 18px;
+      border-radius: 20px;
+      margin-top: 20px;
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 5px solid #334155;
+      border-top-color: #38bdf8;
+      border-right-color: #a78bfa;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 28px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hero">Welcome to Anar's CSS Lab</div>
+
+  <p class="description">
+    Learning CSS animations one step at a time.
+  </p>
+
+  <span class="badge">SYSTEM ONLINE</span>
+
+  <div class="spinner"></div>
+
+  <p>
+    <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+  </p>
+</body>
+</html>

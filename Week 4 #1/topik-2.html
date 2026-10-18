@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TOPIK - DOM Selectors</title>
+
+  <style>
+    body {
+      background: #eff6ff;
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      color: #1e3a8a;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      border: 2px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 16px 0;
+    }
+
+    .card.active {
+      border-color: #2563eb;
+      background: #dbeafe;
+    }
+
+    #main-title {
+      color: #1d4ed8;
+    }
+
+    button {
+      padding: 10px 14px;
+      margin: 5px;
+      border: none;
+      border-radius: 7px;
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+    }
+
+    .list-item {
+      padding: 8px;
+      margin: 6px 0;
+      background: #f1f5f9;
+      border-radius: 6px;
+    }
+
+    .credit {
+      margin-top: 24px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1 id="main-title">DOM Selector Practice</h1>
+
+    <div class="card active">
+      <h2>Active Card</h2>
+      <p>This card matches <code>.card.active</code>.</p>
+    </div>
+
+    <div class="card">
+      <h2>Regular Card</h2>
+      <p>This card does not have the active class.</p>
+    </div>
+
+    <h2>Buttons</h2>
+    <button>Button One</button>
+    <button>Button Two</button>
+    <button>Button Three</button>
+
+    <h2>List Items</h2>
+    <div class="list-item">HTML Basics</div>
+    <div class="list-item">CSS Styling</div>
+    <div class="list-item">JavaScript DOM</div>
+
+    <button onclick="runSelectors()">Run Selectors</button>
+
+    <p id="result">Click the button to run the examples.</p>
+
+    <p class="credit">
+      <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+    </p>
+  </div>
+
+  <script>
+    function runSelectors() {
+      // querySelector returns the FIRST matching element
+      const btn = document.querySelector('button');
+      const title = document.querySelector('#main-title');
+      const card = document.querySelector('.card.active');
+
+      // querySelectorAll returns ALL matching elements
+      const allBtns = document.querySelectorAll('button');
+      const items = document.querySelectorAll('.list-item');
+
+      // Change the first matching title
+      title.textContent = 'Selectors Worked!';
+
+      // Highlight the active card
+      card.style.borderColor = '#9333ea';
+
+      // Loop through all list items
+      items.forEach(item => {
+        item.style.color = '#7c3aed';
+        item.style.fontWeight = 'bold';
+      });
+
+      document.getElementById('result').textContent =
+        'Found ' + allBtns.length + ' buttons and ' +
+        items.length + ' list items.';
+
+      console.log(btn, title, card, allBtns, items);
+    }
+  </script>
+</body>
+</html>

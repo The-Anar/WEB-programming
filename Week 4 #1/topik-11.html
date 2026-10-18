@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Removing DOM Elements</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff7ed;
+            color: #431407;
+            text-align: center;
+            padding: 35px 18px;
+        }
+
+        .container {
+            max-width: 520px;
+            margin: auto;
+            padding: 28px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px #9a341215;
+        }
+
+        h1 {
+            color: #c2410c;
+        }
+
+        #my-list {
+            padding: 0;
+            list-style: none;
+            text-align: left;
+        }
+
+        #my-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 13px;
+            margin: 9px 0;
+            background: #ffedd5;
+            border-left: 4px solid #fb923c;
+            border-radius: 8px;
+        }
+
+        button {
+            border: none;
+            border-radius: 7px;
+            padding: 9px 12px;
+            cursor: pointer;
+        }
+
+        .delete-btn {
+            background: #dc2626;
+            color: white;
+        }
+
+        #remove-special {
+            background: #c2410c;
+            color: white;
+            margin: 12px 0;
+        }
+
+        #status {
+            color: #9a3412;
+            font-size: 14px;
+        }
+
+        mark {
+            display: inline-block;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Remove DOM Elements</h1>
+        <p>Delete a specific element or remove list items using event delegation.</p>
+
+        <ul id="my-list">
+            <li class="to-delete">
+                <span>Temporary item</span>
+                <button class="delete-btn">Delete</button>
+            </li>
+            <li>
+                <span>Learn JavaScript</span>
+                <button class="delete-btn">Delete</button>
+            </li>
+            <li>
+                <span>Practice DOM methods</span>
+                <button class="delete-btn">Delete</button>
+            </li>
+            <li>
+                <span>Finish homework</span>
+                <button class="delete-btn">Delete</button>
+            </li>
+        </ul>
+
+        <button id="remove-special">Remove Temporary Item</button>
+
+        <p id="status">Items remaining: 4</p>
+
+        <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+    </div>
+
+    <script>
+        // Select and remove a specific element
+        const item = document.querySelector('.to-delete');
+        const list = document.querySelector('#my-list');
+        const status = document.querySelector('#status');
+
+        function updateCount() {
+            status.textContent =
+                'Items remaining: ' + list.querySelectorAll('li').length;
+        }
+
+        document.querySelector('#remove-special').addEventListener('click', () => {
+            const specialItem = document.querySelector('.to-delete');
+
+            if (specialItem) {
+                specialItem.remove();
+                updateCount();
+            }
+        });
+
+        // One listener handles all current and future delete buttons
+        list.addEventListener('click', (e) => {
+            if (e.target.matches('.delete-btn')) {
+                e.target.closest('li').remove();
+                updateCount();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<body>
+  <h2>HTML Dialog Example</h2>
+
+  <!-- Button opens the dialog -->
+  <button onclick="document.getElementById('confirm').showModal()">
+    Submit Assignment
+  </button>
+
+  <dialog id="confirm">
+    <h2>Confirm Submission</h2>
+
+    <p>
+      Are you sure you want to submit your Web Programming assignment?
+    </p>
+
+    <!-- Submitting the form closes the dialog -->
+    <form method="dialog">
+      <button value="cancel">Cancel</button>
+      <button value="confirm">Yes, Submit</button>
+    </form>
+  </dialog>
+
+  <script>
+    const dlg = document.getElementById('confirm');
+
+    dlg.addEventListener('close', function() {
+      if (dlg.returnValue === 'confirm') {
+        alert('Assignment submitted (demo only)');
+      }
+    });
+  </script>
+
+  <p>
+    <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+  </p>
+</body>

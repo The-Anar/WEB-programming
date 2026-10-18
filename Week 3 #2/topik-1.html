@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Position — Week 3</title>
+
+  <style>
+    /* Made by: Batsuren Anar | Student ID: 202637018 */
+
+    .box {
+      width: 180px;
+      height: 60px;
+      color: white;
+      padding: 8px;
+      margin: 10px;
+      font-size: 14px;
+    }
+
+    /* Stays in the normal position */
+    .static {
+      position: static;
+      background: #0f766e;
+    }
+
+    /* Moves right and down */
+    .relative-one {
+      position: relative;
+      top: 25px;
+      left: 100px;
+      background: #f97316;
+    }
+
+    /* Moves left and up */
+    .relative-two {
+      position: relative;
+      top: -15px;
+      left: 30px;
+      background: #7c3aed;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box static">Static — stays here</div>
+
+  <div class="box relative-one">
+    Relative — right 100px, down 25px
+  </div>
+
+  <div class="box relative-two">
+    Relative — right 30px, up 15px
+  </div>
+
+  <p style="margin: 20px 10px;">
+    <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+  </p>
+</body>
+</html>

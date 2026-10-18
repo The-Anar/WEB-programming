@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body    { color: #1e293b; }          /* all text inherits this */
+
+    .red    { color: red; }              /* named colour */
+    .green  { color: #15803d; }          /* hex colour */
+    .blue   { color: rgb(29, 78, 216); } /* rgb() */
+    .purple { color: hsl(262, 83%, 58%); }/* hsl() */
+    .muted  { color: #94a3b8; }          /* muted/grey */
+
+    /* color on a heading — children inherit it */
+    h2 { color: #10B981; }
+
+    mark {
+      background-color: #ffd700;
+      padding: 3px 6px;
+    }
+  </style>
+</head>
+<body>
+  <h2>All these paragraphs use color:</h2>
+  <p class="red">Named colour: red</p>
+  <p class="green">Hex colour: #15803d</p>
+  <p class="blue">RGB colour: rgb(29, 78, 216)</p>
+  <p class="purple">HSL colour: hsl(262, 83%, 58%)</p>
+  <p class="muted">Muted grey text</p>
+
+  <p><mark>Made by: Batsuren Anar | Student ID: 202637018</mark></p>
+</body>
+</html>

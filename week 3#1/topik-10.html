@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    /* #RRGGBB — Red / Green / Blue, each 00–FF */
+    .red    { background-color: #FF0000; }   /* pure red   (FF,00,00) */
+    .green  { background-color: #00FF00; }   /* pure green (00,FF,00) */
+    .blue   { background-color: #0000FF; color: white; }  /* pure blue */
+    .white  { background-color: #FFFFFF; border: 1px solid #ccc; }
+    .black  { background-color: #000000; color: white; }
+    .custom { background-color: #10B981; color: white; } /* emerald */
+
+    /* Shorthand — only when each pair repeats */
+    .short-red { background-color: #F00; }   /* same as #FF0000 */
+
+    div {
+      padding: 8px 16px;
+      margin: 4px;
+      display: inline-block;
+    }
+
+    /* Small personal touch */
+    div:hover {
+      outline: 2px solid #334155;
+    }
+
+    mark {
+      background-color: #ffd700;
+      padding: 3px 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="red">#FF0000 Red</div>
+  <div class="green">#00FF00 Green</div>
+  <div class="blue">#0000FF Blue</div>
+  <div class="white">#FFFFFF White</div>
+  <div class="black">#000000 Black</div>
+  <div class="custom">#10B981 Emerald</div>
+  <div class="short-red">#F00 (shorthand)</div>
+
+  <p><mark>Made by: Batsuren Anar | Student ID: 202637018</mark></p>
+</body>
+</html>

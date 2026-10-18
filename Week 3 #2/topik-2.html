@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Position — Week 3</title>
+
+  <style>
+    /* Made by: Batsuren Anar | Student ID: 202637018 */
+
+    .card {
+      position: relative;  /* anchor for the absolute badge */
+      width: 320px;
+      height: 190px;
+      background: #eff6ff;
+      border: 2px solid #3b82f6;
+      border-radius: 14px;
+      margin: 50px;
+    }
+
+    /* Badge anchored to the bottom-left corner */
+    .badge {
+      position: absolute;
+      bottom: -12px;
+      left: -12px;
+      background: #1d4ed8;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 20px;
+    }
+
+    .card-title {
+      padding: 24px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #1d4ed8;
+    }
+
+    .card-description {
+      padding: 0 24px;
+      color: #475569;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <span class="badge">WEEK 3</span>
+    <div class="card-title">CSS Positioning</div>
+    <p class="card-description">
+      Learning how relative and absolute positioning work.
+    </p>
+  </div>
+
+  <p style="margin: 10px;">
+    <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+  </p>
+</body>
+</html>

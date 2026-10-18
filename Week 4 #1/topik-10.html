@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creating DOM Elements</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fdf4ff;
+            color: #3b0764;
+            text-align: center;
+            padding: 35px 18px;
+        }
+
+        .container {
+            max-width: 520px;
+            margin: auto;
+            padding: 28px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 6px 20px #701a7515;
+        }
+
+        h1 {
+            color: #86198f;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin: 20px 0;
+        }
+
+        button {
+            padding: 10px 13px;
+            border: none;
+            border-radius: 8px;
+            background: #a21caf;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #86198f;
+        }
+
+        #my-list {
+            padding: 0;
+            list-style: none;
+            text-align: left;
+        }
+
+        .list-item {
+            padding: 13px;
+            margin: 8px 0;
+            background: #fae8ff;
+            border-left: 4px solid #c026d3;
+            border-radius: 7px;
+        }
+
+        .list-item:first-child {
+            background: #f3e8ff;
+        }
+
+        #count {
+            color: #7e22ce;
+            font-size: 14px;
+        }
+
+        mark {
+            display: inline-block;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>DOM Element Creator</h1>
+        <p>Practice adding elements to a list in different ways.</p>
+
+        <div class="controls">
+            <button id="append-btn">Append Item</button>
+            <button id="prepend-btn">Prepend Item</button>
+            <button id="html-btn">Insert HTML</button>
+        </div>
+
+        <ul id="my-list">
+            <li class="list-item">Learn HTML</li>
+            <li class="list-item">Practice CSS</li>
+            <li class="list-item">Study JavaScript</li>
+        </ul>
+
+        <p id="count">Total items: 3</p>
+
+        <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+    </div>
+
+    <script>
+        const ul = document.querySelector('#my-list');
+        let itemNumber = 4;
+
+        function updateCount() {
+            document.querySelector('#count').textContent =
+                'Total items: ' + ul.children.length;
+        }
+
+        // Step 1: Create an element
+        // Step 2: Configure it
+        // Step 3: Append it at the END
+        document.querySelector('#append-btn').addEventListener('click', () => {
+            const li = document.createElement('li');
+            li.textContent = 'New item ' + itemNumber++;
+            li.classList.add('list-item');
+            ul.appendChild(li);
+
+            updateCount();
+        });
+
+        // Add an item at the START
+        document.querySelector('#prepend-btn').addEventListener('click', () => {
+            const li = document.createElement('li');
+            li.textContent = 'First item ' + itemNumber++;
+            li.classList.add('list-item');
+            ul.prepend(li);
+
+            updateCount();
+        });
+
+        // Insert an HTML string at the END
+        document.querySelector('#html-btn').addEventListener('click', () => {
+            ul.insertAdjacentHTML(
+                'beforeend',
+                '<li class="list-item"><strong>Added with HTML!</strong></li>'
+            );
+
+            updateCount();
+        });
+    </script>
+</body>
+</html>

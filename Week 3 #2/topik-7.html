@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Transitions — Week 3</title>
+
+  <style>
+    /* Made by: Batsuren Anar | Student ID: 202637018 */
+
+    body {
+      font-family: sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 30px;
+    }
+
+    .card {
+      width: 260px;
+      padding: 24px;
+      background: #1e293b;
+      border: 2px solid #38bdf8;
+      border-radius: 16px;
+      color: #bae6fd;
+      font-size: 16px;
+      margin: 20px 0;
+
+      /* Transition on the base state */
+      transition: background 0.3s ease,
+                  transform 0.25s ease,
+                  box-shadow 0.3s ease,
+                  border-color 0.3s ease;
+    }
+
+    .card:hover {
+      background: #172554;
+      color: white;
+      border-color: #818cf8;
+      transform: translateY(-10px);
+      box-shadow: 0 12px 35px rgba(56, 189, 248, 0.3);
+    }
+
+    /* Opacity transition — fade out */
+    .fade-btn {
+      opacity: 1;
+      transition: opacity 0.5s ease,
+                  transform 0.2s ease;
+      padding: 12px 22px;
+      background: #38bdf8;
+      color: #0f172a;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .fade-btn:hover {
+      opacity: 0.4;
+      transform: scale(1.05);
+    }
+
+    .fade-btn:active {
+      transform: scale(0.97);
+    }
+  </style>
+</head>
+
+<body>
+  <h2>CSS Transition Lab</h2>
+
+  <div class="card">
+    <h3>Gaming Setup</h3>
+    Hover over this card to see the glow and movement.
+  </div>
+
+  <button class="fade-btn">Hover to fade</button>
+
+  <p style="margin-top: 30px;">
+    <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+  </p>
+</body>
+</html>

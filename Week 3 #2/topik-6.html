@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Pseudo-elements — Week 3</title>
+
+  <style>
+    /* Made by: Batsuren Anar | Student ID: 202637018 */
+
+    body {
+      font-family: sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      padding: 24px;
+    }
+
+    /* ::before adds a decorative icon */
+    h2::before {
+      content: '⚡ ';
+    }
+
+    /* ::after adds a required asterisk */
+    .required::after {
+      content: ' *';
+      color: #ef4444;
+      font-weight: bold;
+    }
+
+    /* ::after creates a colorful underline */
+    .underline-title {
+      position: relative;
+      display: inline-block;
+      padding-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .underline-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 65%;
+      height: 4px;
+      background: #8b5cf6;
+      border-radius: 4px;
+    }
+
+    /* ::before adds a quotation mark */
+    blockquote {
+      position: relative;
+      padding: 18px 20px 18px 48px;
+      margin: 24px 0;
+      background: #ede9fe;
+      border-radius: 10px;
+      font-style: italic;
+      max-width: 420px;
+    }
+
+    blockquote::before {
+      content: '“';
+      position: absolute;
+      left: 12px;
+      top: 0;
+      font-size: 56px;
+      color: #7c3aed;
+      line-height: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>CSS Pseudo-elements</h2>
+
+  <p>
+    <label class="required">Student email</label>
+  </p>
+
+  <p class="underline-title">Learning CSS step by step</p>
+
+  <blockquote>
+    Every expert was once a beginner who kept practicing.
+  </blockquote>
+
+  <p style="margin-top: 28px;">
+    <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+  </p>
+</body>
+</html>

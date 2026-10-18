@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My CSS Profile — Week 3</title>
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ── Base ── */
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      background-color: #f0fdf4;
+      color: #1e293b;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 700px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    /* ── Profile Card ── */
+    .card {
+      background-color: #ffffff;
+      border: 1px solid #bbf7d0;
+      border-radius: 16px;
+      padding: 40px;
+    }
+
+    /* ── Header row ── */
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: #15803d;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      flex-shrink: 0;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      color: #15803d;
+    }
+
+    .role {
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    /* ── Skills list ── */
+    .skills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .skill-badge {
+      background-color: #dcfce7;
+      color: #15803d;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* Small adjustment for mobile screens */
+    @media (max-width: 480px) {
+      .card {
+        padding: 24px;
+      }
+
+      .profile-header {
+        gap: 16px;
+      }
+
+      h1 {
+        font-size: 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="profile-header">
+        <div class="avatar">😊</div>
+        <div>
+          <h1>Batsuren Anar</h1>
+          <p class="role">Computer Engineering Student · Gachon University</p>
+        </div>
+      </div>
+
+      <p>
+        Hello! I am learning HTML and CSS in Week 3.
+        I enjoy solving logical problems and improving my coding skills
+        one step at a time.
+      </p>
+
+      <div class="skills">
+        <span class="skill-badge">HTML5</span>
+        <span class="skill-badge">CSS3</span>
+        <span class="skill-badge">Flexbox</span>
+        <span class="skill-badge">Box Model</span>
+      </div>
+
+      <p style="margin-top: 24px;">
+        <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+      </p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E2 - Profile Dark Mode</title>
+
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            background: #eef2ff;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .card {
+            padding: 28px;
+            border-radius: 18px;
+            width: 280px;
+            background: #fff7ed;
+            border: 2px solid #fed7aa;
+            color: #431407;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 8px 24px #1e293b15;
+        }
+
+        .card.dark {
+            background: #172554;
+            border-color: #3b82f6;
+            color: white;
+        }
+
+        .avatar {
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            background: #ea580c;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            margin-bottom: 12px;
+        }
+
+        .card.dark .avatar {
+            background: #2563eb;
+        }
+
+        h2 {
+            margin: 8px 0;
+        }
+
+        p {
+            opacity: 0.8;
+        }
+
+        button {
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            border: none;
+            margin-top: 14px;
+            font-weight: bold;
+            background: #ea580c;
+            color: white;
+        }
+
+        .card.dark button {
+            background: #facc15;
+            color: #172554;
+        }
+
+        mark {
+            display: inline-block;
+            margin-top: 22px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="card" class="card">
+        <div class="avatar">👨‍💻</div>
+        <h2>Anar</h2>
+        <p>Web Programming Student</p>
+        <p>Learning something new every day.</p>
+
+        <button id="toggle-btn">🌙 Dark Mode</button>
+
+        <br>
+        <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+    </div>
+
+    <script>
+        // 1. Select the card and toggle button
+        const card = document.querySelector('#card');
+        const toggleBtn = document.querySelector('#toggle-btn');
+
+        // 2. Add a click listener
+        toggleBtn.addEventListener('click', () => {
+
+            // 3. Toggle the dark class
+            card.classList.toggle('dark');
+
+            // 4. Update button text based on the current class
+            if (card.classList.contains('dark')) {
+                toggleBtn.textContent = '☀️ Light Mode';
+            } else {
+                toggleBtn.textContent = '🌙 Dark Mode';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM classList Practice</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .card {
+            max-width: 420px;
+            margin: 25px auto;
+            padding: 28px;
+            background: white;
+            color: #334155;
+            border: 2px solid #cbd5e1;
+            border-radius: 14px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .highlighted {
+            background: #fef08a;
+            color: #713f12;
+            border-color: #eab308;
+            font-weight: bold;
+        }
+
+        .dark {
+            background: #1a2340;
+            color: #ffffff;
+            border-color: #64748b;
+        }
+
+        button {
+            margin: 5px;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 7px;
+            background: #475569;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #334155;
+        }
+
+        #result {
+            margin-top: 18px;
+            font-weight: bold;
+            color: #4338ca;
+        }
+
+        mark {
+            display: inline-block;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>DOM classList Practice</h1>
+    <p>Use the buttons to change the card's CSS classes.</p>
+
+    <div class="card active">
+        <h2>My Practice Card</h2>
+        <p>Watch my background and text change!</p>
+    </div>
+
+    <div>
+        <button onclick="addHighlight()">Add Highlight</button>
+        <button onclick="removeHighlight()">Remove Highlight</button>
+        <button onclick="toggleDark()">Toggle Dark</button>
+        <button onclick="checkActive()">Check Active</button>
+    </div>
+
+    <p id="result">The card starts with the class "active".</p>
+
+    <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+
+    <script>
+        const box = document.querySelector('.card');
+        const result = document.querySelector('#result');
+
+        // Adds the highlighted class
+        function addHighlight() {
+            box.classList.add('highlighted');
+            result.textContent = 'Added: highlighted';
+        }
+
+        // Removes the highlighted class
+        function removeHighlight() {
+            box.classList.remove('highlighted');
+            result.textContent = 'Removed: highlighted';
+        }
+
+        // Adds dark if absent; removes it if present
+        function toggleDark() {
+            box.classList.toggle('dark');
+
+            if (box.classList.contains('dark')) {
+                result.textContent = 'Dark mode is ON.';
+            } else {
+                result.textContent = 'Dark mode is OFF.';
+            }
+        }
+
+        // Checks whether the card has the active class
+        function checkActive() {
+            const isActive = box.classList.contains('active');
+            result.textContent = 'Contains active? ' + isActive;
+            console.log(isActive);
+        }
+    </script>
+</body>
+</html>

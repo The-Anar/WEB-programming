@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Pseudo-Classes — Week 3</title>
+
+  <style>
+    /* Made by: Batsuren Anar | Student ID: 202637018 */
+
+    body {
+      font-family: sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      padding: 24px;
+    }
+
+    /* :hover — mouse over */
+    .btn {
+      background: #7c3aed;
+      color: white;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn:hover {
+      background: #6d28d9;
+      transform: translateY(-3px);
+    }
+
+    .btn:active {
+      transform: scale(0.96);
+    }
+
+    /* :focus-visible — keyboard focus */
+    input {
+      border: 2px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus-visible {
+      border-color: #7c3aed;
+      box-shadow: 0 0 0 3px #ddd6fe;
+    }
+
+    /* :nth-child — alternating table rows */
+    table {
+      border-collapse: collapse;
+      width: 300px;
+      margin-top: 20px;
+      font-size: 14px;
+      background: white;
+    }
+
+    td {
+      padding: 10px 14px;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    tr:nth-child(even) {
+      background: #f3e8ff;
+    }
+
+    tr:nth-child(odd) {
+      background: white;
+    }
+
+    tr:first-child {
+      background: #7c3aed;
+      color: white;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>My Coding Leaderboard</h2>
+
+  <button class="btn">Test Hover & Click</button>
+
+  <br><br>
+
+  <input type="text" placeholder="Click here or press Tab">
+
+  <table>
+    <tr>
+      <td>Topic</td>
+      <td>Score</td>
+    </tr>
+    <tr>
+      <td>HTML</td>
+      <td>95</td>
+    </tr>
+    <tr>
+      <td>CSS</td>
+      <td>88</td>
+    </tr>
+    <tr>
+      <td>Flexbox</td>
+      <td>92</td>
+    </tr>
+    <tr>
+      <td>Positioning</td>
+      <td>85</td>
+    </tr>
+  </table>
+
+  <p style="margin-top: 24px;">
+    <mark>Made by: Batsuren Anar | Student ID: 202637018</mark>
+  </p>
+</body>
+</html>

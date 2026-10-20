@@ -1,46 +1,1535 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Anar's Web Programming</title>
+
+<style>
+
+
+
+:root {
+
+    color-scheme: light;
+
+    --hero-shadow: #DED5F1;
+
+   --page-bg: #F0EBFF;
+
+    --text-color: #292344;
+
+    --card-border: #292344;
+
+    --card-shadow: #292344;
+
+    --nav-border: #e3dced;
+
+    --button-bg: #fffaf0;
+
+    --button-text: #292344;
+
+}
+
+
+
+body.dark-mode {
+
+    color-scheme: dark;
+
+    --hero-shadow: #29213F;
+
+   --page-bg: #171D2E;
+
+    --text-color: #edf0ff;
+
+    --card-border: #8990bd;
+
+    --card-shadow: #080d19;
+
+    --nav-border: #343d55;
+
+    --button-bg: #222d43;
+
+    --button-text: #f0edff;
+
+}
+
+
+
+html {
+
+    min-height: 100%;
+
+    background: var(--page-bg);
+
+}
+
+
+
+body {
+
+    min-height: 100vh;
+
+    background: var(--page-bg);
+
+    color: var(--text-color);
+
+    transition: background 0.3s ease, color 0.3s ease;
+
+}
+
+.site-nav {
+
+    border-bottom-color: var(--nav-border);
+
+}
+
+
+
+.nav-links a,
+
+.nav-brand {
+
+    color: var(--text-color);
+
+}
+
+
+
+.theme-toggle {
+
+    background: var(--button-bg);
+
+    color: var(--button-text);
+
+    border-color: var(--card-border);
+
+    box-shadow: 4px 4px 0 var(--card-shadow);
+
+}
+
+
+
+.theme-toggle:hover {
+
+    box-shadow: 6px 6px 0 var(--card-shadow);
+
+}
+
+
+
+main section {
+
+    border-color: var(--card-border);
+
+    box-shadow: 4px 4px 0 var(--card-shadow);
+
+}
+
+
+
+main section:hover {
+
+    box-shadow: 6px 6px 0 var(--card-shadow);
+
+}
+
+
+
+    * {
+
+        box-sizing: border-box;
+
+    }
+
+body {
+
+    margin: 0;
+
+    padding: 32px;
+
+    font-family: Arial, sans-serif;
+
+    background: var(--page-bg);
+
+    color: var(--text-color);
+
+}
+
+
+
+
+
+
+
+header {
+
+    position: relative;
+
+    overflow: hidden;
+
+    background: linear-gradient(125deg, #211b3b 0%, #33265b 58%, #493b79 100%);
+
+    color: #fffdf8;
+
+    padding: 38px 42px 24px;
+
+    border: 1px solid #493b79;
+
+    border-radius: 24px;
+
+    box-shadow: 7px 7px 0 var(--hero-shadow);
+
+    margin-bottom: 36px;
+
+}
+
+
+
+header::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 260px;
+
+    height: 260px;
+
+    right: -70px;
+
+    top: -100px;
+
+    border-radius: 50%;
+
+    background: radial-gradient(circle, rgba(194, 171, 255, 0.22), transparent 70%);
+
+    pointer-events: none;
+
+}
+
+
+
+header p {
+
+    color: #ded5f4;
+
+}
+
+
+
+.university-label {
+
+    margin: 0 0 28px;
+
+    font-size: 0.82rem;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+}
+
+
+
+.university-label span {
+
+    color: #ffcf70;
+
+    padding: 0 5px;
+
+}
+
+
+
+.hero-content {
+
+    position: relative;
+
+    z-index: 1;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 32px;
+
+}
+
+
+
+.eyebrow {
+
+    margin: 0 0 12px;
+
+    color: #d0bfff;
+
+    font-size: 0.8rem;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+}
+
+
+
+header h1 {
+
+    margin: 0;
+
+    max-width: 800px;
+
+    font-size: clamp(2rem, 4.5vw, 3.8rem);
+
+    line-height: 1.12;
+
+    letter-spacing: -1.5px;
+
+}
+
+
+
+.sparkle {
+
+    color: #ffcf70;
+
+}
+
+
+
+.hero-description {
+
+    margin: 18px 0 0;
+
+    color: #e0daef;
+
+    font-size: 1.05rem;
+
+    line-height: 1.7;
+
+}
+
+
+
+.student-badge {
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+
+    min-width: 175px;
+
+    padding: 20px;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    backdrop-filter: blur(8px);
+
+}
+
+
+
+.badge-icon {
+
+    font-size: 1.5rem;
+
+}
+
+
+
+.badge-label {
+
+    color: #d0bfff;
+
+    font-size: 0.72rem;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+}
+
+
+
+.student-badge strong {
+
+    font-size: 1.25rem;
+
+    letter-spacing: 1px;
+
+}
+
+
+
+.hero-footer {
+
+    position: relative;
+
+    z-index: 1;
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 32px;
+
+    padding-top: 20px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+
+}
+
+
+
+.hero-footer > span:not(.hero-status) {
+
+    padding: 7px 12px;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+
+    border-radius: 30px;
+
+    background: rgba(255, 255, 255, 0.07);
+
+    color: #f3efff;
+
+    font-size: 0.8rem;
+
+    font-weight: 700;
+
+}
+
+
+
+.hero-status {
+
+    margin-left: auto;
+
+    color: #c8efb9;
+
+    font-size: 0.85rem;
+
+}
+
+
+
+@media (max-width: 700px) {
+
+    header {
+
+        padding: 26px 22px 20px;
+
+    }
+
+
+
+    .hero-content {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 24px;
+
+    }
+
+
+
+    .student-badge {
+
+        min-width: 0;
+
+        width: 100%;
+
+    }
+
+
+
+    .university-label {
+
+        font-size: 0.7rem;
+
+        letter-spacing: 1px;
+
+    }
+
+
+
+    .hero-status {
+
+        margin-left: 0;
+
+        width: 100%;
+
+    }
+
+}
+
+
+
+
+
+
+
+main {
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+}
+
+
+
+main > h2 {
+
+    font-size: 2rem;
+
+    margin-bottom: 8px;
+
+}
+
+
+
+main > p {
+
+    margin-bottom: 28px;
+
+}
+
+
+
+main {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 22px;
+
+}
+
+
+
+main > h2,
+
+main > p {
+
+    grid-column: 1 / -1;
+
+}
+
+
+
+main section {
+
+    padding: 22px 24px;
+
+    margin: 0;
+
+    border: 2px solid #292344;
+
+    border-radius: 18px;
+
+    box-shadow: 4px 4px 0 #292344;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+}
+
+
+
+main section:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow: 6px 6px 0 #292344;
+
+}
+
+
+
+main section:nth-of-type(1) {
+
+    background: #f4edda;
+
+}
+
+
+
+main section:nth-of-type(2) {
+
+    background: #e8e3f5;
+
+}
+
+
+
+main section:nth-of-type(3) {
+
+    background: #dcecf0;
+
+}
+
+
+
+main section:nth-of-type(4) {
+
+    background: #e2ecdf;
+
+}
+
+
+
+main section:nth-of-type(5) {
+
+    background: #f0e4d8;
+
+}
+
+
+
+main section h3 {
+
+    font-size: 1.25rem;
+
+    margin: 0 0 8px;
+
+}
+
+
+
+main section p {
+
+    margin: 0 0 16px;
+
+}
+
+
+
+main section a {
+
+    display: inline-block;
+
+    background: white;
+
+    color: #292344;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    padding: 9px 15px;
+
+    border: 2px solid #292344;
+
+    border-radius: 30px;
+
+    transition: background 0.2s ease;
+
+}
+
+
+
+main section a:hover {
+
+    background: #e8e3f5;
+
+}
+
+
+
+@media (max-width: 700px) {
+
+    main {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+
+
+
+
+
+    @media (max-width: 600px) {
+
+        body {
+
+            padding: 16px;
+
+        }
+
+
+
+        header {
+
+            padding: 24px;
+
+        }
+
+
+
+        main section {
+
+            padding: 20px;
+
+        }
+
+    }
+
+
+
+.site-nav {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 18px 8px;
+
+    margin: 0 4px 38px;
+
+    border-bottom: 1px solid var(--nav-border);
+
+}
+
+
+
+.nav-brand {
+
+    color: #292344;
+
+    font-size: 1.25rem;
+
+    font-weight: 800;
+
+    letter-spacing: -0.5px;
+
+    text-decoration: none;
+
+}
+
+
+
+.nav-brand span {
+
+    color: #8065c9;
+
+}
+
+
+
+.nav-links {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+}
+
+
+
+.nav-links a {
+
+    padding: 10px 15px;
+
+    border-radius: 30px;
+
+    color: var(--text-color);
+
+    font-size: 0.9rem;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: background 0.2s ease, color 0.2s ease;
+
+}
+
+
+
+.nav-links a:hover {
+
+    background: var(--button-bg);
+
+    color: var(--button-text);
+
+}
+
+
+
+@media (max-width: 500px) {
+
+    .site-nav {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+}
+
+
+
+.coursework-heading {
+
+    display: flex;
+
+    align-items: end;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 24px;
+
+    padding: 0 4px;
+
+}
+
+
+
+.section-kicker {
+
+    margin: 0 0 8px;
+
+    color: #8065c9;
+
+    font-size: 0.75rem;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+}
+
+
+
+.coursework-heading h2 {
+
+    margin: 0;
+
+    color: var(--text-color);
+
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+
+    letter-spacing: -1px;
+
+}
+
+
+
+.coursework-heading h2 span {
+
+    color: #8065c9;
+
+}
+
+
+
+.coursework-count {
+
+    margin: 0 0 5px;
+
+    padding: 8px 12px;
+
+    border: 1px solid #ded5f1;
+
+    border-radius: 30px;
+
+    color: #51486c;
+
+    font-size: 0.75rem;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    white-space: nowrap;
+
+    background: var(--page-bg);
+
+}
+
+
+
+@media (max-width: 500px) {
+
+    .coursework-heading {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+
+    }
+
+}
+
+
+
+
+
+main {
+
+    display: block;
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+}
+
+
+
+.coursework-heading {
+
+    display: flex;
+
+    align-items: end;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 28px;
+
+}
+
+
+
+main section {
+
+    width: calc(50% - 11px);
+
+    display: inline-block;
+
+    vertical-align: top;
+
+    margin: 0 0 22px;
+
+}
+
+
+
+@media (max-width: 700px) {
+
+    main section {
+
+        width: 100%;
+
+        display: block;
+
+    }
+
+}
+
+
+
+
+
+.coursework-heading {
+
+    margin-bottom: 28px;
+
+}
+
+
+
+main section {
+
+    margin-bottom: 22px;
+
+}
+
+
+
+.site-nav {
+
+    min-height: 88px;
+
+    padding: 20px 12px;
+
+}
+
+
+
+.theme-toggle {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    min-width: 190px;
+
+    padding: 16px 24px;
+
+   border: 2px solid var(--card-border);
+
+    border-radius: 16px;
+
+  background: var(--button-bg);
+
+color: var(--button-text);
+
+    box-shadow: 4px 4px 0 #292344;
+
+    font-family: inherit;
+
+    font-size: 1.05rem;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+}
+
+
+
+.theme-toggle:hover {
+
+    transform: translate(-2px, -2px);
+
+    box-shadow: 6px 6px 0 #292344;
+
+}
+
+
+
+.theme-toggle:active {
+
+    transform: translate(2px, 2px);
+
+    box-shadow: 2px 2px 0 #292344;
+
+}
+
+
+
+#themeIcon {
+
+    font-size: 1.3rem;
+
+}
+
+
+
+@media (max-width: 500px) {
+
+    .theme-toggle {
+
+        min-width: 170px;
+
+        padding: 13px 18px;
+
+    }
+
+}
+
+
+
+body.dark-mode main section:nth-of-type(1) {
+
+    background: #263149;
+
+}
+
+
+
+body.dark-mode main section:nth-of-type(2) {
+
+    background: #302b49;
+
+}
+
+
+
+body.dark-mode main section:nth-of-type(3) {
+
+    background: #223746;
+
+}
+
+
+
+body.dark-mode main section:nth-of-type(4) {
+
+    background: #293b38;
+
+}
+
+
+
+body.dark-mode main section:nth-of-type(5) {
+
+    background: #3b3042;
+
+}
+
+
+
+body.dark-mode main section h3,
+
+body.dark-mode main section p {
+
+    color: #f0edff;
+
+}
+
+
+
+body.dark-mode main section a {
+
+    background: #182235;
+
+    color: #f0edff;
+
+    border-color: #8990bd;
+
+}
+
+
+
+body.dark-mode main section a:hover {
+
+    background: #39435e;
+
+}
+
+
+
+body.dark-mode .coursework-count {
+
+    color: #edf0ff;
+
+    border-color: #454d6b;
+
+}
+
+
+
+body.dark-mode .section-kicker,
+
+body.dark-mode .coursework-heading h2 span {
+
+    color: #D8CCF5;
+
+}
+
+
+
+main section {
+
+    width: calc(50% - 18px);
+
+    margin-right: 12px;
+
+    margin-bottom: 28px;
+
+    vertical-align: top;
+
+}
+
+
+
+@media (max-width: 700px) {
+
+    main section {
+
+        width: 100%;
+
+        margin-right: 0;
+
+    }
+
+}
+
+
+
+
+/* Theme consistency and accessibility refinements */
+.site-nav {
+    border-bottom-color: var(--nav-border);
+}
+
+.nav-brand,
+.nav-links a,
+.coursework-heading h2,
+.coursework-count {
+    color: var(--text-color);
+}
+
+.nav-brand span,
+.section-kicker,
+.coursework-heading h2 span {
+    color: #8065c9;
+}
+
+.coursework-count {
+    background: var(--page-bg);
+    border-color: var(--nav-border);
+}
+
+.theme-toggle,
+main section {
+    border-color: var(--card-border);
+}
+
+.theme-toggle {
+    background: var(--button-bg);
+    color: var(--button-text);
+    box-shadow: 4px 4px 0 var(--card-shadow);
+}
+
+.theme-toggle:hover {
+    box-shadow: 6px 6px 0 var(--card-shadow);
+}
+
+.theme-toggle:active {
+    box-shadow: 2px 2px 0 var(--card-shadow);
+}
+
+main section {
+    box-shadow: 4px 4px 0 var(--card-shadow);
+}
+
+main section:hover {
+    box-shadow: 6px 6px 0 var(--card-shadow);
+}
+
+main section a {
+    background: var(--button-bg);
+    color: var(--button-text);
+    border-color: var(--card-border);
+}
+
+main section a:hover,
+.nav-links a:hover {
+    background: var(--button-bg);
+    color: var(--button-text);
+}
+
+body.dark-mode .section-kicker,
+body.dark-mode .coursework-heading h2 span,
+body.dark-mode .nav-brand span {
+    color: #D8CCF5;
+}
+
+.nav-links a:focus-visible,
+.theme-toggle:focus-visible,
+main section a:focus-visible {
+    outline: 3px solid #8065c9;
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+
+</style>
+<link rel="stylesheet" href="music-player.css">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 </head>
 
-<body>
-    <header>
-        <h1>Anar's Web Programming</h1>
-        <p>Gachon university</p>
-    </header>
-    <main>
-        <h2>Coursework</h2>
+<body id="top">
+
+
+
+
+<header>
+
+    <p class="university-label">GACHON UNIVERSITY <span>·</span> WEB PROGRAMMING</p>
+
+
+
+    <div class="hero-content">
+
+        <div>
+
+            <p class="eyebrow">MY LEARNING JOURNEY · 2026</p>
+
+            <h1>Batsuren Anar's Web Programming <span class="sparkle">✦</span></h1>
+
+            <p class="hero-description">
+
+                From HTML basics to building interactive web projects.
+
+            </p>
+
+        </div>
+
+
+
+        <div class="student-badge">
+
+            <span class="badge-icon">🎓</span>
+
+            <span class="badge-label">STUDENT ID</span>
+
+            <strong>202637018</strong>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="hero-footer">
+
+        <span>HTML</span>
+
+        <span>CSS</span>
+
+        <span>JavaScript</span>
+
+        <span class="hero-status">● Learning in progress</span>
+
+    </div>
+
+</header>
+
+
+
+
+
+<nav class="site-nav">
+
+    <div class="nav-links">
+
+        <a href="#top">Home</a>
+
+        <a href="#coursework">Coursework</a>
+
+        <a href="games.html">Mini Games</a>
+
+        <a href="about.html">About</a>
         
+
+    </div>
+
+
+
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode">
+
+        <span id="themeIcon">🌙</span>
+
+        <span id="themeLabel">Dark mode</span>
+
+    </button>
+
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+<main id="coursework">
+
+
+
+
+
+<div class="coursework-heading">
+
+    <div>
+
+        <p class="section-kicker">THE JOURNEY SO FAR</p>
+
+        <h2>My Coursework <span>↘</span></h2>
+
+    </div>
+
+    <p class="coursework-count">05 MODULES</p>
+
+</div>
+
+
+
         <section>
-            <h3>Week 2 part 1</h3>
+
+            <h3>🌱 Week 2 — Part 1</h3>
+
             <p>HTML Fundamentals</p>
-            <a href="Week%202%20%231/index.html">View Week 2 part 1</a>
-        </section>
-        <section>
-            <h3>Week 2 part 2</h3>
-            <p>Semantic HTML</p>
-            <a href="Week%202%20%232/index.html">View Week 2 part 2</a>
-        </section>
-        <section>
-            <h3>Week 3 part 1</h3>
-            <p>CSS Introduction</p>
-            <a href="week%203%231/index.html">View Week 3 part 1</a>
-        </section>
-        <section>
-            <h3>Week 3 part 2</h3>
-            <p>CSS Advanced</p>
-            <a href="Week%203%20%232/index.html">View Week 3 part 2</a>
-            
-<section>
-    <h3>Week 4 part 1</h3>
-    <p>JavaScript and DOM Manipulation</p>
-    <a href="Week%204%20%231/index.html">View Week 4 part 1</a>
-</section>
+
+            <a href="Week%202%20%231/index.html">Explore coursework ↗</a>
 
         </section>
+
+
+
+        <section>
+
+            <h3>🎨 Week 2 — Part 2</h3>
+
+            <p>Semantic HTML</p>
+
+            <a href="Week%202%20%232/index.html">Explore coursework ↗</a>
+
+        </section>
+
+
+
+        <section>
+
+            <h3>⚡ Week 3 — Part 1</h3>
+
+            <p>CSS Introduction</p>
+
+            <a href="week%203%231/index.html">Explore coursework ↗</a>
+
+        </section>
+
+
+
+        <section>
+
+            <h3>🪄 Week 3 — Part 2</h3>
+
+            <p>CSS Advanced</p>
+
+            <a href="Week%203%20%232/index.html">Explore coursework ↗</a>
+
+        </section>
+
+
+
+        <section>
+
+            <h3>🧪 Week 4 — Part 1</h3>
+
+            <p>JavaScript and DOM Manipulation</p>
+
+            <a href="Week%204%20%231/index.html">Explore coursework ↗</a>
+
+        </section>
+
     </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    const themeToggle = document.getElementById("themeToggle");
+
+    const themeIcon = document.getElementById("themeIcon");
+
+    const themeLabel = document.getElementById("themeLabel");
+
+
+
+    function setTheme(isDark) {
+
+        document.body.classList.toggle("dark-mode", isDark);
+
+
+
+        themeIcon.textContent = isDark ? "☀️" : "🌙";
+
+        themeLabel.textContent = isDark ? "Light mode" : "Dark mode";
+
+
+
+        themeToggle.setAttribute(
+
+            "aria-label",
+
+            isDark ? "Switch to light mode" : "Switch to dark mode"
+
+        );
+
+    }
+
+
+
+    // Restore the saved theme when the page opens
+
+    const savedTheme = localStorage.getItem("anar-theme");
+
+    setTheme(savedTheme === "dark");
+
+
+
+    // Save the theme whenever the button is clicked
+
+    themeToggle.addEventListener("click", function () {
+
+        const isDark = !document.body.classList.contains("dark-mode");
+
+
+
+        setTheme(isDark);
+
+        localStorage.setItem("anar-theme", isDark ? "dark" : "light");
+
+    });
+
+</script>
+
+
+
+
+<script src="music-player.js"></script>
 </body>
+
 </html>

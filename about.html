@@ -1,0 +1,388 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Me | Anar</title>
+
+  <style>
+    :root {
+      --page-bg: #171D2E;
+      --text-color: #edf0ff;
+      --muted: #b8bfd8;
+      --card-bg: #222d43;
+      --card-border: #8990bd;
+      --nav-border: #343d55;
+      --accent: #b8a5ff;
+      --hero-shadow: #29213F;
+    }
+
+    body.light {
+      --page-bg: #F0EBFF;
+      --text-color: #292344;
+      --muted: #625b7d;
+      --card-bg: #fffaf0;
+      --card-border: #c7bce7;
+      --nav-border: #e3dced;
+      --accent: #6c4ed9;
+      --hero-shadow: #DED5F1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--page-bg);
+      color: var(--text-color);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.7;
+      transition: background 0.25s, color 0.25s;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1000px, 90%);
+      margin: auto;
+    }
+
+    nav {
+      border-bottom: 1px solid var(--nav-border);
+    }
+
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent);
+    }
+
+    button {
+      padding: 9px 13px;
+      border: 1px solid var(--card-border);
+      border-radius: 9px;
+      background: var(--card-bg);
+      color: var(--text-color);
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      padding: 76px 0 46px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 750px;
+      margin: 12px 0 18px;
+      font-size: clamp(36px, 6vw, 62px);
+      line-height: 1.12;
+      letter-spacing: -1.8px;
+    }
+
+    .hero-description {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 25px;
+    }
+
+    .tag {
+      padding: 6px 12px;
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .content {
+      padding: 22px 0 70px;
+    }
+
+    .story {
+      padding: 30px;
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      background: var(--card-bg);
+      box-shadow: 8px 8px 0 var(--hero-shadow);
+    }
+
+    .story h2 {
+      margin-top: 0;
+      font-size: 25px;
+    }
+
+    .story p {
+      color: var(--muted);
+      margin: 0 0 18px;
+    }
+
+    .story p:last-child {
+      margin-bottom: 0;
+    }
+
+    .section-title {
+      margin: 48px 0 18px;
+      font-size: 25px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      padding: 23px;
+      border: 1px solid var(--card-border);
+      border-radius: 15px;
+      background: var(--card-bg);
+    }
+
+    .card .number {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .card h3 {
+      margin: 12px 0 8px;
+      font-size: 18px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .quote {
+      margin-top: 28px;
+      padding: 24px;
+      border-left: 3px solid var(--accent);
+      background: var(--hero-shadow);
+      border-radius: 0 12px 12px 0;
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 25px 0;
+      border-top: 1px solid var(--nav-border);
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      .nav-inner {
+        flex-wrap: wrap;
+        padding: 16px 0;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 48px;
+      }
+
+      .story {
+        padding: 22px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="music-player.css">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+</head>
+
+<body>
+  <nav>
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">ANAR.DEV</a>
+
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="about.html" class="active">About</a>
+        <button id="themeToggle" type="button">Toggle theme</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="hero">
+      <div class="eyebrow">About / 01</div>
+
+      <h1>I want to build what doesn't exist yet.</h1>
+
+      <p class="hero-description">
+        Computer Engineering student at Gachon University.
+        Interested in AI, software development, and ideas that
+        could make a real difference.
+      </p>
+
+      <div class="tags">
+        <span class="tag">Computer Engineering</span>
+        <span class="tag">Artificial Intelligence</span>
+        <span class="tag">Software Development</span>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="story">
+        <h2>Where I'm starting</h2>
+
+        <p>
+          I'm a Computer Engineering student at Gachon University,
+          currently building my foundation in programming and
+          software development.
+        </p>
+
+        <p>
+          What interests me most is artificial intelligence and
+          what humanity might be able to achieve with it. I want
+          to go beyond simply using AI tools. I want to understand
+          how they work, explore their limits, and eventually take
+          part in developing new things with them.
+        </p>
+
+        <p>
+          I don't have one fixed idea for my future yet. Maybe I'll
+          develop a new technology, build a product, or create
+          something that grows into a bigger project. What matters
+          to me is that I keep exploring ambitious ideas and work
+          toward making something that has a real impact on people's
+          lives.
+        </p>
+
+        <p>
+          I'm at the beginning of that journey, so right now, I'm
+          learning the fundamentals, practicing through coursework,
+          and building projects. This portfolio is where I document
+          that progress.
+        </p>
+      </div>
+
+      <h2 class="section-title">What I'm working toward</h2>
+
+      <div class="cards">
+        <article class="card">
+          <div class="number">01 / EXPLORE</div>
+          <h3>Understand AI</h3>
+          <p>
+            Learn how AI works, explore what it can do, and
+            understand its limitations.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="number">02 / CREATE</div>
+          <h3>Build ideas</h3>
+          <p>
+            Turn ideas into real technology, useful products,
+            and projects of my own.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="number">03 / CONTRIBUTE</div>
+          <h3>Make an impact</h3>
+          <p>
+            Work toward creating technology that solves problems
+            and contributes to society.
+          </p>
+        </article>
+      </div>
+
+      <div class="quote">
+        The ambition is big. The work starts here.
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      Anar · Computer Engineering · Gachon University
+    </div>
+  </footer>
+
+  <script>
+    const themeToggle = document.getElementById("themeToggle");
+
+    function applyTheme(theme) {
+      document.body.classList.toggle("light", theme === "light");
+      themeToggle.textContent =
+        theme === "light" ? "Dark mode" : "Light mode";
+      localStorage.setItem("anar-theme", theme);
+    }
+
+    const savedTheme = localStorage.getItem("anar-theme") || "dark";
+    applyTheme(savedTheme);
+
+    themeToggle.addEventListener("click", () => {
+      const nextTheme = document.body.classList.contains("light")
+        ? "dark"
+        : "light";
+
+      applyTheme(nextTheme);
+    });
+  </script>
+  <script src="music-player.js"></script>
+</body>
+</html>

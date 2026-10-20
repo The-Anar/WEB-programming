@@ -3,186 +3,405 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#F0EBFF">
     <title>Week 2 #1 - Anar's Web Programming</title>
+    <style>
+        :root {
+            color-scheme: light;
+            --page-bg: #F0EBFF;
+            --text-color: #292344;
+            --muted-text: #625a7b;
+            --card-border: #292344;
+            --card-shadow: #DED5F1;
+            --nav-border: #e3dced;
+            --button-bg: #fffaf0;
+            --button-text: #292344;
+            --card-bg: #fffdf8;
+            --accent: #8065c9;
+            --hero-shadow: #DED5F1;
+        }
+
+        body.dark-mode {
+            color-scheme: dark;
+            --page-bg: #171D2E;
+            --text-color: #edf0ff;
+            --muted-text: #c2c8e2;
+            --card-border: #8990bd;
+            --card-shadow: #080d19;
+            --nav-border: #343d55;
+            --button-bg: #222d43;
+            --button-text: #f0edff;
+            --card-bg: #222b40;
+            --accent: #D8CCF5;
+            --hero-shadow: #29213F;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { min-height: 100%; background: var(--page-bg); }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 32px;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--page-bg);
+            color: var(--text-color);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .page-shell { max-width: 1200px; margin: 0 auto; }
+
+        .site-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 12px 4px 20px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--nav-border);
+        }
+
+        .nav-brand {
+            color: var(--text-color);
+            font-size: 1.05rem;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .nav-brand span { color: var(--accent); }
+
+        .nav-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+        .back-link, .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border: 2px solid var(--card-border);
+            border-radius: 14px;
+            background: var(--button-bg);
+            color: var(--button-text);
+            box-shadow: 3px 3px 0 var(--card-shadow);
+            font: inherit;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .back-link:hover, .theme-toggle:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 5px 5px 0 var(--card-shadow);
+        }
+
+        .back-link:focus-visible, .theme-toggle:focus-visible, a:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 34px 38px;
+            margin-bottom: 30px;
+            border: 1px solid #493b79;
+            border-radius: 24px;
+            background: linear-gradient(125deg, #211b3b 0%, #33265b 58%, #493b79 100%);
+            color: #fffdf8;
+            box-shadow: 7px 7px 0 var(--hero-shadow);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 230px;
+            height: 230px;
+            right: -65px;
+            top: -95px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(194, 171, 255, 0.22), transparent 70%);
+            pointer-events: none;
+        }
+
+        .eyebrow {
+            position: relative;
+            z-index: 1;
+            margin: 0 0 12px;
+            color: #d0bfff;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            line-height: 1.12;
+            letter-spacing: -1px;
+        }
+
+        .hero p:last-child {
+            position: relative;
+            z-index: 1;
+            margin: 16px 0 0;
+            color: #e0daef;
+            line-height: 1.6;
+        }
+
+        .content-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 18px;
+            margin: 0 0 20px;
+        }
+
+        .section-kicker {
+            margin: 0 0 7px;
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .content-heading h2 {
+            margin: 0;
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            letter-spacing: -0.6px;
+        }
+
+        .count {
+            flex-shrink: 0;
+            margin: 0;
+            padding: 8px 12px;
+            border: 1px solid var(--nav-border);
+            border-radius: 30px;
+            color: var(--muted-text);
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: var(--button-bg);
+        }
+
+        .group { margin-bottom: 34px; }
+
+        .group-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 16px;
+            font-size: 1.25rem;
+        }
+
+        .group-title::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: var(--nav-border);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .course-card {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            min-height: 112px;
+            padding: 14px;
+            border: 2px solid var(--card-border);
+            border-radius: 18px;
+            background: var(--card-bg);
+            box-shadow: 4px 4px 0 var(--card-shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 6px 6px 0 var(--card-shadow);
+        }
+
+        .course-card h3 {
+            margin: 0 0 12px;
+            font-size: 0.98rem;
+            line-height: 1.4;
+        }
+
+        .course-card a {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            margin-top: auto;
+            padding: 9px 13px;
+            border: 2px solid var(--card-border);
+            border-radius: 30px;
+            background: var(--button-bg);
+            color: var(--button-text);
+            font-size: 0.88rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .course-card a:hover {
+            background: var(--accent);
+            color: #211b3b;
+        }
+
+        .footer-note {
+            margin-top: 34px;
+            padding-top: 18px;
+            border-top: 1px solid var(--nav-border);
+            color: var(--muted-text);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 850px) {
+            body { padding: 22px; }
+            .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 560px) {
+            body { padding: 16px; }
+            .site-nav { align-items: flex-start; flex-direction: column; }
+            .nav-actions { width: 100%; }
+            .hero { padding: 26px 22px; }
+            .content-heading { align-items: flex-start; flex-direction: column; }
+            .card-grid { grid-template-columns: 1fr; }
+            .course-card { min-height: 120px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+            }
+        }
+    </style>
 </head>
+<body id="top">
+<div class="page-shell">
+    <nav class="site-nav" aria-label="Page navigation">
+        <a class="nav-brand" href="../../index.html">ANAR <span>·</span> WEB PROGRAMMING</a>
+        <div class="nav-actions">
+            <a class="back-link" href="../../index.html">← Main portfolio</a>
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode">
+                <span id="themeIcon" aria-hidden="true">🌙</span>
+                <span id="themeLabel">Dark mode</span>
+            </button>
+        </div>
+    </nav>
 
-<body>
-
-    <header>
-        <h1>Week 2 #1</h1>
-        <p>HTML Fundamentals</p>
+    <header class="hero">
+        <p class="eyebrow">Gachon University · Web Programming</p>
+        <h1>Week 2 #1 <span aria-hidden="true">✦</span></h1>
+        <p>HTML Fundamentals — exploring the building blocks of the web.</p>
     </header>
 
-   <main>
-    <h2>Exercises</h2>
-    <h2>Topics</h2>
+    <main>
+        <div class="content-heading">
+            <div>
+                <p class="section-kicker">THE LEARNING ARCHIVE</p>
+                <h2>Exercises &amp; Topics</h2>
+            </div>
+            <p class="count">33 ACTIVITIES</p>
+        </div>
 
-<section>
-    <h2>Topics</h2>
+        <section class="group" aria-labelledby="topics-heading">
+            <h2 class="group-title" id="topics-heading">📚 Topics</h2>
+            <div class="card-grid">
+                <article class="course-card"><h3>Topic 1</h3><a href="Topik-1.html">View Topic 1 ↗</a></article>
+                <article class="course-card"><h3>Topic 2</h3><a href="Topik-2.html">View Topic 2 ↗</a></article>
+                <article class="course-card"><h3>Topic 3</h3><a href="Topik-3.html">View Topic 3 ↗</a></article>
+                <article class="course-card"><h3>Topic 4</h3><a href="Topik-4.html">View Topic 4 ↗</a></article>
+                <article class="course-card"><h3>Topic 5</h3><a href="Topik-5.html">View Topic 5 ↗</a></article>
+                <article class="course-card"><h3>Topic 6</h3><a href="Topik-6.html">View Topic 6 ↗</a></article>
+                <article class="course-card"><h3>Topic 7</h3><a href="Topik-7.html">View Topic 7 ↗</a></article>
+                <article class="course-card"><h3>Topic 8</h3><a href="Topik-8.html">View Topic 8 ↗</a></article>
+                <article class="course-card"><h3>Topic 9</h3><a href="Topik-9.html">View Topic 9 ↗</a></article>
+                <article class="course-card"><h3>Topic 10</h3><a href="Topik-10.html">View Topic 10 ↗</a></article>
+                <article class="course-card"><h3>Topic 11</h3><a href="Topik-11.html">View Topic 11 ↗</a></article>
+                <article class="course-card"><h3>Topic 12</h3><a href="Topik-12.html">View Topic 12 ↗</a></article>
+                <article class="course-card"><h3>Topic 13</h3><a href="Topik-13.html">View Topic 13 ↗</a></article>
+                <article class="course-card"><h3>Topic 14</h3><a href="Topik-14.html">View Topic 14 ↗</a></article>
+                <article class="course-card"><h3>Topic 15</h3><a href="Topik-15.html">View Topic 15 ↗</a></article>
+                <article class="course-card"><h3>Topic 16</h3><a href="Topik-16.html">View Topic 16 ↗</a></article>
+                <article class="course-card"><h3>Topic 17</h3><a href="Topik-17.html">View Topic 17 ↗</a></article>
+                <article class="course-card"><h3>Topic 18</h3><a href="Topik-18.html">View Topic 18 ↗</a></article>
+                <article class="course-card"><h3>Topic 19</h3><a href="Topik-19.html">View Topic 19 ↗</a></article>
+                <article class="course-card"><h3>Topic 20</h3><a href="Topik-20.html">View Topic 20 ↗</a></article>
+                <article class="course-card"><h3>Topic 21</h3><a href="Topik-21.html">View Topic 21 ↗</a></article>
+                <article class="course-card"><h3>Topic 22</h3><a href="Topik-22.html">View Topic 22 ↗</a></article>
+                <article class="course-card"><h3>Topic 23</h3><a href="Topik-23.html">View Topic 23 ↗</a></article>
+                <article class="course-card"><h3>Topic 24</h3><a href="Topik-24.html">View Topic 24 ↗</a></article>
+                <article class="course-card"><h3>Topic 25</h3><a href="Topik-25.html">View Topic 25 ↗</a></article>
+            </div>
+        </section>
 
-<section>
-    <h3>Topic 1</h3>
-    <a href="Topik-1.html">View Topic 1</a>
-</section>
+        <section class="group" aria-labelledby="exercises-heading">
+            <h2 class="group-title" id="exercises-heading">✏️ Exercises</h2>
+            <div class="card-grid">
+                <article class="course-card"><h3>Task 1 — Build an HTML Skeleton</h3><a href="task%201.html">View Task 1 ↗</a></article>
+                <article class="course-card"><h3>Task 2 — Headings, Paragraphs, and Emphasis</h3><a href="task%202.html">View Task 2 ↗</a></article>
+                <article class="course-card"><h3>Task 3 — Navigation List with Links</h3><a href="task%203.html">View Task 3 ↗</a></article>
+                <article class="course-card"><h3>Task 4 — Image with Meaningful Alt Text</h3><a href="task%204.html">View Task 4 ↗</a></article>
+                <article class="course-card"><h3>Task 5 — Create a Profile Page</h3><a href="task%205.html">View Task 5 ↗</a></article>
+                <article class="course-card"><h3>Task 6 — Fix the Broken HTML</h3><a href="task%206.html">View Task 6 ↗</a></article>
+                <article class="course-card"><h3>Task 7 — Ordered Steps with a Nested List</h3><a href="task%207.html">View Task 7 ↗</a></article>
+                <article class="course-card"><h3>Task 8 — My Favourites Gallery</h3><a href="task%208.html">View Task 8 ↗</a></article>
+            </div>
+        </section>
+    </main>
 
-<section>
-    <h3>Topic 2</h3>
-    <a href="Topik-2.html">View Topic 2</a>
-</section>
+    <p class="footer-note">Week 2 #1 · HTML Fundamentals<br>Part of Anar's Web Programming coursework portfolio.</p>
+</div>
 
-<section>
-    <h3>Topic 3</h3>
-    <a href="Topik-3.html">View Topic 3</a>
-</section>
+<script>
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+    const themeLabel = document.getElementById("themeLabel");
 
-<section>
-    <h3>Topic 4</h3>
-    <a href="Topik-4.html">View Topic 4</a>
-</section>
+    function setTheme(isDark) {
+        document.body.classList.toggle("dark-mode", isDark);
+        themeIcon.textContent = isDark ? "☀️" : "🌙";
+        themeLabel.textContent = isDark ? "Light mode" : "Dark mode";
+        themeToggle.setAttribute(
+            "aria-label",
+            isDark ? "Switch to light mode" : "Switch to dark mode"
+        );
+        document.querySelector('meta[name="theme-color"]')
+            .setAttribute("content", isDark ? "#171D2E" : "#F0EBFF");
+    }
 
-<section>
-    <h3>Topic 5</h3>
-    <a href="Topik-5.html">View Topic 5</a>
-</section>
+    let savedTheme = "light";
+    try {
+        savedTheme = localStorage.getItem("anar-theme") || "light";
+    } catch (error) {
+        // Theme switching still works if browser storage is unavailable.
+    }
+    setTheme(savedTheme === "dark");
 
-<section>
-    <h3>Topic 6</h3>
-    <a href="Topik-6.html">View Topic 6</a>
-</section>
-
-<section>
-    <h3>Topic 7</h3>
-    <a href="Topik-7.html">View Topic 7</a>
-</section>
-
-<section>
-    <h3>Topic 8</h3>
-    <a href="Topik-8.html">View Topic 8</a>
-</section>
-
-<section>
-    <h3>Topic 9</h3>
-    <a href="Topik-9.html">View Topic 9</a>
-</section>
-
-<section>
-    <h3>Topic 10</h3>
-    <a href="Topik-10.html">View Topic 10</a>
-</section>
-
-<section>
-    <h3>Topic 11</h3>
-    <a href="Topik-11.html">View Topic 11</a>
-</section>
-
-<section>
-    <h3>Topic 12</h3>
-    <a href="Topik-12.html">View Topic 12</a>
-</section>
-
-<section>
-    <h3>Topic 13</h3>
-    <a href="Topik-13.html">View Topic 13</a>
-</section>
-
-<section>
-    <h3>Topic 14</h3>
-    <a href="Topik-14.html">View Topic 14</a>
-</section>
-
-<section>
-    <h3>Topic 15</h3>
-    <a href="Topik-15.html">View Topic 15</a>
-</section>
-
-<section>
-    <h3>Topic 16</h3>
-    <a href="Topik-16.html">View Topic 16</a>
-</section>
-
-<section>
-    <h3>Topic 17</h3>
-    <a href="Topik-17.html">View Topic 17</a>
-</section>
-
-<section>
-    <h3>Topic 18</h3>
-    <a href="Topik-18.html">View Topic 18</a>
-</section>
-
-<section>
-    <h3>Topic 19</h3>
-    <a href="Topik-19.html">View Topic 19</a>
-</section>
-
-<section>
-    <h3>Topic 20</h3>
-    <a href="Topik-20.html">View Topic 20</a>
-</section>
-
-<section>
-    <h3>Topic 21</h3>
-    <a href="Topik-21.html">View Topic 21</a>
-</section>
-
-<section>
-    <h3>Topic 22</h3>
-    <a href="Topik-22.html">View Topic 22</a>
-</section>
-
-<section>
-    <h3>Topic 23</h3>
-    <a href="Topik-23.html">View Topic 23</a>
-</section>
-
-<section>
-    <h3>Topic 24</h3>
-    <a href="Topik-24.html">View Topic 24</a>
-</section>
-
-<section>
-    <h3>Topic 25</h3>
-    <a href="Topik-25.html">View Topic 25</a>
-</section>
-   <section>
-    <h3>Task 1 — Build an HTML Skeleton</h3>
-    <a href="task%201.html">View Task 1</a>
-</section>
-    <section>
-        <h3>Task 2 — Headings, Paragraphs, and Emphasis</h3>
-        <a href="task%202.html">View Task 2</a>
-    </section>
-
-    <section>
-        <h3>Task 3 — Navigation List with Links</h3>
-        <a href="task%203.html">View Task 3</a>
-    </section>
-
-    <section>
-        <h3>Task 4 — Image with Meaningful Alt Text</h3>
-        <a href="task%204.html">View Task 4</a>
-    </section>
-
-    <section>
-        <h3>Task 5 — Create a Profile Page</h3>
-        <a href="task%205.html">View Task 5</a>
-    </section>
-
-    <section>
-        <h3>Task 6 — Fix the Broken HTML</h3>
-        <a href="task%206.html">View Task 6</a>
-    </section>
-
-    <section>
-        <h3>Task 7 — Ordered Steps with a Nested List</h3>
-        <a href="task%207.html">View Task 7</a>
-    </section>
-
-    <section>
-        <h3>Task 8 — My Favourites Gallery</h3>
-        <a href="task%208.html">View Task 8</a>
-    </section>
-</main>
-
+    themeToggle.addEventListener("click", function () {
+        const isDark = !document.body.classList.contains("dark-mode");
+        setTheme(isDark);
+        try {
+            localStorage.setItem("anar-theme", isDark ? "dark" : "light");
+        } catch (error) {
+            // The selected theme applies for this page view.
+        }
+    });
+</script>
 </body>
 </html>

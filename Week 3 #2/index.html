@@ -1,133 +1,387 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Week 3 #2 - Anar's Web Programming</title>
+
+    <style>
+        :root {
+            --page-bg: #171D2E;
+            --text-color: #edf0ff;
+            --card-bg: #222d43;
+            --card-border: #8990bd;
+            --card-shadow: #080d19;
+            --nav-border: #343d55;
+            --button-bg: #222d43;
+            --button-text: #f0edff;
+            --hero-start: #211b3b;
+            --hero-end: #493773;
+            --hero-shadow: #29213F;
+            --muted-text: #c5cbe0;
+        }
+
+        body.light {
+            --page-bg: #F0EBFF;
+            --text-color: #292344;
+            --card-bg: #fffaf0;
+            --card-border: #292344;
+            --card-shadow: #DED5F1;
+            --nav-border: #e3dced;
+            --button-bg: #fffaf0;
+            --button-text: #292344;
+            --hero-start: #eee6ff;
+            --hero-end: #d7c7f7;
+            --hero-shadow: #DED5F1;
+            --muted-text: #625978;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 24px 22px 45px;
+            background: var(--page-bg);
+            color: var(--text-color);
+            font-family: Arial, Helvetica, sans-serif;
+            transition: background 0.25s, color 0.25s;
+        }
+
+        .container {
+            max-width: 1160px;
+            margin: 0 auto;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            padding: 18px 4px;
+            margin-bottom: 28px;
+            border-bottom: 1px solid var(--nav-border);
+        }
+
+        .brand {
+            font-size: 1rem;
+            font-weight: 900;
+            letter-spacing: 0.6px;
+        }
+
+        .nav-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .nav-button {
+            display: inline-block;
+            padding: 10px 15px;
+            border: 2px solid var(--card-border);
+            border-radius: 13px;
+            background: var(--button-bg);
+            color: var(--button-text);
+            box-shadow: 3px 3px 0 var(--card-shadow);
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.16s;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            padding: 34px 36px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(160, 140, 220, 0.25);
+            border-radius: 25px;
+            background: linear-gradient(
+                115deg,
+                var(--hero-start),
+                var(--hero-end)
+            );
+            box-shadow: 7px 7px 0 var(--hero-shadow);
+        }
+
+        .eyebrow {
+            margin: 0 0 14px;
+            font-size: 0.8rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin: 0 0 16px;
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            line-height: 1.1;
+        }
+
+        .hero-description {
+            margin: 0;
+            color: var(--muted-text);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .archive-label {
+            margin: 0 0 8px;
+            font-size: 0.78rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .archive-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .archive-title {
+            margin: 0;
+            font-size: clamp(1.6rem, 4vw, 2rem);
+        }
+
+        .activity-count {
+            padding: 10px 14px;
+            border: 1px solid var(--nav-border);
+            border-radius: 30px;
+            background: var(--card-bg);
+            font-size: 0.78rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 25px 0 16px;
+            font-size: 1.1rem;
+            font-weight: 900;
+        }
+
+        .section-heading::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: var(--nav-border);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .card {
+            min-width: 0;
+            min-height: 108px;
+            padding: 15px;
+            border: 2px solid var(--card-border);
+            border-radius: 19px;
+            background: var(--card-bg);
+            box-shadow: 4px 4px 0 var(--card-shadow);
+            color: var(--text-color);
+            text-decoration: none;
+            transition: transform 0.16s, box-shadow 0.16s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 6px 7px 0 var(--card-shadow);
+        }
+
+        .card h3 {
+            margin: 0 0 18px;
+            font-size: 0.95rem;
+            line-height: 1.45;
+        }
+
+        .card-link {
+            display: inline-block;
+            padding: 9px 13px;
+            border: 2px solid var(--card-border);
+            border-radius: 25px;
+            color: var(--text-color);
+            font-size: 0.82rem;
+            font-weight: bold;
+            line-height: 1.2;
+        }
+
+        footer {
+            margin-top: 42px;
+            padding-top: 20px;
+            border-top: 1px solid var(--nav-border);
+            color: var(--muted-text);
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid #a78bfa;
+            outline-offset: 4px;
+        }
+
+        @media (max-width: 900px) {
+            .card-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 14px 13px 35px;
+            }
+
+            .hero {
+                padding: 26px 22px;
+            }
+
+            .card-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .card {
+                padding: 12px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition: none !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
+<div class="container">
 
-    <header>
-        <h1>Week 3 #2</h1>
-        <p>CSS Advanced</p>
+    <nav>
+        <div class="brand">ANAR · WEB PROGRAMMING</div>
+
+        <div class="nav-actions">
+            <a class="nav-button" href="../../index.html">← Main portfolio</a>
+            <button class="nav-button" id="theme-toggle" type="button">
+                ☀️ Light mode
+            </button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <p class="eyebrow">Gachon University · Web Programming</p>
+        <h1>Week 3 #2 ✦</h1>
+        <p class="hero-description">
+            CSS Advanced — exploring transitions, animations, positioning,
+            responsive layouts, and CSS variables.
+        </p>
     </header>
 
     <main>
-        <h2>Exercises</h2>
-        <h2>Topics</h2>
+        <section aria-labelledby="archive-title">
+            <p class="archive-label">The Learning Archive</p>
 
-<section>
-    <h3>Topic 1</h3>
-    <a href="Topik-1.html">View Topic 1</a>
-</section>
+            <div class="archive-title-row">
+                <h2 class="archive-title" id="archive-title">
+                    Exercises &amp; Topics
+                </h2>
+                <span class="activity-count">22 ACTIVITIES</span>
+            </div>
 
-<section>
-    <h3>Topic 2</h3>
-    <a href="Topik-2.html">View Topic 2</a>
-</section>
+            <section aria-labelledby="topics-heading">
+                <h3 class="section-heading" id="topics-heading">
+                    📚 Topics
+                </h3>
 
-<section>
-    <h3>Topic 3</h3>
-    <a href="Topik-3.html">View Topic 3</a>
-</section>
+                <div class="card-grid">
+                    <a class="card" href="Topik-1.html"><h3>Topic 1</h3><span class="card-link">View Topic 1 ↗</span></a>
+                    <a class="card" href="Topik-2.html"><h3>Topic 2</h3><span class="card-link">View Topic 2 ↗</span></a>
+                    <a class="card" href="Topik-3.html"><h3>Topic 3</h3><span class="card-link">View Topic 3 ↗</span></a>
+                    <a class="card" href="Topik-4.html"><h3>Topic 4</h3><span class="card-link">View Topic 4 ↗</span></a>
+                    <a class="card" href="Topik-5.html"><h3>Topic 5</h3><span class="card-link">View Topic 5 ↗</span></a>
+                    <a class="card" href="Topik-6.html"><h3>Topic 6</h3><span class="card-link">View Topic 6 ↗</span></a>
+                    <a class="card" href="Topik-7.html"><h3>Topic 7</h3><span class="card-link">View Topic 7 ↗</span></a>
+                    <a class="card" href="Topik-8.html"><h3>Topic 8</h3><span class="card-link">View Topic 8 ↗</span></a>
+                    <a class="card" href="Topik-9.html"><h3>Topic 9</h3><span class="card-link">View Topic 9 ↗</span></a>
+                    <a class="card" href="Topik-10.html"><h3>Topic 10</h3><span class="card-link">View Topic 10 ↗</span></a>
+                    <a class="card" href="Topik-11.html"><h3>Topic 11</h3><span class="card-link">View Topic 11 ↗</span></a>
+                    <a class="card" href="Topik-12.html"><h3>Topic 12</h3><span class="card-link">View Topic 12 ↗</span></a>
+                    <a class="card" href="Topik-13.html"><h3>Topic 13</h3><span class="card-link">View Topic 13 ↗</span></a>
+                    <a class="card" href="Topik-14.html"><h3>Topic 14</h3><span class="card-link">View Topic 14 ↗</span></a>
+                    <a class="card" href="Topik-15.html"><h3>Topic 15</h3><span class="card-link">View Topic 15 ↗</span></a>
+                </div>
+            </section>
 
-<section>
-    <h3>Topic 4</h3>
-    <a href="Topik-4.html">View Topic 4</a>
-</section>
+            <section aria-labelledby="exercises-heading">
+                <h3 class="section-heading" id="exercises-heading">
+                    ✏️ Exercises
+                </h3>
 
-<section>
-    <h3>Topic 5</h3>
-    <a href="Topik-5.html">View Topic 5</a>
-</section>
-
-<section>
-    <h3>Topic 6</h3>
-    <a href="Topik-6.html">View Topic 6</a>
-</section>
-
-<section>
-    <h3>Topic 7</h3>
-    <a href="Topik-7.html">View Topic 7</a>
-</section>
-
-<section>
-    <h3>Topic 8</h3>
-    <a href="Topik-8.html">View Topic 8</a>
-</section>
-
-<section>
-    <h3>Topic 9</h3>
-    <a href="Topik-9.html">View Topic 9</a>
-</section>
-
-<section>
-    <h3>Topic 10</h3>
-    <a href="Topik-10.html">View Topic 10</a>
-</section>
-
-<section>
-    <h3>Topic 11</h3>
-    <a href="Topik-11.html">View Topic 11</a>
-</section>
-
-<section>
-    <h3>Topic 12</h3>
-    <a href="Topik-12.html">View Topic 12</a>
-</section>
-
-<section>
-    <h3>Topic 13</h3>
-    <a href="Topik-13.html">View Topic 13</a>
-</section>
-
-<section>
-    <h3>Topic 14</h3>
-    <a href="Topik-14.html">View Topic 14</a>
-</section>
-
-<section>
-    <h3>Topic 15</h3>
-    <a href="Topik-15.html">View Topic 15</a>
-</section>
-
-        <section>
-            <h3>Task 1 — Position the Badge</h3>
-            <a href="task%201%20Position%20the%20Badge.html">View Task 1</a>
+                <div class="card-grid">
+                    <a class="card" href="task%201%20Position%20the%20Badge.html"><h3>Task 1 — Position the Badge</h3><span class="card-link">View Task 1 ↗</span></a>
+                    <a class="card" href="task%202%20Hover%20Card%20with%20Transition.html"><h3>Task 2 — Hover Card with Transition</h3><span class="card-link">View Task 2 ↗</span></a>
+                    <a class="card" href="task%203%20Loading%20Spinner%20with%20%40keyframes.html"><h3>Task 3 — Loading Spinner with @keyframes</h3><span class="card-link">View Task 3 ↗</span></a>
+                    <a class="card" href="task%204%20CSS%20Variables%20Theme.html"><h3>Task 4 — CSS Variables Theme</h3><span class="card-link">View Task 4 ↗</span></a>
+                    <a class="card" href="task%205%20Fixed%20Navigation%20Bar.html"><h3>Task 5 — Fixed Navigation Bar</h3><span class="card-link">View Task 5 ↗</span></a>
+                    <a class="card" href="task%206%20Responsive%20Grid%20Page.html"><h3>Task 6 — Responsive Grid Page</h3><span class="card-link">View Task 6 ↗</span></a>
+                    <a class="card" href="task%207%20Complete%20CSS%20Advanced%20Portfolio%20Page.html"><h3>Task 7 — Complete CSS Advanced Portfolio Page</h3><span class="card-link">View Task 7 ↗</span></a>
+                </div>
+            </section>
         </section>
-
-        <section>
-            <h3>Task 2 — Hover Card with Transition</h3>
-            <a href="task%202%20Hover%20Card%20with%20Transition.html">View Task 2</a>
-        </section>
-
-        <section>
-            <h3>Task 3 — Loading Spinner with @keyframes</h3>
-            <a href="task%203%20Loading%20Spinner%20with%20%40keyframes.html">View Task 3</a>
-        </section>
-
-        <section>
-            <h3>Task 4 — CSS Variables Theme</h3>
-            <a href="task%204%20CSS%20Variables%20Theme.html">View Task 4</a>
-        </section>
-
-        <section>
-            <h3>Task 5 — Fixed Navigation Bar</h3>
-            <a href="task%205%20Fixed%20Navigation%20Bar.html">View Task 5</a>
-        </section>
-
-        <section>
-            <h3>Task 6 — Responsive Grid Page</h3>
-            <a href="task%206%20Responsive%20Grid%20Page.html">View Task 6</a>
-        </section>
-
-        <section>
-            <h3>Task 7 — Complete CSS Advanced Portfolio Page</h3>
-            <a href="task%207%20Complete%20CSS%20Advanced%20Portfolio%20Page.html">View Task 7</a>
-        </section>
-
     </main>
+
+    <footer>
+        <p>ANAR · Web Programming · Week 3 #2</p>
+    </footer>
+
+</div>
+
+<script>
+    const themeButton = document.getElementById("theme-toggle");
+
+    function setTheme(theme) {
+        document.body.classList.toggle("light", theme === "light");
+        themeButton.textContent =
+            theme === "light" ? "🌙 Dark mode" : "☀️ Light mode";
+    }
+
+    const savedTheme = localStorage.getItem("anar-theme");
+    setTheme(savedTheme === "light" ? "light" : "dark");
+
+    themeButton.addEventListener("click", function () {
+        const isLight = document.body.classList.contains("light");
+        const nextTheme = isLight ? "dark" : "light";
+
+        setTheme(nextTheme);
+        localStorage.setItem("anar-theme", nextTheme);
+    });
+</script>
 
 </body>
 </html>

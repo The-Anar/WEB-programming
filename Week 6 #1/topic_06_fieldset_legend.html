@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Topic 6 - Fieldset & Legend | Anar</title>
+<style>
+:root {
+    --page-bg: #F0EBFF;
+    --card-bg: #FFFFFF;
+    --text-color: #292344;
+    --accent: #7957D5;
+    --border-color: #DED5F1;
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    background: var(--page-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+main { max-width: 760px; margin: auto; }
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 28px;
+    margin: 20px 0;
+}
+h1 { color: var(--accent); }
+h2 { margin-top: 0; }
+.student { color: #6c5a9e; font-size: 14px; }
+fieldset {
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 18px 0;
+}
+legend {
+    color: var(--accent);
+    font-weight: bold;
+    padding: 0 10px;
+}
+label {
+    display: block;
+    font-weight: bold;
+    margin: 12px 0 5px;
+}
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font: inherit;
+}
+button {
+    margin-top: 16px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+a { color: var(--accent); }
+.note {
+    background: #F8F5FF;
+    border-radius: 10px;
+    padding: 14px;
+}
+</style>
+</head>
+<body>
+<main>
+<p><a href="index.html">← Week 6 #1 Home</a></p>
+
+<h1>Topic 06 — Fieldset & Legend</h1>
+<p class="student">Anar · Student ID: 202637018 · Gachon University</p>
+
+<section class="card">
+<h2>What Are Fieldset and Legend?</h2>
+<p>The <code>&lt;fieldset&gt;</code> element groups related form controls together.</p>
+<p>The <code>&lt;legend&gt;</code> element provides a title for that group.</p>
+
+<div class="note">
+    <strong>Remember:</strong> Use fieldsets to organize forms into clear sections, especially when a form has several types of information.
+</div>
+</section>
+
+<section class="card">
+<h2>Example: Student Registration Form</h2>
+
+<form action="#" method="post">
+    <fieldset>
+        <legend>Personal Information</legend>
+
+        <label for="full-name">Full Name</label>
+        <input type="text" id="full-name" name="full-name" required placeholder="Enter your full name">
+
+        <label for="student-id">Student ID</label>
+        <input type="text" id="student-id" name="student-id"
+               pattern="[0-9]{9}" title="Enter exactly 9 digits"
+               required placeholder="9-digit student ID">
+
+        <label for="birth-date">Date of Birth</label>
+        <input type="date" id="birth-date" name="birth-date">
+    </fieldset>
+
+    <fieldset>
+        <legend>Account Information</legend>
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required placeholder="name@example.com">
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password"
+               minlength="8" required placeholder="At least 8 characters">
+    </fieldset>
+
+    <button type="submit">Register</button>
+</form>
+</section>
+
+<section class="card">
+<h2>Key Points</h2>
+<ul>
+    <li><code>&lt;fieldset&gt;</code> groups related form controls.</li>
+    <li><code>&lt;legend&gt;</code> names the fieldset group.</li>
+    <li>Use separate fieldsets for different sections.</li>
+    <li>Use labels connected to their inputs for accessibility.</li>
+    <li>Fieldsets can improve form structure and readability.</li>
+</ul>
+</section>
+
+</main>
+</body>
+</html>

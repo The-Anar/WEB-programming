@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercise E1 - Login Form | Anar</title>
+<style>
+:root {
+    --page-bg: #F0EBFF;
+    --card-bg: #FFFFFF;
+    --text-color: #292344;
+    --accent: #7957D5;
+    --border-color: #DED5F1;
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    background: var(--page-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+main { max-width: 680px; margin: auto; }
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 30px;
+    margin: 20px 0;
+}
+h1 { color: var(--accent); }
+.student { color: #6c5a9e; font-size: 14px; }
+label {
+    display: block;
+    font-weight: bold;
+    margin: 16px 0 6px;
+}
+input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font: inherit;
+}
+input:focus {
+    outline: 2px solid #B8A4F0;
+    border-color: var(--accent);
+}
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 8px;
+    background: var(--accent);
+    color: white;
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+}
+button:hover { background: #6340B5; }
+a { color: var(--accent); }
+#message {
+    margin-top: 16px;
+    padding: 12px;
+    background: #F8F5FF;
+    border-radius: 8px;
+    display: none;
+}
+</style>
+</head>
+<body>
+<main>
+<p><a href="index.html">← Week 6 #1 Home</a></p>
+
+<h1>Exercise E1 — Build a Login Form</h1>
+<p class="student">Anar · Student ID: 202637018 · Gachon University</p>
+
+<section class="card">
+<h2>Welcome Back</h2>
+<p>Enter your account details to try the login form.</p>
+
+<form id="login-form" action="#" method="post">
+    <label for="username">Username or Email</label>
+    <input
+        type="text"
+        id="username"
+        name="username"
+        placeholder="Enter your username or email"
+        autocomplete="username"
+        required
+    >
+
+    <label for="password">Password</label>
+    <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Enter your password"
+        autocomplete="current-password"
+        required
+        minlength="8"
+    >
+
+    <button type="submit">Log In</button>
+</form>
+
+<p id="message" role="status"></p>
+</section>
+
+<section class="card">
+<h2>Exercise Checklist</h2>
+<ul>
+    <li>Username field uses <code>type="text"</code>.</li>
+    <li>Password field uses <code>type="password"</code>.</li>
+    <li>Both inputs have matching labels and IDs.</li>
+    <li>Both fields are required.</li>
+    <li>Password must contain at least 8 characters.</li>
+</ul>
+</section>
+</main>
+
+<script>
+const loginForm = document.getElementById("login-form");
+const message = document.getElementById("message");
+
+loginForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    message.textContent =
+        "Form submitted successfully for this demo. No account was actually logged in.";
+    message.style.display = "block";
+});
+</script>
+</body>
+</html>

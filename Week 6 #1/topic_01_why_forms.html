@@ -1,0 +1,122 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topic 1 - Why Forms? | Anar</title>
+
+    <style>
+        :root {
+            --page-bg: #F0EBFF;
+            --card-bg: #FFFFFF;
+            --text-color: #292344;
+            --accent: #7957D5;
+            --border-color: #DED5F1;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            font-family: Arial, sans-serif;
+            background: var(--page-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        main {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 28px;
+            margin: 20px 0;
+        }
+
+        h1, h2 {
+            line-height: 1.25;
+        }
+
+        h1 {
+            color: var(--accent);
+        }
+
+        input, button {
+            font: inherit;
+            padding: 10px 12px;
+            border-radius: 8px;
+        }
+
+        input {
+            width: 100%;
+            border: 1px solid var(--border-color);
+            margin: 8px 0 12px;
+        }
+
+        button {
+            border: 0;
+            background: var(--accent);
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        a {
+            color: var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <p><a href="index.html">← Week 6 #1 Home</a></p>
+
+        <h1>Topic 01 — Why Forms?</h1>
+        <p>Web Programming · Gachon University · Anar</p>
+
+        <section class="card">
+            <h2>What is an HTML form?</h2>
+            <p>
+                An HTML form collects information from users.
+                Examples include login forms, search boxes,
+                and student registration forms.
+            </p>
+
+            <h3>Example: A simple search form</h3>
+
+            <form action="https://www.google.com/search" method="get">
+                <label for="search">What do you want to search?</label>
+                <input
+                    type="text"
+                    id="search"
+                    name="q"
+                    placeholder="Enter a search keyword"
+                    required
+                >
+                <button type="submit">Search Google</button>
+            </form>
+        </section>
+
+        <section class="card">
+            <h2>Key points</h2>
+            <ul>
+                <li>Forms collect information from users.</li>
+                <li>The <code>&lt;form&gt;</code> element contains form controls.</li>
+                <li>The <code>action</code> attribute specifies where data is sent.</li>
+                <li>The <code>method</code> attribute specifies how data is sent.</li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

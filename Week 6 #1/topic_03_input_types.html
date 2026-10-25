@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topic 3 - Input Types | Anar</title>
+    <style>
+        :root {
+            --page-bg: #F0EBFF;
+            --card-bg: #FFFFFF;
+            --text-color: #292344;
+            --accent: #7957D5;
+            --border-color: #DED5F1;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; padding: 40px 20px;
+            font-family: Arial, sans-serif;
+            background: var(--page-bg); color: var(--text-color);
+            line-height: 1.6;
+        }
+        main { max-width: 760px; margin: auto; }
+        .card {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 28px; margin: 20px 0;
+        }
+        h1 { color: var(--accent); }
+        label { display: block; margin-top: 12px; font-weight: bold; }
+        input, select, button {
+            width: 100%; padding: 10px; margin-top: 5px;
+            border-radius: 8px; font: inherit;
+        }
+        input, select { border: 1px solid var(--border-color); }
+        button {
+            margin-top: 18px; background: var(--accent);
+            color: white; border: 0; cursor: pointer;
+        }
+        a { color: var(--accent); }
+        .student { color: #6c5a9e; font-size: 14px; }
+        .demo-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+        }
+    </style>
+</head>
+<body>
+<main>
+    <p><a href="index.html">← Week 6 #1 Home</a></p>
+    <h1>Topic 03 — HTML Input Types</h1>
+    <p class="student">Anar · Student ID: 202637018 · Gachon University</p>
+
+    <section class="card">
+        <h2>Try Different Input Types</h2>
+        <form>
+            <div class="demo-grid">
+                <div>
+                    <label for="username">Text</label>
+                    <input type="text" id="username" placeholder="Your name">
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="name@example.com">
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Enter password">
+                </div>
+                <div>
+                    <label for="age">Number</label>
+                    <input type="number" id="age" min="1" max="100" placeholder="Your age">
+                </div>
+                <div>
+                    <label for="birthday">Date</label>
+                    <input type="date" id="birthday">
+                </div>
+                <div>
+                    <label for="experience">Range</label>
+                    <input type="range" id="experience" min="0" max="10" value="3"
+                           oninput="experienceValue.textContent = this.value">
+                    <p>Years of coding: <strong id="experienceValue">3</strong></p>
+                </div>
+            </div>
+
+            <h3>Checkboxes — Multiple choices</h3>
+            <label><input type="checkbox" name="skills" value="html" style="width:auto"> HTML</label>
+            <label><input type="checkbox" name="skills" value="css" style="width:auto"> CSS</label>
+            <label><input type="checkbox" name="skills" value="javascript" style="width:auto"> JavaScript</label>
+
+            <h3>Radio buttons — Choose one</h3>
+            <label><input type="radio" name="study" value="morning" style="width:auto"> Morning</label>
+            <label><input type="radio" name="study" value="evening" style="width:auto"> Evening</label>
+
+            <label for="major">Select your major</label>
+            <select id="major" name="major">
+                <option value="">Choose a major</option>
+                <option value="computer-engineering">Computer Engineering</option>
+                <option value="software">Software Engineering</option>
+                <option value="business">Business</option>
+                <option value="design">Design</option>
+            </select>
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>Key Points</h2>
+        <ul>
+            <li><code>text</code> accepts ordinary text.</li>
+            <li><code>email</code> supports email-format validation.</li>
+            <li><code>password</code> masks typed characters.</li>
+            <li><code>number</code>, <code>date</code>, and <code>range</code> provide specialized controls.</li>
+            <li>Checkboxes allow multiple selections; radio buttons allow one selection per group.</li>
+            <li><code>select</code> creates a dropdown menu.</li>
+        </ul>
+    </section>
+</main>
+</body>
+</html>

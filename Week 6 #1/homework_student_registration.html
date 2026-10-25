@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Registration | Anar</title>
+<style>
+:root {
+    --page-bg: #F0EBFF;
+    --card-bg: #FFFFFF;
+    --text-color: #292344;
+    --accent: #7957D5;
+    --border-color: #DED5F1;
+    --success: #23945F;
+    --error: #D64545;
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    background: var(--page-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+main { max-width: 800px; margin: auto; }
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    padding: 30px;
+    margin: 22px 0;
+    box-shadow: 0 8px 24px rgba(41, 35, 68, 0.05);
+}
+h1, h2 { color: var(--accent); }
+h1 { margin-bottom: 8px; }
+.student { color: #6c5a9e; font-size: 14px; }
+.intro { color: #625978; }
+fieldset {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 22px 0;
+}
+legend {
+    color: var(--accent);
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0 10px;
+}
+label {
+    display: block;
+    margin: 15px 0 6px;
+    font-weight: bold;
+}
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: white;
+    color: var(--text-color);
+    font: inherit;
+}
+input:focus, select:focus {
+    outline: 2px solid #B8A4F0;
+    outline-offset: 2px;
+}
+input:valid:not(:placeholder-shown) {
+    border-color: var(--success);
+    background: #F3FFF8;
+}
+input:invalid:not(:placeholder-shown) {
+    border-color: var(--error);
+    background: #FFF5F5;
+}
+input[type="date"]:valid,
+input[type="range"]:valid {
+    border-color: var(--success);
+}
+input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+    accent-color: var(--accent);
+}
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 5px;
+    font-weight: normal;
+    margin-top: 24px;
+}
+.checkbox-label input { margin-top: 6px; }
+.hint { color: #6c5a9e; font-size: 13px; margin: 5px 0 0; }
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: var(--accent);
+    color: white;
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 18px;
+}
+button:hover { background: #6340B5; }
+a { color: var(--accent); }
+.range-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+.range-row input { flex: 1; }
+#interest-value {
+    min-width: 36px;
+    text-align: center;
+    color: var(--accent);
+    font-size: 20px;
+    font-weight: bold;
+}
+#result {
+    display: none;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 18px;
+}
+#result.success {
+    display: block;
+    background: #F0FFF7;
+    color: #176B45;
+}
+#result.error {
+    display: block;
+    background: #FFF3F3;
+    color: #A52525;
+}
+@media (max-width: 520px) {
+    body { padding: 20px 12px; }
+    .card { padding: 20px; }
+    fieldset { padding: 14px; }
+}
+</style>
+</head>
+<body>
+<main>
+<p><a href="index.html">← Week 6 #1 Home</a></p>
+
+<h1>Student Registration Form</h1>
+<p class="student">Anar · Student ID: 202637018 · Gachon University</p>
+<p class="intro">
+    Complete the form below to demonstrate HTML5 form controls,
+    accessible labels, and built-in browser validation.
+</p>
+
+<section class="card">
+<form id="registration-form" action="#" method="post">
+
+    <fieldset>
+        <legend>Personal Information</legend>
+
+        <label for="full-name">Full Name *</label>
+        <input
+            type="text"
+            id="full-name"
+            name="full-name"
+            placeholder="Enter your full name"
+            autocomplete="name"
+            required
+        >
+
+        <label for="student-id">Student ID *</label>
+        <input
+            type="text"
+            id="student-id"
+            name="student-id"
+            placeholder="Enter your 9-digit student ID"
+            pattern="[0-9]{9}"
+            title="Student ID must contain exactly 9 digits."
+            required
+        >
+        <p class="hint">Enter exactly 9 digits.</p>
+
+        <label for="birth-date">Date of Birth</label>
+        <input
+            type="date"
+            id="birth-date"
+            name="birth-date"
+            autocomplete="bday"
+        >
+
+        <label for="major">Major *</label>
+        <select id="major" name="major" required>
+            <option value="">Select your major</option>
+            <option value="computer-engineering">Computer Engineering</option>
+            <option value="software-engineering">Software Engineering</option>
+            <option value="artificial-intelligence">Artificial Intelligence</option>
+            <option value="business-administration">Business Administration</option>
+            <option value="electrical-engineering">Electrical Engineering</option>
+        </select>
+    </fieldset>
+
+    <fieldset>
+        <legend>Account Information</legend>
+
+        <label for="email">Email Address *</label>
+        <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="name@example.com"
+            autocomplete="email"
+            required
+        >
+
+        <label for="password">Password *</label>
+        <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="At least 8 characters"
+            minlength="8"
+            autocomplete="new-password"
+            required
+        >
+        <p class="hint">Password must contain at least 8 characters.</p>
+
+        <label for="phone">Phone Number *</label>
+        <input
+            type="text"
+            id="phone"
+            name="phone"
+            placeholder="010-1234-5678"
+            pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
+            title="Use the format 010-1234-5678."
+            autocomplete="tel"
+            required
+        >
+        <p class="hint">Required format: 010-1234-5678.</p>
+    </fieldset>
+
+    <fieldset>
+        <legend>Additional Information</legend>
+
+        <label for="interest">Interest in Web Programming (0–10)</label>
+        <div class="range-row">
+            <input
+                type="range"
+                id="interest"
+                name="interest"
+                min="0"
+                max="10"
+                value="5"
+            >
+            <output id="interest-value" for="interest">5</output>
+        </div>
+        <p class="hint">Move the slider to select your interest level.</p>
+
+        <label class="checkbox-label" for="terms">
+            <input
+                type="checkbox"
+                id="terms"
+                name="terms"
+                value="accepted"
+                required
+            >
+            <span>I confirm that the information provided is correct and agree to the registration terms. *</span>
+        </label>
+    </fieldset>
+
+    <button type="submit">Submit Registration</button>
+    <div id="result" role="status" aria-live="polite"></div>
+</form>
+</section>
+
+<section class="card">
+<h2>Form Features</h2>
+<ul>
+    <li>POST method and a form action.</li>
+    <li>Separate fieldsets with legends for both information sections.</li>
+    <li>Labels connected to every form control.</li>
+    <li>Required fields, email validation, minimum password length, and input patterns.</li>
+    <li>CSS styling for valid and invalid input states.</li>
+    <li>Bonus range slider with a live JavaScript value display.</li>
+</ul>
+</section>
+</main>
+
+<script>
+const interest = document.getElementById("interest");
+const interestValue = document.getElementById("interest-value");
+const form = document.getElementById("registration-form");
+const result = document.getElementById("result");
+
+interest.addEventListener("input", function() {
+    interestValue.value = interest.value;
+    interestValue.textContent = interest.value;
+});
+
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    result.className = "success";
+    result.textContent =
+        "Registration form validated successfully! This is a demonstration; no information was sent to a server.";
+    result.style.display = "block";
+});
+</script>
+</body>
+</html>

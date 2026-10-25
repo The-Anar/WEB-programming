@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Topic 4 - HTML5 Validation | Anar</title>
+<style>
+:root {
+    --page-bg: #F0EBFF;
+    --card-bg: #FFFFFF;
+    --text-color: #292344;
+    --accent: #7957D5;
+    --border-color: #DED5F1;
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0; padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    background: var(--page-bg); color: var(--text-color);
+    line-height: 1.6;
+}
+main { max-width: 760px; margin: auto; }
+.card {
+    background: var(--card-bg); border: 1px solid var(--border-color);
+    border-radius: 16px; padding: 28px; margin: 20px 0;
+}
+h1 { color: var(--accent); }
+label { display: block; margin-top: 12px; font-weight: bold; }
+input, button {
+    width: 100%; padding: 10px; margin-top: 5px;
+    border-radius: 8px; font: inherit;
+}
+input { border: 1px solid var(--border-color); }
+button {
+    margin-top: 18px; background: var(--accent);
+    color: white; border: 0; cursor: pointer;
+}
+a { color: var(--accent); }
+.student { color: #6c5a9e; font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+<p><a href="index.html">← Week 6 #1 Home</a></p>
+<h1>Topic 04 — HTML5 Validation Attributes</h1>
+<p class="student">Anar · Student ID: 202637018 · Gachon University</p>
+
+<section class="card">
+<h2>Try the Validation Rules</h2>
+<p>Submit the form with incorrect or missing values to see the browser's built-in validation.</p>
+
+<form>
+    <label for="full-name">Full Name (required)</label>
+    <input type="text" id="full-name" name="full-name" required placeholder="Enter your name">
+
+    <label for="student-id">Student ID (exactly 9 digits)</label>
+    <input type="text" id="student-id" name="student-id"
+           pattern="[0-9]{9}" title="Enter exactly 9 digits"
+           required placeholder="202637018">
+
+    <label for="email">Email (required)</label>
+    <input type="email" id="email" name="email" required placeholder="name@example.com">
+
+    <label for="password">Password (8–20 characters)</label>
+    <input type="password" id="password" name="password"
+           minlength="8" maxlength="20" required placeholder="At least 8 characters">
+
+    <label for="age">Age (16–100)</label>
+    <input type="number" id="age" name="age" min="16" max="100"
+           required placeholder="Enter your age">
+
+    <label for="multiple">Number divisible by 5</label>
+    <input type="number" id="multiple" name="multiple" min="0" step="5"
+           placeholder="Try 5, 10, 15...">
+
+    <button type="submit">Test Validation</button>
+</form>
+</section>
+
+<section class="card">
+<h2>Validation Attributes</h2>
+<ul>
+    <li><code>required</code> — prevents empty required fields.</li>
+    <li><code>minlength</code> and <code>maxlength</code> — set text length limits.</li>
+    <li><code>min</code> and <code>max</code> — set numeric limits.</li>
+    <li><code>step</code> — sets allowed numeric increments.</li>
+    <li><code>pattern</code> — requires a value matching a specified pattern.</li>
+    <li><code>title</code> — provides a helpful hint for pattern validation.</li>
+    <li><code>type="email"</code> — checks email format.</li>
+</ul>
+</section>
+</main>
+</body>
+</html>

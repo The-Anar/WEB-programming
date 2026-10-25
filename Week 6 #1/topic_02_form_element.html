@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topic 2 - The Form Element | Anar</title>
+    <style>
+        :root {
+            --page-bg: #F0EBFF;
+            --card-bg: #FFFFFF;
+            --text-color: #292344;
+            --accent: #7957D5;
+            --border-color: #DED5F1;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0; padding: 40px 20px;
+            font-family: Arial, sans-serif;
+            background: var(--page-bg); color: var(--text-color);
+            line-height: 1.6;
+        }
+        main { max-width: 760px; margin: auto; }
+        .card {
+            background: var(--card-bg); border: 1px solid var(--border-color);
+            border-radius: 16px; padding: 28px; margin: 20px 0;
+        }
+        h1 { color: var(--accent); }
+        label { display: block; margin-top: 12px; font-weight: bold; }
+        input, button {
+            box-sizing: border-box; width: 100%; padding: 11px;
+            margin-top: 6px; border-radius: 8px; font: inherit;
+        }
+        input { border: 1px solid var(--border-color); }
+        button {
+            margin-top: 18px; background: var(--accent);
+            color: white; border: 0; cursor: pointer;
+        }
+        code { background: #F0EBFF; padding: 2px 5px; border-radius: 4px; }
+        a { color: var(--accent); }
+    </style>
+</head>
+<body>
+<main>
+    <p><a href="index.html">← Week 6 #1 Home</a></p>
+    <h1>Topic 02 — The &lt;form&gt; Element</h1>
+    <p>Web Programming · Gachon University · Anar</p>
+
+    <section class="card">
+        <h2>GET vs. POST</h2>
+        <p><strong>GET:</strong> Sends form data in the URL. Useful for search.</p>
+        <p><strong>POST:</strong> Sends form data in the request body. Common for submitting information.</p>
+    </section>
+
+    <section class="card">
+        <h2>Live Form Demo</h2>
+        <form action="https://www.google.com/search" method="get">
+            <label for="keyword">Search keyword (GET example)</label>
+            <input type="text" id="keyword" name="q" required placeholder="Enter a keyword">
+
+            <button type="submit">Search Google</button>
+        </form>
+
+        <p>Submitting sends the value through Google's search URL using GET.</p>
+    </section>
+
+    <section class="card">
+        <h2>Important Attributes</h2>
+        <ul>
+            <li><code>action</code> — destination for submitted data.</li>
+            <li><code>method</code> — specifies GET or POST.</li>
+            <li><code>name</code> — identifies a submitted field.</li>
+            <li><code>type="submit"</code> — submits the form.</li>
+        </ul>
+    </section>
+</main>
+</body>
+</html>

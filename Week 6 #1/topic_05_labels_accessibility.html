@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Topic 5 - Labels & Accessibility | Anar</title>
+<style>
+:root {
+    --page-bg: #F0EBFF;
+    --card-bg: #FFFFFF;
+    --text-color: #292344;
+    --accent: #7957D5;
+    --border-color: #DED5F1;
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0; padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    background: var(--page-bg); color: var(--text-color);
+    line-height: 1.6;
+}
+main { max-width: 760px; margin: auto; }
+.card {
+    background: var(--card-bg); border: 1px solid var(--border-color);
+    border-radius: 16px; padding: 28px; margin: 20px 0;
+}
+h1 { color: var(--accent); }
+label { display: block; margin: 12px 0 5px; font-weight: bold; }
+input, button {
+    width: 100%; padding: 10px; border-radius: 8px; font: inherit;
+}
+input { border: 1px solid var(--border-color); }
+button {
+    margin-top: 18px; background: var(--accent);
+    color: white; border: 0; cursor: pointer;
+}
+a { color: var(--accent); }
+.student { color: #6c5a9e; font-size: 14px; }
+.demo { background: #F8F5FF; padding: 18px; border-radius: 10px; margin-top: 12px; }
+</style>
+</head>
+<body>
+<main>
+<p><a href="index.html">← Week 6 #1 Home</a></p>
+<h1>Topic 05 — Labels & Accessibility</h1>
+<p class="student">Anar · Student ID: 202637018 · Gachon University</p>
+
+<section class="card">
+<h2>Why Are Labels Important?</h2>
+<p>Labels explain what information a form field needs. They also help screen-reader users identify inputs and let users click the label to focus its field.</p>
+
+<h3>Method 1: Match label's for and input's id</h3>
+<div class="demo">
+    <label for="demo-name">Full Name</label>
+    <input type="text" id="demo-name" name="name" placeholder="Enter your name">
+</div>
+
+<h3>Method 2: Put the input inside the label</h3>
+<div class="demo">
+    <label>
+        Email Address
+        <input type="email" name="email" placeholder="name@example.com">
+    </label>
+</div>
+
+<h3>Incorrect: Placeholder without a label</h3>
+<div class="demo">
+    <input type="text" name="nickname" placeholder="Nickname (no label)">
+    <p>Placeholder text disappears when you type and is not a replacement for a proper label.</p>
+</div>
+</section>
+
+<section class="card">
+<h2>Accessible Registration Example</h2>
+<form>
+    <label for="student-name">Student Name</label>
+    <input type="text" id="student-name" name="student-name" required placeholder="Enter your name">
+
+    <label for="student-email">University Email</label>
+    <input type="email" id="student-email" name="student-email" required placeholder="name@example.com">
+
+    <button type="submit">Check Form</button>
+</form>
+</section>
+
+<section class="card">
+<h2>Key Points</h2>
+<ul>
+    <li>Connect <code>label for="field-id"</code> to <code>input id="field-id"</code>.</li>
+    <li>The label's <code>for</code> and input's <code>id</code> must match exactly.</li>
+    <li>Clicking a connected label focuses its input.</li>
+    <li>Screen readers use labels to identify form controls.</li>
+    <li>Placeholders are hints, not replacements for labels.</li>
+</ul>
+</section>
+</main>
+</body>
+</html>

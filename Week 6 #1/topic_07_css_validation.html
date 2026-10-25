@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Topic 7 - CSS Validation | Anar</title>
+<style>
+:root {
+    --page-bg: #F0EBFF;
+    --card-bg: #FFFFFF;
+    --text-color: #292344;
+    --accent: #7957D5;
+    --border-color: #DED5F1;
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    background: var(--page-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+main { max-width: 760px; margin: auto; }
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 28px;
+    margin: 20px 0;
+}
+h1 { color: var(--accent); }
+.student { color: #6c5a9e; font-size: 14px; }
+label {
+    display: block;
+    margin: 14px 0 5px;
+    font-weight: bold;
+}
+input {
+    width: 100%;
+    padding: 11px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font: inherit;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+input:focus {
+    outline: 2px solid #B8A4F0;
+    outline-offset: 2px;
+}
+input:valid:not(:placeholder-shown) {
+    border-color: #23945F;
+    background: #F0FFF7;
+}
+input:invalid:not(:placeholder-shown) {
+    border-color: #D64545;
+    background: #FFF3F3;
+}
+button {
+    width: 100%;
+    margin-top: 18px;
+    padding: 11px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font: inherit;
+    cursor: pointer;
+}
+a { color: var(--accent); }
+.hint {
+    font-size: 14px;
+    color: #6c5a9e;
+}
+.status {
+    padding: 12px;
+    border-radius: 8px;
+    background: #F8F5FF;
+    margin-top: 14px;
+}
+</style>
+</head>
+<body>
+<main>
+<p><a href="index.html">← Week 6 #1 Home</a></p>
+
+<h1>Topic 07 — CSS Validation Pseudo-classes</h1>
+<p class="student">Anar · Student ID: 202637018 · Gachon University</p>
+
+<section class="card">
+<h2>Live Validation Demo</h2>
+<p>Enter information into the fields below. The border changes according to the browser's built-in validation rules.</p>
+
+<form action="#" method="get">
+    <label for="demo-name">Full Name</label>
+    <input type="text" id="demo-name" name="name"
+           required placeholder="Enter your name">
+    <p class="hint">Required field — cannot be empty.</p>
+
+    <label for="demo-email">Email Address</label>
+    <input type="email" id="demo-email" name="email"
+           required placeholder="name@example.com">
+    <p class="hint">Enter a valid email address.</p>
+
+    <label for="demo-id">Student ID</label>
+    <input type="text" id="demo-id" name="student-id"
+           pattern="[0-9]{9}" required
+           title="Enter exactly 9 digits"
+           placeholder="Enter 9 digits">
+    <p class="hint">Must contain exactly 9 digits.</p>
+
+    <button type="submit">Validate Form</button>
+</form>
+
+<div class="status">
+    <strong>Color guide:</strong>
+    <p>Green border = valid input after typing.</p>
+    <p>Red border = invalid input after typing.</p>
+    <p>Neutral border = empty field or field not yet filled in.</p>
+</div>
+</section>
+
+<section class="card">
+<h2>CSS Pseudo-classes</h2>
+<ul>
+    <li><code>:valid</code> selects inputs that satisfy their validation rules.</li>
+    <li><code>:invalid</code> selects inputs that do not satisfy their validation rules.</li>
+    <li><code>:not(:placeholder-shown)</code> selects inputs where the placeholder is no longer shown.</li>
+    <li><code>:focus</code> styles the input currently selected by the user.</li>
+</ul>
+
+<h3>CSS Used</h3>
+<pre><code>input:valid:not(:placeholder-shown) {
+    border-color: #23945F;
+}
+
+input:invalid:not(:placeholder-shown) {
+    border-color: #D64545;
+}
+
+input:focus {
+    outline: 2px solid #B8A4F0;
+}</code></pre>
+</section>
+
+</main>
+</body>
+</html>

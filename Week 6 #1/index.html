@@ -1,0 +1,334 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#171D2E">
+<title>Week 6 #1 ✦ Anar's Web Programming</title>
+<style>
+:root {
+    color-scheme: dark;
+    --page-bg: #171D2E;
+    --text-color: #EDF0FF;
+    --muted: #C3C9E8;
+    --card-bg: #222D43;
+    --accent: #B7A2FF;
+    --border-color: #8791C2;
+    --line-color: #34415D;
+    --shadow: rgba(0, 0, 0, 0.4);
+    --hero-start: #251D40;
+    --hero-end: #49366F;
+}
+body.light-mode {
+    color-scheme: light;
+    --page-bg: #F0EBFF;
+    --text-color: #292344;
+    --muted: #655B80;
+    --card-bg: #FFFFFF;
+    --accent: #7957D5;
+    --border-color: #B0A3D9;
+    --line-color: #DED5F1;
+    --shadow: rgba(41, 35, 68, 0.13);
+    --hero-start: #E6DCFF;
+    --hero-end: #CDBCF5;
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    background: var(--page-bg);
+    color: var(--text-color);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    transition: background .25s, color .25s;
+}
+main {
+    max-width: 1300px;
+    width: calc(100% - 48px);
+    margin: 0 auto;
+    padding-bottom: 60px;
+}
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    padding: 28px 4px 20px;
+    border-bottom: 1px solid var(--line-color);
+}
+.brand {
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+.top-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 15px;
+    background: var(--card-bg);
+    color: var(--text-color);
+    font: inherit;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 3px 4px 0 var(--shadow);
+    cursor: pointer;
+    transition: transform .2s, background .2s;
+}
+.button:hover {
+    transform: translateY(-2px);
+}
+.hero {
+    margin-top: 30px;
+    padding: 32px 38px;
+    border: 1px solid rgba(183, 162, 255, .25);
+    border-radius: 30px;
+    background: linear-gradient(120deg, var(--hero-start), var(--hero-end));
+    box-shadow: 8px 8px 0 var(--shadow);
+}
+.eyebrow {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+.hero h1 {
+    margin: 12px 0;
+    font-size: clamp(38px, 5vw, 58px);
+    line-height: 1.15;
+    letter-spacing: -1px;
+}
+.hero p:last-child {
+    margin-bottom: 0;
+    color: var(--muted);
+    font-size: 17px;
+}
+.archive {
+    margin-top: 34px;
+}
+.archive-label {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+.archive-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin: 2px 0 22px;
+}
+.archive-heading h2 {
+    margin: 0;
+    font-size: 34px;
+    letter-spacing: -.5px;
+}
+.count {
+    flex-shrink: 0;
+    padding: 10px 17px;
+    border: 1px solid var(--line-color);
+    border-radius: 30px;
+    background: var(--card-bg);
+    font-size: 13px;
+    font-weight: 900;
+    letter-spacing: 1px;
+}
+.group-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 24px 0 14px;
+    font-size: 19px;
+}
+.group-title::after {
+    content: "";
+    height: 2px;
+    flex: 1;
+    background: var(--line-color);
+}
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+.item {
+    min-width: 0;
+    min-height: 124px;
+    padding: 16px;
+    border: 2px solid var(--border-color);
+    border-radius: 21px;
+    background: var(--card-bg);
+    box-shadow: 4px 5px 0 var(--shadow);
+    transition: transform .2s, box-shadow .2s;
+}
+.item:hover {
+    transform: translateY(-3px);
+    box-shadow: 5px 8px 0 var(--shadow);
+}
+.item h3 {
+    margin: 0 0 17px;
+    font-size: 16px;
+}
+.item p {
+    margin: -8px 0 16px;
+    color: var(--muted);
+    font-size: 13px;
+}
+.item .button {
+    padding: 8px 14px;
+    border-radius: 25px;
+    font-size: 13px;
+    box-shadow: none;
+}
+.homework {
+    border-color: var(--accent);
+}
+.footer {
+    margin-top: 40px;
+    padding-top: 22px;
+    border-top: 1px solid var(--line-color);
+    color: var(--muted);
+    text-align: center;
+    font-size: 13px;
+}
+.footer a {
+    color: var(--accent);
+}
+@media (max-width: 1000px) {
+    .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 700px) {
+    main { width: calc(100% - 28px); }
+    .topbar { align-items: flex-start; flex-direction: column; }
+    .hero { padding: 25px 22px; border-radius: 22px; }
+    .archive-heading h2 { font-size: 27px; }
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 430px) {
+    .grid { grid-template-columns: 1fr; }
+    .archive-heading { align-items: flex-start; flex-direction: column; }
+    .top-actions { gap: 8px; }
+}
+</style>
+</head>
+<body>
+<main>
+    <nav class="topbar">
+        <div class="brand">ANAR · WEB PROGRAMMING</div>
+        <div class="top-actions">
+            <a class="button" href="../index.html">← Main portfolio</a>
+            <button class="button" id="theme-toggle" type="button">☀️ Light mode</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p>
+        <h1>Week 6 #1 ✦</h1>
+        <p>HTML Forms &amp; HTML5 Validation — collecting user information, validating input, and building accessible registration forms.</p>
+        <p class="eyebrow" style="margin-top:20px;letter-spacing:1px">
+            BATSUREN ANAR · STUDENT ID: 202637018
+        </p>
+    </header>
+
+    <section class="archive">
+        <p class="archive-label">THE LEARNING ARCHIVE</p>
+        <div class="archive-heading">
+            <h2>Exercises &amp; Topics</h2>
+            <span class="count">11 ACTIVITIES</span>
+        </div>
+
+        <h3 class="group-title">📚 Topics</h3>
+        <div class="grid">
+            <article class="item">
+                <h3>Topic 1</h3>
+                <a class="button" href="topic_01_why_forms.html">View Topic 1 ↗</a>
+            </article>
+            <article class="item">
+                <h3>Topic 2</h3>
+                <a class="button" href="topic_02_form_element.html">View Topic 2 ↗</a>
+            </article>
+            <article class="item">
+                <h3>Topic 3</h3>
+                <a class="button" href="topic_03_input_types.html">View Topic 3 ↗</a>
+            </article>
+            <article class="item">
+                <h3>Topic 4</h3>
+                <a class="button" href="topic_04_validation_attributes.html">View Topic 4 ↗</a>
+            </article>
+            <article class="item">
+                <h3>Topic 5</h3>
+                <a class="button" href="topic_05_labels_accessibility.html">View Topic 5 ↗</a>
+            </article>
+            <article class="item">
+                <h3>Topic 6</h3>
+                <a class="button" href="topic_06_fieldset_legend.html">View Topic 6 ↗</a>
+            </article>
+            <article class="item">
+                <h3>Topic 7</h3>
+                <a class="button" href="topic_07_css_validation.html">View Topic 7 ↗</a>
+            </article>
+        </div>
+
+        <h3 class="group-title">🧩 Exercises</h3>
+        <div class="grid">
+            <article class="item">
+                <h3>Exercise E1</h3>
+                <p>Build a login form</p>
+                <a class="button" href="exercise_E1_login_form.html">View Exercise ↗</a>
+            </article>
+            <article class="item">
+                <h3>Exercise E2</h3>
+                <p>Required &amp; pattern</p>
+                <a class="button" href="exercise_E2_validation_attributes.html">View Exercise ↗</a>
+            </article>
+            <article class="item">
+                <h3>Exercise E3</h3>
+                <p>CSS validation states</p>
+                <a class="button" href="exercise_E3_css_validation.html">View Exercise ↗</a>
+            </article>
+        </div>
+
+        <h3 class="group-title">🏆 Homework</h3>
+        <div class="grid">
+            <article class="item homework">
+                <h3>Student Registration</h3>
+                <p>Complete form challenge with validation and live slider.</p>
+                <a class="button" href="homework_student_registration.html">View Homework ↗</a>
+            </article>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>WEEK 6 #1 · HTML FORMS &amp; VALIDATION</p>
+        <p>Designed and developed by Batsuren Anar · 202637018</p>
+        <a href="../index.html">← Return to Main Portfolio</a>
+    </footer>
+</main>
+
+<script>
+const toggle = document.getElementById("theme-toggle");
+
+function updateThemeButton() {
+    toggle.textContent = document.body.classList.contains("light-mode")
+        ? "🌙 Dark mode"
+        : "☀️ Light mode";
+}
+
+toggle.addEventListener("click", function() {
+    document.body.classList.toggle("light-mode");
+    updateThemeButton();
+});
+
+updateThemeButton();
+</script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Exercise E3 - CSS Validation | Anar</title>
+<style>
+:root {
+    --page-bg: #F0EBFF;
+    --card-bg: #FFFFFF;
+    --text-color: #292344;
+    --accent: #7957D5;
+    --border-color: #DED5F1;
+}
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+    background: var(--page-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+main { max-width: 720px; margin: auto; }
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 28px;
+    margin: 20px 0;
+}
+h1 { color: var(--accent); }
+.student { color: #6c5a9e; font-size: 14px; }
+label {
+    display: block;
+    margin: 14px 0 6px;
+    font-weight: bold;
+}
+input {
+    width: 100%;
+    padding: 11px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    font: inherit;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+input:focus {
+    outline: 2px solid #B8A4F0;
+    outline-offset: 2px;
+}
+input:valid:not(:placeholder-shown) {
+    border-color: #23945F;
+    background: #F0FFF7;
+}
+input:invalid:not(:placeholder-shown) {
+    border-color: #D64545;
+    background: #FFF3F3;
+}
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 8px;
+    background: var(--accent);
+    color: white;
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+}
+a { color: var(--accent); }
+.hint { font-size: 14px; color: #6c5a9e; }
+.result {
+    display: none;
+    margin-top: 16px;
+    padding: 14px;
+    border-radius: 8px;
+}
+.result.success {
+    display: block;
+    background: #F0FFF7;
+    color: #176B45;
+}
+.result.error {
+    display: block;
+    background: #FFF3F3;
+    color: #A52525;
+}
+pre {
+    overflow-x: auto;
+    padding: 16px;
+    border-radius: 10px;
+    background: #F8F5FF;
+}
+</style>
+</head>
+<body>
+<main>
+<p><a href="index.html">← Week 6 #1 Home</a></p>
+
+<h1>Exercise E3 — Style Valid & Invalid States</h1>
+<p class="student">Anar · Student ID: 202637018 · Gachon University</p>
+
+<section class="card">
+<h2>Interactive Validation Form</h2>
+<p>Type into each field to see the border and background change automatically.</p>
+
+<form id="validation-form">
+    <label for="name">Full Name</label>
+    <input
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Enter your full name"
+        required
+    >
+
+    <label for="email">Email Address</label>
+    <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="name@example.com"
+        required
+    >
+
+    <label for="student-id">Student ID</label>
+    <input
+        type="text"
+        id="student-id"
+        name="student-id"
+        placeholder="Enter exactly 9 digits"
+        pattern="[0-9]{9}"
+        title="Enter exactly 9 digits."
+        required
+    >
+
+    <label for="password">Password</label>
+    <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="At least 8 characters"
+        minlength="8"
+        required
+    >
+
+    <button type="submit">Check Validation</button>
+</form>
+
+<div id="result" class="result" role="status" aria-live="polite"></div>
+</section>
+
+<section class="card">
+<h2>CSS Rules Used</h2>
+<pre><code>input:valid:not(:placeholder-shown) {
+    border-color: #23945F;
+    background: #F0FFF7;
+}
+
+input:invalid:not(:placeholder-shown) {
+    border-color: #D64545;
+    background: #FFF3F3;
+}
+
+input:focus {
+    outline: 2px solid #B8A4F0;
+}</code></pre>
+
+<h2>Exercise Checklist</h2>
+<ul>
+    <li>Valid fields display a green border after typing.</li>
+    <li>Invalid fields display a red border after typing.</li>
+    <li>Focused fields display an outline.</li>
+    <li>Required fields and input patterns use browser validation.</li>
+</ul>
+</section>
+</main>
+
+<script>
+const form = document.getElementById("validation-form");
+const result = document.getElementById("result");
+
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    result.className = "result success";
+    result.textContent =
+        "Success! All fields passed validation.";
+});
+</script>
+</body>
+</html>

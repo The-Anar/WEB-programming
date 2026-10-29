@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skip Link - Week 8</title>
+<style>
+body{font-family:Arial;background:#101426;color:#f1f2ff;max-width:850px;margin:40px auto;padding:20px;line-height:1.7}
+section{background:#191e32;border:1px solid #45416e;border-radius:12px;padding:22px;margin-top:20px}
+a{color:#b8a7ff}.skip{position:absolute;top:-100px;left:10px;background:white;color:black;padding:12px}.skip:focus{top:10px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<a href="index.html">← Back to Week 8</a>
+<header><h1>Skip Link</h1><p>Skip links help keyboard users bypass repeated navigation.</p></header>
+<main id="main" tabindex="-1">
+<section><h2>How it works</h2><p>A skip link moves keyboard focus to the main content.</p>
+<h2>Example</h2><pre>&lt;a href="#main"&gt;Skip to main content&lt;/a&gt;
+&lt;main id="main"&gt;...&lt;/main&gt;</pre>
+<h2>Try it</h2><p>Press Tab after reloading this page. The skip link should appear. Press Enter to jump to the main content.</p></section>
+</main>
+</body>
+</html>

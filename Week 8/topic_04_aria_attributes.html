@@ -1,0 +1,38 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ARIA Attributes - Week 8</title>
+<style>
+body{font-family:Arial,sans-serif;background:#101426;color:#f1f2ff;max-width:850px;margin:40px auto;padding:20px;line-height:1.7}
+section{background:#191e32;border:1px solid #45416e;border-radius:12px;padding:22px;margin-top:20px}
+a{color:#b8a7ff}
+</style>
+</head>
+<body>
+<a href="index.html">← Back to Week 8</a>
+<header>
+<p>WEEK 08 · WEB ACCESSIBILITY</p>
+<h1>ARIA Attributes</h1>
+<p>ARIA communicates accessibility information about elements and their states.</p>
+</header>
+<section>
+<h2>What Is ARIA?</h2>
+<p>ARIA stands for Accessible Rich Internet Applications. It helps assistive technologies understand interface elements.</p>
+<h2>aria-label</h2>
+<p>Provides an accessible name when a visible text label is not available.</p>
+<pre>&lt;button aria-label="Close"&gt;×&lt;/button&gt;</pre>
+<h2>aria-expanded</h2>
+<p>Communicates whether a collapsible control is expanded.</p>
+<pre>&lt;button aria-expanded="false"&gt;Menu&lt;/button&gt;</pre>
+<h2>aria-describedby</h2>
+<p>Connects an element to additional descriptive information.</p>
+<pre>&lt;input aria-describedby="help"&gt;
+&lt;p id="help"&gt;Enter your email address.&lt;/p&gt;</pre>
+<h2>Important Rule</h2>
+<p>Prefer native HTML where possible. ARIA communicates information but does not automatically make an element keyboard accessible.</p>
+</section>
+</body>
+</html>

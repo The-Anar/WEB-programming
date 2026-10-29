@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 8 — Web Accessibility</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:30px 20px;font-family:Arial,sans-serif;background:#171e31;color:#f0f1ff}
+.wrap{max-width:1260px;margin:auto}
+nav{display:flex;justify-content:space-between;align-items:center;gap:15px;padding-bottom:20px;border-bottom:1px solid #303750;margin-bottom:28px}
+.brand{font-weight:800;letter-spacing:1px}
+button,.btn{display:inline-block;padding:12px 17px;border:2px solid #8998cc;border-radius:17px;background:#222e46;color:#fff;text-decoration:none;font-weight:bold;cursor:pointer}
+.navright{display:flex;gap:12px;flex-wrap:wrap}
+.hero{padding:32px 36px;border:1px solid #514077;border-radius:30px;background:linear-gradient(120deg,#30234f,#49356d);box-shadow:7px 8px 0 #0e1321;margin-bottom:32px}
+.eyebrow{font-size:13px;font-weight:800;letter-spacing:3px}
+h1{font-size:clamp(36px,5vw,56px);margin:14px 0}
+.hero p{line-height:1.6}
+.student{font-weight:800;letter-spacing:1px;color:#c6c9ed}
+.archive{display:flex;align-items:end;justify-content:space-between;gap:15px;margin:30px 0}
+.archive h2{font-size:34px;margin:5px 0 0}
+.count{background:#222e46;border:1px solid #303e5e;border-radius:30px;padding:12px 17px;font-weight:bold;font-size:13px;white-space:nowrap}
+.section-title{display:flex;align-items:center;gap:14px;margin:30px 0 18px;font-weight:bold}
+.section-title:after{content:"";height:2px;background:#354363;flex:1}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.card{min-height:120px;padding:18px;border:2px solid #8998cc;border-radius:21px;background:#222e46;box-shadow:3px 4px 0 #0e1321}
+.card h3{font-size:15px;margin:0 0 18px}
+.card p{font-size:14px;color:#c9cde3;line-height:1.5}
+.btn{padding:10px 13px;border-radius:25px;font-size:13px}
+footer{text-align:center;border-top:1px solid #303750;margin-top:35px;padding:22px;color:#c5c9e2;font-size:13px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:24px}.archive h2{font-size:27px}nav{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav>
+<div class="brand">ANAR · WEB PROGRAMMING</div>
+<div class="navright">
+<a class="btn" href="../index.html">← Main portfolio</a>
+<button id="theme" type="button">☀️ Light mode</button>
+</div>
+</nav>
+
+<header class="hero">
+<p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p>
+<h1>Week 8 ✦</h1>
+<p>Web Accessibility — semantic structure, alt text, ARIA, keyboard support, and color contrast.</p>
+<p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
+</header>
+
+<div class="archive">
+<div><p class="eyebrow">THE LEARNING ARCHIVE</p><h2>Exercises &amp; Topics</h2></div>
+<span class="count">8 ACTIVITIES</span>
+</div>
+
+<div class="section-title">📚 Topics</div>
+<div class="grid">
+<div class="card"><h3>Topic 1 — Semantic HTML</h3><a class="btn" href="topic_01_semantic_html.html">View Topic 1 ↗</a></div>
+<div class="card"><h3>Topic 2 — Native Elements</h3><a class="btn" href="topic_02_native_elements.html">View Topic 2 ↗</a></div>
+<div class="card"><h3>Topic 3 — Alt Text</h3><a class="btn" href="topic_03_alt_text.html">View Topic 3 ↗</a></div>
+<div class="card"><h3>Topic 4 — ARIA Attributes</h3><a class="btn" href="topic_04_aria_attributes.html">View Topic 4 ↗</a></div>
+<div class="card"><h3>Topic 5 — Keyboard Navigation</h3><a class="btn" href="topic_05_keyboard_navigation.html">View Topic 5 ↗</a></div>
+<div class="card"><h3>Topic 6 — Color Contrast</h3><a class="btn" href="topic_06_color_contrast.html">View Topic 6 ↗</a></div>
+</div>
+
+<div class="section-title">🛠️ Exercises</div>
+<div class="grid">
+<div class="card"><h3>Exercise 1 — Lighthouse Audit</h3><a class="btn" href="homework_lighthouse_audit.html">View Exercise 1 ↗</a></div>
+<div class="card"><h3>Exercise 2 — Skip Link</h3><a class="btn" href="homework_skip_link.html">View Exercise 2 ↗</a></div>
+</div>
+
+<footer>BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer>
+</div>
+<script>
+const toggle=document.getElementById('theme');
+toggle.addEventListener('click',()=>{
+ const light=document.body.classList.toggle('light');
+ document.body.style.background=light?'#f2f3fb':'#171e31';
+ document.body.style.color=light?'#171e31':'#f0f1ff';
+ document.querySelectorAll('.card').forEach(c=>{c.style.background=light?'#fff':'#222e46';c.style.color=light?'#171e31':'#f0f1ff'});
+ document.querySelectorAll('.card .btn').forEach(b=>{b.style.color=light?'#171e31':'#fff'});
+ toggle.textContent=light?'🌙 Dark mode':'☀️ Light mode';
+});
+</script>
+</body>
+</html>

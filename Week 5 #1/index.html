@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 5 #1 — JavaScript Practice</title>
+<style>
+:root{--bg:#171e31;--panel:#222e47;--text:#f1f1ff;--muted:#b5c1dd;--border:#8797c9;--accent:#c8b5ff;--shadow:#0b0e18;--hero1:#30234d;--hero2:#503b78}
+body.light{--bg:#f3f3fc;--panel:#fff;--text:#20213a;--muted:#626b86;--border:#9ba7d0;--shadow:#d4d5e3;--hero1:#e9dcff;--hero2:#d6c4fa}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Arial,sans-serif;transition:.2s}
+header{max-width:1420px;margin:auto;padding:24px 34px;display:flex;justify-content:space-between;align-items:center;gap:16px;border-bottom:1px solid #35405a}
+.brand{font-size:19px;font-weight:900;letter-spacing:1px}
+.actions{display:flex;gap:12px;flex-wrap:wrap}
+a{color:inherit;text-decoration:none}
+button,.button{background:var(--panel);color:var(--text);border:2px solid var(--border);border-radius:16px;padding:11px 17px;font-weight:bold;cursor:pointer;display:inline-block}
+button:hover,.button:hover{transform:translateY(-2px)}
+main{max-width:1420px;margin:auto;padding:28px 34px 55px}
+.hero{background:linear-gradient(115deg,var(--hero1),var(--hero2));border:1px solid #574578;border-radius:30px;padding:30px 36px;margin:0 0 28px;box-shadow:8px 8px 0 var(--shadow)}
+.kicker{font-size:13px;letter-spacing:3px;font-weight:900}
+h1{font-size:clamp(36px,5vw,58px);line-height:1.15;margin:12px 0}
+.description{margin:12px 0}
+.student{font-weight:900;letter-spacing:1px;margin:20px 0 0}
+.archive{letter-spacing:3px;font-size:13px;font-weight:900;margin-top:30px}
+.heading-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h2{font-size:32px;margin:0 0 20px}
+.count{border-radius:30px;background:var(--panel);border:1px solid #35405a;padding:9px 17px;font-weight:900;font-size:13px}
+.divider{display:flex;align-items:center;gap:14px;font-weight:bold;margin:24px 0 14px}
+.divider:after{content:"";height:2px;background:#354664;flex:1}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{background:var(--panel);border:2px solid var(--border);border-radius:22px;padding:20px;box-shadow:4px 5px 0 var(--shadow);transition:.2s}
+.card:hover{transform:translateY(-3px)}
+.card h3{margin:0 0 8px;font-size:19px}
+.card p{color:var(--muted);margin:0 0 15px}
+.card .button{padding:8px 13px;border-radius:25px;font-size:13px}
+footer{max-width:1420px;margin:auto;padding:22px 34px;border-top:1px solid #35405a;color:var(--muted);font-size:13px}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){header{padding:18px;align-items:flex-start;flex-direction:column}main{padding:22px 16px}.hero{padding:23px 20px;border-radius:22px}.grid{grid-template-columns:1fr}h2{font-size:27px}footer{padding:20px 16px}}
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="../index.html">ANAR · WEB PROGRAMMING</a>
+  <div class="actions">
+    <a class="button" href="../index.html">← Main portfolio</a>
+    <button id="themeToggle" type="button">☀️ Light mode</button>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div class="kicker">GACHON UNIVERSITY · WEB PROGRAMMING</div>
+    <h1>Week 5 #1 ✦</h1>
+    <p class="description">JavaScript Practice — conditions, loops, arrays, and small interactive programs.</p>
+    <p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
+  </section>
+  <div class="archive">THE LEARNING ARCHIVE</div>
+  <div class="heading-row">
+    <h2>Exercises &amp; Topics</h2>
+    <span class="count">2 ACTIVITIES</span>
+  </div>
+  <div class="divider">💻 Exercises</div>
+  <section class="grid">
+    <article class="card">
+      <h3>Exercise 01</h3>
+      <p>Fruit Loops — practice loops and arrays.</p>
+      <a class="button" href="exercise_01_fruit_loops.html">View Exercise 1 ↗</a>
+    </article>
+    <article class="card">
+      <h3>Exercise 02</h3>
+      <p>Grade Calculator — practice conditional statements.</p>
+      <a class="button" href="exercise_02_grade_calculator.html">View Exercise 2 ↗</a>
+    </article>
+  </section>
+</main>
+<footer>Made by Batsuren Anar · Student ID: 202637018</footer>
+<script>
+const toggle=document.getElementById("themeToggle");
+toggle.addEventListener("click",()=>{
+  document.body.classList.toggle("light");
+  toggle.textContent=document.body.classList.contains("light")?"🌙 Dark mode":"☀️ Light mode";
+});
+</script>
+</body>
+</html>

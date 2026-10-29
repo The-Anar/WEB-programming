@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade Calculator — Anar</title>
+  <style>
+    :root{--bg:#0d1017;--panel:#171d27;--text:#f4f5fb;--muted:#a1abc2;--purple:#a78bfa;--cyan:#5eead4;--border:#30394a}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Arial,sans-serif}
+    header{padding:22px 7%;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    a{color:var(--cyan);text-decoration:none}main{max-width:800px;margin:40px auto;padding:0 22px}
+    .panel{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:28px}
+    .kicker{color:var(--cyan);letter-spacing:2px;font-size:12px;font-weight:bold}h1{font-size:36px;margin:8px 0}
+    .muted{color:var(--muted)}label{display:block;margin:20px 0 8px}
+    input,button{font:inherit;border-radius:9px;padding:12px 14px}
+    input{width:100%;background:#0d1017;color:var(--text);border:1px solid #49556b}
+    button{margin-top:14px;background:var(--purple);color:#171326;border:0;font-weight:bold;cursor:pointer}
+    #result{margin-top:22px;padding:18px;border:1px solid var(--border);border-radius:12px;display:none}
+    #grade{font-size:34px;font-weight:bold;color:var(--cyan)}footer{text-align:center;color:var(--muted);padding:25px;font-size:13px}
+  </style>
+</head>
+<body>
+<header>
+  <a href="index.html">← Week 5 Module</a>
+  <a href="../index.html">Portfolio Home ↗</a>
+</header>
+<main>
+  <section class="panel">
+    <p class="kicker">EXERCISE 02 · CONDITIONALS</p>
+    <h1>📊 Grade Calculator</h1>
+    <p class="muted">Enter a score from 0 to 100 to calculate a letter grade.</p>
+
+    <form id="gradeForm">
+      <label for="score">Your score (0–100)</label>
+      <input id="score" type="number" min="0" max="100" step="1" placeholder="Enter your score" required>
+      <button type="submit">Calculate grade</button>
+    </form>
+
+    <div id="result" role="status" aria-live="polite">
+      <p id="message"></p>
+      <div id="grade"></div>
+      <p id="feedback"></p>
+    </div>
+  </section>
+</main>
+<footer>Made by Batsuren Anar · Student ID: 202637018</footer>
+<script>
+  const form = document.getElementById("gradeForm");
+  const scoreInput = document.getElementById("score");
+  const result = document.getElementById("result");
+
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const score = Number(scoreInput.value);
+
+    if (scoreInput.value.trim() === "" || !Number.isFinite(score) ||
+        score < 0 || score > 100) {
+      result.style.display = "block";
+      document.getElementById("message").textContent =
+        "Please enter a valid score between 0 and 100.";
+      document.getElementById("grade").textContent = "Invalid score";
+      document.getElementById("feedback").textContent =
+        "Check your score and try again.";
+      return;
+    }
+
+    let letter;
+    if (score >= 90) letter = "A";
+    else if (score >= 80) letter = "B";
+    else if (score >= 70) letter = "C";
+    else if (score >= 60) letter = "D";
+    else letter = "F";
+
+    document.getElementById("message").textContent = `Your score: ${score}/100`;
+    document.getElementById("grade").textContent = `Grade: ${letter}`;
+    document.getElementById("feedback").textContent =
+      score >= 60 ? "Good work! You passed." : "Keep practicing and try again.";
+    result.style.display = "block";
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fruit Loops — Anar</title>
+  <style>
+    :root{--bg:#0d1017;--panel:#171d27;--card:#1d2531;--text:#f4f5fb;--muted:#a1abc2;--purple:#a78bfa;--cyan:#5eead4;--border:#30394a}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Arial,sans-serif}
+    header{padding:22px 7%;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    a{color:var(--cyan);text-decoration:none}main{max-width:850px;margin:40px auto;padding:0 22px}
+    .panel{background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:28px;margin-bottom:20px}
+    .kicker{color:var(--cyan);letter-spacing:2px;font-size:12px;font-weight:bold}h1{font-size:36px;margin:8px 0}
+    .muted{color:var(--muted)}button,input{font:inherit;border-radius:9px;padding:11px 13px}
+    input{background:#0d1017;color:var(--text);border:1px solid #49556b;min-width:0}
+    button{background:var(--purple);color:#171326;border:0;font-weight:bold;cursor:pointer}
+    .controls{display:flex;gap:10px;flex-wrap:wrap}.controls input{flex:1}
+    li{padding:5px 0}footer{text-align:center;color:var(--muted);padding:25px;font-size:13px}
+  </style>
+</head>
+<body>
+<header>
+  <a href="index.html">← Week 5 Module</a>
+  <a href="../index.html">Portfolio Home ↗</a>
+</header>
+<main>
+  <section class="panel">
+    <p class="kicker">EXERCISE 01 · LOOPS & ARRAYS</p>
+    <h1>🍎 Fruit Loops</h1>
+    <p class="muted">A small interactive exercise using JavaScript loops and arrays.</p>
+  </section>
+
+  <section class="panel">
+    <h2>Repeat 5 times</h2>
+    <p class="muted">A loop can repeat the same action a set number of times.</p>
+    <ol id="steps"></ol>
+  </section>
+
+  <section class="panel">
+    <h2>Loop through an array</h2>
+    <div class="controls">
+      <input id="fruitInput" type="text" placeholder="Add a fruit..." aria-label="Fruit name">
+      <button id="addFruit">Add fruit</button>
+    </div>
+    <ul id="fruitList"></ul>
+    <p class="muted" id="fruitCount" aria-live="polite"></p>
+    <button id="resetFruits" type="button">Reset fruits</button>
+  </section>
+</main>
+<footer>Made by Batsuren Anar · Student ID: 202637018</footer>
+<script>
+  const steps = document.getElementById("steps");
+  for (let i = 1; i <= 5; i++) {
+    const item = document.createElement("li");
+    item.textContent = `Step ${i}`;
+    steps.appendChild(item);
+  }
+
+  const initialFruits = ["apple", "banana", "cherry"];
+  let fruits = [...initialFruits];
+  const fruitList = document.getElementById("fruitList");
+  const fruitCount = document.getElementById("fruitCount");
+  const fruitInput = document.getElementById("fruitInput");
+
+  function renderFruits() {
+    fruitList.replaceChildren();
+    for (const fruit of fruits) {
+      const item = document.createElement("li");
+      item.textContent = fruit;
+      fruitList.appendChild(item);
+    }
+    fruitCount.textContent = `${fruits.length} fruit${fruits.length === 1 ? "" : "s"} in the array`;
+  }
+
+  function addFruit() {
+    const fruit = fruitInput.value.trim();
+    if (!fruit) {
+      fruitInput.focus();
+      return;
+    }
+    fruits.push(fruit);
+    fruitInput.value = "";
+    renderFruits();
+    fruitInput.focus();
+  }
+
+  document.getElementById("addFruit").addEventListener("click", addFruit);
+  fruitInput.addEventListener("keydown", event => {
+    if (event.key === "Enter") addFruit();
+  });
+  document.getElementById("resetFruits").addEventListener("click", () => {
+    fruits = [...initialFruits];
+    renderFruits();
+  });
+  renderFruits();
+</script>
+</body>
+</html>

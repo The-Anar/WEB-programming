@@ -1,0 +1,11 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Week 7 Book Search App lab"><title>Polish: Loading & Errors · Anar Web Programming</title><link rel="stylesheet" href="style.css"></head><body><header class="topbar wrap"><a class="brand" href="index.html">ANAR · WEB PROGRAMMING</a><div class="top-actions"><a class="outline-btn" href="../index.html">← Main portfolio</a><button class="outline-btn" data-theme-toggle type="button">☀️ Light mode</button></div></header><main class="wrap"><section class="hero"><div class="eyebrow">EXERCISE · 06</div><h1>Polish: Loading & Errors</h1><p>Give users feedback while the request is running, when no books match, and when a network request fails.</p><div class="student">BATSUREN ANAR · STUDENT ID: 202637018</div></section><nav class="navlinks" aria-label="Course resources"><a href="index.html">Book Search App</a><a href="api_explorer.html">API Explorer</a><a href="step1_html_structure.html">Step 1</a><a href="step2_css_layout_and_cards.html">Step 2</a><a href="step3_js_dom_wire_the_form.html">Step 3</a><a href="step4_fetch_call_the_api.html">Step 4</a><a href="step5_render_display_cards.html">Step 5</a><a href="step6_polish.html">Step 6</a></nav><section class="panel content"><h2>Code sample</h2><pre class="code"><code>status.textContent = "Searching…";
+try {
+  const response = await fetch(apiUrl);
+  if (!response.ok) throw new Error("Request failed");
+  const data = await response.json();
+  status.textContent = data.docs.length
+    ? "Books loaded."
+    : "No books found. Try another search.";
+} catch (error) {
+  status.textContent = "Couldn't load books. Try again.";
+}</code></pre><h2>Checklist</h2><ul><li>Show a loading message before fetching.</li><li>Handle empty results separately from network errors.</li><li>Use aria-live status feedback.</li></ul><p class="notice">Try the <a href="app.html">complete Book Search App</a> after reviewing this step.</p></section></main><footer class="footer wrap"><span>BATSUREN ANAR · STUDENT ID: 202637018</span><span>Week 7 #1 · Open Library API</span></footer><script src="app.js"></script></body></html>

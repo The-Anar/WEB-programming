@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Semantic HTML - Week 9</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:30px 20px;font-family:Arial,sans-serif;background:#171e31;color:#f0f1ff;line-height:1.7}
+.wrap{max-width:900px;margin:auto}
+nav{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:20px;border-bottom:1px solid #303750;margin-bottom:28px}
+.brand{font-weight:800;letter-spacing:1px}
+a{color:#c4b6ff}
+.btn,button{display:inline-block;padding:10px 14px;border:2px solid #8998cc;border-radius:20px;background:#222e46;color:#fff;text-decoration:none;font-weight:bold;cursor:pointer}
+.hero,section{padding:24px;margin-bottom:18px;border:1px solid #514077;border-radius:22px;background:#191e32}
+.hero{background:linear-gradient(120deg,#30234f,#49356d);box-shadow:5px 6px 0 #0e1321}
+.eyebrow{font-size:13px;font-weight:800;letter-spacing:2px}
+h1{font-size:clamp(30px,5vw,44px);line-height:1.2}
+h2{font-size:21px}
+li{margin:10px 0}
+footer{text-align:center;border-top:1px solid #303750;margin-top:30px;padding:20px;color:#c5c9e2;font-size:13px}
+button:focus-visible,a:focus-visible{outline:3px solid #f5cf70;outline-offset:3px}
+body.light{background:#f2f3fb;color:#171e31}
+body.light section{background:#fff}
+body.light .btn,body.light button{background:#fff;color:#171e31}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav><strong class="brand">ANAR · WEB PROGRAMMING</strong><a class="btn" href="index.html">← Back to Week 9</a></nav>
+<header class="hero">
+<p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p>
+<p>WEEK 09 · WEB ACCESSIBILITY</p>
+<h1>Semantic HTML</h1>
+<p>Semantic HTML uses elements that communicate the purpose of content.</p>
+<p><strong>BATSUREN ANAR · STUDENT ID: 202637018</strong></p>
+</header>
+<section>
+<h2>Learning Notes</h2>
+<ul>
+<li>header: introductory content.</li>
+<li>nav: navigation links.</li>
+<li>main: the main page content.</li>
+<li>article: independent content.</li>
+<li>footer: footer information.</li>
+<li>Semantic elements help screen-reader users navigate a page.</li>
+
+</ul>
+</section>
+<section>
+<h2>Practice</h2>
+<p>Review the examples, then explain how the concepts improve accessibility for users.</p>
+</section>
+<footer>BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer>
+</div>
+<script>
+document.addEventListener('keydown',function(e){
+ if(e.altKey && e.key.toLowerCase()==='t'){
+  document.body.classList.toggle('light');
+ }
+});
+</script>
+</body>
+</html>

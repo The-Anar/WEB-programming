@@ -1,32 +1,477 @@
-<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Country Table</title><style>
-:root{--bg:#171e31;--panel:#222e47;--text:#f1f1ff;--muted:#b5c1dd;--border:#8797c9;--shadow:#0b0e18;--hero1:#30234d;--hero2:#503b78;--accent:#c8b5ff}
-body.light{--bg:#f3f3fc;--panel:#fff;--text:#20213a;--muted:#626b86;--border:#9ba7d0;--shadow:#d4d5e3;--hero1:#e9dcff;--hero2:#d6c4fa}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Arial,sans-serif;transition:.2s}
-header{max-width:1420px;margin:auto;padding:24px 34px;display:flex;justify-content:space-between;align-items:center;gap:16px;border-bottom:1px solid #35405a}
-.brand{font-size:19px;font-weight:900;letter-spacing:1px}.actions{display:flex;gap:12px;flex-wrap:wrap}
-a{color:inherit;text-decoration:none}button,.button{background:var(--panel);color:var(--text);border:2px solid var(--border);border-radius:16px;padding:10px 15px;font-weight:bold;cursor:pointer;display:inline-block}
-button:hover,.button:hover{transform:translateY(-2px)}main{max-width:1420px;margin:auto;padding:28px 34px 55px}
-.hero{background:linear-gradient(115deg,var(--hero1),var(--hero2));border:1px solid #574578;border-radius:30px;padding:30px 36px;margin:0 0 28px;box-shadow:8px 8px 0 var(--shadow)}
-.kicker{font-size:13px;letter-spacing:3px;font-weight:900}h1{font-size:clamp(36px,5vw,58px);line-height:1.15;margin:12px 0}
-.description{margin:12px 0}.student{font-weight:900;letter-spacing:1px;margin:20px 0 0}.archive{letter-spacing:3px;font-size:13px;font-weight:900;margin-top:30px}
-.heading-row{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}h2{font-size:32px;margin:0 0 20px}
-.count{border-radius:30px;background:var(--panel);border:1px solid #35405a;padding:9px 17px;font-weight:900;font-size:13px}
-.divider{display:flex;align-items:center;gap:14px;font-weight:bold;margin:24px 0 14px}.divider:after{content:"";height:2px;background:#354664;flex:1}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.card,.work{background:var(--panel);border:2px solid var(--border);border-radius:22px;padding:20px;box-shadow:4px 5px 0 var(--shadow);transition:.2s}
-.card:hover{transform:translateY(-3px)}.card h3{margin:0 0 8px;font-size:19px}.card p{color:var(--muted);margin:0 0 15px}.card .button{padding:8px 13px;border-radius:25px;font-size:13px}
-.work{max-width:900px;margin:0 auto}.work h2{margin-top:0}.work p{color:var(--muted)}.result{margin:18px 0;padding:18px;border:1px solid #354664;border-radius:16px;background:var(--bg);white-space:pre-wrap;overflow-wrap:anywhere}
-input{background:var(--bg);color:var(--text);border:2px solid var(--border);border-radius:12px;padding:11px 13px;max-width:100%;font:inherit}
-.row{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}.small{font-size:13px;color:var(--muted)}
-footer{max-width:1420px;margin:auto;padding:22px 34px;border-top:1px solid #35405a;color:var(--muted);font-size:13px}
-@media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){header{padding:18px;align-items:flex-start;flex-direction:column}main{padding:22px 16px}.hero{padding:23px 20px;border-radius:22px}.grid{grid-template-columns:1fr}h2{font-size:27px}footer{padding:20px 16px}}
-</style></head>
-<body><header><a class="brand" href="index.html">ANAR · WEB PROGRAMMING</a><div class="actions"><a class="button" href="index.html">← Week 6 #2</a><button id="themeToggle" type="button">☀️ Light mode</button></div></header>
-<main>
-<div class="work"><h2>🌍 Country Search</h2><p>Search a country by name (for example Mongolia, South Korea, or Japan).</p><div class="row"><input id="country" value="Mongolia" aria-label="Country name"><button id="load">Find Country</button></div><div id="result" class="result">Country information will appear here.</div></div>
-</main><footer>Made by Batsuren Anar · Student ID: 202637018</footer><script>
-const toggle=document.getElementById("themeToggle");
-if(toggle){toggle.addEventListener("click",()=>{document.body.classList.toggle("light");toggle.textContent=document.body.classList.contains("light")?"🌙 Dark mode":"☀️ Light mode";});}
 
-document.getElementById('load').addEventListener('click',async()=>{let n=document.getElementById('country').value.trim(),o=document.getElementById('result');if(!n){o.textContent='Enter a country name first.';return}o.textContent='Loading…';try{let r=await fetch('https://restcountries.com/v3.1/name/'+encodeURIComponent(n));if(!r.ok)throw Error();let d=await r.json();o.textContent=d.slice(0,5).map(c=>c.name.common+'\nCapital: '+(c.capital||['Not listed']).join(', ')+'\nRegion: '+c.region+'\nPopulation: '+c.population.toLocaleString()+'\nLanguages: '+Object.values(c.languages||{}).join(', ')).join('\n\n---\n\n')}catch(e){o.textContent='No country found, or the request failed. Try another name.'}});
-</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country Search | Anar</title>
+
+    <style>
+        :root {
+            --bg: #171f35;
+            --card: #222f49;
+            --input: #171f35;
+            --text: #f4f5ff;
+            --muted: #b8c9e5;
+            --border: #899bcf;
+            --result: #171f35;
+            --accent: #a9baff;
+            --error: #ff7777;
+        }
+
+        body.light {
+            --bg: #eef2ff;
+            --card: #ffffff;
+            --input: #f4f6ff;
+            --text: #202944;
+            --muted: #52617d;
+            --border: #8798c9;
+            --result: #f4f6ff;
+            --accent: #566db5;
+            --error: #d93030;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        header {
+            min-height: 90px;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            border-bottom: 1px solid rgba(137, 155, 207, 0.25);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 12px;
+        }
+
+        button, .back-button {
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            padding: 16px 22px;
+            background: transparent;
+            color: var(--text);
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        button:hover, .back-button:hover {
+            background: var(--accent);
+            color: #171f35;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        main {
+            max-width: 1300px;
+            margin: 40px auto 75px;
+            padding: 0 24px;
+        }
+
+        .search-card {
+            max-width: 1100px;
+            margin: auto;
+            padding: 38px;
+            background: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 30px;
+            box-shadow: 6px 7px 0 #080d19;
+        }
+
+        h1 {
+            margin: 0 0 38px;
+            font-size: 42px;
+        }
+
+        .description {
+            color: var(--muted);
+            font-size: 19px;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 14px;
+        }
+
+        input {
+            flex: 1;
+            min-width: 0;
+            padding: 18px;
+            border: 2px solid var(--border);
+            border-radius: 17px;
+            background: var(--input);
+            color: var(--text);
+            font-size: 18px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(137, 155, 207, 0.2);
+        }
+
+        .search-form button {
+            white-space: nowrap;
+        }
+
+        #result {
+            margin-top: 26px;
+            padding: 24px;
+            min-height: 130px;
+            background: var(--result);
+            border: 1px solid rgba(137, 155, 207, 0.2);
+            border-radius: 22px;
+        }
+
+        .country-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 22px;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(137, 155, 207, 0.25);
+        }
+
+        .country-card:first-child {
+            padding-top: 0;
+        }
+
+        .country-card:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .flag {
+            width: 130px;
+            max-height: 90px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .country-details h2 {
+            margin: 0 0 12px;
+            font-size: 25px;
+        }
+
+        .country-details p {
+            margin: 7px 0;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .error {
+            color: var(--error);
+            font-size: 18px;
+        }
+
+        .loading {
+            color: var(--muted);
+        }
+
+        footer {
+            padding: 28px 24px;
+            border-top: 1px solid rgba(137, 155, 207, 0.25);
+            color: var(--muted);
+        }
+
+        @media (max-width: 650px) {
+            header {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .logo {
+                font-size: 19px;
+            }
+
+            .header-buttons {
+                flex-wrap: wrap;
+            }
+
+            main {
+                margin-top: 25px;
+                padding: 0 14px;
+            }
+
+            .search-card {
+                padding: 22px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            .search-form {
+                flex-direction: column;
+            }
+
+            .country-card {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">ANAR · WEB PROGRAMMING</div>
+
+    <div class="header-buttons">
+        <a class="back-button" href="index.html">← Week 6 #2</a>
+        <button id="themeToggle" type="button">☀️ Light mode</button>
+    </div>
+</header>
+
+<main>
+    <section class="search-card">
+        <h1>🌍 Country Search</h1>
+
+        <p class="description">
+            Search for a country by name, such as Mongolia,
+            South Korea, or Japan.
+        </p>
+
+        <form class="search-form" id="searchForm">
+            <input
+                type="text"
+                id="country"
+                placeholder="Enter a country name"
+                value="Mongolia"
+                required
+            >
+            <button type="submit" id="load">Find Country</button>
+        </form>
+
+        <div id="result" aria-live="polite">
+            <p class="loading">
+                Search for a country to see its information.
+            </p>
+        </div>
+    </section>
+</main>
+
+<footer>
+    Made by Batsuren Anar · Student ID: 202637018
+</footer>
+
+<script>
+    // API CONFIGURATION
+    // Replace this placeholder with your NEW REST Countries API key.
+    const API_KEY = "rc_live_6022349366f9452b9e82ea37b3ab16b5";
+
+    // Theme toggle
+    const toggle = document.getElementById("themeToggle");
+
+    toggle.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+
+        toggle.textContent =
+            document.body.classList.contains("light")
+                ? "🌙 Dark mode"
+                : "☀️ Light mode";
+    });
+
+    // Country search elements
+    const form = document.getElementById("searchForm");
+    const input = document.getElementById("country");
+    const button = document.getElementById("load");
+    const result = document.getElementById("result");
+
+    // Safely convert different API values into readable text
+    function readable(value) {
+        if (value == null) return "Not listed";
+
+        if (typeof value === "string" || typeof value === "number") {
+            return String(value);
+        }
+
+        if (Array.isArray(value)) {
+            return value.map(readable).join(", ") || "Not listed";
+        }
+
+        if (typeof value === "object") {
+            return value.name || value.common || value.official ||
+                value.english_name || "Not listed";
+        }
+
+        return "Not listed";
+    }
+
+    // Country search
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const countryName = input.value.trim();
+
+        if (!countryName) {
+            result.textContent = "Please enter a country name.";
+            return;
+        }
+
+        if (API_KEY === "PASTE_YOUR_NEW_API_KEY_HERE") {
+            result.textContent =
+                "Please add your REST Countries API key in the JavaScript configuration.";
+            return;
+        }
+
+        button.disabled = true;
+        button.textContent = "Searching...";
+        result.textContent = "Loading country information...";
+
+        try {
+            const url =
+                "https://api.restcountries.com/countries/v5/name?q=" +
+                encodeURIComponent(countryName) +
+                "&limit=10";
+
+            const response = await fetch(url, {
+                headers: {
+                    "Authorization": "Bearer " + API_KEY
+                }
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    data.errors?.[0]?.message ||
+                    "The country service returned an error."
+                );
+            }
+
+            const countries = data.data?.objects || [];
+
+            if (countries.length === 0) {
+                throw new Error("No country found. Check the spelling.");
+            }
+
+            result.replaceChildren();
+
+            countries.forEach((country) => {
+                const card = document.createElement("article");
+                card.className = "country-card";
+
+                const flag = document.createElement("img");
+                flag.className = "flag";
+                flag.alt = "Flag of " +
+                    readable(country.names?.common);
+
+                const flagUrl =
+                    country.flag?.url_png ||
+                    country.flag?.png ||
+                    "";
+
+                if (flagUrl) {
+                    flag.src = flagUrl;
+                } else {
+                    flag.hidden = true;
+                }
+
+                const details = document.createElement("div");
+                details.className = "country-details";
+
+                const title = document.createElement("h2");
+                title.textContent =
+                    (country.flag?.emoji || "🌍") + " " +
+                    readable(country.names?.common);
+
+                const capital = document.createElement("p");
+                capital.textContent =
+                    "Capital: " + readable(country.capitals);
+
+                const region = document.createElement("p");
+                region.textContent =
+                    "Region: " + readable(country.region);
+
+                const population = document.createElement("p");
+                population.textContent =
+                    "Population: " +
+                    (country.population != null
+                        ? Number(country.population).toLocaleString()
+                        : "Not listed");
+
+                const languages = document.createElement("p");
+
+                let languageList = "Not listed";
+
+                if (country.languages) {
+                    languageList = Object.values(country.languages)
+                        .map(language => {
+                            if (typeof language === "string") {
+                                return language;
+                            }
+
+                            return language.name ||
+                                language.english_name || "";
+                        })
+                        .filter(Boolean)
+                        .join(", ") || "Not listed";
+                }
+
+                languages.textContent =
+                    "Languages: " + languageList;
+
+                details.append(
+                    title,
+                    capital,
+                    region,
+                    population,
+                    languages
+                );
+
+                card.append(flag, details);
+                result.append(card);
+            });
+
+        } catch (error) {
+            console.error("Country search error:", error);
+
+            result.replaceChildren();
+
+            const message = document.createElement("p");
+            message.className = "error";
+            message.textContent =
+                error.message ||
+                "Something went wrong. Check your connection.";
+
+            result.append(message);
+
+        } finally {
+            button.disabled = false;
+            button.textContent = "Find Country";
+        }
+    });
+
+    // Automatically search Mongolia when the page opens.
+    form.requestSubmit();
+</script>
+
+</body>
+</html>

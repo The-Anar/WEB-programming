@@ -1271,6 +1271,36 @@ main section a:focus-visible {
     }
 }
 
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+    }
+}
+
+/* FINORA featured navigation link */
+.site-nav .nav-links a.finora-link {
+    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    color: #ffffff;
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+    transition: all 0.25s ease;
+}
+
+.site-nav .nav-links a.finora-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.45);
+    color: #ffffff;
+}
+
+</style>
 </style>
 <link rel="stylesheet" href="music-player.css">
 <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -1348,6 +1378,8 @@ main section a:focus-visible {
         <a href="games.html">Mini Games</a>
 
         <a href="about.html">About</a>
+
+        <a href="FINORA/index.html" class="finora-link">💰 FINORA ↗</a>
         
 
     </div>

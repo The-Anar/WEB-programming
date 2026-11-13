@@ -1,0 +1,372 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#171D2E">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>404 — Page Not Found · Anar</title>
+
+    <style>
+        :root {
+            color-scheme: light;
+            --page-bg: #F0EBFF;
+            --text: #292344;
+            --muted: #655B80;
+            --card: #FFFFFF;
+            --border: #B0A3D9;
+            --shadow: #DED5F1;
+            --button-bg: #FFF;
+            --button-text: #292344;
+            --line: #DED5F1;
+        }
+
+        body.dark-mode {
+            color-scheme: dark;
+            --page-bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --border: #8990BD;
+            --shadow: #29213F;
+            --button-bg: #222D43;
+            --button-text: #F0EDFF;
+            --line: #343D55;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            min-height: 100%;
+            background: var(--page-bg);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            padding: 24px;
+            background: var(--page-bg);
+            color: var(--text);
+            font: 16px/1.65 Arial, sans-serif;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1050px;
+            margin: 0 auto;
+        }
+
+        .site-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 18px 8px;
+            margin-bottom: 38px;
+            border-bottom: 1px solid var(--line);
+            flex-wrap: wrap;
+        }
+
+        .nav-brand {
+            color: var(--text);
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-brand span {
+            color: #8065C9;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav-link,
+        .theme-toggle,
+        .home-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 16px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            background: var(--button-bg);
+            color: var(--button-text);
+            font: 700 14px Arial, sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 4px 4px 0 var(--shadow);
+        }
+
+        .nav-link:hover,
+        .theme-toggle:hover,
+        .home-button:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--shadow);
+        }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            padding: 55px 35px;
+            border: 1px solid #493B79;
+            border-radius: 26px;
+            background: linear-gradient(125deg, #211B3B 0%, #33265B 58%, #493B79 100%);
+            color: #FFFDF8;
+            text-align: center;
+            box-shadow: 7px 7px 0 var(--shadow);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            top: -140px;
+            right: -90px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(194, 171, 255, 0.2), transparent 70%);
+            pointer-events: none;
+        }
+
+        .eyebrow {
+            position: relative;
+            z-index: 1;
+            margin: 0 0 16px;
+            color: #D0BFFF;
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .error-code {
+            position: relative;
+            z-index: 1;
+            margin: 0;
+            color: #FFCF70;
+            font-size: clamp(6rem, 20vw, 11rem);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -8px;
+        }
+
+        .hero h1 {
+            position: relative;
+            z-index: 1;
+            margin: 18px 0 10px;
+            font-size: clamp(1.8rem, 4vw, 2.7rem);
+            line-height: 1.2;
+        }
+
+        .description {
+            position: relative;
+            z-index: 1;
+            max-width: 570px;
+            margin: 0 auto;
+            color: #E0DAEF;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        .home-button {
+            position: relative;
+            z-index: 1;
+            margin-top: 28px;
+            padding: 14px 23px;
+            border-color: #D0BFFF;
+            background: #F0EBFF;
+            color: #292344;
+            font-size: 15px;
+        }
+
+        .suggestions {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin-top: 28px;
+        }
+
+        .suggestion-card {
+            padding: 20px;
+            border: 2px solid var(--border);
+            border-radius: 18px;
+            background: var(--card);
+            box-shadow: 4px 4px 0 var(--shadow);
+        }
+
+        .suggestion-card h2 {
+            margin: 0 0 8px;
+            font-size: 1.05rem;
+        }
+
+        .suggestion-card p {
+            margin: 0 0 14px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .suggestion-card a {
+            color: var(--text);
+            font-weight: 700;
+            text-decoration-color: #8065C9;
+            text-underline-offset: 4px;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid #8065C9;
+            outline-offset: 4px;
+        }
+
+        .footer {
+            margin-top: 38px;
+            padding: 20px;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.82rem;
+            text-align: center;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 16px;
+            }
+
+            .site-nav {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .hero {
+                padding: 42px 20px;
+            }
+
+            .suggestions {
+                grid-template-columns: 1fr;
+            }
+
+            .error-code {
+                letter-spacing: -4px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="site-nav" aria-label="Main navigation">
+            <a class="nav-brand" href="/WEB-programming/index.html">
+                ANAR <span>·</span> WEB PROGRAMMING
+            </a>
+
+            <div class="nav-actions">
+                <a class="nav-link" href="/WEB-programming/index.html">Home</a>
+                <a class="nav-link" href="/WEB-programming/index.html#coursework">Coursework</a>
+                <button class="theme-toggle" id="themeToggle" type="button"
+                    aria-label="Switch to dark mode">
+                    <span id="themeIcon" aria-hidden="true">🌙</span>
+                    <span id="themeLabel">Dark mode</span>
+                </button>
+            </div>
+        </nav>
+
+        <main id="main-content">
+            <section class="hero" aria-labelledby="error-title">
+                <p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p>
+
+                <p class="error-code" aria-label="Error 404">404</p>
+
+                <h1 id="error-title">Page Not Found</h1>
+
+                <p class="description">
+                    Looks like this page has wandered off.
+                    The address may be incorrect, or the page may have been moved.
+                    Don't worry — you can return to the main portfolio.
+                </p>
+
+                <a class="home-button" href="/WEB-programming/index.html">
+                    ← Back to Main Portfolio
+                </a>
+            </section>
+
+            <section class="suggestions" aria-label="Helpful destinations">
+                <article class="suggestion-card">
+                    <h2>🏠 Home</h2>
+                    <p>Return to the main portfolio and explore the latest work.</p>
+                    <a href="/WEB-programming/index.html">Visit homepage ↗</a>
+                </article>
+
+                <article class="suggestion-card">
+                    <h2>📚 Coursework</h2>
+                    <p>Browse programming topics, exercises and university assignments.</p>
+                    <a href="/WEB-programming/index.html#coursework">Explore coursework ↗</a>
+                </article>
+
+                <article class="suggestion-card">
+                    <h2>👤 About</h2>
+                    <p>Learn more about the student behind this portfolio.</p>
+                    <a href="/WEB-programming/about.html">About Anar ↗</a>
+                </article>
+            </section>
+        </main>
+
+        <footer class="footer">
+            BATSUREN ANAR · STUDENT ID: 202637018<br>
+            GACHON UNIVERSITY · WEB PROGRAMMING
+        </footer>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById("themeToggle");
+        const themeIcon = document.getElementById("themeIcon");
+        const themeLabel = document.getElementById("themeLabel");
+
+        function setTheme(isDark) {
+            document.body.classList.toggle("dark-mode", isDark);
+
+            themeIcon.textContent = isDark ? "☀️" : "🌙";
+            themeLabel.textContent = isDark ? "Light mode" : "Dark mode";
+
+            themeToggle.setAttribute(
+                "aria-label",
+                isDark ? "Switch to light mode" : "Switch to dark mode"
+            );
+        }
+
+        const savedTheme = localStorage.getItem("anar-theme");
+        setTheme(savedTheme === "dark");
+
+        themeToggle.addEventListener("click", function () {
+            const isDark = !document.body.classList.contains("dark-mode");
+
+            setTheme(isDark);
+            localStorage.setItem("anar-theme", isDark ? "dark" : "light");
+        });
+    </script>
+</body>
+
+</html>

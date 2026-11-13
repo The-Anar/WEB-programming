@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 
@@ -260,67 +261,100 @@
     <main>
         <nav class="top">
             <div class="brand">ANAR · WEB PROGRAMMING</div>
-            <div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn"
-                    href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div>
+            <div class="actions">
+                <a class="btn" href="index.html">← Section home</a>
+                <a class="btn" href="../index.html">Main portfolio</a>
+                <button id="theme" type="button">☀️ Light mode</button>
+            </div>
         </nav>
+
         <header class="hero">
             <p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p>
             <h1>Week 8.2 · JavaScript Form Validation</h1>
-            <p>Control form submission with JavaScript, the Validity API and accessible error messages.</p>
+            <p>Learn how JavaScript controls form submission, checks input values, validates user data and provides accessible error messages.</p>
             <p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
         </header>
-        <div id="main-content">
+
+        <div id="main-content" tabindex="-1">
             <section class="section">
                 <p class="eyebrow">THE LEARNING ARCHIVE</p>
                 <h2>Topics</h2>
+
                 <div class="grid">
                     <article class="card">
                         <h3>Topic 01 — novalidate</h3>
-                        <p>Explore the concept and interactive example.</p><a class="btn"
-                            href="topic_01_novalidate.html">Open topic ↗</a>
+                        <p>Compare browser form validation with custom JavaScript validation using the novalidate attribute.</p>
+                        <a class="btn" href="topic_01_novalidate.html">Open topic ↗</a>
                     </article>
+
                     <article class="card">
                         <h3>Topic 02 — preventDefault() on Submit</h3>
-                        <p>Explore the concept and interactive example.</p><a class="btn"
-                            href="topic_02_preventDefault_on_submit.html">Open topic ↗</a>
+                        <p>Stop the default form submission, validate the entered data and display a result without reloading the page.</p>
+                        <a class="btn" href="topic_02_preventDefault_on_submit.html">Open topic ↗</a>
                     </article>
+
                     <article class="card">
                         <h3>Topic 03 — The input Event</h3>
-                        <p>Explore the concept and interactive example.</p><a class="btn"
-                            href="topic_03_the_input_event.html">Open topic ↗</a>
+                        <p>Use the input event to respond immediately when users type and update live validation feedback.</p>
+                        <a class="btn" href="topic_03_the_input_event.html">Open topic ↗</a>
                     </article>
+
                     <article class="card">
                         <h3>Topic 04 — The Validity API</h3>
-                        <p>Explore the concept and interactive example.</p><a class="btn"
-                            href="topic_04_the_validity_api.html">Open topic ↗</a>
+                        <p>Inspect form validity states such as valueMissing, typeMismatch and patternMismatch with JavaScript.</p>
+                        <a class="btn" href="topic_04_the_validity_api.html">Open topic ↗</a>
                     </article>
+
                     <article class="card">
                         <h3>Topic 05 — setCustomValidity()</h3>
-                        <p>Explore the concept and interactive example.</p><a class="btn"
-                            href="topic_05_setcustomvalidity.html">Open topic ↗</a>
+                        <p>Create custom validation rules, compare password fields and clear custom error messages when input changes.</p>
+                        <a class="btn" href="topic_05_setCustomValidity.html">Open topic ↗</a>
                     </article>
+
                     <article class="card">
                         <h3>Topic 06 — aria-describedby &amp; aria-invalid</h3>
-                        <p>Explore the concept and interactive example.</p><a class="btn"
-                            href="topic_06_aria_describedby_aria_invalid.html">Open topic ↗</a>
+                        <p>Connect form fields to error descriptions and communicate invalid input through accessible ARIA attributes.</p>
+                        <a class="btn" href="topic_06_aria_describedby_aria_invalid.html">Open topic ↗</a>
                     </article>
                 </div>
             </section>
+
             <section class="section">
-                <p class="eyebrow">PRACTICE & HOMEWORK</p>
+                <p class="eyebrow">PRACTICE &amp; HOMEWORK</p>
                 <h2>Exercises</h2>
+
                 <div class="grid">
                     <article class="card">
                         <h3>Exercise 01 — Registration Form With JS Validation</h3>
-                        <p>A live registration form with custom checks, inline errors and accessible announcements.</p>
+                        <p>Build and test a complete registration form with real-time validation, student ID and email checks, password confirmation, accessible error messages and a success state.</p>
                         <a class="btn" href="exercise_01_registration_form_with_js_validation.html">Open exercise ↗</a>
                     </article>
                 </div>
             </section>
         </div>
-        <footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer>
+
+        <footer class="footer">
+            BATSUREN ANAR · STUDENT ID: 202637018<br>
+            GACHON UNIVERSITY · WEB PROGRAMMING
+        </footer>
     </main>
-    <script>const t = document.getElementById('theme'); function sync() { t.textContent = document.body.classList.contains('light') ? '🌙 Dark mode' : '☀️ Light mode' } t.addEventListener('click', () => { document.body.classList.toggle('light'); sync() }); sync();</script>
+
+    <script>
+        const t = document.getElementById('theme');
+
+        function sync() {
+            t.textContent = document.body.classList.contains('light')
+                ? '🌙 Dark mode'
+                : '☀️ Light mode';
+        }
+
+        t.addEventListener('click', () => {
+            document.body.classList.toggle('light');
+            sync();
+        });
+
+        sync();
+    </script>
 </body>
 
 </html>

@@ -1,292 +1,633 @@
+
 <!doctype html>
 <html lang="en">
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#171D2E">
     <title>Topic 06 — aria-describedby &amp; aria-invalid · Anar</title>
+
     <style>
         :root {
             color-scheme: dark;
             --bg: #171D2E;
-            --text: #EDF0FF;
-            --muted: #C3C9E8;
-            --card: #222D43;
-            --accent: #B7A2FF;
-            --border: #8791C2;
-            --line: #34415D;
-            --shadow: rgba(0, 0, 0, .4);
-            --hero1: #251D40;
-            --hero2: #49366F
+            --panel: #202941;
+            --panel-soft: #26334F;
+            --text: #F0F2FA;
+            --muted: #AAB4CC;
+            --accent: #A78BFA;
+            --border: #3A4763;
+            --success: #75D6A0;
+            --danger: #FF8585;
+            --input: #182238;
         }
 
         body.light {
             color-scheme: light;
-            --bg: #F0EBFF;
-            --text: #292344;
-            --muted: #655B80;
-            --card: #fff;
-            --accent: #7957D5;
-            --border: #B0A3D9;
-            --line: #DED5F1;
-            --shadow: rgba(41, 35, 68, .13);
-            --hero1: #E6DCFF;
-            --hero2: #CDBCF5
+            --bg: #F4F1FB;
+            --panel: #FFFFFF;
+            --panel-soft: #EEE9FA;
+            --text: #24213A;
+            --muted: #625D75;
+            --accent: #7653C6;
+            --border: #D8D0EB;
+            --success: #21834B;
+            --danger: #C43E4A;
+            --input: #FFFFFF;
         }
 
         * {
-            box-sizing: border-box
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
             margin: 0;
             background: var(--bg);
             color: var(--text);
-            font: 16px/1.65 Arial, sans-serif;
-            transition: .2s
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            transition: background 0.2s, color 0.2s;
         }
 
-        main {
-            max-width: 1180px;
-            width: calc(100% - 36px);
-            margin: auto;
-            padding-bottom: 45px
-        }
-
-        .top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 14px;
-            padding: 24px 2px 18px;
-            border-bottom: 1px solid var(--line);
-            flex-wrap: wrap
-        }
-
-        .brand {
-            font-weight: 900;
-            letter-spacing: 1px
-        }
-
-        .actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap
-        }
-
-        .btn,
-        button {
-            display: inline-block;
-            padding: 9px 15px;
-            border: 2px solid var(--border);
-            border-radius: 14px;
-            background: var(--card);
-            color: var(--text);
-            font: 700 14px Arial;
-            text-decoration: none;
-            cursor: pointer
-        }
-
-        .hero {
-            margin: 28px 0;
-            padding: 28px 32px;
-            border: 1px solid var(--border);
-            border-radius: 26px;
-            background: linear-gradient(120deg, var(--hero1), var(--hero2));
-            box-shadow: 7px 7px 0 var(--shadow)
-        }
-
-        .eyebrow {
-            font-size: 12px;
-            letter-spacing: 2px;
-            font-weight: 900;
-            color: var(--muted)
-        }
-
-        h1 {
-            font-size: clamp(32px, 5vw, 48px);
-            line-height: 1.15;
-            margin: 10px 0
-        }
-
-        h2 {
-            line-height: 1.25
-        }
-
-        .student {
-            font-size: 13px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: var(--muted)
-        }
-
-        .section {
-            margin: 28px 0
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 14px
-        }
-
-        .card,
-        .panel {
-            padding: 18px;
-            border: 2px solid var(--border);
-            border-radius: 19px;
-            background: var(--card);
-            box-shadow: 4px 5px 0 var(--shadow)
-        }
-
-        .card h3 {
-            margin: 0 0 10px;
-            font-size: 16px
-        }
-
-        .card p {
-            color: var(--muted);
-            font-size: 14px
-        }
-
-        .panel {
-            margin: 18px 0
-        }
-
-        .demo {
-            padding: 18px;
-            border: 1px dashed var(--border);
-            border-radius: 14px;
-            margin-top: 14px
-        }
-
-        label {
-            display: block;
-            font-weight: bold;
-            margin: 12px 0 5px
-        }
-
-        input,
-        select,
-        textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border);
-            border-radius: 9px;
-            background: var(--bg);
-            color: var(--text);
-            font: inherit
-        }
-
-        input:focus,
-        button:focus-visible,
-        a:focus-visible,
-        select:focus-visible,
-        textarea:focus-visible {
-            outline: 3px solid var(--accent);
-            outline-offset: 3px
-        }
-
-        .muted {
-            color: var(--muted)
-        }
-
-        .status {
-            padding: 10px;
-            border-radius: 9px;
-            background: var(--bg);
-            margin-top: 12px;
-            min-height: 24px
-        }
-
-        code,
-        pre {
-            background: var(--bg);
-            border-radius: 7px;
-            padding: 3px 6px
-        }
-
-        pre {
-            padding: 14px;
-            overflow: auto
-        }
-
-        .footer {
-            text-align: center;
-            color: var(--muted);
-            border-top: 1px solid var(--line);
-            margin-top: 38px;
-            padding: 20px;
-            font-size: 13px
+        a {
+            color: var(--accent);
         }
 
         .skip {
             position: absolute;
-            left: -9999px;
-            top: 8px;
-            background: var(--card);
-            padding: 10px
+            top: -100px;
+            left: 12px;
+            z-index: 10;
+            padding: 10px 14px;
+            background: var(--accent);
+            color: #171D2E;
+            border-radius: 8px;
+            font-weight: bold;
         }
 
         .skip:focus {
-            left: 8px
+            top: 12px;
         }
 
-        @media(max-width:800px) {
-            .grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr))
+        .site-header {
+            border-bottom: 1px solid var(--border);
+            background: var(--panel);
+        }
+
+        .header-inner,
+        main,
+        .footer-inner {
+            width: min(100% - 32px, 900px);
+            margin: 0 auto;
+        }
+
+        .header-inner {
+            padding: 24px 0;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-size: 0.85rem;
+            font-weight: bold;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 8px 0;
+            font-size: clamp(1.8rem, 5vw, 2.6rem);
+            line-height: 1.2;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 1.35rem;
+        }
+
+        h3 {
+            margin-top: 0;
+            font-size: 1.05rem;
+        }
+
+        p {
+            color: var(--muted);
+        }
+
+        .header-description {
+            max-width: 650px;
+            margin-bottom: 0;
+        }
+
+        .top-actions {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav-links a,
+        .theme-toggle,
+        .submit-button {
+            display: inline-block;
+            padding: 8px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text);
+            background: var(--panel-soft);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a:hover,
+        .theme-toggle:hover,
+        .submit-button:hover {
+            border-color: var(--accent);
+        }
+
+        button {
+            cursor: pointer;
+            font: inherit;
+        }
+
+        main {
+            padding: 32px 0 50px;
+        }
+
+        section {
+            margin-bottom: 24px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--panel);
+        }
+
+        .concept {
+            border-left: 4px solid var(--accent);
+        }
+
+        .demo-box {
+            margin-top: 18px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--panel-soft);
+        }
+
+        label {
+            display: block;
+            margin: 14px 0 6px;
+            color: var(--text);
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--input);
+            color: var(--text);
+            font: inherit;
+        }
+
+        input:focus {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        input[aria-invalid="true"] {
+            border: 2px solid var(--danger);
+        }
+
+        .hint,
+        .feedback {
+            margin: 8px 0 0;
+            font-size: 0.92rem;
+        }
+
+        .hint {
+            color: var(--muted);
+        }
+
+        .feedback.error {
+            color: var(--danger);
+        }
+
+        .feedback.success {
+            color: var(--success);
+        }
+
+        .status {
+            margin-top: 18px;
+            padding: 14px;
+            border: 1px dashed var(--border);
+            border-radius: 8px;
+        }
+
+        .status.success {
+            color: var(--success);
+        }
+
+        .status.error {
+            color: var(--danger);
+        }
+
+        .code-box {
+            overflow-x: auto;
+            padding: 18px;
+            border-radius: 10px;
+            background: #111827;
+            color: #E5E7EB;
+            font-family: Consolas, monospace;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            white-space: pre;
+        }
+
+        .remember-list {
+            padding-left: 22px;
+            color: var(--muted);
+        }
+
+        .remember-list li {
+            margin: 8px 0;
+        }
+
+        .footer-inner {
+            padding: 20px 0;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+
+        .nav-links a:focus-visible,
+        .theme-toggle:focus-visible,
+        .submit-button:focus-visible,
+        main section a:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        @media (max-width: 600px) {
+            section {
+                padding: 18px;
+            }
+
+            .header-inner,
+            main,
+            .footer-inner {
+                width: min(100% - 24px, 900px);
             }
         }
 
-        @media(max-width:520px) {
-            .grid {
-                grid-template-columns: 1fr
-            }
-
-            .hero {
-                padding: 22px
-            }
-
-            .top {
-                align-items: flex-start;
-                flex-direction: column
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
             }
         }
     </style>
 </head>
 
 <body>
-    <main>
-        <nav class="top">
-            <div class="brand">ANAR · WEB PROGRAMMING</div>
-            <div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn"
-                    href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div>
-        </nav>
-        <header class="hero">
-            <p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p>
+    <a class="skip" href="#main-content">Skip to main content</a>
+
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="eyebrow">Week 8 · JavaScript Form Validation</div>
+
             <h1>Topic 06 — aria-describedby &amp; aria-invalid</h1>
-            <p>Control form submission with JavaScript, the Validity API and accessible error messages.</p>
-            <p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
-        </header>
-        <div id="main-content">
-            <section class="panel">
-                <h2>Concept</h2>
-                <p>Connect errors with aria-describedby and set aria-invalid to communicate invalid state.</p>
-                <h2>Why it matters</h2>
-                <p>aria-describedby & aria-invalid Apply the idea consistently and test the result in a browser.</p>
-                <h2>Try it</h2>
-                <h2>Remember</h2>
-                <ul>
-                    <li>Prefer native HTML before adding custom JavaScript or ARIA.</li>
-                    <li>Test with keyboard navigation and browser developer tools.</li>
-                    <li>Keep labels, instructions and feedback clear.</li>
+
+            <p class="header-description">
+                Connect form fields to helpful instructions and
+                communicate validation errors to assistive technology.
+            </p>
+
+            <div class="top-actions">
+                <nav class="nav-links" aria-label="Topic navigation">
+                    <a href="index.html">Week 8 Home</a>
+                    <a href="topic_05_setCustomValidity.html">Previous Topic</a>
+                    <a href="exercise_01_registration_form_with_js_validation.html">Exercise 01</a>
+                </nav>
+
+                <button class="theme-toggle" id="theme" type="button">
+                    ☀️ Light mode
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="main-content" tabindex="-1">
+        <main>
+            <section class="concept">
+                <h2>What are aria-describedby and aria-invalid?</h2>
+
+                <p>
+                    Accessible form validation should help all users
+                    understand what a field needs and how to correct
+                    an error.
+                </p>
+
+                <h3>aria-describedby</h3>
+
+                <p>
+                    The aria-describedby attribute connects an input
+                    to additional text using the ID of that text.
+                    Screen readers can use this relationship to
+                    provide instructions or error messages.
+                </p>
+
+                <h3>aria-invalid</h3>
+
+                <p>
+                    The aria-invalid attribute communicates that
+                    the current value does not satisfy the field's
+                    requirements.
+                </p>
+
+                <ul class="remember-list">
+                    <li>Use aria-describedby to connect help text or error messages.</li>
+                    <li>Use aria-invalid="true" when a field has an error.</li>
+                    <li>Use aria-invalid="false" when the field is valid.</li>
+                    <li>Keep error messages visible and understandable.</li>
+                    <li>Update the attributes when the field's validation state changes.</li>
                 </ul>
             </section>
+
+            <section>
+                <h2>Try it: Accessible student registration</h2>
+
+                <p>
+                    Enter a name and student ID. Submit the form
+                    with missing or incorrect values to see how
+                    JavaScript updates the error messages and ARIA
+                    attributes.
+                </p>
+
+                <div class="demo-box">
+                    <form id="accessible-form" novalidate>
+                        <label for="accessible-name">Full name</label>
+
+                        <input
+                            type="text"
+                            id="accessible-name"
+                            required
+                            minlength="3"
+                            aria-describedby="name-hint name-error"
+                            aria-invalid="false"
+                            placeholder="Enter your full name"
+                        >
+
+                        <p class="hint" id="name-hint">
+                            Enter at least 3 characters.
+                        </p>
+
+                        <p class="feedback error" id="name-error"></p>
+
+                        <label for="accessible-id">Student ID</label>
+
+                        <input
+                            type="text"
+                            id="accessible-id"
+                            required
+                            pattern="[0-9]{9}"
+                            aria-describedby="id-hint id-error"
+                            aria-invalid="false"
+                            placeholder="123456789"
+                        >
+
+                        <p class="hint" id="id-hint">
+                            Your student ID must contain exactly 9 digits.
+                        </p>
+
+                        <p class="feedback error" id="id-error"></p>
+
+                        <button class="submit-button" type="submit">
+                            Validate form
+                        </button>
+                    </form>
+
+                    <div class="status" id="accessible-result" aria-live="polite">
+                        Submit the form to check its fields.
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>Try it: Inspect the ARIA attributes</h2>
+
+                <p>
+                    After validating the form above, inspect the
+                    input elements in your browser's developer
+                    tools. Their aria-invalid values change
+                    depending on whether the fields are valid.
+                </p>
+
+                <div class="demo-box">
+                    <p>
+                        <strong>Full name aria-invalid:</strong>
+                        <span id="name-aria-value">false</span>
+                    </p>
+
+                    <p>
+                        <strong>Student ID aria-invalid:</strong>
+                        <span id="id-aria-value">false</span>
+                    </p>
+
+                    <p class="hint">
+                        The error message IDs remain connected
+                        through aria-describedby.
+                    </p>
         </div>
-        <footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer>
-    </main>
-    <script>const t = document.getElementById('theme'); function sync() { t.textContent = document.body.classList.contains('light') ? '🌙 Dark mode' : '☀️ Light mode' } t.addEventListener('click', () => { document.body.classList.toggle('light'); sync() }); sync();</script>
+            </section>
+
+            <section>
+                <h2>Code example</h2>
+
+                <p>
+                    The input below is connected to its instruction
+                    and error message. JavaScript updates aria-invalid
+                    when validation fails or succeeds.
+                </p>
+
+                <pre class="code-box"><code>&lt;input
+    id="student-id"
+    aria-describedby="id-hint id-error"
+    aria-invalid="false"
+&gt;
+
+&lt;p id="id-hint"&gt;
+    Enter exactly 9 digits.
+&lt;/p&gt;
+
+&lt;p id="id-error"&gt;&lt;/p&gt;</code></pre>
+
+                <pre class="code-box"><code>studentId.setAttribute('aria-invalid', 'true');
+
+idError.textContent = 'Student ID must be 9 digits.';</code></pre>
+
+                <h3>Remember</h3>
+
+                <ul class="remember-list">
+                    <li>aria-describedby references the IDs of related text.</li>
+                    <li>aria-invalid communicates whether the current value is invalid.</li>
+                    <li>Do not rely on color alone to communicate an error.</li>
+                    <li>Keep instructions and error messages associated with the correct field.</li>
+                    <li>Accessible validation benefits keyboard and screen-reader users.</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-inner">
+            Web Programming · Week 8 #2 · Batsuren Anar
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle
+        const themeButton = document.getElementById('theme');
+
+        function syncThemeButton() {
+            themeButton.textContent =
+                document.body.classList.contains('light')
+                    ? '🌙 Dark mode'
+                    : '☀️ Light mode';
+        }
+
+        themeButton.addEventListener('click', function() {
+            document.body.classList.toggle('light');
+            syncThemeButton();
+        });
+
+        syncThemeButton();
+
+
+        // Accessible form validation
+        const accessibleForm = document.getElementById('accessible-form');
+
+        const accessibleName = document.getElementById('accessible-name');
+        const accessibleId = document.getElementById('accessible-id');
+
+        const nameError = document.getElementById('name-error');
+        const idError = document.getElementById('id-error');
+
+        const accessibleResult = document.getElementById('accessible-result');
+
+        const nameAriaValue = document.getElementById('name-aria-value');
+        const idAriaValue = document.getElementById('id-aria-value');
+
+
+        function validateName() {
+            const nameValue = accessibleName.value.trim();
+
+            let message = '';
+
+            if (nameValue.length === 0) {
+                message = 'Full name is required.';
+            } else if (nameValue.length < 3) {
+                message = 'Full name must contain at least 3 characters.';
+            }
+
+            nameError.textContent = message;
+
+            accessibleName.setAttribute(
+                'aria-invalid',
+                message ? 'true' : 'false'
+            );
+
+            nameAriaValue.textContent = message ? 'true' : 'false';
+
+            return message === '';
+        }
+
+
+        function validateStudentId() {
+            const idValue = accessibleId.value.trim();
+
+            let message = '';
+
+            if (idValue.length === 0) {
+                message = 'Student ID is required.';
+            } else if (!/^[0-9]{9}$/.test(idValue)) {
+                message = 'Student ID must contain exactly 9 digits.';
+            }
+
+            idError.textContent = message;
+
+            accessibleId.setAttribute(
+                'aria-invalid',
+                message ? 'true' : 'false'
+            );
+
+            idAriaValue.textContent = message ? 'true' : 'false';
+
+            return message === '';
+        }
+
+
+        function validateForm() {
+            const nameValid = validateName();
+            const idValid = validateStudentId();
+
+            return nameValid && idValid;
+        }
+
+
+        // Update field feedback while typing
+        accessibleName.addEventListener('input', function() {
+            validateName();
+        });
+
+        accessibleId.addEventListener('input', function() {
+            validateStudentId();
+        });
+
+
+        // Validate again when the form is submitted
+        accessibleForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const isValid = validateForm();
+
+            if (!isValid) {
+                accessibleResult.textContent =
+                    'Please correct the fields marked with errors.';
+                accessibleResult.className = 'status error';
+
+                const firstInvalid = accessibleForm.querySelector(
+                    '[aria-invalid="true"]'
+                );
+
+                if (firstInvalid) {
+                    firstInvalid.focus();
+                }
+
+                return;
+            }
+
+            accessibleResult.textContent =
+                'Success! Your name and student ID are valid.';
+            accessibleResult.className = 'status success';
+        });
+    </script>
 </body>
 
 </html>

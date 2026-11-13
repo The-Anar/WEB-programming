@@ -257,6 +257,7 @@
 </head>
 
 <body>
+    <a class="skip" href="#main-content">Skip to main content</a>
     <main>
         <nav class="top">
             <div class="brand">ANAR · WEB PROGRAMMING</div>
@@ -269,24 +270,116 @@
             <p>Control form submission with JavaScript, the Validity API and accessible error messages.</p>
             <p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
         </header>
-        <div id="main-content">
-            <section class="panel">
-                <h2>Concept</h2>
-                <p>Prevent the default navigation when you need to validate or process form data in JavaScript.</p>
-                <h2>Why it matters</h2>
-                <p>preventDefault() on Submit Apply the idea consistently and test the result in a browser.</p>
-                <h2>Try it</h2>
-                <h2>Remember</h2>
-                <ul>
-                    <li>Prefer native HTML before adding custom JavaScript or ARIA.</li>
-                    <li>Test with keyboard navigation and browser developer tools.</li>
-                    <li>Keep labels, instructions and feedback clear.</li>
-                </ul>
-            </section>
+        <div id="main-content" tabindex="-1">
+           <section class="panel">
+    <h2>1. What does preventDefault() do?</h2>
+    <p>
+        Browsers have default actions for certain events.
+        When a form is submitted, the browser normally sends
+        the form data and navigates or reloads the page.
+    </p>
+    <p>
+        JavaScript's <code>event.preventDefault()</code>
+        stops that default action. This allows us to handle
+        the form submission ourselves.
+    </p>
+
+    <h2>2. Why is it useful?</h2>
+    <ul>
+        <li>Validate form data before processing it.</li>
+        <li>Display feedback without reloading the page.</li>
+        <li>Control what happens after a user submits a form.</li>
+    </ul>
+
+    <h2>3. Try it yourself</h2>
+    <p>
+        Enter your name and email address, then submit the form.
+        The browser's normal form submission will be prevented,
+        and JavaScript will display a message instead.
+    </p>
+
+    <div class="demo">
+        <form id="demo-form">
+            <label for="demo-name">Your name</label>
+            <input
+                type="text"
+                id="demo-name"
+                name="name"
+                placeholder="Enter your name"
+                required
+            >
+
+            <label for="demo-email">Your email</label>
+            <input
+                type="email"
+                id="demo-email"
+                name="email"
+                placeholder="example@email.com"
+                required
+            >
+
+            <button type="submit">Submit form</button>
+        </form>
+
+        <p id="demo-result" class="status" role="status"
+            aria-live="polite">
+            Your result will appear here.
+        </p>
+    </div>
+
+    <h2>4. How does the code work?</h2>
+    <pre><code>const form = document.getElementById('demo-form');
+
+form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    document.getElementById('demo-result').textContent =
+        'Form submitted without reloading the page!';
+});</code></pre>
+
+    <h2>5. Remember</h2>
+    <ul>
+        <li><code>submit</code> detects form submission.</li>
+        <li><code>event.preventDefault()</code> stops the default browser action.</li>
+        <li>JavaScript can then process the data and update the page.</li>
+    </ul>
+</section>
         </div>
         <footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer>
     </main>
-    <script>const t = document.getElementById('theme'); function sync() { t.textContent = document.body.classList.contains('light') ? '🌙 Dark mode' : '☀️ Light mode' } t.addEventListener('click', () => { document.body.classList.toggle('light'); sync() }); sync();</script>
+   <script>
+    // Theme toggle
+    const t = document.getElementById('theme');
+
+    function sync() {
+        t.textContent = document.body.classList.contains('light')
+            ? '🌙 Dark mode'
+            : '☀️ Light mode';
+    }
+
+    t.addEventListener('click', () => {
+        document.body.classList.toggle('light');
+        sync();
+    });
+
+    sync();
+
+
+    // preventDefault() form demonstration
+    const demoForm = document.getElementById('demo-form');
+    const demoResult = document.getElementById('demo-result');
+
+    demoForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById('demo-name').value;
+        const email = document.getElementById('demo-email').value;
+
+        demoResult.textContent =
+            `Success! Hello, ${name}. Your email is ${email}. ` +
+            'The page did not reload because preventDefault() stopped the default submission.';
+    });
+</script>
 </body>
 
 </html>

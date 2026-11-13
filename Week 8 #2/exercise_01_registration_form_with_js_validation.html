@@ -1,1 +1,612 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Exercise 01 — Registration Form With JS Validation · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Exercise 01 — Registration Form With JS Validation</h1><p>Control form submission with JavaScript, the Validity API and accessible error messages.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="panel"><h2>Practical task</h2><p>A live registration form with custom checks, inline errors and accessible announcements.</p><form id="practice" novalidate><label for="full">Full name</label><input id="full" required minlength="2" autocomplete="name"><label for="email">Email</label><input id="email" type="email" required autocomplete="email"><label for="pass">Password</label><input id="pass" type="password" required minlength="8"><label for="role">Study area</label><select id="role" required><option value="">Choose one</option><option>Computer Engineering</option><option>Software Engineering</option><option>Other</option></select><button type="submit">Validate &amp; submit</button><p id="feedback" class="status" role="status" aria-live="polite"></p></form></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script><script>practice.addEventListener('submit',e=>{e.preventDefault();let fields=[full,email,pass,role];fields.forEach(x=>x.setAttribute('aria-invalid',String(!x.checkValidity())));let bad=fields.find(x=>!x.checkValidity());if(bad){feedback.textContent='Please correct the highlighted field: '+(bad.labels[0]?.textContent||bad.id);bad.focus()}else feedback.textContent='Success! All fields passed validation. This is a front-end demo; no data was sent.'});</script></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#171D2E">
+    <title>Exercise 01 — Registration Form With JS Validation · Anar</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --line: #34415D;
+            --shadow: rgba(0, 0, 0, .4);
+            --hero1: #251D40;
+            --hero2: #49366F
+        }
+
+        body.light {
+            color-scheme: light;
+            --bg: #F0EBFF;
+            --text: #292344;
+            --muted: #655B80;
+            --card: #fff;
+            --accent: #7957D5;
+            --border: #B0A3D9;
+            --line: #DED5F1;
+            --shadow: rgba(41, 35, 68, .13);
+            --hero1: #E6DCFF;
+            --hero2: #CDBCF5
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font: 16px/1.65 Arial, sans-serif;
+            transition: .2s
+        }
+
+        main {
+            max-width: 1180px;
+            width: calc(100% - 36px);
+            margin: auto;
+            padding-bottom: 45px
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            padding: 24px 2px 18px;
+            border-bottom: 1px solid var(--line);
+            flex-wrap: wrap
+        }
+
+        .brand {
+            font-weight: 900;
+            letter-spacing: 1px
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .btn,
+        button {
+            display: inline-block;
+            padding: 9px 15px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            background: var(--card);
+            color: var(--text);
+            font: 700 14px Arial;
+            text-decoration: none;
+            cursor: pointer
+        }
+
+        .hero {
+            margin: 28px 0;
+            padding: 28px 32px;
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            background: linear-gradient(120deg, var(--hero1), var(--hero2));
+            box-shadow: 7px 7px 0 var(--shadow)
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-weight: 900;
+            color: var(--muted)
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            line-height: 1.15;
+            margin: 10px 0
+        }
+
+        h2 {
+            line-height: 1.25
+        }
+
+        .student {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--muted)
+        }
+
+        .section {
+            margin: 28px 0
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px
+        }
+
+        .card,
+        .panel {
+            padding: 18px;
+            border: 2px solid var(--border);
+            border-radius: 19px;
+            background: var(--card);
+            box-shadow: 4px 5px 0 var(--shadow)
+        }
+
+        .card h3 {
+            margin: 0 0 10px;
+            font-size: 16px
+        }
+
+        .card p {
+            color: var(--muted);
+            font-size: 14px
+        }
+
+        .panel {
+            margin: 18px 0
+        }
+
+        .demo {
+            padding: 18px;
+            border: 1px dashed var(--border);
+            border-radius: 14px;
+            margin-top: 14px
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin: 12px 0 5px
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: var(--bg);
+            color: var(--text);
+            font: inherit
+        }
+
+        input:focus,
+        button:focus-visible,
+        a:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        .status {
+            padding: 10px;
+            border-radius: 9px;
+            background: var(--bg);
+            margin-top: 12px;
+            min-height: 24px
+        }
+        /* JavaScript validation feedback */
+input[aria-invalid="true"],
+select[aria-invalid="true"] {
+    border: 2px solid #ef6464;
+}
+
+input[aria-invalid="false"],
+select[aria-invalid="false"] {
+    border: 2px solid #45b878;
+}
+
+.error-message {
+    color: #ff8585;
+    font-size: 13px;
+    min-height: 20px;
+    margin: 4px 0 8px;
+}
+
+.success-message {
+    color: #45b878;
+    font-weight: bold;
+}
+
+button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+        code,
+        pre {
+            background: var(--bg);
+            border-radius: 7px;
+            padding: 3px 6px
+        }
+
+        pre {
+            padding: 14px;
+            overflow: auto
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--muted);
+            border-top: 1px solid var(--line);
+            margin-top: 38px;
+            padding: 20px;
+            font-size: 13px
+        }
+
+        .skip {
+            position: absolute;
+            left: -9999px;
+            top: 8px;
+            background: var(--card);
+            padding: 10px
+        }
+
+        .skip:focus {
+            left: 8px
+        }
+
+        @media(max-width:800px) {
+            .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr))
+            }
+        }
+
+        @media(max-width:520px) {
+            .grid {
+                grid-template-columns: 1fr
+            }
+
+            .hero {
+                padding: 22px
+            }
+
+            .top {
+                align-items: flex-start;
+                flex-direction: column
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <nav class="top">
+            <div class="brand">ANAR · WEB PROGRAMMING</div>
+            <div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn"
+                    href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div>
+        </nav>
+        <header class="hero">
+            <p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p>
+            <h1>Exercise 01 — Registration Form With JS Validation</h1>
+            <p>Control form submission with JavaScript, the Validity API and accessible error messages.</p>
+            <p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
+        </header>
+        <div id="main-content">
+            <section class="panel">
+    <h2>Practical task</h2>
+    <p>
+        Complete the registration form. Each field provides real-time
+        validation and an accessible error message.
+    </p>
+
+    <form id="practice" novalidate>
+
+        <label for="full">Full name</label>
+        <input
+            id="full"
+            type="text"
+            required
+            minlength="2"
+            autocomplete="name"
+            aria-invalid="false"
+            aria-describedby="full-error"
+        >
+        <span id="full-error" class="error-message" role="alert"></span>
+
+        <label for="student-id">Student ID</label>
+        <input
+            id="student-id"
+            type="text"
+            required
+            pattern="[0-9]{9}"
+            title="Enter exactly 9 digits."
+            inputmode="numeric"
+            aria-invalid="false"
+            aria-describedby="student-id-error"
+        >
+        <span id="student-id-error" class="error-message" role="alert"></span>
+
+        <label for="email">Email</label>
+        <input
+            id="email"
+            type="email"
+            required
+            autocomplete="email"
+            aria-invalid="false"
+            aria-describedby="email-error"
+        >
+        <span id="email-error" class="error-message" role="alert"></span>
+
+        <label for="pass">Password</label>
+        <input
+            id="pass"
+            type="password"
+            required
+            minlength="8"
+            aria-invalid="false"
+            aria-describedby="pass-error"
+        >
+        <span id="pass-error" class="error-message" role="alert"></span>
+
+        <label for="confirm-pass">Confirm password</label>
+        <input
+            id="confirm-pass"
+            type="password"
+            required
+            aria-invalid="false"
+            aria-describedby="confirm-pass-error"
+        >
+        <span id="confirm-pass-error" class="error-message" role="alert"></span>
+
+        <label for="role">Study area</label>
+        <select
+            id="role"
+            required
+            aria-invalid="false"
+            aria-describedby="role-error"
+        >
+            <option value="">Choose one</option>
+            <option value="computer">Computer Engineering</option>
+            <option value="software">Software Engineering</option>
+            <option value="other">Other</option>
+        </select>
+        <span id="role-error" class="error-message" role="alert"></span>
+
+        <button id="submit-btn" type="submit" disabled>
+            Validate &amp; submit
+        </button>
+
+        <p id="feedback" class="status" role="status" aria-live="polite"></p>
+
+    </form>
+</section>
+</div>
+
+<footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer>
+</main>
+
+<script>
+    const t = document.getElementById('theme');
+
+    function sync() {
+        t.textContent = document.body.classList.contains('light')
+            ? '🌙 Dark mode'
+            : '☀️ Light mode';
+    }
+
+    t.addEventListener('click', () => {
+        document.body.classList.toggle('light');
+        sync();
+    });
+
+    sync();
+</script>
+
+<script>
+    const form = document.getElementById('practice');
+    const submitBtn = document.getElementById('submit-btn');
+    const feedback = document.getElementById('feedback');
+
+    const full = document.getElementById('full');
+    const studentId = document.getElementById('student-id');
+    const email = document.getElementById('email');
+    const pass = document.getElementById('pass');
+    const confirmPass = document.getElementById('confirm-pass');
+    const role = document.getElementById('role');
+
+    const fields = [
+        full,
+        studentId,
+        email,
+        pass,
+        confirmPass,
+        role
+    ];
+
+    const errors = {
+        full: document.getElementById('full-error'),
+        studentId: document.getElementById('student-id-error'),
+        email: document.getElementById('email-error'),
+        pass: document.getElementById('pass-error'),
+        confirmPass: document.getElementById('confirm-pass-error'),
+        role: document.getElementById('role-error')
+    };
+
+    function markValid(input, error) {
+        input.setAttribute('aria-invalid', 'false');
+        error.textContent = '';
+    }
+
+    function markInvalid(input, error, message) {
+        input.setAttribute('aria-invalid', 'true');
+        error.textContent = message;
+    }
+
+    function validateField(input, error, messages) {
+        if (input.validity.valueMissing) {
+            markInvalid(input, error, messages.required);
+            return false;
+        }
+
+        if (input.validity.typeMismatch) {
+            markInvalid(input, error, messages.type);
+            return false;
+        }
+
+        if (input.validity.tooShort) {
+            markInvalid(input, error, messages.short);
+            return false;
+        }
+
+        if (input.validity.patternMismatch) {
+            markInvalid(input, error, messages.pattern);
+            return false;
+        }
+
+        if (input.validity.customError) {
+            markInvalid(input, error, messages.custom);
+            return false;
+        }
+
+        markValid(input, error);
+        return true;
+    }
+
+    function validatePasswordConfirmation() {
+        if (
+            confirmPass.value !== '' &&
+            confirmPass.value !== pass.value
+        ) {
+            confirmPass.setCustomValidity('Passwords do not match.');
+        } else {
+            confirmPass.setCustomValidity('');
+        }
+    }
+
+    function validateFull() {
+        return validateField(full, errors.full, {
+            required: 'Please enter your full name.',
+            short: 'Your name must contain at least 2 characters.'
+        });
+    }
+
+    function validateStudentId() {
+        return validateField(studentId, errors.studentId, {
+            required: 'Please enter your student ID.',
+            pattern: 'Student ID must contain exactly 9 digits.'
+        });
+    }
+
+    function validateEmail() {
+        return validateField(email, errors.email, {
+            required: 'Please enter your email address.',
+            type: 'Please enter a valid email address.'
+        });
+    }
+
+    function validatePassword() {
+        return validateField(pass, errors.pass, {
+            required: 'Please enter a password.',
+            short: 'Password must contain at least 8 characters.'
+        });
+    }
+
+    function validateConfirmPassword() {
+        validatePasswordConfirmation();
+
+        return validateField(confirmPass, errors.confirmPass, {
+            required: 'Please confirm your password.',
+            custom: 'Passwords do not match.'
+        });
+    }
+
+    function validateRole() {
+        return validateField(role, errors.role, {
+            required: 'Please select your study area.'
+        });
+    }
+
+    function validateAllFields() {
+        const results = [
+            validateFull(),
+            validateStudentId(),
+            validateEmail(),
+            validatePassword(),
+            validateConfirmPassword(),
+            validateRole()
+        ];
+
+        return results.every(result => result);
+    }
+
+    function updateSubmitButton() {
+        validatePasswordConfirmation();
+        submitBtn.disabled = !form.checkValidity();
+    }
+
+    const validators = [
+        validateFull,
+        validateStudentId,
+        validateEmail,
+        validatePassword,
+        validateConfirmPassword,
+        validateRole
+    ];
+
+   fields.forEach((field, index) => {
+    field.addEventListener('input', () => {
+        validators[index]();
+
+        if (field === pass) {
+            validateConfirmPassword();
+        }
+
+        updateSubmitButton();
+        feedback.textContent = '';
+        feedback.classList.remove('success-message');
+    });
+
+    field.addEventListener('change', () => {
+        validators[index]();
+        updateSubmitButton();
+    });
+});
+
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+
+        const isValid = validateAllFields();
+        updateSubmitButton();
+
+        if (!isValid) {
+            const firstInvalid = fields.find(
+                field => !field.checkValidity()
+            );
+
+            if (firstInvalid) {
+                firstInvalid.focus();
+            }
+
+            feedback.textContent = 'Please correct the errors above.';
+            feedback.classList.remove('success-message');
+            return;
+        }
+
+        feedback.textContent =
+            'Success! Your form passed all validation checks. ' +
+            'This is a front-end demonstration; no data was sent.';
+
+        feedback.classList.add('success-message');
+    });
+
+    updateSubmitButton();
+</script>
+
+</body>
+
+</html>

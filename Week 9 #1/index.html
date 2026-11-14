@@ -1,1 +1,575 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Week 9.1 · Web Accessibility · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="../index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Week 9.1 · Web Accessibility</h1><p>Make content understandable and operable for people using different devices and assistive technologies.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="section"><p class="eyebrow">THE LEARNING ARCHIVE</p><h2>Topics</h2><div class="grid"><article class="card"><h3>Topic 01 — Semantic HTML</h3><p>Explore the concept and interactive example.</p><a class="btn" href="topic_01_semantic_html.html">Open topic ↗</a></article><article class="card"><h3>Topic 02 — Native Elements Over Div</h3><p>Explore the concept and interactive example.</p><a class="btn" href="topic_02_native_elements_over_div.html">Open topic ↗</a></article><article class="card"><h3>Topic 03 — Alt Text</h3><p>Explore the concept and interactive example.</p><a class="btn" href="topic_03_alt_text.html">Open topic ↗</a></article><article class="card"><h3>Topic 04 — ARIA Attributes</h3><p>Explore the concept and interactive example.</p><a class="btn" href="topic_04_aria_attributes.html">Open topic ↗</a></article><article class="card"><h3>Topic 05 — Keyboard Navigation</h3><p>Explore the concept and interactive example.</p><a class="btn" href="topic_05_keyboard_navigation.html">Open topic ↗</a></article><article class="card"><h3>Topic 06 — Color Contrast</h3><p>Explore the concept and interactive example.</p><a class="btn" href="topic_06_color_contrast.html">Open topic ↗</a></article></div></section><section class="section"><p class="eyebrow">PRACTICE & HOMEWORK</p><h2>Exercises</h2><div class="grid"><article class="card"><h3>Exercise 01 — Lighthouse Accessibility Audit</h3><p>Run Lighthouse on a deployed page, record the score, inspect flagged issues and document fixes.</p><a class="btn" href="exercise_01_lighthouse_accessibility_audit.html">Open exercise ↗</a></article><article class="card"><h3>Exercise 02 — Skip Link</h3><p>A working skip link moves keyboard focus to the main content.</p><a class="btn" href="exercise_02_skip_link.html">Open exercise ↗</a></article></div></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script></body></html>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#171D2E">
+    <meta name="description" content="Week 9 #1 — Web Accessibility coursework by Batsuren Anar.">
+    <title>Week 9 #1 · Web Accessibility — Anar</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --hero-start: #302345;
+            --hero-end: #49366C;
+            --shadow: #080D1B;
+        }
+
+        body.light {
+            color-scheme: light;
+            --bg: #F0EBFF;
+            --text: #29243D;
+            --muted: #625B7C;
+            --card: #FFFFFF;
+            --accent: #7556C9;
+            --border: #9686C5;
+            --hero-start: #DED5F1;
+            --hero-end: #C9B9ED;
+            --shadow: #C9C0DC;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+            transition: background 0.25s, color 0.25s;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: 10px;
+            left: -9999px;
+            z-index: 1000;
+            padding: 10px 16px;
+            background: var(--accent);
+            color: #171D2E;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .skip-link:focus {
+            left: 10px;
+        }
+
+        .container {
+            width: min(1180px, 92%);
+            margin: 0 auto;
+        }
+
+        /* Header */
+
+        header {
+            padding: 22px 0 17px;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding-bottom: 17px;
+            border-bottom: 1px solid rgba(135, 145, 194, 0.25);
+        }
+
+        .brand {
+            color: var(--text);
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav a,
+        .theme-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 41px;
+            padding: 8px 15px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            background: transparent;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s, transform 0.2s;
+        }
+
+        .nav a:hover,
+        .theme-button:hover {
+            background: var(--card);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* Hero */
+
+        .hero {
+            margin: 27px 0 27px;
+            padding: 35px 30px 38px;
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            background: linear-gradient(115deg, var(--hero-start), var(--hero-end));
+            box-shadow: 7px 8px 0 var(--shadow);
+        }
+
+        .eyebrow {
+            margin: 0 0 10px;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0;
+            color: var(--text);
+            font-size: clamp(34px, 4.5vw, 48px);
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        .hero-description {
+            max-width: 850px;
+            margin: 17px 0 15px;
+            color: var(--text);
+            font-size: 16px;
+        }
+
+        .student-info {
+            margin: 16px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        /* Archive sections */
+
+        .archive-label {
+            margin: 23px 0 14px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2.5px;
+        }
+
+        .section {
+            margin: 0 0 35px;
+        }
+
+        .section-title {
+            margin: 0 0 17px;
+            color: var(--text);
+            font-size: 23px;
+            font-weight: 800;
+        }
+
+        /* Cards */
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .card {
+            display: flex;
+            flex-direction: column;
+            min-height: 176px;
+            padding: 17px 18px;
+            border: 2px solid var(--border);
+            border-radius: 19px;
+            background: var(--card);
+            box-shadow: 3px 4px 0 var(--shadow);
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+        }
+
+        .card h3 {
+            margin: 0 0 12px;
+            color: var(--text);
+            font-size: 15px;
+            font-weight: 800;
+            line-height: 1.5;
+        }
+
+        .card p {
+            margin: 0 0 14px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            align-self: flex-start;
+            min-height: 39px;
+            margin-top: auto;
+            padding: 7px 14px;
+            border: 2px solid var(--border);
+            border-radius: 13px;
+            background: transparent;
+            color: var(--text);
+            font-size: 13px;
+            font-weight: 800;
+            text-decoration: none;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .card-link:hover {
+            background: var(--hero-start);
+            border-color: var(--accent);
+        }
+
+        .exercise-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .exercise-card {
+            min-height: 190px;
+        }
+
+        /* Overview */
+
+        .overview {
+            padding: 22px;
+            border: 2px solid var(--border);
+            border-radius: 19px;
+            background: var(--card);
+            box-shadow: 3px 4px 0 var(--shadow);
+        }
+
+        .overview p {
+            margin: 0 0 12px;
+            color: var(--muted);
+        }
+
+        .overview ul {
+            margin: 0;
+            padding-left: 22px;
+            color: var(--muted);
+        }
+
+        .overview li {
+            margin: 5px 0;
+        }
+
+        /* Footer */
+
+        footer {
+            margin-top: 48px;
+            padding: 22px 0 28px;
+            border-top: 1px solid rgba(135, 145, 194, 0.3);
+            color: var(--muted);
+            text-align: center;
+            font-size: 13px;
+        }
+
+        footer p {
+            margin: 4px 0;
+        }
+
+        footer a {
+            color: var(--accent);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive layout */
+
+        @media (max-width: 850px) {
+            .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header-inner {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nav {
+                justify-content: flex-start;
+            }
+
+            .hero {
+                padding: 28px 22px 30px;
+            }
+
+            .grid,
+            .exercise-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                min-height: 165px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="container">
+        <div class="header-inner">
+            <a class="brand" href="../index.html">ANAR · WEB PROGRAMMING</a>
+
+            <nav class="nav" aria-label="Main navigation">
+                <a href="index.html" aria-current="page">← Section home</a>
+                <a href="../index.html">Main portfolio</a>
+                <button class="theme-button" id="theme-toggle" type="button">
+                    ☀️ Light mode
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" class="container">
+
+        <section class="hero" aria-labelledby="page-title">
+            <p class="eyebrow">Gachon University · Web Programming</p>
+
+            <h1 id="page-title">Week 9 #1 · Web Accessibility</h1>
+
+            <p class="hero-description">
+                Learn how to design and develop accessible websites using
+                semantic HTML, native elements, alternative text, ARIA
+                attributes, keyboard navigation and sufficient color contrast.
+            </p>
+
+            <p class="student-info">
+                BATSUREN ANAR · STUDENT ID: 202637018
+            </p>
+        </section>
+
+        <p class="archive-label">THE LEARNING ARCHIVE</p>
+
+        <section class="section" aria-labelledby="topics-heading">
+            <h2 class="section-title" id="topics-heading">Topics</h2>
+
+            <div class="grid">
+
+                <article class="card">
+                    <h3>Topic 01 — Semantic HTML</h3>
+                    <p>
+                        Understand semantic HTML elements and how meaningful
+                        page structure improves accessibility.
+                    </p>
+                    <a class="card-link" href="topic_01_semantic_html.html">
+                        Open topic ↗
+                    </a>
+                </article>
+
+                <article class="card">
+                    <h3>Topic 02 — Native Elements Over Div</h3>
+                    <p>
+                        Learn why native HTML elements provide built-in
+                        accessibility and interaction behavior.
+                    </p>
+                    <a class="card-link" href="topic_02_native_elements_over_div.html">
+                        Open topic ↗
+                    </a>
+                </article>
+
+                <article class="card">
+                    <h3>Topic 03 — Alt Text</h3>
+                    <p>
+                        Learn how alternative text communicates image
+                        information to people using assistive technology.
+                    </p>
+                    <a class="card-link" href="topic_03_alt_text.html">
+                        Open topic ↗
+                    </a>
+                </article>
+
+                <article class="card">
+                    <h3>Topic 04 — ARIA Attributes</h3>
+                    <p>
+                        Explore ARIA attributes and how they provide
+                        additional information to assistive technologies.
+                    </p>
+                    <a class="card-link" href="topic_04_aria_attributes.html">
+                        Open topic ↗
+                    </a>
+                </article>
+
+                <article class="card">
+                    <h3>Topic 05 — Keyboard Navigation</h3>
+                    <p>
+                        Understand keyboard controls, focus order and
+                        accessible interaction without using a mouse.
+                    </p>
+                    <a class="card-link" href="topic_05_keyboard_navigation.html">
+                        Open topic ↗
+                    </a>
+                </article>
+
+                <article class="card">
+                    <h3>Topic 06 — Color Contrast</h3>
+                    <p>
+                        Learn WCAG contrast requirements and test text
+                        readability with an interactive contrast calculator.
+                    </p>
+                    <a class="card-link" href="topic_06_color_contrast.html">
+                        Open topic ↗
+                    </a>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="exercises-heading">
+            <h2 class="section-title" id="exercises-heading">Exercises</h2>
+
+            <div class="exercise-grid">
+
+                <article class="card exercise-card">
+                    <h3>Exercise 01 — Lighthouse Accessibility Audit</h3>
+                    <p>
+                        Run a Lighthouse accessibility audit, identify at
+                        least three failing audits, fix the issues and
+                        compare the initial and improved scores.
+                    </p>
+                    <a class="card-link" href="exercise_01_lighthouse_accessibility_audit.html">
+                        Open exercise ↗
+                    </a>
+                </article>
+
+                <article class="card exercise-card">
+                    <h3>Exercise 02 — Skip Link</h3>
+                    <p>
+                        Create and test a keyboard-accessible skip link
+                        that allows users to jump directly to the main
+                        content of a webpage.
+                    </p>
+                    <a class="card-link" href="exercise_02_skip_link.html">
+                        Open exercise ↗
+                    </a>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="section" aria-labelledby="overview-heading">
+            <h2 class="section-title" id="overview-heading">Learning Overview</h2>
+
+            <div class="overview">
+                <p>
+                    Web accessibility focuses on making websites usable
+                    by people with different abilities and ways of
+                    interacting with technology.
+                </p>
+
+                <ul>
+                    <li>Build meaningful page structures with semantic HTML.</li>
+                    <li>Choose native interactive elements over unnecessary custom controls.</li>
+                    <li>Provide appropriate alternative text for images.</li>
+                    <li>Use ARIA attributes when additional accessibility information is needed.</li>
+                    <li>Support keyboard navigation and visible focus.</li>
+                    <li>Maintain sufficient color contrast for readable content.</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>ANAR · WEB PROGRAMMING</p>
+            <p>Week 9 #1 · Web Accessibility</p>
+            <p>Gachon University · 2026 Fall</p>
+            <p><a href="../index.html">← Back to Main Portfolio</a></p>
+        </div>
+    </footer>
+
+    <script>
+        const themeButton = document.getElementById("theme-toggle");
+
+        function updateThemeButton() {
+            const isLight = document.body.classList.contains("light");
+
+            themeButton.textContent = isLight
+                ? "🌙 Dark mode"
+                : "☀️ Light mode";
+        }
+
+        themeButton.addEventListener("click", () => {
+            document.body.classList.toggle("light");
+            updateThemeButton();
+        });
+
+        updateThemeButton();
+    </script>
+</body>
+
+</html>

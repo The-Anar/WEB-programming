@@ -1,1 +1,759 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Topic 04 — ARIA Attributes · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Topic 04 — ARIA Attributes</h1><p>Make content understandable and operable for people using different devices and assistive technologies.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="panel"><h2>Concept</h2><p>ARIA adds accessible names, roles and states when native HTML is not enough. Prefer native semantics first.</p><h2>Why it matters</h2><p>ARIA Attributes Apply the idea consistently and test the result in a browser.</p><h2>Try it</h2><h2>Remember</h2><ul><li>Prefer native HTML before adding custom JavaScript or ARIA.</li><li>Test with keyboard navigation and browser developer tools.</li><li>Keep labels, instructions and feedback clear.</li></ul></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script></body></html>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#171D2E">
+    <title>Topic 04 — ARIA Roles & Attributes · Anar</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --hero: linear-gradient(135deg, #30294F, #202D49);
+            --input: #19243A;
+            --good: #8EE0B2;
+            --bad: #FF9C9C;
+            --shadow: 0 12px 30px rgba(0, 0, 0, .22);
+        }
+
+        body.light {
+            color-scheme: light;
+            --bg: #F0EBFF;
+            --text: #292344;
+            --muted: #625B7D;
+            --card: #FFFFFF;
+            --accent: #7053C8;
+            --border: #B9ACDE;
+            --hero: linear-gradient(135deg, #DED5F1, #E4E8FF);
+            --input: #F6F3FF;
+            --good: #187A48;
+            --bad: #B32626;
+            --shadow: 0 12px 30px rgba(48, 36, 83, .10);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+            transition: background .2s, color .2s;
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 10px;
+            z-index: 9999;
+            padding: 10px 16px;
+            background: var(--accent);
+            color: #171D2E;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .skip-link:focus {
+            left: 10px;
+        }
+
+        .container {
+            width: min(1180px, calc(100% - 36px));
+            margin: auto;
+        }
+
+        header {
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .theme-btn,
+        .action-btn {
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            padding: 9px 15px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .theme-btn:hover,
+        .action-btn:hover {
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        main {
+            padding: 30px 0 60px;
+        }
+
+        .hero {
+            background: var(--hero);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 38px;
+            box-shadow: var(--shadow);
+            margin-bottom: 28px;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: .8rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.3rem);
+            line-height: 1.15;
+            margin: 10px 0;
+        }
+
+        h2 {
+            font-size: 1.65rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            margin-top: 0;
+        }
+
+        .hero p {
+            max-width: 760px;
+            color: var(--muted);
+            font-size: 1.08rem;
+        }
+
+        .meta {
+            margin-top: 22px;
+            color: var(--muted);
+            font-size: .9rem;
+        }
+
+        .panel {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 26px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-label {
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: .78rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .example {
+            background: var(--input);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            min-width: 0;
+        }
+
+        pre {
+            overflow-x: auto;
+            background: #111A2B;
+            color: #E8E6FF;
+            border: 1px solid #46516F;
+            border-radius: 10px;
+            padding: 16px;
+            font-size: .88rem;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: .78rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: rgba(183, 162, 255, .16);
+            color: var(--accent);
+        }
+
+        .rule {
+            border-left: 4px solid var(--accent);
+            padding: 12px 16px;
+            background: var(--input);
+            border-radius: 0 10px 10px 0;
+            margin: 16px 0;
+        }
+
+        .demo-area {
+            background: var(--input);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .demo-button {
+            border: 1px solid var(--accent);
+            background: var(--card);
+            color: var(--text);
+            padding: 10px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .demo-button:hover {
+            background: var(--accent);
+            color: #171D2E;
+        }
+
+        .menu-list {
+            margin: 14px 0 0;
+            padding: 12px 28px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--card);
+        }
+
+        .menu-list[hidden] {
+            display: none;
+        }
+
+        .rating-demo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+        }
+
+        .rating-demo .star {
+            color: #F5C451;
+            font-size: 1.8rem;
+        }
+
+        .quiz-option {
+            display: block;
+            padding: 12px 14px;
+            margin: 9px 0;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            cursor: pointer;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--accent);
+        }
+
+        .quiz-option input {
+            margin-right: 9px;
+            accent-color: var(--accent);
+        }
+
+        #quiz-feedback {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 9px;
+            background: var(--input);
+            display: none;
+        }
+
+        .good {
+            color: var(--good);
+            font-weight: 700;
+        }
+
+        .bad {
+            color: var(--bad);
+            font-weight: 700;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 25px 0;
+            color: var(--muted);
+            text-align: center;
+            font-size: .9rem;
+        }
+
+        @media (max-width: 720px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 25px;
+            }
+
+            .panel {
+                padding: 19px;
+            }
+
+            nav {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header>
+        <div class="container topbar">
+            <div class="brand">ANAR'S WEB PROGRAMMING</div>
+
+            <nav aria-label="Main navigation">
+                <a href="index.html">Section Home</a>
+                <a href="../index.html">Main Portfolio</a>
+                <button class="theme-btn" id="theme" type="button">
+                    ☀️ Light mode
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" id="main-content">
+
+        <section class="hero">
+            <div class="eyebrow">Week 9 #1 · Topic 04</div>
+            <h1>ARIA Roles & Attributes</h1>
+            <p>
+                ARIA provides additional information about elements for
+                assistive technologies. It helps communicate names,
+                descriptions, roles, and states to screen reader users.
+            </p>
+            <div class="meta">
+                K0126002 · Gachon University · 2026 Fall · Dr. Toshpulatov
+                <br>
+                BATSUREN ANAR · STUDENT ID: 202637018
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">01 · Introduction</div>
+            <h2>When HTML Is Not Enough</h2>
+
+            <p>
+                Semantic HTML already provides meaning to many elements.
+                Sometimes, however, additional accessibility information
+                is needed. ARIA attributes can provide that information.
+            </p>
+
+            <div class="rule">
+                <strong>First rule:</strong>
+                Use semantic HTML before ARIA. ARIA should add, never replace.
+            </div>
+
+            <pre><code>&lt;!-- Use semantic HTML first --&gt;
+&lt;nav aria-label="Main navigation"&gt;
+    &lt;a href="index.html"&gt;Home&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">02 · Important ARIA attributes</div>
+            <h2>Five Attributes to Understand</h2>
+
+            <div class="grid">
+
+                <article class="example">
+                    <span class="tag">aria-label</span>
+                    <h3>Give an element a name</h3>
+
+                    <p>
+                        Provides a visible or hidden accessible name when
+                        an element does not have a suitable text label.
+                    </p>
+
+                    <pre><code>&lt;nav aria-label="Main navigation"&gt;
+    ...
+&lt;/nav&gt;</code></pre>
+
+                    <p class="muted">
+                        A screen reader can identify this navigation region
+                        as Main navigation.
+                    </p>
+                </article>
+
+                <article class="example">
+                    <span class="tag">aria-describedby</span>
+                    <h3>Connect a longer description</h3>
+
+                    <p>
+                        Links an element to another element containing
+                        additional information, such as a hint or error message.
+                    </p>
+
+                    <pre><code>&lt;input
+    type="text"
+    aria-describedby="help-text"&gt;
+
+&lt;p id="help-text"&gt;
+    Enter your university email.
+&lt;/p&gt;</code></pre>
+
+                    <p class="muted">
+                        The input is associated with its longer description.
+                    </p>
+                </article>
+
+                <article class="example">
+                    <span class="tag">aria-hidden="true"</span>
+                    <h3>Hide content from screen readers</h3>
+
+                    <p>
+                        Removes an element from the accessibility tree.
+                        It does not make the element visually disappear.
+                    </p>
+
+                    <pre><code>&lt;span aria-hidden="true"&gt;★&lt;/span&gt;
+&lt;span&gt;Rated 4.8 out of 5&lt;/span&gt;</code></pre>
+
+                    <p class="muted">
+                        The decorative star is hidden from screen readers,
+                        while the rating text remains available.
+                    </p>
+                </article>
+
+                <article class="example">
+                    <span class="tag">aria-expanded</span>
+                    <h3>Communicate open or closed state</h3>
+
+                    <p>
+                        Announces whether a collapsible interface element,
+                        such as a menu or accordion, is expanded.
+                    </p>
+
+                    <pre><code>&lt;button
+    aria-expanded="false"
+    aria-controls="menu"&gt;
+    Menu
+&lt;/button&gt;
+
+&lt;ul id="menu" hidden&gt;
+    ...
+&lt;/ul&gt;</code></pre>
+
+                    <p class="muted">
+                        The value changes when the menu opens or closes.
+                    </p>
+                </article>
+
+                <article class="example">
+                    <span class="tag">role</span>
+                    <h3>Assign a semantic role</h3>
+
+                    <p>
+                        Assigns or overrides an element's semantic role
+                        when an appropriate native element is not available.
+                    </p>
+
+                    <pre><code>&lt;div role="button"
+     tabindex="0"&gt;
+    Open project
+&lt;/div&gt;</code></pre>
+
+                    <p class="muted">
+                        This gives the element a button role, but keyboard
+                        interaction must also be implemented.
+                    </p>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">03 · Interactive demonstration</div>
+            <h2>aria-expanded in Action</h2>
+
+            <p>
+                This example demonstrates how a button communicates
+                whether a menu is open or closed.
+            </p>
+
+            <div class="demo-area">
+                <button
+                    class="demo-button"
+                    id="menu-toggle"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="demo-menu">
+                    Open menu
+                </button>
+
+                <ul class="menu-list" id="demo-menu" hidden>
+                    <li>Home</li>
+                    <li>About</li>
+                    <li>Projects</li>
+                    <li>Contact</li>
+                </ul>
+
+                <p id="menu-status" class="muted" aria-live="polite">
+                    Current state: Closed
+                </p>
+            </div>
+
+            <pre><code>&lt;button
+    aria-expanded="false"
+    aria-controls="menu"&gt;
+    Menu
+&lt;/button&gt;
+
+&lt;ul id="menu" hidden&gt;
+    &lt;li&gt;Home&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">04 · aria-hidden demonstration</div>
+            <h2>Visible on Screen, Hidden from Screen Readers</h2>
+
+            <p>
+                The star below is decorative. The rating text provides
+                the actual information.
+            </p>
+
+            <div class="demo-area">
+                <div class="rating-demo">
+                    <span class="star" aria-hidden="true">★</span>
+                    <span>Rated 4.8 out of 5</span>
+                </div>
+            </div>
+
+            <pre><code>&lt;span aria-hidden="true"&gt;★&lt;/span&gt;
+&lt;span&gt;Rated 4.8 out of 5&lt;/span&gt;</code></pre>
+
+            <p class="muted">
+                The star remains visible, but it is removed from the
+                accessibility tree. The rating text can still be announced.
+            </p>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">05 · Quick quiz</div>
+            <h2>Test Your Understanding</h2>
+
+            <p>
+                What does <code>aria-hidden="true"</code> do to an element?
+            </p>
+
+            <form id="quiz-form">
+                <label class="quiz-option">
+                    <input type="radio" name="answer" value="a">
+                    A. Makes it invisible on screen
+                </label>
+
+                <label class="quiz-option">
+                    <input type="radio" name="answer" value="b">
+                    B. Removes it from screen reader announcements
+                </label>
+
+                <label class="quiz-option">
+                    <input type="radio" name="answer" value="c">
+                    C. Disables all click events
+                </label>
+
+                <label class="quiz-option">
+                    <input type="radio" name="answer" value="d">
+                    D. Makes it transparent with CSS
+                </label>
+
+                <button class="action-btn" type="submit">
+                    Check Answer
+                </button>
+            </form>
+
+            <div id="quiz-feedback" aria-live="polite"></div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">06 · Summary</div>
+            <h2>What We Learned</h2>
+
+            <ul>
+                <li>
+                    <strong>aria-label:</strong>
+                    Gives an element an accessible name.
+                </li>
+                <li>
+                    <strong>aria-describedby:</strong>
+                    Connects an element to a longer description.
+                </li>
+                <li>
+                    <strong>aria-hidden="true":</strong>
+                    Hides an element from screen readers, not visually.
+                </li>
+                <li>
+                    <strong>aria-expanded:</strong>
+                    Communicates whether a collapsible element is open or closed.
+                </li>
+                <li>
+                    <strong>role:</strong>
+                    Assigns or overrides an element's semantic role.
+                </li>
+            </ul>
+
+            <div class="rule">
+                <strong>Main takeaway:</strong>
+                Use semantic HTML first. ARIA should add accessibility
+                information, not replace the meaning already provided by HTML.
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            BATSUREN ANAR · 202637018
+            <br>
+            Gachon University · Web Programming · Week 9 #1
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle
+        const themeButton = document.getElementById("theme");
+
+        function syncThemeButton() {
+            themeButton.textContent =
+                document.body.classList.contains("light")
+                    ? "🌙 Dark mode"
+                    : "☀️ Light mode";
+        }
+
+        themeButton.addEventListener("click", () => {
+            document.body.classList.toggle("light");
+            syncThemeButton();
+        });
+
+        syncThemeButton();
+
+        // Expandable menu demonstration
+        const menuToggle = document.getElementById("menu-toggle");
+        const demoMenu = document.getElementById("demo-menu");
+        const menuStatus = document.getElementById("menu-status");
+
+        menuToggle.addEventListener("click", () => {
+            const isExpanded =
+                menuToggle.getAttribute("aria-expanded") === "true";
+
+            menuToggle.setAttribute("aria-expanded", String(!isExpanded));
+            demoMenu.hidden = isExpanded;
+
+            menuToggle.textContent = isExpanded
+                ? "Open menu"
+                : "Close menu";
+
+            menuStatus.textContent = isExpanded
+                ? "Current state: Closed"
+                : "Current state: Open";
+        });
+
+        // Quiz
+        document.getElementById("quiz-form").addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const selected = document.querySelector(
+                'input[name="answer"]:checked'
+            );
+
+            const feedback = document.getElementById("quiz-feedback");
+            feedback.style.display = "block";
+
+            if (!selected) {
+                feedback.textContent = "Please select an answer first.";
+                feedback.className = "bad";
+                return;
+            }
+
+            if (selected.value === "b") {
+                feedback.textContent =
+                    'Correct! aria-hidden="true" removes the element from the accessibility tree without changing its visual display.';
+                feedback.className = "good";
+            } else {
+                feedback.textContent =
+                    'Not quite. The correct answer is B. It removes the element from screen reader announcements, but does not make it invisible on screen.';
+                feedback.className = "bad";
+            }
+        });
+    </script>
+</body>
+</html>

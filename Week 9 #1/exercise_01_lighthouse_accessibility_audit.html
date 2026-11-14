@@ -1,1 +1,1018 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Exercise 01 — Lighthouse Accessibility Audit · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Exercise 01 — Lighthouse Accessibility Audit</h1><p>Make content understandable and operable for people using different devices and assistive technologies.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="panel"><h2>Practical activity</h2><p>Run Lighthouse on a deployed page, record the score, inspect flagged issues and document fixes.</p><ol><li>Open the relevant page or tool in your browser.</li><li>Test the behavior using keyboard and mouse.</li><li>Record what happened and identify one improvement.</li><li>Apply the change and test again.</li></ol><div class="demo"><label for="notes">Your test notes</label><textarea id="notes" rows="4" placeholder="What did you test? What changed?"></textarea><button id="save">Save notes in this page</button><p id="saved" class="status" aria-live="polite">Notes stay in this page only; copy them before closing.</p></div></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script><script>save.onclick=()=>{saved.textContent=notes.value.trim()?'Notes captured for this session. Copy them into your assignment record.':'Write a few observations first.'};</script></body></html>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#171D2E">
+    <title>Exercise 01 — Lighthouse Accessibility Audit · Anar</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --hero: linear-gradient(135deg, #30294F, #202D49);
+            --input: #19243A;
+            --good: #8EE0B2;
+            --bad: #FF9C9C;
+            --shadow: 0 12px 30px rgba(0, 0, 0, .22);
+        }
+
+        body.light {
+            color-scheme: light;
+            --bg: #F0EBFF;
+            --text: #292344;
+            --muted: #625B7D;
+            --card: #FFFFFF;
+            --accent: #7053C8;
+            --border: #B9ACDE;
+            --hero: linear-gradient(135deg, #DED5F1, #E4E8FF);
+            --input: #F6F3FF;
+            --good: #187A48;
+            --bad: #B32626;
+            --shadow: 0 12px 30px rgba(48, 36, 83, .10);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+            transition: background .2s, color .2s;
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        button,
+        input,
+        textarea {
+            font: inherit;
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        textarea:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 10px;
+            z-index: 9999;
+            padding: 10px 16px;
+            background: var(--accent);
+            color: #171D2E;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .skip-link:focus {
+            left: 10px;
+        }
+
+        .container {
+            width: min(1180px, calc(100% - 36px));
+            margin: auto;
+        }
+
+        header {
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .theme-btn,
+        .action-btn {
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            padding: 9px 15px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .theme-btn:hover,
+        .action-btn:hover {
+            border-color: var(--accent);
+        }
+
+        main {
+            padding: 30px 0 60px;
+        }
+
+        .hero {
+            background: var(--hero);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 38px;
+            box-shadow: var(--shadow);
+            margin-bottom: 28px;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: .8rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.3rem);
+            line-height: 1.15;
+            margin: 10px 0;
+        }
+
+        h2 {
+            font-size: 1.65rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            margin-top: 0;
+        }
+
+        .hero p {
+            max-width: 760px;
+            color: var(--muted);
+            font-size: 1.08rem;
+        }
+
+        .meta {
+            margin-top: 22px;
+            color: var(--muted);
+            font-size: .9rem;
+        }
+
+        .panel {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 26px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-label {
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: .78rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .step {
+            background: var(--input);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .step-number {
+            display: inline-flex;
+            width: 34px;
+            height: 34px;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent);
+            color: #171D2E;
+            border-radius: 50%;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: .78rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: rgba(183, 162, 255, .16);
+            color: var(--accent);
+        }
+
+        .rule {
+            border-left: 4px solid var(--accent);
+            padding: 12px 16px;
+            background: var(--input);
+            border-radius: 0 10px 10px 0;
+            margin: 16px 0;
+        }
+
+        pre {
+            overflow-x: auto;
+            background: #111A2B;
+            color: #E8E6FF;
+            border: 1px solid #46516F;
+            border-radius: 10px;
+            padding: 16px;
+            font-size: .88rem;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        .score-box {
+            background: var(--input);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 22px;
+            text-align: center;
+        }
+
+        .score {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .score-input {
+            width: 110px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        input[type="text"],
+        input[type="url"],
+        textarea {
+            width: 100%;
+            padding: 11px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--input);
+            color: var(--text);
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .field {
+            margin-bottom: 18px;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+            margin: 14px 0;
+        }
+
+        .checklist li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .checklist label {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .checklist input {
+            margin-top: 6px;
+            accent-color: var(--accent);
+            width: 17px;
+            height: 17px;
+            flex-shrink: 0;
+        }
+
+        .audit-card {
+            background: var(--input);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+            margin: 14px 0;
+        }
+
+        .audit-card h3 {
+            margin-bottom: 12px;
+        }
+
+        .audit-card textarea {
+            margin-top: 8px;
+        }
+
+        .status {
+            background: var(--input);
+            border: 1px solid var(--border);
+            padding: 14px;
+            border-radius: 9px;
+            margin-top: 14px;
+        }
+
+        .good {
+            color: var(--good);
+            font-weight: 700;
+        }
+
+        .bad {
+            color: var(--bad);
+            font-weight: 700;
+        }
+
+        .action-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .progress-track {
+            height: 12px;
+            background: var(--input);
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 12px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            width: 0;
+            background: var(--accent);
+            transition: width .2s;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 25px 0;
+            color: var(--muted);
+            text-align: center;
+            font-size: .9rem;
+        }
+
+        @media (max-width: 720px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 25px;
+            }
+
+            .panel {
+                padding: 19px;
+            }
+
+            nav {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header>
+        <div class="container topbar">
+            <div class="brand">ANAR'S WEB PROGRAMMING</div>
+
+            <nav aria-label="Main navigation">
+                <a href="index.html">Section Home</a>
+                <a href="../index.html">Main Portfolio</a>
+                <button class="theme-btn" id="theme" type="button">
+                    ☀️ Light mode
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" id="main-content">
+
+        <section class="hero">
+            <div class="eyebrow">Week 9 #1 · Exercise 01</div>
+            <h1>Lighthouse Accessibility Audit</h1>
+            <p>
+                Audit a real website using Google Chrome Lighthouse.
+                Identify accessibility problems, fix at least three issues,
+                and compare the results before and after your improvements.
+            </p>
+            <div class="meta">
+                K0126002 · Gachon University · 2026 Fall · Dr. Toshpulatov
+                <br>
+                BATSUREN ANAR · STUDENT ID: 202637018
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">01 · Objective</div>
+            <h2>What Is Lighthouse?</h2>
+
+            <p>
+                Lighthouse is an automated auditing tool built into
+                Chrome DevTools. It evaluates different aspects of a
+                webpage, including accessibility.
+            </p>
+
+            <p>
+                The Accessibility category checks for common problems
+                such as missing alternative text, insufficient color
+                contrast, unlabeled form controls, and missing language
+                information.
+            </p>
+
+            <div class="rule">
+                <strong>Assignment target:</strong>
+                Aim for an Accessibility score of 100 after fixing the
+                identified problems. The score is between 0 and 100.
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">02 · Audit procedure</div>
+            <h2>How to Run Lighthouse</h2>
+
+            <div class="grid">
+                <article class="step">
+                    <span class="step-number">1</span>
+                    <h3>Open your website</h3>
+                    <p>
+                        Open your personal portfolio or team project
+                        website in Google Chrome.
+                    </p>
+                </article>
+
+                <article class="step">
+                    <span class="step-number">2</span>
+                    <h3>Open DevTools</h3>
+                    <p>
+                        Press <strong>F12</strong> or
+                        <strong>Ctrl + Shift + I</strong> to open
+                        Chrome Developer Tools.
+                    </p>
+                </article>
+
+                <article class="step">
+                    <span class="step-number">3</span>
+                    <h3>Select Lighthouse</h3>
+                    <p>
+                        Find the Lighthouse tab in DevTools.
+                        Select the Accessibility category only.
+                    </p>
+                </article>
+
+                <article class="step">
+                    <span class="step-number">4</span>
+                    <h3>Analyze the page</h3>
+                    <p>
+                        Click <strong>Analyze page load</strong>
+                        and wait for the audit to finish.
+                    </p>
+                </article>
+
+                <article class="step">
+                    <span class="step-number">5</span>
+                    <h3>Record the score</h3>
+                    <p>
+                        Read the Accessibility score from 0 to 100.
+                        Take a screenshot of the initial report.
+                    </p>
+                </article>
+
+                <article class="step">
+                    <span class="step-number">6</span>
+                    <h3>Inspect failed audits</h3>
+                    <p>
+                        Expand each failed audit and read its
+                        explanation and recommended fixes.
+                    </p>
+                </article>
+
+                <article class="step">
+                    <span class="step-number">7</span>
+                    <h3>Fix at least three issues</h3>
+                    <p>
+                        Update your HTML, CSS, or JavaScript
+                        to correct at least three identified problems.
+                    </p>
+                </article>
+
+                <article class="step">
+                    <span class="step-number">8</span>
+                    <h3>Run the audit again</h3>
+                    <p>
+                        Repeat the Accessibility audit and capture
+                        a screenshot of your improved score.
+                    </p>
+                </article>
+            </div>
+
+            <div class="rule">
+                <strong>Important:</strong>
+                Use the same website and page for both audits so that
+                the before-and-after comparison is meaningful.
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">03 · Common accessibility failures</div>
+            <h2>What Should You Look For?</h2>
+
+            <div class="grid">
+                <article class="step">
+                    <span class="tag">Issue 01</span>
+                    <h3>Missing alt text</h3>
+                    <p>
+                        Images that communicate information should have
+                        meaningful alternative text.
+                    </p>
+                    <pre><code>&lt;img
+  src="profile.jpg"
+  alt="Student profile photo"&gt;</code></pre>
+                </article>
+
+                <article class="step">
+                    <span class="tag">Issue 02</span>
+                    <h3>Insufficient contrast</h3>
+                    <p>
+                        Text and its background should have sufficient
+                        contrast to remain readable.
+                    </p>
+                    <pre><code>/* Example */
+color: #FFFFFF;
+background: #171D2E;</code></pre>
+                </article>
+
+                <article class="step">
+                    <span class="tag">Issue 03</span>
+                    <h3>Unlabeled form inputs</h3>
+                    <p>
+                        Form fields should have associated labels
+                        that explain their purpose.
+                    </p>
+                    <pre><code>&lt;label for="email"&gt;
+  Email address
+&lt;/label&gt;
+
+&lt;input id="email"
+  type="email"&gt;</code></pre>
+                </article>
+
+                <article class="step">
+                    <span class="tag">Issue 04</span>
+                    <h3>Missing HTML language</h3>
+                    <p>
+                        The document should identify its primary
+                        language.
+                    </p>
+                    <pre><code>&lt;html lang="en"&gt;</code></pre>
+                </article>
+            </div>
+
+            <p class="muted">
+                These are examples from the lecture. Your actual Lighthouse
+                report may identify different problems.
+            </p>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">04 · Initial audit</div>
+            <h2>Record Your First Result</h2>
+
+            <div class="field">
+                <label for="website-url">Website URL</label>
+                <input type="url" id="website-url"
+                       placeholder="https://example.com">
+            </div>
+
+            <div class="score-box">
+                <p class="muted">Initial Accessibility Score</p>
+                <input class="score-input" type="number"
+                       id="initial-score" min="0" max="100"
+                       placeholder="0–100">
+                <span>/ 100</span>
+                <p class="muted">
+                    Enter the real score shown by Lighthouse.
+                </p>
+            </div>
+
+            <div class="field" style="margin-top:20px">
+                <label for="initial-notes">Initial audit observations</label>
+                <textarea id="initial-notes"
+                          placeholder="Describe the failed audits shown in your initial report..."></textarea>
+            </div>
+
+            <div class="rule">
+                Take a screenshot of the original Lighthouse Accessibility
+                score before making any changes.
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">05 · Fix the problems</div>
+            <h2>Document Three Improvements</h2>
+
+            <p>
+                Use the actual failed audits from your report.
+                Describe what was wrong and what you changed.
+            </p>
+
+            <div class="audit-card">
+                <span class="tag">Fix 01</span>
+                <div class="field">
+                    <label for="issue-1">Problem identified</label>
+                    <input type="text" id="issue-1"
+                           placeholder="Example: Image missing alternative text">
+                </div>
+                <div class="field">
+                    <label for="solution-1">How I fixed it</label>
+                    <textarea id="solution-1"
+                              placeholder="Explain the code or design change you made..."></textarea>
+                </div>
+            </div>
+
+            <div class="audit-card">
+                <span class="tag">Fix 02</span>
+                <div class="field">
+                    <label for="issue-2">Problem identified</label>
+                    <input type="text" id="issue-2"
+                           placeholder="Example: Insufficient text contrast">
+                </div>
+                <div class="field">
+                    <label for="solution-2">How I fixed it</label>
+                    <textarea id="solution-2"
+                              placeholder="Explain the code or design change you made..."></textarea>
+                </div>
+            </div>
+
+            <div class="audit-card">
+                <span class="tag">Fix 03</span>
+                <div class="field">
+                    <label for="issue-3">Problem identified</label>
+                    <input type="text" id="issue-3"
+                           placeholder="Example: Form field without a label">
+                </div>
+                <div class="field">
+                    <label for="solution-3">How I fixed it</label>
+                    <textarea id="solution-3"
+                              placeholder="Explain the code or design change you made..."></textarea>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">06 · Final audit</div>
+            <h2>Record Your Improved Result</h2>
+
+            <div class="score-box">
+                <p class="muted">Final Accessibility Score</p>
+                <input class="score-input" type="number"
+                       id="final-score" min="0" max="100"
+                       placeholder="0–100">
+                <span>/ 100</span>
+                <p class="muted">
+                    Enter your score after fixing the issues.
+                </p>
+            </div>
+
+            <div class="field" style="margin-top:20px">
+                <label for="final-notes">Final audit observations</label>
+                <textarea id="final-notes"
+                          placeholder="Describe what changed in the final Lighthouse report..."></textarea>
+            </div>
+
+            <div id="comparison" class="status" aria-live="polite">
+                Enter both scores to compare your results.
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">07 · Submission checklist</div>
+            <h2>Before You Submit</h2>
+
+            <ul class="checklist" id="submission-checklist">
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        I ran Lighthouse on my personal or team project website.
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        I selected the Accessibility category only.
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        I saved a screenshot of the initial score.
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        I fixed at least three failing audits.
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        I ran Lighthouse again after making the fixes.
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        I saved a screenshot of the improved score.
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        I documented all three fixes.
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        I posted both screenshots and the three fixes to the weekly task page.
+                    </label>
+                </li>
+            </ul>
+
+            <p id="progress-text" class="muted">
+                0 of 8 tasks completed.
+            </p>
+
+            <div class="progress-track">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">08 · Final reflection</div>
+            <h2>What Did You Learn?</h2>
+
+            <div class="field">
+                <label for="reflection">
+                    Write a short reflection about your audit.
+                </label>
+                <textarea id="reflection"
+                          placeholder="What accessibility problems did you discover? What did you learn from fixing them?"></textarea>
+            </div>
+
+            <button class="action-btn" id="summary-button" type="button">
+                Generate Audit Summary
+            </button>
+
+            <div id="summary-output" class="status"
+                 aria-live="polite" hidden></div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            BATSUREN ANAR · 202637018
+            <br>
+            Gachon University · Web Programming · Week 9 #1
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle
+        const themeButton = document.getElementById("theme");
+
+        function syncThemeButton() {
+            themeButton.textContent =
+                document.body.classList.contains("light")
+                    ? "🌙 Dark mode"
+                    : "☀️ Light mode";
+        }
+
+        themeButton.addEventListener("click", () => {
+            document.body.classList.toggle("light");
+            syncThemeButton();
+        });
+
+        syncThemeButton();
+
+        // Progress checklist
+        const checklist = document.querySelectorAll(
+            '#submission-checklist input[type="checkbox"]'
+        );
+
+        function updateProgress() {
+            const completed = Array.from(checklist)
+                .filter(item => item.checked).length;
+
+            const total = checklist.length;
+            const percentage = (completed / total) * 100;
+
+            document.getElementById("progress-text").textContent =
+                completed + " of " + total + " tasks completed.";
+
+            document.getElementById("progress-fill").style.width =
+                percentage + "%";
+        }
+
+        checklist.forEach(item => {
+            item.addEventListener("change", updateProgress);
+        });
+
+        updateProgress();
+
+        // Score comparison
+        const initialScore = document.getElementById("initial-score");
+        const finalScore = document.getElementById("final-score");
+        const comparison = document.getElementById("comparison");
+
+        function updateComparison() {
+            const first = initialScore.value;
+            const last = finalScore.value;
+
+            if (
+                first === "" || last === "" ||
+                Number(first) < 0 || Number(first) > 100 ||
+                Number(last) < 0 || Number(last) > 100
+            ) {
+                comparison.textContent =
+                    "Enter valid scores between 0 and 100.";
+                return;
+            }
+
+            const difference = Number(last) - Number(first);
+
+            if (difference > 0) {
+                comparison.textContent =
+                    "Your Accessibility score improved by " +
+                    difference + " points.";
+            } else if (difference < 0) {
+                comparison.textContent =
+                    "Your score decreased by " +
+                    Math.abs(difference) +
+                    " points. Review the final report for remaining problems.";
+            } else {
+                comparison.textContent =
+                    "Your score stayed the same. Review the audit results and fixes.";
+            }
+
+            if (Number(last) === 100) {
+                comparison.textContent +=
+                    " You reached the target score of 100!";
+            }
+        }
+
+        initialScore.addEventListener("input", updateComparison);
+        finalScore.addEventListener("input", updateComparison);
+
+        // Generate summary
+        document.getElementById("summary-button").addEventListener("click", () => {
+            const website = document.getElementById("website-url").value;
+            const first = initialScore.value;
+            const last = finalScore.value;
+
+            const issues = [
+                [document.getElementById("issue-1").value,
+                 document.getElementById("solution-1").value],
+                [document.getElementById("issue-2").value,
+                 document.getElementById("solution-2").value],
+                [document.getElementById("issue-3").value,
+                 document.getElementById("solution-3").value]
+            ];
+
+            const reflection =
+                document.getElementById("reflection").value;
+
+            const output = document.getElementById("summary-output");
+            output.hidden = false;
+
+            const complete = website && first !== "" && last !== "" &&
+                issues.every(issue => issue[0].trim() && issue[1].trim());
+
+            if (!complete) {
+                output.textContent =
+                    "Please enter your website URL, both scores, and all three problems and solutions before generating the summary.";
+                return;
+            }
+
+            const difference = Number(last) - Number(first);
+
+            const lines = [
+                "LIGHTHOUSE ACCESSIBILITY AUDIT",
+                "",
+                "Website: " + website,
+                "Initial score: " + first + "/100",
+                "Final score: " + last + "/100",
+                "Score change: " +
+                    (difference > 0 ? "+" : "") + difference + " points",
+                "",
+                "THREE FIXES"
+            ];
+
+            issues.forEach((issue, index) => {
+                lines.push(
+                    "",
+                    (index + 1) + ". " + issue[0],
+                    "Solution: " + issue[1]
+                );
+            });
+
+            lines.push(
+                "",
+                "REFLECTION",
+                reflection || "Not provided."
+            );
+
+            output.textContent = lines.join("\n");
+
+            const copyButton = document.createElement("button");
+            copyButton.type = "button";
+            copyButton.className = "action-btn";
+            copyButton.textContent = "Copy Summary";
+
+            copyButton.addEventListener("click", () => {
+                navigator.clipboard.writeText(lines.join("\n"))
+                    .then(() => {
+                        copyButton.textContent = "Copied!";
+                    })
+                    .catch(() => {
+                        copyButton.textContent =
+                            "Copy unavailable — select the summary text.";
+                    });
+            });
+
+            output.appendChild(document.createElement("br"));
+            output.appendChild(copyButton);
+        });
+    </script>
+</body>
+
+</html>

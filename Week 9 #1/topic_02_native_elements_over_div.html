@@ -1,1 +1,582 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Topic 02 — Native Elements Over Div · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Topic 02 — Native Elements Over Div</h1><p>Make content understandable and operable for people using different devices and assistive technologies.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="panel"><h2>Concept</h2><p>Prefer built-in links, buttons and form controls because browsers provide keyboard and accessibility behavior.</p><h2>Why it matters</h2><p>Native Elements Over Div Apply the idea consistently and test the result in a browser.</p><h2>Try it</h2><h2>Remember</h2><ul><li>Prefer native HTML before adding custom JavaScript or ARIA.</li><li>Test with keyboard navigation and browser developer tools.</li><li>Keep labels, instructions and feedback clear.</li></ul></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script></body></html>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#171D2E">
+    <title>Topic 02 — Native Elements Over Div · Anar</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --line: #34415D;
+            --shadow: rgba(0, 0, 0, .4);
+            --hero1: #251D40;
+            --hero2: #49366F
+        }
+
+        body.light {
+            color-scheme: light;
+            --bg: #F0EBFF;
+            --text: #292344;
+            --muted: #655B80;
+            --card: #fff;
+            --accent: #7957D5;
+            --border: #B0A3D9;
+            --line: #DED5F1;
+            --shadow: rgba(41, 35, 68, .13);
+            --hero1: #E6DCFF;
+            --hero2: #CDBCF5
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font: 16px/1.65 Arial, sans-serif;
+            transition: .2s
+        }
+
+        main {
+            max-width: 1180px;
+            width: calc(100% - 36px);
+            margin: auto;
+            padding-bottom: 45px
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            padding: 24px 2px 18px;
+            border-bottom: 1px solid var(--line);
+            flex-wrap: wrap
+        }
+
+        .brand {
+            font-weight: 900;
+            letter-spacing: 1px
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .btn,
+        button {
+            display: inline-block;
+            padding: 9px 15px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            background: var(--card);
+            color: var(--text);
+            font: 700 14px Arial;
+            text-decoration: none;
+            cursor: pointer
+        }
+
+        .hero {
+            margin: 28px 0;
+            padding: 28px 32px;
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            background: linear-gradient(120deg, var(--hero1), var(--hero2));
+            box-shadow: 7px 7px 0 var(--shadow)
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-weight: 900;
+            color: var(--muted)
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            line-height: 1.15;
+            margin: 10px 0
+        }
+
+        h2 {
+            line-height: 1.25
+        }
+
+        .student {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--muted)
+        }
+
+        .section {
+            margin: 28px 0
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px
+        }
+
+        .card,
+        .panel {
+            padding: 18px;
+            border: 2px solid var(--border);
+            border-radius: 19px;
+            background: var(--card);
+            box-shadow: 4px 5px 0 var(--shadow)
+        }
+
+        .card h3 {
+            margin: 0 0 10px;
+            font-size: 16px
+        }
+
+        .card p {
+            color: var(--muted);
+            font-size: 14px
+        }
+
+        .panel {
+            margin: 18px 0
+        }
+
+        .demo {
+            padding: 18px;
+            border: 1px dashed var(--border);
+            border-radius: 14px;
+            margin-top: 14px
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        .status {
+            padding: 10px;
+            border-radius: 9px;
+            background: var(--bg);
+            margin-top: 12px;
+            min-height: 24px
+        }
+
+        code,
+        pre {
+            background: var(--bg);
+            border-radius: 7px;
+            padding: 3px 6px
+        }
+
+        pre {
+            padding: 14px;
+            overflow: auto
+        }
+
+        button:focus-visible,
+        a:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+            margin-top: 14px
+        }
+
+        .comparison-box {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            min-width: 0
+        }
+
+        .fake-button {
+            display: inline-block;
+            padding: 10px 16px;
+            border: 2px solid #C66B78;
+            border-radius: 10px;
+            background: var(--bg);
+            color: var(--text);
+            cursor: pointer;
+            margin-top: 8px
+        }
+
+        .real-button {
+            border-color: #6FBF91;
+            margin-top: 8px
+        }
+
+        .quiz-option {
+            display: block;
+            width: 100%;
+            text-align: left;
+            margin: 9px 0;
+            font: inherit;
+            padding: 12px 14px
+        }
+
+        .quiz-option.correct {
+            border-color: #6FBF91;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #D87986;
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--muted);
+            border-top: 1px solid var(--line);
+            margin-top: 38px;
+            padding: 20px;
+            font-size: 13px
+        }
+
+        .skip {
+            position: absolute;
+            left: -9999px;
+            top: 8px;
+            background: var(--card);
+            padding: 10px;
+            z-index: 10
+        }
+
+        .skip:focus {
+            left: 8px
+        }
+
+        @media(max-width:800px) {
+            .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr))
+            }
+        }
+
+        @media(max-width:600px) {
+            .comparison {
+                grid-template-columns: 1fr
+            }
+        }
+
+        @media(max-width:520px) {
+            .grid {
+                grid-template-columns: 1fr
+            }
+
+            .hero {
+                padding: 22px
+            }
+
+            .top {
+                align-items: flex-start;
+                flex-direction: column
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip" href="#main-content">Skip to main content</a>
+
+    <main>
+        <nav class="top" aria-label="Main navigation">
+            <div class="brand">ANAR · WEB PROGRAMMING</div>
+            <div class="actions">
+                <a class="btn" href="index.html">← Section home</a>
+                <a class="btn" href="../index.html">Main portfolio</a>
+                <button id="theme" type="button">☀️ Light mode</button>
+            </div>
+        </nav>
+
+        <header class="hero">
+            <p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p>
+            <h1>Topic 02 — Native Elements Over Div</h1>
+            <p>Use the right HTML element for the right purpose. Native elements provide accessibility features automatically.</p>
+            <p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
+        </header>
+
+        <div id="main-content">
+
+            <section class="panel">
+                <h2>Why Native HTML Elements Matter</h2>
+                <p>
+                    HTML elements have built-in meanings and behaviors. For example,
+                    a button is designed for actions, while a link is designed for
+                    navigation.
+                </p>
+                <p>
+                    A clickable div may look like a button, but it does not automatically
+                    behave like one. It needs extra code to support keyboard users and
+                    assistive technologies.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>Two Important Rules</h2>
+                <div class="grid">
+                    <article class="card">
+                        <h3>Use &lt;button&gt; for actions</h3>
+                        <p>
+                            Use a button when the user needs to perform an action,
+                            such as opening a menu, submitting a form, or showing a message.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <h3>Use &lt;a href&gt; for navigation</h3>
+                        <p>
+                            Use a link when the user needs to move to another page
+                            or a different location.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <h3>Avoid clickable divs</h3>
+                        <p>
+                            Do not use a div or span as an interactive element when
+                            a native button or link can do the job.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>&lt;div onclick&gt; vs. &lt;button&gt;</h2>
+                <p>
+                    Both examples below can respond to a mouse click. However,
+                    their keyboard and accessibility behavior is different.
+                </p>
+
+                <div class="comparison">
+
+                    <div class="comparison-box">
+                        <h3>Clickable div</h3>
+                        <div class="fake-button" id="fakeButton" onclick="showDivMessage()">
+                            Click me
+                        </div>
+
+                        <p class="muted">
+                            Problems:
+                        </p>
+                        <ul>
+                            <li>Cannot be focused with Tab by default.</li>
+                            <li>Enter and Space do not activate it automatically.</li>
+                            <li>No accessible button role is assigned.</li>
+                            <li>Screen readers may announce it as a generic group.</li>
+                        </ul>
+                        <div class="status" id="divStatus" aria-live="polite">
+                            Click the div to test it.
+                        </div>
+                    </div>
+
+                    <div class="comparison-box">
+                        <h3>Native button</h3>
+                        <button class="real-button" id="realButton" type="button">
+                            Click me
+                        </button>
+
+                        <p class="muted">
+                            Benefits:
+                        </p>
+                        <ul>
+                            <li>Focusable with the Tab key automatically.</li>
+                            <li>Enter and Space both activate it.</li>
+                            <li>The button role is provided automatically.</li>
+                            <li>Screen readers announce it as a button.</li>
+                        </ul>
+                        <div class="status" id="buttonStatus" aria-live="polite">
+                            Click or keyboard-activate the button.
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Code Comparison</h2>
+
+                <div class="demo">
+                    <h3>Incorrect approach for an action</h3>
+                    <pre><code>&lt;div onclick="doSomething()"
+     style="cursor:pointer"&gt;
+    Click me
+&lt;/div&gt;</code></pre>
+
+                    <p class="muted">
+                        This div responds to a mouse click, but it does not
+                        automatically support keyboard interaction or a button role.
+                    </p>
+                </div>
+
+                <div class="demo">
+                    <h3>Recommended approach</h3>
+                    <pre><code>&lt;button type="button"
+        onclick="doSomething()"&gt;
+    Click me
+&lt;/button&gt;</code></pre>
+
+                    <p class="muted">
+                        The native button already supports keyboard focus,
+                        Enter, Space, and the button role.
+                    </p>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>What If a Custom Div Is Necessary?</h2>
+                <p>
+                    Sometimes a custom interactive element is unavoidable.
+                    In that case, it needs additional accessibility features.
+                </p>
+
+                <pre><code>&lt;div
+    role="button"
+    tabindex="0"
+    aria-label="View project details"
+    onclick="openProject()"
+    onkeydown="handleKey(event)"&gt;
+    View project
+&lt;/div&gt;
+
+function handleKey(e) {
+    if (e.key === "Enter" || e.key === " ") {
+        openProject();
+        e.preventDefault();
+    }
+}</code></pre>
+
+                <p>
+                    This example adds a button role, keyboard focus, and keyboard
+                    event handling. However, using a native button is still simpler
+                    and more reliable.
+                </p>
+            </section>
+
+            <section class="panel">
+                <h2>Quick Quiz</h2>
+                <p>
+                    A designer makes a clickable div that opens a modal.
+                    What is missing for accessibility?
+                </p>
+
+                <div class="demo">
+                    <button class="quiz-option" type="button" data-answer="A">
+                        A. A CSS class
+                    </button>
+
+                    <button class="quiz-option" type="button" data-answer="B">
+                        B. display: flex styling
+                    </button>
+
+                    <button class="quiz-option" type="button" data-answer="C">
+                        C. Keyboard focus + Enter/Space support + a role
+                    </button>
+
+                    <button class="quiz-option" type="button" data-answer="D">
+                        D. A data-attribute
+                    </button>
+
+                    <div class="status" id="quizStatus" aria-live="polite">
+                        Choose an answer to check your understanding.
+                    </div>
+                </div>
+
+                <div class="demo">
+                    <h3>Answer explanation</h3>
+                    <p>
+                        Div elements do not receive keyboard focus or a button role
+                        by default. Use a native button instead, or add
+                        <code>role="button"</code>, <code>tabindex="0"</code>,
+                        and a keydown handler for Enter and Space.
+                    </p>
+                    <p>
+                        Without these features, keyboard users and screen reader
+                        users may not be able to activate the control.
+                    </p>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Remember</h2>
+                <ul>
+                    <li>Use &lt;button&gt; for actions.</li>
+                    <li>Use &lt;a href&gt; for navigation.</li>
+                    <li>Do not use a div or span as an interactive element.</li>
+                    <li>Native elements already include useful accessibility behavior.</li>
+                    <li>Custom controls need keyboard support and the correct role.</li>
+                </ul>
+            </section>
+
+        </div>
+
+        <footer class="footer">
+            BATSUREN ANAR · STUDENT ID: 202637018<br>
+            GACHON UNIVERSITY · WEB PROGRAMMING
+        </footer>
+    </main>
+
+    <script>
+        const t = document.getElementById('theme');
+
+        function sync() {
+            t.textContent = document.body.classList.contains('light')
+                ? '🌙 Dark mode'
+                : '☀️ Light mode';
+        }
+
+        t.addEventListener('click', () => {
+            document.body.classList.toggle('light');
+            sync();
+        });
+
+        sync();
+
+        function showDivMessage() {
+            document.getElementById('divStatus').textContent =
+                'The div responded to a mouse click.';
+        }
+
+        document.getElementById('realButton').addEventListener('click', () => {
+            document.getElementById('buttonStatus').textContent =
+                'The native button was activated successfully.';
+        });
+
+        const quizOptions = document.querySelectorAll('.quiz-option');
+        const quizStatus = document.getElementById('quizStatus');
+
+        quizOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                quizOptions.forEach(item => {
+                    item.classList.remove('correct', 'incorrect');
+                });
+
+                if (option.dataset.answer === 'C') {
+                    option.classList.add('correct');
+                    quizStatus.textContent =
+                        'Correct! A custom clickable div needs keyboard focus, Enter/Space support, and an accessible role.';
+                } else {
+                    option.classList.add('incorrect');
+                    quizStatus.textContent =
+                        'Not quite. Try again. Think about what a div does not provide automatically.';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

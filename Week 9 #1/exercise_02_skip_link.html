@@ -1,1 +1,775 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Exercise 02 — Skip Link · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Exercise 02 — Skip Link</h1><p>Make content understandable and operable for people using different devices and assistive technologies.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><a class="skip" href="#real-main">Skip to main content</a><section class="panel"><h2>Working skip-link demonstration</h2><p>A working skip link moves keyboard focus to the main content.</p><p>Press Tab after reloading this page. The “Skip to main content” link appears. Press Enter to move to the main content target.</p><p><a class="btn" href="#real-main">Try skip link</a></p></section><section class="panel" id="real-main" tabindex="-1"><h2>Main content target</h2><p>You reached the main content. The target can receive focus and is identified by a stable id.</p></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script><script>document.querySelector('.skip').addEventListener('click',()=>{document.getElementById('real-main').focus()});</script></body></html>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#171D2E">
+    <title>Exercise 02 — Skip Link · Anar</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --input: #19243A;
+            --hero: linear-gradient(135deg, #30294F, #202D49);
+            --good: #8EE0B2;
+            --shadow: 0 12px 30px rgba(0, 0, 0, .22);
+        }
+
+        body.light {
+            color-scheme: light;
+            --bg: #F0EBFF;
+            --text: #292344;
+            --muted: #625B7D;
+            --card: #FFFFFF;
+            --accent: #7053C8;
+            --border: #B9ACDE;
+            --input: #F6F3FF;
+            --hero: linear-gradient(135deg, #DED5F1, #E4E8FF);
+            --good: #187A48;
+            --shadow: 0 12px 30px rgba(48, 36, 83, .10);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+            transition: background .2s, color .2s;
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        button {
+            font: inherit;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        /* Skip link: hidden until keyboard focus */
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 8px;
+            z-index: 9999;
+            background: #1A2744;
+            color: #FFFFFF;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .skip-link:focus {
+            left: 8px;
+        }
+
+        .container {
+            width: min(1180px, calc(100% - 36px));
+            margin: auto;
+        }
+
+        .site-header {
+            border-bottom: 1px solid var(--border);
+            padding: 18px 0;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .theme-btn,
+        .demo-btn {
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            padding: 9px 15px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .theme-btn:hover,
+        .demo-btn:hover {
+            border-color: var(--accent);
+        }
+
+        main {
+            padding: 30px 0 60px;
+        }
+
+        .hero {
+            background: var(--hero);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 38px;
+            box-shadow: var(--shadow);
+            margin-bottom: 28px;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-size: .8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.3rem);
+            line-height: 1.15;
+            margin: 10px 0;
+        }
+
+        h2 {
+            font-size: 1.65rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            margin-top: 0;
+        }
+
+        .hero p {
+            max-width: 760px;
+            color: var(--muted);
+            font-size: 1.08rem;
+        }
+
+        .meta {
+            margin-top: 22px;
+            color: var(--muted);
+            font-size: .9rem;
+        }
+
+        .panel {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 26px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-label {
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: .78rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            background: var(--input);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .number {
+            display: inline-flex;
+            width: 34px;
+            height: 34px;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent);
+            color: #171D2E;
+            border-radius: 50%;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        pre {
+            overflow-x: auto;
+            background: #111A2B;
+            color: #E8E6FF;
+            border: 1px solid #46516F;
+            border-radius: 10px;
+            padding: 16px;
+            font-size: .88rem;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        .demo-area {
+            background: var(--input);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 22px;
+            margin-top: 18px;
+        }
+
+        .demo-navigation {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 15px;
+            border: 1px dashed var(--border);
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .demo-navigation a {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 7px;
+            background: var(--card);
+            text-decoration: none;
+        }
+
+        .demo-content {
+            border: 2px solid var(--accent);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 18px;
+            scroll-margin-top: 20px;
+        }
+
+        .demo-content:focus {
+            outline: 4px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        .status {
+            background: var(--input);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px;
+            margin-top: 14px;
+            min-height: 52px;
+        }
+
+        .good {
+            color: var(--good);
+            font-weight: 700;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .checklist label {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            cursor: pointer;
+        }
+
+        .checklist input {
+            margin-top: 6px;
+            accent-color: var(--accent);
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 25px 0;
+            text-align: center;
+            color: var(--muted);
+            font-size: .9rem;
+        }
+
+        @media(max-width: 720px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 25px;
+            }
+
+            .panel {
+                padding: 19px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- The skip link must be the first element inside body -->
+    <a href="#main-content" class="skip-link">
+        Skip to main content
+    </a>
+
+    <header class="site-header">
+        <div class="container topbar">
+            <div class="brand">ANAR'S WEB PROGRAMMING</div>
+
+            <nav aria-label="Main navigation">
+                <a href="index.html">Section Home</a>
+                <a href="../index.html">Main Portfolio</a>
+                <button class="theme-btn" id="theme" type="button">
+                    ☀️ Light mode
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" id="main-content" tabindex="-1">
+
+        <section class="hero">
+            <div class="eyebrow">Week 9 #1 · Exercise 02</div>
+
+            <h1>Skip Navigation Links</h1>
+
+            <p>
+                A skip link allows keyboard users to bypass repeated
+                navigation links and jump directly to the main content.
+                It is normally hidden until the user presses Tab.
+            </p>
+
+            <div class="meta">
+                K0126002 · Gachon University · 2026 Fall · Dr. Toshpulatov
+                <br>
+                BATSUREN ANAR · STUDENT ID: 202637018
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">01 · Why is it needed?</div>
+            <h2>The Problem With Long Navigation</h2>
+
+            <p>
+                Keyboard users often navigate a website using the Tab key.
+                Without a skip link, they may have to move through every
+                navigation link before reaching the actual page content.
+            </p>
+
+            <div class="grid">
+                <article class="card">
+                    <span class="number">1</span>
+                    <h3>Without a skip link</h3>
+                    <p>
+                        A keyboard user may need to press Tab many times
+                        to pass all navigation links.
+                    </p>
+                    <p class="muted">
+                        Example: 47 navigation links could require
+                        47 Tab presses.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <span class="number">2</span>
+                    <h3>With a skip link</h3>
+                    <p>
+                        The first Tab press reveals a link that jumps
+                        directly to the main content.
+                    </p>
+                    <p class="good">
+                        Faster access with fewer keyboard actions.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">02 · Implementation</div>
+            <h2>HTML Structure</h2>
+
+            <p>
+                Add the skip link as the first element inside
+                <code>&lt;body&gt;</code>. Its destination must match
+                the ID of the main content.
+            </p>
+
+            <pre><code>&lt;body&gt;
+
+    &lt;a href="#main-content"
+       class="skip-link"&gt;
+        Skip to main content
+    &lt;/a&gt;
+
+    &lt;nav&gt;
+        &lt;a href="home.html"&gt;Home&lt;/a&gt;
+        &lt;a href="about.html"&gt;About&lt;/a&gt;
+        &lt;a href="contact.html"&gt;Contact&lt;/a&gt;
+    &lt;/nav&gt;
+
+    &lt;main id="main-content" tabindex="-1"&gt;
+        &lt;h1&gt;Main Content&lt;/h1&gt;
+    &lt;/main&gt;
+
+&lt;/body&gt;</code></pre>
+
+            <div class="section-label" style="margin-top:24px">
+                CSS styling
+            </div>
+
+            <pre><code>/* Hidden until focused */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 8px;
+    z-index: 9999;
+    background: #1A2744;
+    color: white;
+    padding: 0.5rem 1rem;
+}
+
+.skip-link:focus {
+    left: 0.5rem;
+    top: 0.5rem;
+}</code></pre>
+
+            <div class="rule">
+                <strong>Important:</strong>
+                The link is visually hidden, not removed from keyboard
+                navigation. When it receives focus, it becomes visible.
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">03 · How it works</div>
+            <h2>Interactive Skip Link Demonstration</h2>
+
+            <p>
+                Try the following demonstration. Click the button to
+                focus the demo skip link, or use the Tab key to navigate
+                through the demo.
+            </p>
+
+            <div class="demo-area">
+                <h3>Example website</h3>
+
+                <button class="demo-btn" id="focus-demo" type="button">
+                    Focus the demo skip link
+                </button>
+
+                <div id="demo-status" class="status" aria-live="polite">
+                    The demo is ready. Try pressing Tab or use the button above.
+                </div>
+
+                <a href="#demo-main" class="skip-link" id="demo-skip">
+                    Skip to demo content
+                </a>
+
+                <div class="demo-navigation" aria-label="Demo navigation">
+                    <a href="#demo-main">Home</a>
+                    <a href="#demo-main">About</a>
+                    <a href="#demo-main">Projects</a>
+                    <a href="#demo-main">Contact</a>
+                </div>
+
+                <div class="demo-content" id="demo-main" tabindex="-1">
+                    <h3>Main Content Area</h3>
+                    <p>
+                        You have reached the main content. The skip link
+                        bypasses the navigation links and brings you here.
+                    </p>
+                    <p class="good" id="demo-result">
+                        Waiting for your test...
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">04 · Testing</div>
+            <h2>How to Test Your Skip Link</h2>
+
+            <div class="grid">
+                <article class="card">
+                    <span class="number">1</span>
+                    <h3>Reload the page</h3>
+                    <p>
+                        Start from the top of the page.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <span class="number">2</span>
+                    <h3>Press Tab once</h3>
+                    <p>
+                        The hidden skip link should become visible.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <span class="number">3</span>
+                    <h3>Press Enter</h3>
+                    <p>
+                        The browser should jump to the main content.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <span class="number">4</span>
+                    <h3>Check the focus</h3>
+                    <p>
+                        The main content should receive keyboard focus.
+                    </p>
+                </article>
+            </div>
+
+            <div class="rule">
+                <strong>Accessibility requirement:</strong>
+                A working skip link is an important keyboard-accessibility
+                technique and helps satisfy WCAG 2.4.1, Bypass Blocks,
+                at Level A.
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">05 · Your implementation</div>
+            <h2>Practice Checklist</h2>
+
+            <p>
+                Check each item after testing your own course project.
+            </p>
+
+            <ul class="checklist" id="checklist">
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        I placed the skip link first inside the body.
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        I used href="#main-content".
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        I added id="main-content" to the main element.
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        I hid the link using left: -9999px.
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        I made the link visible with :focus.
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        I tested it using the Tab key.
+                    </label>
+                </li>
+                <li>
+                    <label>
+                        <input type="checkbox">
+                        I pressed Enter and reached the main content.
+                    </label>
+                </li>
+            </ul>
+
+            <div class="status" id="check-progress" aria-live="polite">
+                0 of 7 tasks completed.
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">06 · Knowledge check</div>
+            <h2>Quick Quiz</h2>
+
+            <p>
+                When should a visually hidden skip link become visible?
+            </p>
+
+            <div class="demo-area">
+                <label>
+                    <input type="radio" name="quiz" value="a">
+                    A. When the page loads
+                </label>
+
+                <br>
+
+                <label>
+                    <input type="radio" name="quiz" value="b">
+                    B. When the user presses Tab and the link receives focus
+                </label>
+
+                <br>
+
+                <label>
+                    <input type="radio" name="quiz" value="c">
+                    C. When the mouse moves over the footer
+                </label>
+
+                <br>
+
+                <button class="demo-btn" id="check-answer" type="button"
+                        style="margin-top:15px">
+                    Check Answer
+                </button>
+
+                <div id="quiz-result" class="status" aria-live="polite">
+                    Choose an answer.
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            BATSUREN ANAR · STUDENT ID: 202637018
+            <br>
+            Gachon University · Web Programming · Week 9 #1
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle
+        const themeButton = document.getElementById("theme");
+
+        function syncTheme() {
+            themeButton.textContent =
+                document.body.classList.contains("light")
+                    ? "🌙 Dark mode"
+                    : "☀️ Light mode";
+        }
+
+        themeButton.addEventListener("click", () => {
+            document.body.classList.toggle("light");
+            syncTheme();
+        });
+
+        syncTheme();
+
+        // Interactive skip link demo
+        const demoSkip = document.getElementById("demo-skip");
+        const demoMain = document.getElementById("demo-main");
+        const demoStatus = document.getElementById("demo-status");
+        const demoResult = document.getElementById("demo-result");
+
+        document.getElementById("focus-demo").addEventListener("click", () => {
+            demoSkip.focus();
+            demoStatus.textContent =
+                "The demo skip link is now focused and should be visible.";
+        });
+
+        demoSkip.addEventListener("click", () => {
+            demoMain.focus();
+            demoResult.textContent =
+                "Success! The skip link moved focus to the main content.";
+            demoStatus.textContent =
+                "You activated the skip link.";
+        });
+
+        // Checklist progress
+        const checkboxes = document.querySelectorAll(
+            '#checklist input[type="checkbox"]'
+        );
+
+        function updateProgress() {
+            const completed = Array.from(checkboxes)
+                .filter(box => box.checked).length;
+
+            document.getElementById("check-progress").textContent =
+                completed + " of " + checkboxes.length +
+                " tasks completed.";
+        }
+
+        checkboxes.forEach(box => {
+            box.addEventListener("change", updateProgress);
+        });
+
+        updateProgress();
+
+        // Quiz
+        document.getElementById("check-answer").addEventListener("click", () => {
+            const selected = document.querySelector(
+                'input[name="quiz"]:checked'
+            );
+
+            const result = document.getElementById("quiz-result");
+
+            if (!selected) {
+                result.textContent = "Please select an answer first.";
+                return;
+            }
+
+            if (selected.value === "b") {
+                result.textContent =
+                    "Correct! The skip link becomes visible when it receives keyboard focus.";
+                result.className = "status good";
+            } else {
+                result.textContent =
+                    "Not quite. Think about the purpose of the :focus CSS selector.";
+                result.className = "status";
+            }
+        });
+    </script>
+
+</body>
+
+</html>

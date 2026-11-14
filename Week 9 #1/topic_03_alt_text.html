@@ -1,1 +1,849 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Topic 03 — Alt Text · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Topic 03 — Alt Text</h1><p>Make content understandable and operable for people using different devices and assistive technologies.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="panel"><h2>Concept</h2><p>Write concise alternative text that communicates the purpose of informative images; decorative images use empty alt.</p><h2>Why it matters</h2><p>Alt Text Apply the idea consistently and test the result in a browser.</p><h2>Try it</h2><div class="demo"><p>Example image description: a student working at a laptop in a library.</p><label>Write useful alt text <input id="altInput" placeholder="Describe the meaningful information"></label><p id="altFeedback" class="status" aria-live="polite">Try describing the subject and purpose, not “image of”.</p></div><h2>Remember</h2><ul><li>Prefer native HTML before adding custom JavaScript or ARIA.</li><li>Test with keyboard navigation and browser developer tools.</li><li>Keep labels, instructions and feedback clear.</li></ul></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script><script>altInput.addEventListener('input',()=>{let v=altInput.value.trim();altFeedback.textContent=!v?'Add a description.':/^image of/i.test(v)?'Try removing “image of” and focus on the meaningful content.':v.length<12?'Add a little more context.':'Good start — check that it matches the image purpose.'});</script></body></html>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#171D2E">
+    <title>Topic 03 — Alt Text on Images · Anar</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --hero: linear-gradient(135deg, #30294F, #202D49);
+            --input: #19243A;
+            --good: #8EE0B2;
+            --bad: #FF9C9C;
+            --shadow: 0 12px 30px rgba(0, 0, 0, .22);
+        }
+
+        body.light {
+            color-scheme: light;
+            --bg: #F0EBFF;
+            --text: #292344;
+            --muted: #625B7D;
+            --card: #FFFFFF;
+            --accent: #7053C8;
+            --border: #B9ACDE;
+            --hero: linear-gradient(135deg, #DED5F1, #E4E8FF);
+            --input: #F6F3FF;
+            --good: #187A48;
+            --bad: #B32626;
+            --shadow: 0 12px 30px rgba(48, 36, 83, .10);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+            transition: background .2s, color .2s;
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        .skip-link {
+            position: absolute;
+            left: -9999px;
+            top: 10px;
+            z-index: 9999;
+            padding: 10px 16px;
+            background: var(--accent);
+            color: #171D2E;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .skip-link:focus {
+            left: 10px;
+        }
+
+        .container {
+            width: min(1180px, calc(100% - 36px));
+            margin: auto;
+        }
+
+        header {
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .brand {
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .theme-btn,
+        .action-btn {
+            border: 1px solid var(--border);
+            background: var(--card);
+            color: var(--text);
+            padding: 9px 15px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .theme-btn:hover,
+        .action-btn:hover {
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        main {
+            padding: 30px 0 60px;
+        }
+
+        .hero {
+            background: var(--hero);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 38px;
+            box-shadow: var(--shadow);
+            margin-bottom: 28px;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: .8rem;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.3rem);
+            line-height: 1.15;
+            margin: 10px 0;
+        }
+
+        h2 {
+            font-size: 1.65rem;
+            margin-top: 0;
+        }
+
+        h3 {
+            margin-top: 0;
+        }
+
+        .hero p {
+            max-width: 760px;
+            color: var(--muted);
+            font-size: 1.08rem;
+        }
+
+        .meta {
+            margin-top: 22px;
+            color: var(--muted);
+            font-size: .9rem;
+        }
+
+        .panel {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 26px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-label {
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: .78rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .example {
+            background: var(--input);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            min-width: 0;
+        }
+
+        .example pre,
+        pre {
+            overflow-x: auto;
+            background: #111A2B;
+            color: #E8E6FF;
+            border: 1px solid #46516F;
+            border-radius: 10px;
+            padding: 16px;
+            font-size: .88rem;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: Consolas, "Courier New", monospace;
+        }
+
+        .visual {
+            min-height: 145px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: #303B59;
+            margin-bottom: 15px;
+            padding: 16px;
+            overflow: hidden;
+        }
+
+        .chart {
+            width: 100%;
+            max-width: 270px;
+            height: 115px;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            gap: 16px;
+            border-bottom: 2px solid #DCE2FF;
+        }
+
+        .bar {
+            width: 42px;
+            background: #B7A2FF;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .bar.one { height: 35%; }
+        .bar.two { height: 55%; }
+        .bar.three { height: 85%; }
+
+        .divider-demo {
+            width: 85%;
+            height: 12px;
+            border-radius: 20px;
+            background: linear-gradient(90deg, #B7A2FF, #F4C6FF, #7ED8E8);
+        }
+
+        .search-demo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: #F0EBFF;
+            color: #292344;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-size: 1.5rem;
+        }
+
+        .search-demo button {
+            background: #7053C8;
+            color: white;
+            border: 0;
+            border-radius: 8px;
+            padding: 10px 16px;
+            cursor: pointer;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: .78rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: rgba(183, 162, 255, .16);
+            color: var(--accent);
+        }
+
+        .rule {
+            border-left: 4px solid var(--accent);
+            padding: 12px 16px;
+            background: var(--input);
+            border-radius: 0 10px 10px 0;
+            margin: 16px 0;
+        }
+
+        .practice-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            align-items: start;
+        }
+
+        .practice-box {
+            background: var(--input);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .practice-box input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            background: var(--card);
+            color: var(--text);
+        }
+
+        .preview-output {
+            min-height: 90px;
+            padding: 14px;
+            border: 1px dashed var(--border);
+            border-radius: 10px;
+            overflow-wrap: anywhere;
+        }
+
+        .status {
+            font-weight: 700;
+            margin-top: 12px;
+        }
+
+        .good {
+            color: var(--good);
+        }
+
+        .bad {
+            color: var(--bad);
+        }
+
+        .quiz-option {
+            display: block;
+            padding: 12px 14px;
+            margin: 9px 0;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            cursor: pointer;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--accent);
+        }
+
+        .quiz-option input {
+            margin-right: 9px;
+            accent-color: var(--accent);
+        }
+
+        #quiz-feedback {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 9px;
+            background: var(--input);
+            display: none;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 25px 0;
+            color: var(--muted);
+            text-align: center;
+            font-size: .9rem;
+        }
+
+        @media (max-width: 720px) {
+            .grid,
+            .practice-row {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 25px;
+            }
+
+            .panel {
+                padding: 19px;
+            }
+
+            nav {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header>
+        <div class="container topbar">
+            <div class="brand">ANAR'S WEB PROGRAMMING</div>
+
+            <nav aria-label="Main navigation">
+                <a href="index.html">Section Home</a>
+                <a href="../index.html">Main Portfolio</a>
+                <button class="theme-btn" id="theme" type="button">
+                    ☀️ Light mode
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" id="main-content">
+
+        <section class="hero">
+            <div class="eyebrow">Week 9 #1 · Topic 03</div>
+            <h1>Alt Text on Images</h1>
+            <p>
+                Images communicate information, but not every user can see them.
+                Alternative text helps screen readers explain the content or
+                purpose of an image to people who cannot see it.
+            </p>
+            <div class="meta">
+                K0126002 · Gachon University · 2026 Fall · Dr. Toshpulatov
+                <br>
+                BATSUREN ANAR · STUDENT ID: 202637018
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">01 · The concept</div>
+            <h2>What Is Alt Text?</h2>
+            <p>
+                Alt text is written inside an image's <code>alt</code>
+                attribute. It gives users of screen readers an accessible
+                text alternative for an image.
+            </p>
+
+            <div class="rule">
+                <strong>Key question:</strong>
+                What would someone miss if they couldn't see the image?
+            </div>
+
+            <pre><code>&lt;img src="chart.png"
+     alt="Bar chart: 40% rise in enrollment 2024–2026"&gt;</code></pre>
+
+            <p class="muted">
+                Good alt text describes the content AND purpose of an
+                informative image, rather than simply naming the file.
+            </p>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">02 · Four image situations</div>
+            <h2>When and What to Write</h2>
+
+            <div class="grid">
+
+                <article class="example">
+                    <span class="tag">Informative</span>
+                    <h3>Describe the content</h3>
+
+                    <div class="visual" role="img"
+                         aria-label="Illustration of a bar chart with three bars increasing in height">
+                        <div class="chart" aria-hidden="true">
+                            <div class="bar one"></div>
+                            <div class="bar two"></div>
+                            <div class="bar three"></div>
+                        </div>
+                    </div>
+
+                    <p>
+                        Describe the important information that the image
+                        communicates.
+                    </p>
+
+                    <pre><code>&lt;img src="chart.png"
+alt="Bar chart: 40% rise in enrollment 2024–2026"&gt;</code></pre>
+
+                    <p class="muted">
+                        The text explains what the chart communicates.
+                    </p>
+                </article>
+
+                <article class="example">
+                    <span class="tag">Decorative</span>
+                    <h3>Use an empty alt attribute</h3>
+
+                    <div class="visual" aria-hidden="true">
+                        <div class="divider-demo"></div>
+                    </div>
+
+                    <p>
+                        A decorative image adds visual style but does not
+                        provide important information.
+                    </p>
+
+                    <pre><code>&lt;img src="divider.svg" alt=""&gt;</code></pre>
+
+                    <p class="muted">
+                        Empty alt tells screen readers to skip the image
+                        completely.
+                    </p>
+                </article>
+
+                <article class="example">
+                    <span class="tag">Functional</span>
+                    <h3>Describe the action</h3>
+
+                    <div class="visual">
+                        <div class="search-demo">
+                            <button type="button" aria-label="Search example">
+                                <span aria-hidden="true">⌕</span>
+                                Search
+                            </button>
+                        </div>
+                    </div>
+
+                    <p>
+                        When an image is used inside a button, describe what
+                        the button does, not how the icon looks.
+                    </p>
+
+                    <pre><code>&lt;button&gt;
+  &lt;img src="search.svg" alt="Search"&gt;
+&lt;/button&gt;</code></pre>
+
+                    <p class="muted">
+                        The screen reader can announce the action: Search.
+                    </p>
+                </article>
+
+                <article class="example">
+                    <span class="tag">Incorrect example</span>
+                    <h3>Avoid useless alt text</h3>
+
+                    <div class="visual">
+                        <div style="font-size:3rem;color:#E8E6FF"
+                             aria-hidden="true">✦</div>
+                    </div>
+
+                    <p>
+                        Do not write redundant descriptions that do not
+                        explain the image's actual content or purpose.
+                    </p>
+
+                    <pre><code>&lt;img src="logo.png"
+alt="image of a logo"&gt;</code></pre>
+
+                    <p class="muted">
+                        "Image of" is unnecessary because screen readers
+                        already announce that it is an image.
+                    </p>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">03 · Important rules</div>
+            <h2>Remember These Differences</h2>
+
+            <div class="rule">
+                <strong>Informative:</strong>
+                Describe the content and purpose of the image.
+            </div>
+
+            <div class="rule">
+                <strong>Decorative:</strong>
+                Use <code>alt=""</code> so screen readers skip it.
+            </div>
+
+            <div class="rule">
+                <strong>Functional:</strong>
+                Describe the action, such as
+                <code>alt="Search"</code>, not the appearance.
+            </div>
+
+            <div class="rule">
+                <strong>Never write:</strong>
+                "Image of..." or "Photo of..." because this is redundant.
+            </div>
+
+            <h3>Empty alt vs. missing alt</h3>
+
+            <div class="grid">
+                <div class="example">
+                    <span class="tag">Correct for decorative images</span>
+                    <pre><code>&lt;img src="divider.svg" alt=""&gt;</code></pre>
+                    <p>
+                        Screen readers skip this image completely.
+                    </p>
+                </div>
+
+                <div class="example">
+                    <span class="tag">Incorrect</span>
+                    <pre><code>&lt;img src="background_swirl.jpg"&gt;</code></pre>
+                    <p>
+                        With no alt attribute, screen readers may announce
+                        the raw filename.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">04 · Interactive practice</div>
+            <h2>Try Writing Alt Text</h2>
+            <p>
+                Imagine the image below is a chart showing enrollment
+                increasing over three years. Write a useful alternative
+                description.
+            </p>
+
+            <div class="practice-row">
+                <div class="practice-box">
+                    <div class="visual" role="img"
+                         aria-label="A bar chart with three bars increasing in height">
+                        <div class="chart" aria-hidden="true">
+                            <div class="bar one"></div>
+                            <div class="bar two"></div>
+                            <div class="bar three"></div>
+                        </div>
+                    </div>
+                    <p class="muted">
+                        Image purpose: communicate an increase in student
+                        enrollment from 2024 to 2026.
+                    </p>
+                </div>
+
+                <div class="practice-box">
+                    <label for="alt-input">
+                        <strong>Your alt text:</strong>
+                    </label>
+                    <input
+                        id="alt-input"
+                        type="text"
+                        placeholder="Describe what the chart communicates..."
+                    >
+
+                    <button class="action-btn" id="check-alt" type="button">
+                        Check my description
+                    </button>
+
+                    <div class="preview-output" aria-live="polite">
+                        <strong>Screen reader text preview:</strong>
+                        <p id="alt-preview" class="muted">
+                            Your description will appear here.
+                        </p>
+                    </div>
+
+                    <p id="practice-feedback" class="status" aria-live="polite"></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">05 · Quick quiz</div>
+            <h2>Test Your Understanding</h2>
+
+            <p>
+                An image is purely decorative (a background swirl).
+                What is the correct alt attribute?
+            </p>
+
+            <form id="quiz-form">
+                <label class="quiz-option">
+                    <input type="radio" name="answer" value="a">
+                    A. <code>alt="decorative image"</code>
+                </label>
+
+                <label class="quiz-option">
+                    <input type="radio" name="answer" value="b">
+                    B. <code>alt=""</code> (empty string)
+                </label>
+
+                <label class="quiz-option">
+                    <input type="radio" name="answer" value="c">
+                    C. No alt attribute at all
+                </label>
+
+                <label class="quiz-option">
+                    <input type="radio" name="answer" value="d">
+                    D. <code>alt="background"</code>
+                </label>
+
+                <button class="action-btn" type="submit">
+                    Check Answer
+                </button>
+            </form>
+
+            <div id="quiz-feedback" aria-live="polite"></div>
+        </section>
+
+        <section class="panel">
+            <div class="section-label">06 · Summary</div>
+            <h2>What We Learned</h2>
+
+            <ul>
+                <li>
+                    <strong>Informative images:</strong>
+                    Describe the content and purpose.
+                </li>
+                <li>
+                    <strong>Decorative images:</strong>
+                    Use <code>alt=""</code>.
+                </li>
+                <li>
+                    <strong>Functional images:</strong>
+                    Describe the action, not the appearance.
+                </li>
+                <li>
+                    <strong>Missing alt:</strong>
+                    Screen readers may announce the raw filename.
+                </li>
+                <li>
+                    <strong>Redundant wording:</strong>
+                    Avoid "image of" and "photo of".
+                </li>
+            </ul>
+
+            <div class="rule">
+                <strong>Main takeaway:</strong>
+                Write alt text based on what users need to understand,
+                not simply what an image looks like.
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            BATSUREN ANAR · 202637018
+            <br>
+            Gachon University · Web Programming · Week 9 #1
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle
+        const themeButton = document.getElementById("theme");
+
+        function syncThemeButton() {
+            themeButton.textContent =
+                document.body.classList.contains("light")
+                    ? "🌙 Dark mode"
+                    : "☀️ Light mode";
+        }
+
+        themeButton.addEventListener("click", () => {
+            document.body.classList.toggle("light");
+            syncThemeButton();
+        });
+
+        syncThemeButton();
+
+        // Alt text practice
+        const altInput = document.getElementById("alt-input");
+        const altPreview = document.getElementById("alt-preview");
+        const practiceFeedback =
+            document.getElementById("practice-feedback");
+
+        document.getElementById("check-alt").addEventListener("click", () => {
+            const answer = altInput.value.trim();
+
+            altPreview.textContent = answer || "No description entered.";
+
+            if (answer.length === 0) {
+                practiceFeedback.textContent =
+                    "Please write a description first.";
+                practiceFeedback.className = "status bad";
+            } else if (/image of|photo of/i.test(answer)) {
+                practiceFeedback.textContent =
+                    'Try again. Avoid redundant phrases like "image of" or "photo of".';
+                practiceFeedback.className = "status bad";
+            } else if (
+                /40%|rise|increase|increasing|enrollment|2024|2026/i.test(answer)
+            ) {
+                practiceFeedback.textContent =
+                    "Good! Your description includes relevant information about the chart.";
+                practiceFeedback.className = "status good";
+            } else {
+                practiceFeedback.textContent =
+                    "Your description is entered. Try including what the chart communicates.";
+                practiceFeedback.className = "status";
+            }
+        });
+
+        // Quiz
+        document.getElementById("quiz-form").addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            const selected = document.querySelector(
+                'input[name="answer"]:checked'
+            );
+
+            const feedback = document.getElementById("quiz-feedback");
+            feedback.style.display = "block";
+
+            if (!selected) {
+                feedback.textContent = "Please select an answer first.";
+                feedback.className = "bad";
+                return;
+            }
+
+            if (selected.value === "b") {
+                feedback.textContent =
+                    'Correct! alt="" tells screen readers to skip a decorative image completely.';
+                feedback.className = "good";
+            } else {
+                feedback.textContent =
+                    'Not quite. The correct answer is B: alt="" (empty string). A missing alt attribute may cause the filename to be announced.';
+                feedback.className = "bad";
+            }
+        });
+    </script>
+</body>
+</html>

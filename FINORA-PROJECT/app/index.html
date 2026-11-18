@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FINORA — Personal Finance Management System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <!-- AUTH / DEMO ENTRY SCREEN -->
+  <div id="auth-screen" class="auth-overlay hidden">
+    <div class="auth-card">
+      <div class="brand-row">
+        <div class="brand-badge">F</div>
+        <div>
+          <span class="brand-title">FINORA</span>
+          <span class="brand-sub">MONEY, MADE CLEAR</span>
+        </div>
+      </div>
+      <h2>Welcome back</h2>
+      <p class="muted">Sign in to manage income, budgets, and savings goals with clarity.</p>
+
+      <form id="login-form" class="stack-form">
+        <label>
+          <span>Account Name</span>
+          <input type="text" id="login-name" value="Minji Park" required />
+        </label>
+        <label>
+          <span>Email Address</span>
+          <input type="email" id="login-email" value="minji.park@gachon.ac.kr" required />
+        </label>
+        <label>
+          <span>Password</span>
+          <input type="password" id="login-password" value="finora2026" required />
+        </label>
+        <button type="submit" class="btn btn-emerald btn-full">Enter Workspace</button>
+      </form>
+
+      <div class="demo-accounts">
+        <span class="muted small">Quick Demo Profiles:</span>
+        <div class="chip-row">
+          <button type="button" class="chip-btn" data-demo-user="Minji Park" data-demo-email="minji.park@gachon.ac.kr">Minji Park</button>
+          <button type="button" class="chip-btn" data-demo-user="Anar Batsuren" data-demo-email="anar.202637018@gachon.ac.kr">Anar (202637018)</button>
+          <button type="button" class="chip-btn" data-demo-user="Ankhorgil" data-demo-email="ankhorgil.202637470@gachon.ac.kr">Ankhorgil (202637470)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN APPLICATION SHELL -->
+  <div id="app-shell" class="app-shell">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <a href="../index.html" class="brand-row" title="Back to FINORA Presentation">
+          <div class="brand-badge">F</div>
+          <div>
+            <span class="brand-title">FINORA</span>
+            <span class="brand-sub">MONEY, MADE CLEAR</span>
+          </div>
+        </a>
+
+        <nav class="side-nav" id="side-nav">
+          <button class="nav-item active" data-page="dashboard">
+            <i data-lucide="layout-grid"></i>
+            <span>Dashboard</span>
+          </button>
+          <button class="nav-item" data-page="transactions">
+            <i data-lucide="arrow-left-right"></i>
+            <span>Transactions</span>
+          </button>
+          <button class="nav-item" data-page="budgets">
+            <i data-lucide="wallet"></i>
+            <span>Budgets</span>
+          </button>
+          <button class="nav-item" data-page="analytics">
+            <i data-lucide="pie-chart"></i>
+            <span>Analytics</span>
+          </button>
+          <button class="nav-item" data-page="goals">
+            <i data-lucide="target"></i>
+            <span>Savings Goals</span>
+          </button>
+          <button class="nav-item" data-page="notifications">
+            <i data-lucide="bell"></i>
+            <span>Notifications</span>
+            <span class="nav-dot" id="notif-badge">3</span>
+          </button>
+          <button class="nav-item" data-page="settings">
+            <i data-lucide="settings"></i>
+            <span>Settings</span>
+          </button>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <a href="../index.html" class="back-intro-link">
+          <i data-lucide="presentation"></i>
+          <span>Project Intro & Slides</span>
+        </a>
+        <div class="user-pill" id="user-profile-btn" title="Switch Account / Sign Out">
+          <div class="avatar" id="user-initials">MP</div>
+          <div class="user-meta">
+            <strong id="sidebar-user-name">Minji Park</strong>
+            <span>Personal account</span>
+          </div>
+          <i data-lucide="log-out" class="icon-sm"></i>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="main-area">
+      <!-- TOP HEADER -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <button class="icon-btn mobile-only" id="menu-toggle" aria-label="Toggle Menu">
+            <i data-lucide="menu"></i>
+          </button>
+          <div>
+            <span class="eyebrow" id="page-eyebrow">MONDAY, NOVEMBER 02, 2026</span>
+            <h1 id="page-title">Good morning, Minji</h1>
+            <p class="subtitle" id="page-subtitle">Here is your financial picture for November.</p>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="search-box">
+            <i data-lucide="search"></i>
+            <input type="text" id="global-search" placeholder="Search transactions..." />
+          </div>
+          <button class="icon-btn" id="quick-notif-btn" title="Notifications">
+            <i data-lucide="bell"></i>
+            <span class="status-dot"></span>
+          </button>
+          <button class="btn btn-emerald" id="open-tx-modal">
+            <i data-lucide="plus"></i>
+            <span>Add transaction</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- DYNAMIC VIEW CONTAINER -->
+      <section id="view-container" class="view-container"></section>
+
+      <!-- FOOTER -->
+      <footer class="app-footer">
+        <span>FINORA — Personal Finance Management System · Gachon University Web Programming</span>
+        <span>Built by <strong>Anar (202637018)</strong> &amp; <strong>Ankhorgil (202637470)</strong></span>
+      </footer>
+    </main>
+  </div>
+
+  <!-- ADD TRANSACTION MODAL -->
+  <div id="tx-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h3>Add transaction</h3>
+          <p class="muted small">Record income or an expense in seconds.</p>
+        </div>
+        <button class="icon-btn" id="close-tx-modal" aria-label="Close">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+
+      <form id="tx-form" class="stack-form">
+        <label>
+          <span>TRANSACTION NAME</span>
+          <input type="text" id="tx-name" placeholder="e.g. Market groceries" required />
+        </label>
+
+        <div class="form-grid-2">
+          <label>
+            <span>AMOUNT (₩ KRW)</span>
+            <input type="number" id="tx-amount" placeholder="42800" min="1" step="1" required />
+          </label>
+          <label>
+            <span>CATEGORY</span>
+            <select id="tx-category">
+              <option value="Food">Food</option>
+              <option value="Housing">Housing</option>
+              <option value="Transport">Transport</option>
+              <option value="Shopping">Shopping</option>
+              <option value="Education">Education</option>
+              <option value="Income">Income</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="form-grid-2">
+          <label>
+            <span>DATE</span>
+            <input type="date" id="tx-date" value="2026-11-02" required />
+          </label>
+          <label>
+            <span>TYPE</span>
+            <select id="tx-type">
+              <option value="expense">Expense</option>
+              <option value="income">Income</option>
+            </select>
+          </label>
+        </div>
+
+        <label>
+          <span>DESCRIPTION</span>
+          <input type="text" id="tx-desc" placeholder="Optional note (e.g. Weekly grocery shopping)" />
+        </label>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancel-tx-modal">Cancel</button>
+          <button type="submit" class="btn btn-emerald">Save entry</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD BUDGET / GOAL MODAL -->
+  <div id="budget-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div>
+          <h3>Update Category Budget</h3>
+          <p class="muted small">Set a monthly spending limit in Korean Won (₩).</p>
+        </div>
+        <button class="icon-btn" id="close-budget-modal" aria-label="Close">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <form id="budget-form" class="stack-form">
+        <label>
+          <span>CATEGORY</span>
+          <select id="budget-category">
+            <option value="Food">Food</option>
+            <option value="Housing">Housing</option>
+            <option value="Transport">Transport</option>
+            <option value="Shopping">Shopping</option>
+            <option value="Education">Education</option>
+          </select>
+        </label>
+        <label>
+          <span>MONTHLY LIMIT (₩)</span>
+          <input type="number" id="budget-limit" placeholder="450000" min="1000" step="1000" required />
+        </label>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" id="cancel-budget-modal">Cancel</button>
+          <button type="submit" class="btn btn-emerald">Save limit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/data.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/pages.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

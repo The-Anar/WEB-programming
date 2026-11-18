@@ -1,0 +1,58 @@
+:root {
+  --bg-main: #0b1219;
+  --bg-sidebar: #0e1620;
+  --bg-card: #121c27;
+  --bg-card-hover: #162230;
+  --bg-input: #0e1722;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.15);
+
+  --text-primary: #f3f6fa;
+  --text-secondary: #8b9bb0;
+  --text-muted: #5d6d82;
+
+  --emerald: #10b981;
+  --emerald-bright: #19d396;
+  --emerald-soft: rgba(16, 185, 129, 0.14);
+  --emerald-border: rgba(16, 185, 129, 0.35);
+
+  --coral: #f46a6a;
+  --coral-soft: rgba(244, 106, 106, 0.14);
+  --blue: #4f9cf9;
+  --amber: #f59e0b;
+  --purple: #a855f7;
+
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+  --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.28);
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select {
+  font-family: inherit;
+  color: inherit;
+}
+
+.hidden {
+  display: none !important;
+}

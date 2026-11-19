@@ -1,1 +1,726 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Topic 09 — CDN · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Topic 09 — CDN</h1><p>Measure performance and improve loading with optimized images, scripts, caching and deployment choices.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="panel"><h2>Concept</h2><p>A content delivery network serves assets from locations closer to visitors.</p><h2>Why it matters</h2><p>CDN Apply the idea consistently and test the result in a browser.</p><h2>Try it</h2><h2>Remember</h2><ul><li>Prefer native HTML before adding custom JavaScript or ARIA.</li><li>Test with keyboard navigation and browser developer tools.</li><li>Keep labels, instructions and feedback clear.</li></ul></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script></body></html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#171D2E">
+    <title>Topic 09 — CDN · Anar</title>
+
+    <style>
+        :root {
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --shadow: rgba(0, 0, 0, 0.22);
+        }
+
+        body.light {
+            --bg: #F0EBFF;
+            --text: #29243D;
+            --muted: #625B7C;
+            --card: #FFFFFF;
+            --accent: #7556C9;
+            --border: #9686C5;
+            --shadow: rgba(50, 35, 90, 0.10);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+            transition: background 0.25s, color 0.25s;
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -50px;
+            left: 12px;
+            background: var(--accent);
+            color: #171D2E;
+            padding: 8px 14px;
+            border-radius: 8px;
+            z-index: 10;
+        }
+
+        .skip-link:focus {
+            top: 12px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #292044, #47366F, #252F50);
+            color: #FFFFFF;
+            padding: 28px 20px 42px;
+        }
+
+        .header-inner {
+            max-width: 1180px;
+            margin: auto;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 38px;
+        }
+
+        .topbar a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .theme-button {
+            background: rgba(255,255,255,0.13);
+            color: #FFFFFF;
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 9px 15px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .eyebrow {
+            color: #D5C9FF;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            line-height: 1.15;
+            margin: 10px 0;
+        }
+
+        .hero-description {
+            max-width: 720px;
+            color: #E2DCFA;
+            font-size: 17px;
+        }
+
+        .student-info {
+            margin-top: 22px;
+            color: #D5C9FF;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        main {
+            max-width: 1180px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 26px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 7px 22px var(--shadow);
+        }
+
+        h2 {
+            font-size: 24px;
+            margin: 0 0 15px;
+            color: var(--accent);
+        }
+
+        h3 {
+            font-size: 18px;
+            margin: 0 0 8px;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .comparison-card {
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: var(--bg);
+        }
+
+        .comparison-card h3 {
+            margin-bottom: 14px;
+        }
+
+        .comparison-card.without h3 {
+            color: #FF9999;
+        }
+
+        .comparison-card.with h3 {
+            color: #55D6A5;
+        }
+
+        .route {
+            padding: 14px;
+            margin: 12px 0;
+            border-radius: 9px;
+            background: var(--card);
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .route-arrow {
+            color: var(--accent);
+            font-size: 22px;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .distance {
+            margin-top: 12px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .distance small {
+            display: block;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: normal;
+        }
+
+        .cdn-table-wrap {
+            overflow-x: auto;
+            margin-top: 18px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 480px;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        th {
+            color: var(--accent);
+        }
+
+        td code {
+            overflow-wrap: anywhere;
+            color: var(--accent);
+        }
+
+        .cdn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .cdn-card {
+            padding: 17px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg);
+        }
+
+        .cdn-card p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .cdn-card code {
+            color: var(--accent);
+            font-size: 13px;
+            overflow-wrap: anywhere;
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .benefit {
+            padding: 17px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg);
+        }
+
+        .benefit strong {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--accent);
+        }
+
+        .note {
+            padding: 16px;
+            border-left: 4px solid var(--accent);
+            background: var(--bg);
+            border-radius: 8px;
+            margin-top: 18px;
+        }
+
+        .quiz-option {
+            display: block;
+            padding: 12px 15px;
+            margin: 9px 0;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .quiz-option:hover {
+            background: var(--bg);
+        }
+
+        .quiz-option input {
+            margin-right: 9px;
+            accent-color: var(--accent);
+        }
+
+        .quiz-button {
+            margin-top: 12px;
+            padding: 11px 20px;
+            background: var(--accent);
+            color: #171D2E;
+            border: none;
+            border-radius: 9px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #quiz-result {
+            margin-top: 14px;
+            font-weight: bold;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 35px 0;
+        }
+
+        .navigation a {
+            text-decoration: none;
+            padding: 12px 18px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .navigation a:hover {
+            background: var(--card);
+        }
+
+        footer {
+            text-align: center;
+            padding: 28px 15px;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        @media (max-width: 650px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 22px 17px 32px;
+            }
+
+            main {
+                padding: 0 13px;
+            }
+
+            .section {
+                padding: 19px;
+            }
+
+            .topbar {
+                margin-bottom: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header>
+        <div class="header-inner">
+            <div class="topbar">
+                <a href="index.html">← Web Programming Home</a>
+                <button class="theme-button" id="theme-toggle" type="button">
+                    ☀ Light Mode
+                </button>
+            </div>
+
+            <div class="eyebrow">Week 9 · Topic 09</div>
+            <h1>CDN</h1>
+            <p class="hero-description">
+                Content Delivery Network — deliver website resources
+                from servers closer to users around the world.
+            </p>
+
+            <div class="student-info">
+                BATSUREN ANAR · STUDENT ID: 202637018
+            </div>
+        </div>
+    </header>
+
+    <main id="main">
+
+        <section class="section">
+            <h2>01 — What Is a CDN?</h2>
+
+            <p>
+                A CDN (Content Delivery Network) is a distributed network
+                of servers located in different geographical areas.
+            </p>
+
+            <p>
+                Instead of every user downloading files from one central
+                server, a CDN can deliver cached content from an edge node
+                closer to the user's location.
+            </p>
+
+            <p class="muted">
+                This reduces the distance data must travel and helps
+                websites load faster for users around the world.
+            </p>
+        </section>
+
+        <section class="section">
+            <h2>02 — Without a CDN vs With a CDN</h2>
+
+            <p>
+                Imagine a user in New York visiting a website whose
+                main server is located in Seoul.
+            </p>
+
+            <div class="comparison">
+                <div class="comparison-card without">
+                    <h3>✗ Without a CDN</h3>
+
+                    <div class="route">
+                        User in New York
+                    </div>
+
+                    <div class="route-arrow">↓</div>
+
+                    <div class="route">
+                        Server in Seoul
+                    </div>
+
+                    <div class="distance">
+                        ~11,000 km
+                        <small>Distance between the user and server</small>
+                    </div>
+
+                    <div class="distance">
+                        ~200 ms
+                        <small>Per round trip (approximate)</small>
+                    </div>
+                </div>
+
+                <div class="comparison-card with">
+                    <h3>✓ With a CDN</h3>
+
+                    <div class="route">
+                        User in New York
+                    </div>
+
+                    <div class="route-arrow">↓</div>
+
+                    <div class="route">
+                        Edge node in New York
+                    </div>
+
+                    <div class="distance">
+                        A few km
+                        <small>Shorter distance to the nearby edge node</small>
+                    </div>
+
+                    <div class="distance">
+                        A few ms
+                        <small>Per round trip (approximate)</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>Main idea:</strong>
+                A nearby CDN edge node can serve cached content without
+                requiring every request to travel all the way to the
+                original server.
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>03 — CDNs You Already Use</h2>
+
+            <p>
+                Many websites and developers already use CDN services
+                to deliver libraries, fonts, and entire websites.
+            </p>
+
+            <div class="cdn-table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CDN</th>
+                            <th>Used for</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td><strong>jsDelivr</strong></td>
+                            <td>
+                                npm packages:
+                                <br>
+                                <code>cdn.jsdelivr.net/npm/...</code>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>cdnjs</strong></td>
+                            <td>
+                                Popular libraries:
+                                <br>
+                                <code>cdnjs.cloudflare.com/ajax/libs/...</code>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Google Fonts</strong></td>
+                            <td>
+                                Web fonts:
+                                <br>
+                                <code>fonts.googleapis.com</code>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>Cloudflare</strong></td>
+                            <td>
+                                Can serve an entire website. Point your
+                                DNS to Cloudflare. A free tier is available.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td><strong>GitHub Pages</strong></td>
+                            <td>
+                                Your course website is already served
+                                through a CDN (Fastly).
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>04 — Key Benefits of a CDN</h2>
+
+            <div class="benefits">
+                <div class="benefit">
+                    <strong>Lower Latency</strong>
+                    <p class="muted">
+                        Users receive content from servers closer
+                        to their geographical location.
+                    </p>
+                </div>
+
+                <div class="benefit">
+                    <strong>Faster Loading</strong>
+                    <p class="muted">
+                        Shorter network distances can reduce waiting
+                        time when loading website resources.
+                    </p>
+                </div>
+
+                <div class="benefit">
+                    <strong>Compression</strong>
+                    <p class="muted">
+                        CDNs usually add compression methods such as
+                        gzip and Brotli to reduce transferred data.
+                    </p>
+                </div>
+
+                <div class="benefit">
+                    <strong>Caching</strong>
+                    <p class="muted">
+                        Frequently requested resources can be stored
+                        and reused by nearby edge servers.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>05 — Key Points</h2>
+
+            <ul>
+                <li>
+                    A CDN lowers latency for users far from the
+                    original server.
+                </li>
+                <li>
+                    It delivers content through geographically
+                    distributed edge nodes.
+                </li>
+                <li>
+                    CDNs usually provide compression using gzip
+                    or Brotli.
+                </li>
+                <li>
+                    CDNs also provide caching to reduce repeated
+                    downloads from the original server.
+                </li>
+                <li>
+                    GitHub Pages already uses a CDN to serve
+                    course websites.
+                </li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>06 — Quick Knowledge Check</h2>
+
+            <p>
+                What is the main purpose of a CDN?
+            </p>
+
+            <form id="quiz-form">
+                <label class="quiz-option">
+                    <input type="radio" name="answer" value="a">
+                    A. To make HTML files smaller by removing comments.
+                </label>
+
+                <label class="quiz-option">
+                    <input type="radio" name="answer" value="b">
+                    B. To deliver content from servers closer to users.
+                </label>
+
+                <label class="quiz-option">
+                    <input type="radio" name="answer" value="c">
+                    C. To replace JavaScript with CSS.
+                </label>
+
+                <label class="quiz-option">
+                    <input type="radio" name="answer" value="d">
+                    D. To prevent browsers from storing files.
+                </label>
+
+                <button class="quiz-button" type="submit">
+                    Check Answer
+                </button>
+
+                <p id="quiz-result" aria-live="polite"></p>
+            </form>
+        </section>
+
+        <nav class="navigation" aria-label="Topic navigation">
+            <a href="topic_08_caching.html">
+                ← Previous: Topic 08
+            </a>
+
+            <a href="topic_10_quick_wins_checklist.html">
+                Next: Topic 10 →
+            </a>
+        </nav>
+
+        <div class="navigation">
+            <a href="../index.html">← Main Portfolio</a>
+            <a href="index.html">Web Programming Home</a>
+        </div>
+
+    </main>
+
+    <footer>
+        Web Programming · Gachon University · 2026 Fall
+        <br>
+        Batsuren Anar · 202637018
+    </footer>
+
+    <script>
+        const themeButton = document.getElementById("theme-toggle");
+
+        themeButton.addEventListener("click", function () {
+            document.body.classList.toggle("light");
+
+            const isLight = document.body.classList.contains("light");
+
+            themeButton.textContent = isLight
+                ? "☾ Dark Mode"
+                : "☀ Light Mode";
+        });
+
+        document.getElementById("quiz-form").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const selected = document.querySelector(
+                'input[name="answer"]:checked'
+            );
+
+            const result = document.getElementById("quiz-result");
+
+            if (!selected) {
+                result.textContent = "Please select an answer first.";
+                result.style.color = "var(--muted)";
+                return;
+            }
+
+            if (selected.value === "b") {
+                result.textContent =
+                    "Correct! A CDN delivers content from servers closer to users.";
+                result.style.color = "#55D6A5";
+            } else {
+                result.textContent = "Not quite. Try again!";
+                result.style.color = "#FF8A8A";
+            }
+        });
+    </script>
+</body>
+</html>

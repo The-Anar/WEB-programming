@@ -1271,17 +1271,6 @@ main section a:focus-visible {
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-    }
-}
-
 /* FINORA featured navigation link */
 .site-nav .nav-links a.finora-link {
     background: linear-gradient(135deg, #8b5cf6, #6366f1);
@@ -1606,7 +1595,7 @@ main section a:focus-visible {
 
 
 
-<script src="music-player.js"></script>
+<script src="music-player.js" defer></script>
 </body>
 
 </html>

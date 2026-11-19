@@ -1,1 +1,629 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Topic 05 — Lazy Loading · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Topic 05 — Lazy Loading</h1><p>Measure performance and improve loading with optimized images, scripts, caching and deployment choices.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="panel"><h2>Concept</h2><p>Use loading="lazy" for offscreen images; do not lazy-load the main hero image.</p><h2>Why it matters</h2><p>Lazy Loading Apply the idea consistently and test the result in a browser.</p><h2>Try it</h2><h2>Remember</h2><ul><li>Prefer native HTML before adding custom JavaScript or ARIA.</li><li>Test with keyboard navigation and browser developer tools.</li><li>Keep labels, instructions and feedback clear.</li></ul></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script></body></html>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#171D2E">
+    <title>Topic 05 — Lazy Loading · Anar</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --shadow: rgba(0, 0, 0, .22);
+        }
+
+        [data-theme="light"] {
+            color-scheme: light;
+            --bg: #F0EBFF;
+            --text: #29243D;
+            --muted: #625B7C;
+            --card: #FFFFFF;
+            --accent: #7556C9;
+            --border: #9686C5;
+            --shadow: rgba(49, 35, 85, .12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+            transition: background .2s, color .2s;
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -50px;
+            left: 12px;
+            z-index: 10;
+            padding: 10px 16px;
+            background: var(--accent);
+            color: #171D2E;
+            border-radius: 8px;
+        }
+
+        .skip-link:focus {
+            top: 12px;
+        }
+
+        .container {
+            width: min(1180px, calc(100% - 36px));
+            margin: auto;
+        }
+
+        header {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        button {
+            cursor: pointer;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 9px 14px;
+            background: var(--card);
+            color: var(--text);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        button:hover {
+            border-color: var(--accent);
+        }
+
+        .hero {
+            margin: 34px 0 28px;
+            padding: 42px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #342C59, #51417E, #292E55);
+            color: #FFFFFF;
+            box-shadow: 0 12px 30px var(--shadow);
+        }
+
+        .hero .eyebrow {
+            color: #D8CCFF;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin: 8px 0 12px;
+            font-size: clamp(30px, 5vw, 48px);
+            line-height: 1.15;
+        }
+
+        .hero p {
+            max-width: 760px;
+            margin: 0;
+            color: #E5E0FF;
+        }
+
+        .meta {
+            margin-top: 22px;
+            font-size: 13px;
+            color: #D8CCFF;
+        }
+
+        main {
+            padding-bottom: 40px;
+        }
+
+        .section {
+            margin: 26px 0;
+            padding: 28px;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: var(--card);
+            box-shadow: 0 8px 20px var(--shadow);
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 25px;
+        }
+
+        h3 {
+            margin-bottom: 8px;
+            color: var(--accent);
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .mini-card {
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--bg);
+        }
+
+        .mini-card h3 {
+            margin-top: 0;
+        }
+
+        .code {
+            overflow-x: auto;
+            padding: 18px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #111827;
+            color: #E5E7EB;
+            font-family: Consolas, monospace;
+            font-size: 14px;
+            line-height: 1.7;
+            white-space: pre;
+        }
+
+        .highlight {
+            padding: 16px 18px;
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            background: var(--bg);
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .comparison > div {
+            padding: 18px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg);
+        }
+
+        .comparison h3 {
+            margin-top: 0;
+        }
+
+        .quiz-option {
+            display: block;
+            margin: 10px 0;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--accent);
+        }
+
+        .quiz-option input {
+            margin-right: 10px;
+            accent-color: var(--accent);
+        }
+
+        #quiz-result {
+            margin-top: 14px;
+            font-weight: 700;
+        }
+
+        .page-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        footer {
+            padding: 24px 0;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+            .hero {
+                padding: 28px 22px;
+            }
+
+            .section {
+                padding: 21px;
+            }
+
+            .grid,
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .nav {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header>
+        <div class="container nav">
+            <nav class="nav-links" aria-label="Main navigation">
+                <a href="index.html">← Section Home</a>
+                <a href="../index.html">Main Portfolio</a>
+            </nav>
+
+            <button id="theme-toggle" type="button" aria-label="Switch color theme">
+                ☀️ Light Mode
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="hero">
+            <div class="eyebrow">Week 9 #3 · Topic 05</div>
+            <h1>Lazy Loading</h1>
+            <p>
+                Load images and other resources only when they are needed.
+                Improve initial page loading speed by avoiding unnecessary downloads.
+            </p>
+            <div class="meta">
+                K0126002 · Gachon University · 2026 Fall · Dr. Toshpulatov
+            </div>
+        </section>
+
+        <main id="main">
+            <section class="section">
+                <h2>What Is Lazy Loading?</h2>
+
+                <p>
+                    Lazy loading is a performance technique that delays loading
+                    non-essential resources until they are close to becoming visible
+                    on the user's screen.
+                </p>
+
+                <p>
+                    For example, imagine a webpage containing 30 images. Without
+                    lazy loading, the browser may start downloading all 30 images
+                    immediately, even though the user can only see the first few.
+                </p>
+
+                <div class="highlight">
+                    <strong>Key idea:</strong> Load important content first.
+                    Load content farther down the page only when the user gets close to it.
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Why Use Lazy Loading?</h2>
+
+                <div class="grid">
+                    <div class="mini-card">
+                        <h3>Faster Initial Loading</h3>
+                        <p>
+                            The browser has fewer resources to download when the
+                            page first opens.
+                        </p>
+                    </div>
+
+                    <div class="mini-card">
+                        <h3>Less Data Usage</h3>
+                        <p>
+                            Users do not need to download images they never scroll
+                            down to see.
+                        </p>
+                    </div>
+
+                    <div class="mini-card">
+                        <h3>Better Performance</h3>
+                        <p>
+                            Reducing unnecessary downloads can help the page become
+                            usable sooner.
+                        </p>
+                    </div>
+
+                    <div class="mini-card">
+                        <h3>Useful for Long Pages</h3>
+                        <p>
+                            Image galleries, product lists, and articles can contain
+                            many resources below the first screen.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>How to Use loading="lazy"</h2>
+
+                <p>
+                    HTML provides a built-in <code>loading</code> attribute for images.
+                    Set it to <code>lazy</code> to tell the browser to delay loading
+                    an image until it approaches the viewport.
+                </p>
+
+                <h3>Without Lazy Loading</h3>
+                <div class="code">&lt;img src="gallery-photo.jpg" alt="Mountain landscape"&gt;</div>
+
+                <h3>With Lazy Loading</h3>
+                <div class="code">&lt;img
+    src="gallery-photo.jpg"
+    alt="Mountain landscape"
+    loading="lazy"
+&gt;</div>
+
+                <p class="muted">
+                    The browser decides when to download the image based on how close
+                    it is to the visible area of the page.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>Lazy vs. Eager Loading</h2>
+
+                <div class="comparison">
+                    <div>
+                        <h3>loading="lazy"</h3>
+                        <p>
+                            Delays loading until the image is near the viewport.
+                        </p>
+                        <ul>
+                            <li>Useful for images below the fold</li>
+                            <li>Reduces unnecessary initial downloads</li>
+                            <li>Good for long pages and galleries</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3>loading="eager"</h3>
+                        <p>
+                            Allows the image to load immediately without lazy-loading
+                            behavior.
+                        </p>
+                        <ul>
+                            <li>Useful for important visible images</li>
+                            <li>Appropriate for above-the-fold content</li>
+                            <li>Can help prioritize the main page image</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="code" style="margin-top:18px;">&lt;!-- Load immediately --&gt;
+&lt;img src="hero.jpg" alt="Main banner" loading="eager"&gt;
+
+&lt;!-- Load when needed --&gt;
+&lt;img src="photo-2.jpg" alt="Gallery photo" loading="lazy"&gt;</div>
+            </section>
+
+            <section class="section">
+                <h2>Important Rule: Never Lazy-Load the Hero Image</h2>
+
+                <p>
+                    The hero image is usually the large, important image visible
+                    near the top of a webpage. It should normally load immediately.
+                </p>
+
+                <p>
+                    Lazy-loading an important above-the-fold image can delay its
+                    appearance and make the page feel slower.
+                </p>
+
+                <div class="highlight">
+                    <strong>Best practice:</strong>
+                    Use <code>loading="eager"</code> for important images visible
+                    immediately. Use <code>loading="lazy"</code> for images farther
+                    down the page.
+                </div>
+
+                <div class="code" style="margin-top:18px;">&lt;!-- Important hero image --&gt;
+&lt;img src="hero.jpg"
+     alt="Website hero"
+     loading="eager"
+     width="1200"
+     height="600"&gt;
+
+&lt;!-- Image lower on the page --&gt;
+&lt;img src="gallery.jpg"
+     alt="Gallery photograph"
+     loading="lazy"
+     width="800"
+     height="500"&gt;</div>
+            </section>
+
+            <section class="section">
+                <h2>Prevent Layout Shifts with Width and Height</h2>
+
+                <p>
+                    When an image loads without reserved dimensions, the browser
+                    may not know how much space to leave for it. The page can move
+                    when the image finally appears.
+                </p>
+
+                <p>
+                    This movement is called Cumulative Layout Shift (CLS).
+                    Setting image dimensions helps the browser reserve the correct
+                    space before the image loads.
+                </p>
+
+                <div class="grid">
+                    <div class="mini-card">
+                        <h3>Without Dimensions</h3>
+                        <p class="muted">
+                            The browser may not reserve enough space. Content can
+                            shift after the image appears.
+                        </p>
+                    </div>
+
+                    <div class="mini-card">
+                        <h3>With Dimensions</h3>
+                        <p class="muted">
+                            The browser can calculate the image's aspect ratio and
+                            reserve its space in advance.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="code" style="margin-top:18px;">&lt;img
+    src="photo.jpg"
+    alt="A landscape"
+    loading="lazy"
+    width="800"
+    height="500"
+&gt;</div>
+            </section>
+
+            <section class="section">
+                <h2>When Should You Use Lazy Loading?</h2>
+
+                <ul>
+                    <li>Image galleries with many photographs.</li>
+                    <li>Long articles with images below the first screen.</li>
+                    <li>Product pages with many product images.</li>
+                    <li>Pages where users need to scroll to see additional content.</li>
+                </ul>
+
+                <h3>When Should You Avoid It?</h3>
+
+                <ul>
+                    <li>Important hero images at the top of the page.</li>
+                    <li>Images immediately visible when the page opens.</li>
+                    <li>Resources that must be available immediately.</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <h2>Quick Knowledge Check</h2>
+
+                <p>
+                    Which image should normally use
+                    <code>loading="lazy"</code>?
+                </p>
+
+                <form id="quiz-form">
+                    <label class="quiz-option">
+                        <input type="radio" name="answer" value="a">
+                        A) The main hero image at the top of the page
+                    </label>
+
+                    <label class="quiz-option">
+                        <input type="radio" name="answer" value="b">
+                        B) An image far below the first screen
+                    </label>
+
+                    <label class="quiz-option">
+                        <input type="radio" name="answer" value="c">
+                        C) The website logo in the navigation bar
+                    </label>
+
+                    <label class="quiz-option">
+                        <input type="radio" name="answer" value="d">
+                        D) Every image, without exception
+                    </label>
+
+                    <button type="submit">Check Answer</button>
+                    <p id="quiz-result" aria-live="polite"></p>
+                </form>
+            </section>
+
+            <div class="page-nav">
+                <a href="topic_04_image_optimization.html">← Previous: Image Optimization</a>
+                <a href="topic_06_minification_and_defer.html">Next: Minification and Defer →</a>
+            </div>
+        </main>
+
+        <footer>
+            <p>BATSUREN ANAR · STUDENT ID: 202637018</p>
+            <p>Gachon University · Web Programming · 2026 Fall</p>
+        </footer>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById("theme-toggle");
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute("data-theme", theme);
+            themeToggle.textContent =
+                theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode";
+            localStorage.setItem("anar-theme", theme);
+        }
+
+        const savedTheme = localStorage.getItem("anar-theme") || "dark";
+        setTheme(savedTheme);
+
+        themeToggle.addEventListener("click", () => {
+            const currentTheme =
+                document.documentElement.getAttribute("data-theme");
+
+            setTheme(currentTheme === "dark" ? "light" : "dark");
+        });
+
+        document.getElementById("quiz-form").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const selected = document.querySelector('input[name="answer"]:checked');
+            const result = document.getElementById("quiz-result");
+
+            if (!selected) {
+                result.textContent = "Please select an answer first.";
+                result.style.color = "var(--muted)";
+                return;
+            }
+
+            if (selected.value === "b") {
+                result.textContent = "Correct! Images far below the first screen are good candidates for lazy loading.";
+                result.style.color = "#55D68B";
+            } else {
+                result.textContent = "Not quite. Lazy loading is best for images that are not immediately visible.";
+                result.style.color = "#FF8585";
+            }
+        });
+    </script>
+</body>
+
+</html>

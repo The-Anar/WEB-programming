@@ -314,7 +314,6 @@
     `;
 
     document.head.appendChild(style);
-    selectMood("night");
   }
 
   if (document.readyState === "loading") {

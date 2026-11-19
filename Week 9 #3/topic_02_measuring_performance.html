@@ -1,1 +1,967 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Topic 02 — Measuring Performance · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Topic 02 — Measuring Performance</h1><p>Measure performance and improve loading with optimized images, scripts, caching and deployment choices.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="panel"><h2>Concept</h2><p>Use Lighthouse and Core Web Vitals as diagnostic tools; compare before and after changes.</p><h2>Why it matters</h2><p>Measuring Performance Apply the idea consistently and test the result in a browser.</p><h2>Try it</h2><h2>Remember</h2><ul><li>Prefer native HTML before adding custom JavaScript or ARIA.</li><li>Test with keyboard navigation and browser developer tools.</li><li>Keep labels, instructions and feedback clear.</li></ul></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script></body></html>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#171D2E">
+    <title>Topic 02 — Measuring Performance · Anar</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --shadow: #080D1B;
+            --hero-start: #302345;
+            --hero-end: #49366C;
+            --good: #8FE0B0;
+            --warning: #F2C879;
+        }
+
+        body.light {
+            color-scheme: light;
+            --bg: #F0EBFF;
+            --text: #29243D;
+            --muted: #625B7C;
+            --card: #FFFFFF;
+            --accent: #7556C9;
+            --border: #9686C5;
+            --shadow: #C9C0DC;
+            --hero-start: #DED5F1;
+            --hero-end: #C9B9ED;
+            --good: #187A46;
+            --warning: #94620A;
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+            transition: background .25s, color .25s;
+        }
+
+        a { color: inherit; }
+
+        button:focus-visible, a:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: 10px;
+            left: -9999px;
+            z-index: 1000;
+            padding: 10px 16px;
+            background: var(--accent);
+            color: #171D2E;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .skip-link:focus { left: 10px; }
+
+        .container {
+            width: min(1300px, 92%);
+            margin: 0 auto;
+        }
+
+        header { padding: 22px 0 17px; }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding-bottom: 17px;
+            border-bottom: 1px solid rgba(135,145,194,.25);
+        }
+
+        .brand {
+            color: var(--text);
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .nav a, .theme-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 43px;
+            padding: 8px 16px;
+            border: 2px solid var(--border);
+            border-radius: 15px;
+            background: transparent;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .nav a:hover, .theme-button:hover {
+            background: var(--card);
+            border-color: var(--accent);
+        }
+
+        .hero {
+            margin: 30px 0;
+            padding: 39px 35px 42px;
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            background: linear-gradient(115deg,var(--hero-start),var(--hero-end));
+            box-shadow: 8px 9px 0 var(--shadow);
+        }
+
+        .eyebrow {
+            margin: 0 0 12px;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(32px,4.5vw,52px);
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        .hero-description {
+            max-width: 900px;
+            margin: 18px 0;
+            font-size: 18px;
+        }
+
+        .student-info {
+            margin: 17px 0 0;
+            color: var(--muted);
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .section { margin: 38px 0; }
+
+        .section-label {
+            margin: 0 0 9px;
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2.5px;
+        }
+
+        .section-title {
+            margin: 0 0 18px;
+            font-size: 26px;
+            line-height: 1.3;
+        }
+
+        .section-description {
+            margin: -7px 0 20px;
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap: 16px;
+        }
+
+        .card {
+            padding: 22px;
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            background: var(--card);
+            box-shadow: 4px 5px 0 var(--shadow);
+        }
+
+        .card h3 { margin: 0 0 9px; font-size: 19px; }
+        .card p { margin: 0; color: var(--muted); }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 37px;
+            height: 37px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            color: var(--accent);
+            font-weight: 900;
+        }
+
+        .note {
+            margin-top: 18px;
+            padding: 17px 20px;
+            border-left: 4px solid var(--accent);
+            border-radius: 0 13px 13px 0;
+            background: var(--card);
+            color: var(--muted);
+        }
+
+        .note strong { color: var(--text); }
+
+        .table-wrap {
+            overflow-x: auto;
+            border: 2px solid var(--border);
+            border-radius: 18px;
+            background: var(--card);
+        }
+
+        table {
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+
+        th {
+            color: var(--accent);
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        tr:last-child td { border-bottom: none; }
+        .status-good { color: var(--good); font-weight: 800; }
+        .status-warning { color: var(--warning); font-weight: 800; }
+
+        .waterfall {
+            padding: 22px;
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            background: var(--card);
+            box-shadow: 4px 5px 0 var(--shadow);
+            overflow-x: auto;
+        }
+
+        .waterfall-heading {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 20px;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .waterfall-row {
+            display: grid;
+            grid-template-columns: 115px minmax(280px,1fr);
+            align-items: center;
+            gap: 13px;
+            min-width: 430px;
+            margin: 13px 0;
+        }
+
+        .request-name {
+            color: var(--muted);
+            font-family: Consolas, monospace;
+            font-size: 12px;
+        }
+
+        .timeline {
+            position: relative;
+            height: 26px;
+            border-radius: 6px;
+            background: rgba(135,145,194,.15);
+        }
+
+        .bar {
+            position: absolute;
+            top: 4px;
+            height: 18px;
+            border-radius: 4px;
+            background: var(--accent);
+        }
+
+        .bar-a { left: 2%; width: 34%; }
+        .bar-b { left: 17%; width: 25%; opacity: .75; }
+        .bar-c { left: 40%; width: 45%; }
+        .bar-d { left: 52%; width: 20%; opacity: .75; }
+        .bar-e { left: 77%; width: 18%; }
+
+        .time-axis {
+            display: flex;
+            justify-content: space-between;
+            min-width: 430px;
+            margin: 14px 0 0 128px;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .waterfall-caption {
+            margin: 17px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(5,minmax(0,1fr));
+            gap: 13px;
+        }
+
+        .detail-card {
+            padding: 17px;
+            border: 2px solid var(--border);
+            border-radius: 17px;
+            background: var(--card);
+            box-shadow: 3px 4px 0 var(--shadow);
+        }
+
+        .detail-card h3 {
+            margin: 0 0 7px;
+            color: var(--accent);
+            font-size: 17px;
+        }
+
+        .detail-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .checklist {
+            display: grid;
+            gap: 13px;
+            padding: 22px;
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            background: var(--card);
+            box-shadow: 4px 5px 0 var(--shadow);
+        }
+
+        .checklist label {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            color: var(--muted);
+            cursor: pointer;
+        }
+
+        .checklist input {
+            width: 18px;
+            height: 18px;
+            margin-top: 4px;
+            accent-color: var(--accent);
+        }
+
+        .progress-track {
+            height: 10px;
+            overflow: hidden;
+            margin-top: 8px;
+            border-radius: 20px;
+            background: rgba(135,145,194,.25);
+        }
+
+        .progress-fill {
+            width: 0;
+            height: 100%;
+            border-radius: 20px;
+            background: var(--accent);
+            transition: width .2s;
+        }
+
+        .progress-text {
+            margin: 9px 0 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .quiz {
+            padding: 25px;
+            border: 2px solid var(--border);
+            border-radius: 21px;
+            background: var(--card);
+            box-shadow: 4px 5px 0 var(--shadow);
+        }
+
+        .quiz-question {
+            margin: 0 0 18px;
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .quiz-options { display: grid; gap: 11px; }
+
+        .quiz-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: transparent;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 15px;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .quiz-option:hover { border-color: var(--accent); background: var(--hero-start); }
+
+        .option-letter {
+            display: inline-flex;
+            flex: 0 0 29px;
+            align-items: center;
+            justify-content: center;
+            width: 29px;
+            height: 29px;
+            border: 1px solid var(--border);
+            border-radius: 50%;
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+        .quiz-option.correct { border-color: var(--good); }
+        .quiz-option.incorrect { border-color: #E58B8B; }
+
+        .feedback {
+            display: none;
+            margin-top: 17px;
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            color: var(--muted);
+        }
+
+        .feedback.show { display: block; }
+        .feedback strong { display: block; margin-bottom: 5px; color: var(--text); }
+
+        .reset-button {
+            margin-top: 15px;
+            padding: 10px 16px;
+            border: 2px solid var(--border);
+            border-radius: 13px;
+            background: transparent;
+            color: var(--text);
+            font-family: inherit;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .reset-button:hover { border-color: var(--accent); background: var(--hero-start); }
+
+        .page-navigation {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin: 43px 0;
+            flex-wrap: wrap;
+        }
+
+        .page-navigation a {
+            padding: 11px 17px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .page-navigation a:hover { border-color: var(--accent); background: var(--card); }
+
+        footer {
+            margin-top: 50px;
+            padding: 23px 0 30px;
+            border-top: 1px solid rgba(135,145,194,.3);
+            color: var(--muted);
+            text-align: center;
+            font-size: 13px;
+        }
+
+        footer p { margin: 4px 0; }
+        footer a { color: var(--accent); font-weight: 700; text-decoration: none; }
+
+        @media(max-width:1000px) {
+            .detail-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+        }
+
+        @media(max-width:700px) {
+            .grid { grid-template-columns: 1fr; }
+            .detail-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+        }
+
+        @media(max-width:650px) {
+            .header-inner { align-items: flex-start; flex-direction: column; }
+            .nav { justify-content: flex-start; }
+            .hero { padding: 29px 22px 32px; }
+        }
+
+        @media(max-width:450px) {
+            .detail-grid { grid-template-columns: 1fr; }
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+            *,*::before,*::after {
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="container">
+        <div class="header-inner">
+            <a class="brand" href="../index.html">ANAR · WEB PROGRAMMING</a>
+            <nav class="nav" aria-label="Main navigation">
+                <a href="index.html">← Section home</a>
+                <a href="../index.html">Main portfolio</a>
+                <button class="theme-button" id="theme-toggle" type="button">☀️ Light mode</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" id="main-content">
+        <section class="hero">
+            <p class="eyebrow">Performance · Topic 02</p>
+            <h1>Measuring Performance</h1>
+            <p class="hero-description">
+                Use Chrome DevTools to inspect network requests, identify
+                large files, understand request statuses, and read the
+                Waterfall timeline.
+            </p>
+            <p class="student-info">BATSUREN ANAR · STUDENT ID: 202637018</p>
+        </section>
+
+        <section class="section">
+            <p class="section-label">CHROME DEVTOOLS</p>
+            <h2 class="section-title">Network Tab in DevTools</h2>
+            <p class="section-description">
+                The Network tab shows the resources and requests that
+                the browser loads when a webpage opens.
+            </p>
+
+            <div class="card">
+                <h3>How to open the Network tab</h3>
+                <p>
+                    Open your webpage in Chrome. Press F12 to open
+                    Developer Tools, select the Network tab, and reload
+                    the page to record its network requests.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <p class="section-label">INSPECT THE REQUESTS</p>
+            <h2 class="section-title">Five Things to Look For</h2>
+
+            <div class="grid">
+                <article class="card">
+                    <span class="step-number">01</span>
+                    <h3>Large files</h3>
+                    <p>
+                        Look for large files, especially images over
+                        200 KB. Sort by the Size column to find files
+                        that use more data.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <span class="step-number">02</span>
+                    <h3>Blocking requests at the top</h3>
+                    <p>
+                        CSS and JavaScript requests can block or delay
+                        rendering. Inspect requests that may prevent
+                        the page from displaying quickly.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <span class="step-number">03</span>
+                    <h3>Long chains of serial requests</h3>
+                    <p>
+                        Look for requests that happen one after another.
+                        Each request may wait for the previous request
+                        to finish.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <span class="step-number">04</span>
+                    <h3>304 Not Modified</h3>
+                    <p>
+                        A 304 response means the browser can reuse
+                        its cached resource instead of downloading
+                        the same content again.
+                    </p>
+                </article>
+
+                <article class="card">
+                    <span class="step-number">05</span>
+                    <h3>Duplicate requests</h3>
+                    <p>
+                        Check whether the same file is being loaded
+                        more than once. Duplicate requests may cause
+                        unnecessary network activity.
+                    </p>
+                </article>
+            </div>
+
+            <div class="note">
+                <strong>Tip:</strong> Sort the Size column to find large
+                resources, then inspect their request details and timing.
+            </div>
+        </section>
+
+        <section class="section">
+            <p class="section-label">REQUEST STATUS</p>
+            <h2 class="section-title">Understanding Network Status Codes</h2>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Meaning</th>
+                            <th>What it indicates</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="status-good">200</td>
+                            <td>OK</td>
+                            <td>The request succeeded.</td>
+                        </tr>
+                        <tr>
+                            <td class="status-good">304</td>
+                            <td>Not Modified</td>
+                            <td>The browser can reuse its cached resource.</td>
+                        </tr>
+                        <tr>
+                            <td class="status-warning">404</td>
+                            <td>Not Found</td>
+                            <td>The requested resource could not be found.</td>
+                        </tr>
+                        <tr>
+                            <td class="status-warning">500</td>
+                            <td>Internal Server Error</td>
+                            <td>The server encountered an error.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="note">
+                <strong>Remember:</strong> A 304 response is not an error.
+                It indicates that the browser can use a cached version
+                of the resource.
+            </div>
+        </section>
+
+        <section class="section">
+            <p class="section-label">REQUEST TIMING</p>
+            <h2 class="section-title">Reading the Waterfall</h2>
+            <p class="section-description">
+                The Waterfall is a timeline of every network request.
+                It helps you understand when requests begin and how
+                long they take.
+            </p>
+
+            <div class="waterfall">
+                <div class="waterfall-heading">
+                    <span>Example request timeline</span>
+                    <span>Illustrative only</span>
+                </div>
+
+                <div class="waterfall-row">
+                    <span class="request-name">index.html</span>
+                    <div class="timeline"><span class="bar bar-a"></span></div>
+                </div>
+
+                <div class="waterfall-row">
+                    <span class="request-name">style.css</span>
+                    <div class="timeline"><span class="bar bar-b"></span></div>
+                </div>
+
+                <div class="waterfall-row">
+                    <span class="request-name">app.js</span>
+                    <div class="timeline"><span class="bar bar-c"></span></div>
+                </div>
+
+                <div class="waterfall-row">
+                    <span class="request-name">team.jpg</span>
+                    <div class="timeline"><span class="bar bar-d"></span></div>
+                </div>
+
+                <div class="waterfall-row">
+                    <span class="request-name">font.woff2</span>
+                    <div class="timeline"><span class="bar bar-e"></span></div>
+                </div>
+
+                <div class="time-axis">
+                    <span>0 ms</span>
+                    <span>200 ms</span>
+                    <span>400 ms</span>
+                    <span>600 ms</span>
+                    <span>800 ms</span>
+                </div>
+
+                <p class="waterfall-caption">
+                    The bars represent example request durations and
+                    positions. They are not real measurements from
+                    your own website.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <p class="section-label">READ THE COLUMNS</p>
+            <h2 class="section-title">Five Important Waterfall Details</h2>
+
+            <div class="detail-grid">
+                <article class="detail-card">
+                    <h3>Waterfall</h3>
+                    <p>Timeline of every request.</p>
+                </article>
+
+                <article class="detail-card">
+                    <h3>Size</h3>
+                    <p>Compressed versus original bytes.</p>
+                </article>
+
+                <article class="detail-card">
+                    <h3>Time</h3>
+                    <p>How long each request took.</p>
+                </article>
+
+                <article class="detail-card">
+                    <h3>Initiator</h3>
+                    <p>What triggered the request.</p>
+                </article>
+
+                <article class="detail-card">
+                    <h3>Status</h3>
+                    <p>200, 304, 404, 500 and other responses.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <p class="section-label">HANDS-ON PRACTICE</p>
+            <h2 class="section-title">Inspect a Website Yourself</h2>
+            <p class="section-description">
+                Follow these steps using Chrome DevTools. Check each
+                item after you complete it.
+            </p>
+
+            <div class="checklist" id="practice-checklist">
+                <label>
+                    <input type="checkbox">
+                    <span>Open a website in Google Chrome.</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Press F12 and select the Network tab.</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Reload the page to record network requests.</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Sort by Size and find a large file.</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Look for a 304 Not Modified response.</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Inspect the Waterfall and request timing.</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Find the Initiator and Status columns.</span>
+                </label>
+
+                <div>
+                    <div class="progress-track">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <p class="progress-text" id="progress-text" aria-live="polite">
+                        0 of 7 tasks completed
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <p class="section-label">CHECK YOUR UNDERSTANDING</p>
+            <h2 class="section-title">Quick Quiz</h2>
+
+            <div class="quiz">
+                <p class="quiz-question">
+                    What does a 304 Not Modified response usually mean
+                    when you inspect a website in the Network tab?
+                </p>
+
+                <div class="quiz-options">
+                    <button class="quiz-option" type="button" data-answer="A">
+                        <span class="option-letter">A</span>
+                        <span>The server has an internal error.</span>
+                    </button>
+                    <button class="quiz-option" type="button" data-answer="B">
+                        <span class="option-letter">B</span>
+                        <span>The requested file does not exist.</span>
+                    </button>
+                    <button class="quiz-option" type="button" data-answer="C">
+                        <span class="option-letter">C</span>
+                        <span>The browser can reuse a cached resource.</span>
+                    </button>
+                    <button class="quiz-option" type="button" data-answer="D">
+                        <span class="option-letter">D</span>
+                        <span>The request is still waiting to start.</span>
+                    </button>
+                </div>
+
+                <div class="feedback" id="quiz-feedback" aria-live="polite">
+                    <strong id="feedback-title"></strong>
+                    <span id="feedback-text"></span>
+                </div>
+
+                <button class="reset-button" id="reset-quiz" type="button">Try again</button>
+            </div>
+        </section>
+
+        <section class="section">
+            <p class="section-label">KEY TAKEAWAYS</p>
+            <h2 class="section-title">Remember</h2>
+            <div class="card">
+                <ul>
+                    <li>Use F12 to open Chrome DevTools.</li>
+                    <li>The Network tab records the requests made by a webpage.</li>
+                    <li>Sort by Size to find large files, including images over 200 KB.</li>
+                    <li>Check for blocking requests and long serial request chains.</li>
+                    <li>304 Not Modified means a cached resource can be reused.</li>
+                    <li>The Waterfall displays the timeline of network requests.</li>
+                    <li>Size, Time, Initiator and Status help explain each request.</li>
+                </ul>
+            </div>
+        </section>
+
+        <nav class="page-navigation" aria-label="Topic navigation">
+            <a href="topic_01_why_performance_matters.html">← Previous: Why Performance Matters</a>
+            <a href="index.html">Back to Topics ↑</a>
+        </nav>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>ANAR · WEB PROGRAMMING</p>
+            <p>Week 9 #3 · Web Performance Optimization</p>
+            <p>Gachon University · 2026 Fall</p>
+            <p><a href="../index.html">← Back to Main Portfolio</a></p>
+        </div>
+    </footer>
+
+    <script>
+        const themeButton = document.getElementById("theme-toggle");
+
+        function updateThemeButton() {
+            themeButton.textContent = document.body.classList.contains("light")
+                ? "🌙 Dark mode"
+                : "☀️ Light mode";
+        }
+
+        themeButton.addEventListener("click", () => {
+            document.body.classList.toggle("light");
+            updateThemeButton();
+        });
+
+        updateThemeButton();
+
+        const checklist = document.querySelectorAll(
+            '#practice-checklist input[type="checkbox"]'
+        );
+
+        const progressFill = document.getElementById("progress-fill");
+        const progressText = document.getElementById("progress-text");
+
+        function updateProgress() {
+            const completed = Array.from(checklist)
+                .filter(item => item.checked).length;
+
+            const percentage = (completed / checklist.length) * 100;
+
+            progressFill.style.width = percentage + "%";
+            progressText.textContent =
+                completed + " of " + checklist.length + " tasks completed";
+        }
+
+        checklist.forEach(item => {
+            item.addEventListener("change", updateProgress);
+        });
+
+        const options = document.querySelectorAll(".quiz-option");
+        const feedback = document.getElementById("quiz-feedback");
+        const feedbackTitle = document.getElementById("feedback-title");
+        const feedbackText = document.getElementById("feedback-text");
+
+        options.forEach(option => {
+            option.addEventListener("click", () => {
+                options.forEach(item => item.classList.remove("correct", "incorrect"));
+
+                if (option.dataset.answer === "C") {
+                    option.classList.add("correct");
+                    feedbackTitle.textContent = "Correct! Answer: C";
+                    feedbackText.textContent =
+                        "A 304 Not Modified response means the browser can reuse its cached resource instead of downloading it again.";
+                } else {
+                    option.classList.add("incorrect");
+                    feedbackTitle.textContent = "Not quite. The correct answer is C.";
+                    feedbackText.textContent =
+                        "A 304 response means the cached resource can be reused. A 404 means Not Found, and a 500 indicates a server error.";
+                }
+
+                feedback.classList.add("show");
+            });
+        });
+
+        document.getElementById("reset-quiz").addEventListener("click", () => {
+            options.forEach(item => item.classList.remove("correct", "incorrect"));
+            feedback.classList.remove("show");
+            feedbackTitle.textContent = "";
+            feedbackText.textContent = "";
+        });
+    </script>
+</body>
+</html>

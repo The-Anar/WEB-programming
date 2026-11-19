@@ -1,1 +1,409 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Topic 04 — Image Optimization · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Topic 04 — Image Optimization</h1><p>Measure performance and improve loading with optimized images, scripts, caching and deployment choices.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="panel"><h2>Concept</h2><p>Resize images to their display dimensions and choose efficient formats such as WebP or AVIF.</p><h2>Why it matters</h2><p>Image Optimization Apply the idea consistently and test the result in a browser.</p><h2>Try it</h2><h2>Remember</h2><ul><li>Prefer native HTML before adding custom JavaScript or ARIA.</li><li>Test with keyboard navigation and browser developer tools.</li><li>Keep labels, instructions and feedback clear.</li></ul></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script></body></html>
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#171D2E">
+    <title>Topic 04 — Image Optimization · Anar</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;
+            --card:#222D43;--accent:#B7A2FF;--border:#8791C2;
+            --shadow:#080D1B;--hero-start:#302345;--hero-end:#49366C;
+            --good:#8FE0B0;
+        }
+        body.light {
+            color-scheme:light;
+            --bg:#F0EBFF;--text:#29243D;--muted:#625B7C;
+            --card:#FFFFFF;--accent:#7556C9;--border:#9686C5;
+            --shadow:#C9C0DC;--hero-start:#DED5F1;--hero-end:#C9B9ED;
+            --good:#187A46;
+        }
+        *{box-sizing:border-box}
+        html{scroll-behavior:smooth}
+        body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif;font-size:16px;line-height:1.65;transition:background .25s,color .25s}
+        a{color:inherit}
+        a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+        .skip-link{position:absolute;left:-9999px;top:10px;z-index:1000;padding:10px 16px;border-radius:8px;background:var(--accent);color:#171D2E;font-weight:bold}
+        .skip-link:focus{left:10px}
+        .container{width:min(1300px,92%);margin:0 auto}
+        header{padding:22px 0 17px}
+        .header-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;padding-bottom:17px;border-bottom:1px solid rgba(135,145,194,.25)}
+        .brand{font-size:15px;font-weight:800;letter-spacing:1.5px;text-decoration:none}
+        .nav{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+        .nav a,.theme-button{display:inline-flex;align-items:center;justify-content:center;min-height:43px;padding:8px 16px;border:2px solid var(--border);border-radius:15px;background:transparent;color:var(--text);font-family:inherit;font-size:14px;font-weight:700;text-decoration:none;cursor:pointer}
+        .nav a:hover,.theme-button:hover{background:var(--card);border-color:var(--accent)}
+        .hero{margin:30px 0;padding:39px 35px 42px;border:1px solid var(--border);border-radius:28px;background:linear-gradient(115deg,var(--hero-start),var(--hero-end));box-shadow:8px 9px 0 var(--shadow)}
+        .eyebrow{margin:0 0 12px;color:var(--muted);font-size:13px;font-weight:800;letter-spacing:2px;text-transform:uppercase}
+        h1{margin:0;font-size:clamp(32px,4.5vw,52px);line-height:1.2;letter-spacing:-1px}
+        .hero-description{max-width:900px;margin:18px 0;font-size:18px}
+        .student-info{margin:17px 0 0;color:var(--muted);font-size:14px;font-weight:800;letter-spacing:1px}
+        .section{margin:38px 0}
+        .section-label{margin:0 0 9px;color:var(--muted);font-size:12px;font-weight:800;letter-spacing:2.5px}
+        .section-title{margin:0 0 18px;font-size:26px;line-height:1.3}
+        .section-description{margin:-7px 0 20px;color:var(--muted)}
+        .card{padding:23px;border:2px solid var(--border);border-radius:20px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}
+        .card h3{margin:0 0 9px;font-size:20px}
+        .card p{margin:7px 0;color:var(--muted)}
+        .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+        .info-card{padding:21px;border:2px solid var(--border);border-radius:18px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}
+        .info-card h3{margin:0 0 8px}
+        .info-card p{margin:0;color:var(--muted)}
+        .format-tag{display:inline-block;margin-bottom:10px;padding:4px 10px;border:1px solid var(--border);border-radius:9px;color:var(--accent);font-size:13px;font-weight:800}
+        .note{margin-top:18px;padding:17px 20px;border-left:4px solid var(--accent);border-radius:0 13px 13px 0;background:var(--card);color:var(--muted)}
+        .note strong{color:var(--text)}
+        .table-wrap{overflow-x:auto;border:2px solid var(--border);border-radius:18px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}
+        table{width:100%;border-collapse:collapse;min-width:650px}
+        th,td{padding:15px 17px;border-bottom:1px solid var(--border);text-align:left}
+        th{color:var(--accent);font-size:13px;letter-spacing:1px;text-transform:uppercase}
+        td{color:var(--muted)}
+        td strong{color:var(--text)}
+        tr:last-child td{border-bottom:none}
+        .rule-card{padding:25px;border:2px solid var(--border);border-radius:21px;background:linear-gradient(115deg,var(--hero-start),var(--hero-end));box-shadow:4px 5px 0 var(--shadow)}
+        .rule-card h3{margin:0 0 10px;font-size:22px}
+        .rule-card p{margin:0;color:var(--muted)}
+        .quiz{padding:25px;border:2px solid var(--border);border-radius:21px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}
+        .quiz-question{margin:0 0 18px;font-size:19px;font-weight:800}
+        .quiz-options{display:grid;gap:11px}
+        .quiz-option{display:flex;align-items:flex-start;gap:12px;width:100%;padding:14px 16px;border:1px solid var(--border);border-radius:13px;background:transparent;color:var(--text);font-family:inherit;font-size:15px;text-align:left;cursor:pointer}
+        .quiz-option:hover{border-color:var(--accent);background:var(--hero-start)}
+        .option-letter{display:inline-flex;flex:0 0 29px;align-items:center;justify-content:center;width:29px;height:29px;border:1px solid var(--border);border-radius:50%;color:var(--accent);font-weight:800}
+        .quiz-option.correct{border-color:var(--good)}
+        .quiz-option.incorrect{border-color:#E58B8B}
+        .feedback{display:none;margin-top:17px;padding:15px;border:1px solid var(--border);border-radius:13px;color:var(--muted)}
+        .feedback.show{display:block}
+        .feedback strong{display:block;margin-bottom:5px;color:var(--text)}
+        .reset-button{margin-top:15px;padding:10px 16px;border:2px solid var(--border);border-radius:13px;background:transparent;color:var(--text);font-family:inherit;font-weight:800;cursor:pointer}
+        .reset-button:hover{border-color:var(--accent);background:var(--hero-start)}
+        .resource-link{color:var(--accent);font-weight:800;text-decoration:none}
+        .resource-link:hover{text-decoration:underline}
+        .page-navigation{display:flex;justify-content:space-between;gap:12px;margin:43px 0;flex-wrap:wrap}
+        .page-navigation a{padding:11px 17px;border:2px solid var(--border);border-radius:14px;color:var(--text);font-size:14px;font-weight:800;text-decoration:none}
+        .page-navigation a:hover{border-color:var(--accent);background:var(--card)}
+        footer{margin-top:50px;padding:23px 0 30px;border-top:1px solid rgba(135,145,194,.3);color:var(--muted);text-align:center;font-size:13px}
+        footer p{margin:4px 0}
+        footer a{color:var(--accent);font-weight:700;text-decoration:none}
+        @media(max-width:700px){.grid{grid-template-columns:1fr}}
+        @media(max-width:650px){.header-inner{align-items:flex-start;flex-direction:column}.nav{justify-content:flex-start}.hero{padding:29px 22px 32px}}
+        @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important}}
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="container">
+        <div class="header-inner">
+            <a class="brand" href="../index.html">ANAR · WEB PROGRAMMING</a>
+            <nav class="nav" aria-label="Main navigation">
+                <a href="index.html">← Section home</a>
+                <a href="../index.html">Main portfolio</a>
+                <button class="theme-button" id="theme-toggle" type="button">☀️ Light mode</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container" id="main-content">
+        <section class="hero">
+            <p class="eyebrow">Performance · Topic 04</p>
+            <h1>Image Optimization</h1>
+            <p class="hero-description">
+                Images are often some of the largest resources on a webpage.
+                Choosing the right format, compressing files, and serving
+                images at the correct dimensions can improve loading speed.
+            </p>
+            <p class="student-info">BATSUREN ANAR · STUDENT ID: 202637018</p>
+        </section>
+
+        <section class="section">
+            <p class="section-label">THE BIGGEST WIN</p>
+            <h2 class="section-title">Why Optimize Images?</h2>
+            <div class="card">
+                <h3>Images can make webpages unnecessarily heavy</h3>
+                <p>
+                    Large image files take longer to download and can
+                    slow down a webpage. Optimizing images reduces
+                    unnecessary file size while keeping the visual
+                    quality suitable for the page.
+                </p>
+                <p>
+                    The lecture identifies image optimization as one
+                    of the biggest opportunities for improving
+                    website performance.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <p class="section-label">IMAGE FORMATS</p>
+            <h2 class="section-title">Choose the Right Format</h2>
+            <p class="section-description">
+                Different image formats are designed for different uses.
+            </p>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Format</th>
+                            <th>Best use</th>
+                            <th>File size / benefit</th>
+                            <th>When to use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>JPEG</strong></td>
+                            <td>Photos and complex images</td>
+                            <td>Small files for photographs</td>
+                            <td>Use for photographs</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PNG</strong></td>
+                            <td>Transparency and logos</td>
+                            <td>Lossless, but often larger</td>
+                            <td>When transparency is needed</td>
+                        </tr>
+                        <tr>
+                            <td><strong>WebP</strong></td>
+                            <td>Photos and transparency</td>
+                            <td>25–35% smaller than JPEG/PNG in the slide</td>
+                            <td>Modern browsers</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SVG</strong></td>
+                            <td>Icons, logos, and charts</td>
+                            <td>Scalable vector graphics</td>
+                            <td>When crisp vector art is needed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="section">
+            <p class="section-label">FORMAT DETAILS</p>
+            <h2 class="section-title">Understanding Each Format</h2>
+
+            <div class="grid">
+                <article class="info-card">
+                    <span class="format-tag">JPEG</span>
+                    <h3>Photographs</h3>
+                    <p>
+                        JPEG is commonly used for photographs and
+                        complex images. It is a good choice when
+                        you want relatively small photo files.
+                    </p>
+                </article>
+
+                <article class="info-card">
+                    <span class="format-tag">PNG</span>
+                    <h3>Transparency and Logos</h3>
+                    <p>
+                        PNG supports transparency and lossless
+                        image quality. It can produce larger files,
+                        so use it when its features are needed.
+                    </p>
+                </article>
+
+                <article class="info-card">
+                    <span class="format-tag">WebP</span>
+                    <h3>Modern Web Images</h3>
+                    <p>
+                        WebP supports photographs and transparency.
+                        The lecture states it can save 25–35% compared
+                        with JPEG or PNG.
+                    </p>
+                </article>
+
+                <article class="info-card">
+                    <span class="format-tag">SVG</span>
+                    <h3>Vector Graphics</h3>
+                    <p>
+                        SVG is suitable for icons, logos, and charts.
+                        It can scale to different sizes while staying
+                        crisp because it is vector-based.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <p class="section-label">TOOLS</p>
+            <h2 class="section-title">Compress Images Before You Ship</h2>
+
+            <div class="grid">
+                <article class="info-card">
+                    <h3>Squoosh</h3>
+                    <p>
+                        An image compression tool that helps reduce
+                        image file sizes and compare the result.
+                    </p>
+                    <p style="margin-top:13px">
+                        <a class="resource-link" href="https://squoosh.app/" target="_blank" rel="noopener noreferrer">Open Squoosh ↗</a>
+                    </p>
+                </article>
+
+                <article class="info-card">
+                    <h3>TinyPNG</h3>
+                    <p>
+                        A tool for compressing images before adding
+                        them to a website.
+                    </p>
+                    <p style="margin-top:13px">
+                        <a class="resource-link" href="https://tinypng.com/" target="_blank" rel="noopener noreferrer">Open TinyPNG ↗</a>
+                    </p>
+                </article>
+            </div>
+
+            <div class="note">
+                <strong>Lecture recommendation:</strong>
+                Compress images before you ship them to your website.
+            </div>
+        </section>
+
+        <section class="section">
+            <p class="section-label">IMPORTANT RULE</p>
+            <h2 class="section-title">Use the Displayed Image Size</h2>
+
+            <div class="rule-card">
+                <h3>Serve images at the size they are displayed</h3>
+                <p>
+                    Do not upload an unnecessarily huge original camera
+                    image when the webpage only displays it at a much
+                    smaller size. Prepare an image with dimensions
+                    appropriate for its actual display size.
+                </p>
+            </div>
+
+            <div class="note">
+                <strong>Example:</strong> If a webpage displays a photo
+                at 600 pixels wide, avoid serving a massive original
+                image that is thousands of pixels wide when those
+                extra dimensions are not needed.
+            </div>
+        </section>
+
+        <section class="section">
+            <p class="section-label">CHECK YOUR UNDERSTANDING</p>
+            <h2 class="section-title">Quick Quiz</h2>
+
+            <div class="quiz">
+                <p class="quiz-question">
+                    Which image format is suitable for icons, logos,
+                    and charts that need to stay crisp at different sizes?
+                </p>
+
+                <div class="quiz-options">
+                    <button class="quiz-option" type="button" data-answer="A">
+                        <span class="option-letter">A</span>
+                        <span>JPEG</span>
+                    </button>
+                    <button class="quiz-option" type="button" data-answer="B">
+                        <span class="option-letter">B</span>
+                        <span>PNG</span>
+                    </button>
+                    <button class="quiz-option" type="button" data-answer="C">
+                        <span class="option-letter">C</span>
+                        <span>SVG</span>
+                    </button>
+                    <button class="quiz-option" type="button" data-answer="D">
+                        <span class="option-letter">D</span>
+                        <span>WebP</span>
+                    </button>
+                </div>
+
+                <div class="feedback" id="quiz-feedback" aria-live="polite">
+                    <strong id="feedback-title"></strong>
+                    <span id="feedback-text"></span>
+                </div>
+
+                <button class="reset-button" id="reset-quiz" type="button">Try again</button>
+            </div>
+        </section>
+
+        <section class="section">
+            <p class="section-label">KEY TAKEAWAYS</p>
+            <h2 class="section-title">Remember</h2>
+            <div class="card">
+                <ul>
+                    <li>JPEG is suitable for photographs.</li>
+                    <li>PNG is useful when transparency is needed.</li>
+                    <li>WebP supports photos and transparency with smaller file sizes.</li>
+                    <li>SVG is useful for scalable icons, logos, and charts.</li>
+                    <li>Use Squoosh or TinyPNG to compress images.</li>
+                    <li>Serve images at the size they are displayed, not their original camera size.</li>
+                </ul>
+            </div>
+        </section>
+
+        <nav class="page-navigation" aria-label="Topic navigation">
+            <a href="topic_03_the_network_tab.html">← Previous: The Network Tab</a>
+            <a href="topic_05_lazy_loading.html">Next: Lazy Loading →</a>
+        </nav>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>ANAR · WEB PROGRAMMING</p>
+            <p>Week 9 #3 · Web Performance Optimization</p>
+            <p>Gachon University · 2026 Fall</p>
+            <p><a href="../index.html">← Back to Main Portfolio</a></p>
+        </div>
+    </footer>
+
+    <script>
+        const themeButton = document.getElementById("theme-toggle");
+
+        function updateThemeButton() {
+            themeButton.textContent = document.body.classList.contains("light")
+                ? "🌙 Dark mode"
+                : "☀️ Light mode";
+        }
+
+        themeButton.addEventListener("click", () => {
+            document.body.classList.toggle("light");
+            updateThemeButton();
+        });
+
+        updateThemeButton();
+
+        const options = document.querySelectorAll(".quiz-option");
+        const feedback = document.getElementById("quiz-feedback");
+        const feedbackTitle = document.getElementById("feedback-title");
+        const feedbackText = document.getElementById("feedback-text");
+
+        options.forEach(option => {
+            option.addEventListener("click", () => {
+                options.forEach(item =>
+                    item.classList.remove("correct", "incorrect")
+                );
+
+                if (option.dataset.answer === "C") {
+                    option.classList.add("correct");
+                    feedbackTitle.textContent = "Correct! Answer: C";
+                    feedbackText.textContent =
+                        "SVG is vector-based, so icons, logos, and charts can stay crisp at different sizes.";
+                } else {
+                    option.classList.add("incorrect");
+                    feedbackTitle.textContent = "Not quite. The correct answer is C.";
+                    feedbackText.textContent =
+                        "SVG is the vector format used for scalable graphics such as icons, logos, and charts.";
+                }
+
+                feedback.classList.add("show");
+            });
+        });
+
+        document.getElementById("reset-quiz").addEventListener("click", () => {
+            options.forEach(item =>
+                item.classList.remove("correct", "incorrect")
+            );
+            feedback.classList.remove("show");
+            feedbackTitle.textContent = "";
+            feedbackText.textContent = "";
+        });
+    </script>
+</body>
+</html>

@@ -1,1 +1,779 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Topic 10 — Quick Wins Checklist · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Topic 10 — Quick Wins Checklist</h1><p>Measure performance and improve loading with optimized images, scripts, caching and deployment choices.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="panel"><h2>Concept</h2><p>Compress images, remove unused code, defer noncritical scripts and reduce unnecessary requests.</p><h2>Why it matters</h2><p>Quick Wins Checklist Apply the idea consistently and test the result in a browser.</p><h2>Try it</h2><h2>Remember</h2><ul><li>Prefer native HTML before adding custom JavaScript or ARIA.</li><li>Test with keyboard navigation and browser developer tools.</li><li>Keep labels, instructions and feedback clear.</li></ul></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script></body></html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#171D2E">
+    <title>Topic 10 — Quick Wins Checklist · Anar</title>
+
+    <style>
+        :root {
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --shadow: rgba(0, 0, 0, 0.22);
+            --high: #FF9999;
+            --medium: #F2CB7D;
+            --success: #55D6A5;
+        }
+
+        body.light {
+            --bg: #F0EBFF;
+            --text: #29243D;
+            --muted: #625B7C;
+            --card: #FFFFFF;
+            --accent: #7556C9;
+            --border: #9686C5;
+            --shadow: rgba(50, 35, 90, 0.10);
+            --high: #C34C57;
+            --medium: #9B6B13;
+            --success: #16865F;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+            transition: background 0.25s, color 0.25s;
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -50px;
+            left: 12px;
+            background: var(--accent);
+            color: #171D2E;
+            padding: 8px 14px;
+            border-radius: 8px;
+            z-index: 10;
+        }
+
+        .skip-link:focus {
+            top: 12px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #292044, #47366F, #252F50);
+            color: #FFFFFF;
+            padding: 28px 20px 42px;
+        }
+
+        .header-inner {
+            max-width: 1180px;
+            margin: auto;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 38px;
+        }
+
+        .topbar a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .theme-button {
+            background: rgba(255,255,255,0.13);
+            color: #FFFFFF;
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 9px 15px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .eyebrow {
+            color: #D5C9FF;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            line-height: 1.15;
+            margin: 10px 0;
+        }
+
+        .hero-description {
+            max-width: 720px;
+            color: #E2DCFA;
+            font-size: 17px;
+        }
+
+        .student-info {
+            margin-top: 22px;
+            color: #D5C9FF;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        main {
+            max-width: 1180px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 26px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 7px 22px var(--shadow);
+        }
+
+        h2 {
+            font-size: 24px;
+            margin: 0 0 15px;
+            color: var(--accent);
+        }
+
+        h3 {
+            font-size: 18px;
+            margin: 0 0 12px;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .progress-section {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            padding: 22px;
+            border-radius: 13px;
+            margin-top: 18px;
+        }
+
+        .progress-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        #progress-count {
+            font-size: 21px;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .progress-track {
+            height: 12px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, #7556C9, #B7A2FF);
+            border-radius: 20px;
+            transition: width 0.25s ease;
+        }
+
+        #progress-message {
+            margin-top: 12px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .priority-heading {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 25px 0 14px;
+        }
+
+        .priority-label {
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: var(--bg);
+        }
+
+        .priority-label.high {
+            color: var(--high);
+            border: 1px solid var(--high);
+        }
+
+        .priority-label.medium {
+            color: var(--medium);
+            border: 1px solid var(--medium);
+        }
+
+        .checklist {
+            display: grid;
+            gap: 12px;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 17px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .check-item:hover {
+            border-color: var(--accent);
+        }
+
+        .check-item input {
+            width: 19px;
+            height: 19px;
+            flex-shrink: 0;
+            margin: 3px 0 0;
+            accent-color: var(--accent);
+            cursor: pointer;
+        }
+
+        .check-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .check-title {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+
+        .check-description {
+            display: block;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .check-item.completed .check-title {
+            text-decoration: line-through;
+            opacity: 0.65;
+        }
+
+        .check-item.completed {
+            border-color: var(--success);
+        }
+
+        .item-number {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 13px;
+            min-width: 22px;
+        }
+
+        .code-box {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 17px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        pre {
+            margin: 0;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            font-family: Consolas, monospace;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        code {
+            font-family: Consolas, monospace;
+            color: var(--accent);
+        }
+
+        .note {
+            padding: 16px;
+            border-left: 4px solid var(--accent);
+            background: var(--bg);
+            border-radius: 8px;
+            margin-top: 18px;
+        }
+
+        .reset-button {
+            padding: 10px 17px;
+            background: transparent;
+            color: var(--accent);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .reset-button:hover {
+            background: var(--card);
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 35px 0;
+        }
+
+        .navigation a {
+            text-decoration: none;
+            padding: 12px 18px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        .navigation a:hover {
+            background: var(--card);
+        }
+
+        footer {
+            text-align: center;
+            padding: 28px 15px;
+            color: var(--muted);
+            border-top: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 22px 17px 32px;
+            }
+
+            main {
+                padding: 0 13px;
+            }
+
+            .section {
+                padding: 19px;
+            }
+
+            .topbar {
+                margin-bottom: 28px;
+            }
+
+            .check-item {
+                padding: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header>
+        <div class="header-inner">
+            <div class="topbar">
+                <a href="index.html">← Web Programming Home</a>
+
+                <button class="theme-button" id="theme-toggle" type="button">
+                    ☀ Light Mode
+                </button>
+            </div>
+
+            <div class="eyebrow">Week 9 · Topic 10</div>
+            <h1>Quick Wins Checklist</h1>
+
+            <p class="hero-description">
+                Ten practical improvements that can make a website
+                faster and improve its overall performance.
+            </p>
+
+            <div class="student-info">
+                BATSUREN ANAR · STUDENT ID: 202637018
+            </div>
+        </div>
+    </header>
+
+    <main id="main">
+
+        <section class="section">
+            <h2>01 — Performance Checklist</h2>
+
+            <p>
+                Use this checklist to review important website
+                performance improvements. Start with the HIGH
+                priority tasks before moving to MED priority tasks.
+            </p>
+
+            <div class="progress-section">
+                <div class="progress-top">
+                    <strong>Completion Progress</strong>
+                    <span id="progress-count">0 / 10 done</span>
+                </div>
+
+                <div
+                    class="progress-track"
+                    role="progressbar"
+                    aria-label="Checklist completion"
+                    aria-valuemin="0"
+                    aria-valuemax="10"
+                    aria-valuenow="0"
+                    id="progress-bar"
+                >
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+
+                <p id="progress-message" aria-live="polite">
+                    Start checking off your improvements.
+                </p>
+            </div>
+
+            <div class="priority-heading">
+                <h3>High Priority</h3>
+                <span class="priority-label high">HIGH</span>
+            </div>
+
+            <div class="checklist">
+
+                <label class="check-item">
+                    <span class="item-number">01</span>
+                    <input type="checkbox" class="task-checkbox">
+                    <span class="check-content">
+                        <span class="check-title">Convert images to WebP</span>
+                        <span class="check-description">
+                            Use tools such as Squoosh or TinyPNG to
+                            reduce image file sizes while maintaining
+                            visual quality.
+                        </span>
+                    </span>
+                </label>
+
+                <label class="check-item">
+                    <span class="item-number">02</span>
+                    <input type="checkbox" class="task-checkbox">
+                    <span class="check-content">
+                        <span class="check-title">
+                            Add loading="lazy" to images below the fold
+                        </span>
+                        <span class="check-description">
+                            Delay loading images that are outside
+                            the visible part of the page.
+                        </span>
+                    </span>
+                </label>
+
+                <label class="check-item">
+                    <span class="item-number">03</span>
+                    <input type="checkbox" class="task-checkbox">
+                    <span class="check-content">
+                        <span class="check-title">
+                            Use defer on external scripts
+                        </span>
+                        <span class="check-description">
+                            Download JavaScript while HTML is being
+                            parsed and execute it after parsing finishes.
+                        </span>
+                    </span>
+                </label>
+
+                <label class="check-item">
+                    <span class="item-number">04</span>
+                    <input type="checkbox" class="task-checkbox">
+                    <span class="check-content">
+                        <span class="check-title">
+                            Set width and height on every image
+                        </span>
+                        <span class="check-description">
+                            Reserve image space before loading to help
+                            prevent Cumulative Layout Shift (CLS).
+                        </span>
+                    </span>
+                </label>
+
+                <label class="check-item">
+                    <span class="item-number">05</span>
+                    <input type="checkbox" class="task-checkbox">
+                    <span class="check-content">
+                        <span class="check-title">
+                            Enable server compression
+                        </span>
+                        <span class="check-description">
+                            Use gzip or Brotli to reduce the size of
+                            files transferred from the server.
+                        </span>
+                    </span>
+                </label>
+
+            </div>
+
+            <div class="priority-heading">
+                <h3>Medium Priority</h3>
+                <span class="priority-label medium">MED</span>
+            </div>
+
+            <div class="checklist">
+
+                <label class="check-item">
+                    <span class="item-number">06</span>
+                    <input type="checkbox" class="task-checkbox">
+                    <span class="check-content">
+                        <span class="check-title">Minify CSS and JavaScript</span>
+                        <span class="check-description">
+                            Remove unnecessary whitespace and comments
+                            to reduce file sizes.
+                        </span>
+                    </span>
+                </label>
+
+                <label class="check-item">
+                    <span class="item-number">07</span>
+                    <input type="checkbox" class="task-checkbox">
+                    <span class="check-content">
+                        <span class="check-title">
+                            Use a CDN for libraries
+                        </span>
+                        <span class="check-description">
+                            Load popular libraries through services
+                            such as jsDelivr or cdnjs.
+                        </span>
+                    </span>
+                </label>
+
+                <label class="check-item">
+                    <span class="item-number">08</span>
+                    <input type="checkbox" class="task-checkbox">
+                    <span class="check-content">
+                        <span class="check-title">
+                            Add &amp;display=swap to Google Fonts URLs
+                        </span>
+                        <span class="check-description">
+                            Allow fallback text to appear while the
+                            custom font is loading.
+                        </span>
+                    </span>
+                </label>
+
+                <label class="check-item">
+                    <span class="item-number">09</span>
+                    <input type="checkbox" class="task-checkbox">
+                    <span class="check-content">
+                        <span class="check-title">Remove unused CSS</span>
+                        <span class="check-description">
+                            Use DevTools → Coverage tab to identify
+                            CSS that is not being used.
+                        </span>
+                    </span>
+                </label>
+
+                <label class="check-item">
+                    <span class="item-number">10</span>
+                    <input type="checkbox" class="task-checkbox">
+                    <span class="check-content">
+                        <span class="check-title">
+                            Preload the hero image and main font
+                        </span>
+                        <span class="check-description">
+                            Use link rel="preload" for important
+                            resources needed early.
+                        </span>
+                    </span>
+                </label>
+
+            </div>
+
+            <div class="note">
+                <strong>Remember:</strong>
+                Complete the HIGH priority improvements first.
+                They focus on important areas such as image loading,
+                JavaScript execution, layout stability, and compression.
+            </div>
+
+            <div style="margin-top: 22px;">
+                <button class="reset-button" id="reset-button" type="button">
+                    Reset Checklist
+                </button>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>02 — Useful Code Examples</h2>
+
+            <h3>Lazy Loading</h3>
+            <div class="code-box">
+                <pre>&lt;img
+    src="photo.webp"
+    alt="Example photo"
+    width="800"
+    height="600"
+    loading="lazy"
+&gt;</pre>
+            </div>
+
+            <h3>Defer JavaScript</h3>
+            <div class="code-box">
+                <pre>&lt;script src="app.js" defer&gt;&lt;/script&gt;</pre>
+            </div>
+
+            <h3>Preload an Important Image</h3>
+            <div class="code-box">
+                <pre>&lt;link
+    rel="preload"
+    as="image"
+    href="hero.webp"
+&gt;</pre>
+            </div>
+
+            <h3>Google Fonts with Display Swap</h3>
+            <div class="code-box">
+                <pre>https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap</pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>03 — Final Review</h2>
+
+            <p>
+                Website performance optimization is not just one
+                technique. It combines several improvements that
+                work together.
+            </p>
+
+            <ul>
+                <li>Optimize images and reduce unnecessary downloads.</li>
+                <li>Load JavaScript without unnecessarily blocking HTML parsing.</li>
+                <li>Prevent layout shifts by defining image dimensions.</li>
+                <li>Reduce transferred data through compression and minification.</li>
+                <li>Use caching and CDNs to deliver resources efficiently.</li>
+                <li>Measure and review performance using browser DevTools.</li>
+            </ul>
+
+            <p class="muted">
+                Small improvements across several areas can make
+                a noticeable difference to the user experience.
+            </p>
+        </section>
+
+        <nav class="navigation" aria-label="Topic navigation">
+            <a href="topic_09_cdn.html">
+                ← Previous: Topic 09
+            </a>
+
+            <a href="index.html">
+                Week 9 Home →
+            </a>
+        </nav>
+
+        <div class="navigation">
+            <a href="../index.html">← Main Portfolio</a>
+            <a href="index.html">Web Programming Home</a>
+        </div>
+
+    </main>
+
+    <footer>
+        Web Programming · Gachon University · 2026 Fall
+        <br>
+        Batsuren Anar · 202637018
+    </footer>
+
+    <script>
+        const themeButton = document.getElementById("theme-toggle");
+
+        themeButton.addEventListener("click", function () {
+            document.body.classList.toggle("light");
+
+            const isLight = document.body.classList.contains("light");
+
+            themeButton.textContent = isLight
+                ? "☾ Dark Mode"
+                : "☀ Light Mode";
+        });
+
+        const checkboxes = document.querySelectorAll(".task-checkbox");
+        const progressCount = document.getElementById("progress-count");
+        const progressFill = document.getElementById("progress-fill");
+        const progressBar = document.getElementById("progress-bar");
+        const progressMessage = document.getElementById("progress-message");
+
+        function updateProgress() {
+            let completed = 0;
+
+            checkboxes.forEach(function (checkbox) {
+                const item = checkbox.closest(".check-item");
+
+                if (checkbox.checked) {
+                    completed++;
+                    item.classList.add("completed");
+                } else {
+                    item.classList.remove("completed");
+                }
+            });
+
+            const percentage = (completed / checkboxes.length) * 100;
+
+            progressCount.textContent =
+                completed + " / " + checkboxes.length + " done";
+
+            progressFill.style.width = percentage + "%";
+
+            progressBar.setAttribute("aria-valuenow", completed);
+
+            if (completed === checkboxes.length) {
+                progressMessage.textContent =
+                    "Excellent! All 10 performance improvements are complete.";
+            } else if (completed === 0) {
+                progressMessage.textContent =
+                    "Start checking off your improvements.";
+            } else {
+                progressMessage.textContent =
+                    percentage.toFixed(0) + "% completed. Keep going!";
+            }
+        }
+
+        checkboxes.forEach(function (checkbox) {
+            checkbox.addEventListener("change", updateProgress);
+        });
+
+        document.getElementById("reset-button").addEventListener("click", function () {
+            checkboxes.forEach(function (checkbox) {
+                checkbox.checked = false;
+            });
+
+            updateProgress();
+        });
+
+        updateProgress();
+    </script>
+</body>
+</html>

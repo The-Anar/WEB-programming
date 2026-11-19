@@ -1,1 +1,605 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Topic 06 — Minification · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Topic 06 — Minification</h1><p>Measure performance and improve loading with optimized images, scripts, caching and deployment choices.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="panel"><h2>Concept</h2><p>Minification removes unnecessary whitespace and comments from production assets.</p><h2>Why it matters</h2><p>Minification Apply the idea consistently and test the result in a browser.</p><h2>Try it</h2><h2>Remember</h2><ul><li>Prefer native HTML before adding custom JavaScript or ARIA.</li><li>Test with keyboard navigation and browser developer tools.</li><li>Keep labels, instructions and feedback clear.</li></ul></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script></body></html>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#171D2E">
+    <title>Topic 06 — Minification and Defer · Anar</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --shadow: rgba(0, 0, 0, .22);
+        }
+
+        [data-theme="light"] {
+            color-scheme: light;
+            --bg: #F0EBFF;
+            --text: #29243D;
+            --muted: #625B7C;
+            --card: #FFFFFF;
+            --accent: #7556C9;
+            --border: #9686C5;
+            --shadow: rgba(49, 35, 85, .12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+            transition: background .2s, color .2s;
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -50px;
+            left: 12px;
+            z-index: 10;
+            padding: 10px 16px;
+            background: var(--accent);
+            color: #171D2E;
+            border-radius: 8px;
+        }
+
+        .skip-link:focus {
+            top: 12px;
+        }
+
+        .container {
+            width: min(1180px, calc(100% - 36px));
+            margin: auto;
+        }
+
+        header {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        button {
+            cursor: pointer;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 9px 14px;
+            background: var(--card);
+            color: var(--text);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        button:hover {
+            border-color: var(--accent);
+        }
+
+        .hero {
+            margin: 34px 0 28px;
+            padding: 42px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #342C59, #51417E, #292E55);
+            color: #FFFFFF;
+            box-shadow: 0 12px 30px var(--shadow);
+        }
+
+        .hero .eyebrow {
+            color: #D8CCFF;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin: 8px 0 12px;
+            font-size: clamp(30px, 5vw, 48px);
+            line-height: 1.15;
+        }
+
+        .hero p {
+            max-width: 760px;
+            margin: 0;
+            color: #E5E0FF;
+        }
+
+        .meta {
+            margin-top: 22px;
+            font-size: 13px;
+            color: #D8CCFF;
+        }
+
+        main {
+            padding-bottom: 40px;
+        }
+
+        .section {
+            margin: 26px 0;
+            padding: 28px;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: var(--card);
+            box-shadow: 0 8px 20px var(--shadow);
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 25px;
+        }
+
+        h3 {
+            margin-bottom: 8px;
+            color: var(--accent);
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .mini-card {
+            padding: 20px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--bg);
+        }
+
+        .mini-card h3 {
+            margin-top: 0;
+        }
+
+        .code {
+            overflow-x: auto;
+            padding: 18px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: #111827;
+            color: #E5E7EB;
+            font-family: Consolas, monospace;
+            font-size: 14px;
+            line-height: 1.7;
+            white-space: pre;
+        }
+
+        .highlight {
+            padding: 16px 18px;
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            background: var(--bg);
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .comparison > div {
+            padding: 18px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg);
+        }
+
+        .comparison h3 {
+            margin-top: 0;
+        }
+
+        .quiz-option {
+            display: block;
+            margin: 10px 0;
+            padding: 12px 14px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .quiz-option:hover {
+            border-color: var(--accent);
+        }
+
+        .quiz-option input {
+            margin-right: 10px;
+            accent-color: var(--accent);
+        }
+
+        #quiz-result {
+            margin-top: 14px;
+            font-weight: 700;
+        }
+
+        .page-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        footer {
+            padding: 24px 0;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+            .hero {
+                padding: 28px 22px;
+            }
+
+            .section {
+                padding: 21px;
+            }
+
+            .grid,
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .nav {
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header>
+        <div class="container nav">
+            <nav class="nav-links" aria-label="Main navigation">
+                <a href="index.html">← Section Home</a>
+                <a href="../index.html">Main Portfolio</a>
+            </nav>
+
+            <button id="theme-toggle" type="button" aria-label="Switch color theme">
+                ☀️ Light Mode
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <section class="hero">
+            <div class="eyebrow">Week 9 #3 · Topic 06</div>
+            <h1>Minification and Defer</h1>
+            <p>
+                Reduce the size of website files and prevent JavaScript from
+                blocking the initial page rendering.
+            </p>
+            <div class="meta">
+                K0126002 · Gachon University · 2026 Fall · Dr. Toshpulatov
+            </div>
+        </section>
+
+        <main id="main">
+            <section class="section">
+                <h2>What Is Minification?</h2>
+
+                <p>
+                    Minification is the process of removing unnecessary characters
+                    from HTML, CSS, and JavaScript files without changing how the
+                    code works.
+                </p>
+
+                <p>
+                    It removes extra spaces, line breaks, comments, and sometimes
+                    shortens variable and function names.
+                </p>
+
+                <div class="highlight">
+                    <strong>Key idea:</strong> Smaller files usually take less time
+                    to download, helping improve website loading performance.
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Before and After Minification</h2>
+
+                <div class="comparison">
+                    <div>
+                        <h3>Before</h3>
+                        <div class="code">function calculateTotal(price, tax) {
+    // Calculate the final price
+    const total = price + (price * tax);
+
+    return total;
+}</div>
+                        <p class="muted">
+                            Readable code with spaces, comments, and multiple lines.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h3>After</h3>
+                        <div class="code">function calculateTotal(a,b){return a+a*b}</div>
+                        <p class="muted">
+                            Compact code with unnecessary characters removed.
+                        </p>
+                    </div>
+                </div>
+
+                <p>
+                    Both versions perform the same calculation. The minified
+                    version is smaller, but it is harder for developers to read.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>How Much Can Minification Save?</h2>
+
+                <p>
+                    In the lecture example, a file was reduced from 3.2 KB
+                    to 0.6 KB.
+                </p>
+
+                <div class="grid">
+                    <div class="mini-card">
+                        <h3>Before</h3>
+                        <p style="font-size:30px;font-weight:700;">3.2 KB</p>
+                        <p class="muted">Original file size</p>
+                    </div>
+
+                    <div class="mini-card">
+                        <h3>After</h3>
+                        <p style="font-size:30px;font-weight:700;">0.6 KB</p>
+                        <p class="muted">Minified file size</p>
+                    </div>
+                </div>
+
+                <p>
+                    That is approximately an 81% reduction in file size.
+                    Smaller resources can reduce download time and bandwidth usage.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>What Is the defer Attribute?</h2>
+
+                <p>
+                    By default, when a browser encounters a regular external
+                    JavaScript script, it may pause HTML parsing while the script
+                    downloads and executes.
+                </p>
+
+                <p>
+                    The <code>defer</code> attribute changes this behavior.
+                    The browser downloads the script while continuing to parse
+                    the HTML, then executes the script after HTML parsing finishes.
+                </p>
+
+                <h3>Without defer</h3>
+                <div class="code">&lt;script src="app.js"&gt;&lt;/script&gt;</div>
+
+                <h3>With defer</h3>
+                <div class="code">&lt;script src="app.js" defer&gt;&lt;/script&gt;</div>
+
+                <div class="highlight">
+                    <strong>Remember:</strong> Deferred scripts execute after HTML
+                    parsing is complete and before the DOMContentLoaded event.
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Normal Script vs. Defer</h2>
+
+                <div class="comparison">
+                    <div>
+                        <h3>Normal Script</h3>
+                        <ol>
+                            <li>Browser encounters the script.</li>
+                            <li>HTML parsing pauses.</li>
+                            <li>Script downloads and executes.</li>
+                            <li>HTML parsing continues.</li>
+                        </ol>
+                    </div>
+
+                    <div>
+                        <h3>Script with Defer</h3>
+                        <ol>
+                            <li>Browser encounters the script.</li>
+                            <li>Script downloads in parallel.</li>
+                            <li>HTML parsing continues.</li>
+                            <li>Script executes after parsing finishes.</li>
+                        </ol>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>When Should You Use defer?</h2>
+
+                <ul>
+                    <li>When an external script is not needed to build the initial HTML.</li>
+                    <li>When a script needs to access HTML elements after parsing.</li>
+                    <li>When you want to avoid blocking HTML parsing during script downloads.</li>
+                </ul>
+
+                <h3>Important Details</h3>
+
+                <ul>
+                    <li><code>defer</code> works with external scripts using the <code>src</code> attribute.</li>
+                    <li>Deferred scripts execute in document order.</li>
+                    <li>They execute after HTML parsing is complete.</li>
+                    <li>For inline scripts, the <code>defer</code> attribute has no effect.</li>
+                </ul>
+
+                <div class="code">&lt;head&gt;
+    &lt;script src="first.js" defer&gt;&lt;/script&gt;
+    &lt;script src="second.js" defer&gt;&lt;/script&gt;
+&lt;/head&gt;</div>
+
+                <p class="muted">
+                    In this example, first.js executes before second.js after
+                    the HTML document has been parsed.
+                </p>
+            </section>
+
+            <section class="section">
+                <h2>Minification + Defer: Better Performance</h2>
+
+                <p>
+                    Minification and defer solve different performance problems.
+                    They can also be used together.
+                </p>
+
+                <div class="grid">
+                    <div class="mini-card">
+                        <h3>Minification</h3>
+                        <p>
+                            Reduces the size of HTML, CSS, and JavaScript files
+                            so they can be downloaded more efficiently.
+                        </p>
+                    </div>
+
+                    <div class="mini-card">
+                        <h3>Defer</h3>
+                        <p>
+                            Allows the browser to continue parsing HTML while
+                            an external JavaScript file downloads.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="highlight" style="margin-top:18px;">
+                    Use minification to reduce file size and defer to prevent
+                    unnecessary JavaScript blocking during HTML parsing.
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Quick Knowledge Check</h2>
+
+                <p>
+                    What does the <code>defer</code> attribute do?
+                </p>
+
+                <form id="quiz-form">
+                    <label class="quiz-option">
+                        <input type="radio" name="answer" value="a">
+                        A) It makes JavaScript files larger.
+                    </label>
+
+                    <label class="quiz-option">
+                        <input type="radio" name="answer" value="b">
+                        B) It prevents the browser from downloading JavaScript.
+                    </label>
+
+                    <label class="quiz-option">
+                        <input type="radio" name="answer" value="c">
+                        C) It downloads the script while HTML parsing continues and executes it afterward.
+                    </label>
+
+                    <label class="quiz-option">
+                        <input type="radio" name="answer" value="d">
+                        D) It removes all JavaScript from the webpage.
+                    </label>
+
+                    <button type="submit">Check Answer</button>
+                    <p id="quiz-result" aria-live="polite"></p>
+                </form>
+            </section>
+
+            <div class="page-nav">
+                <a href="topic_05_lazy_loading.html">← Previous: Lazy Loading</a>
+                <a href="index.html">Back to Section Home →</a>
+            </div>
+        </main>
+
+        <footer>
+            <p>BATSUREN ANAR · STUDENT ID: 202637018</p>
+            <p>Gachon University · Web Programming · 2026 Fall</p>
+        </footer>
+    </div>
+
+    <script>
+        const themeToggle = document.getElementById("theme-toggle");
+
+        function setTheme(theme) {
+            document.documentElement.setAttribute("data-theme", theme);
+            themeToggle.textContent =
+                theme === "light" ? "🌙 Dark Mode" : "☀️ Light Mode";
+            localStorage.setItem("anar-theme", theme);
+        }
+
+        const savedTheme = localStorage.getItem("anar-theme") || "dark";
+        setTheme(savedTheme);
+
+        themeToggle.addEventListener("click", () => {
+            const currentTheme =
+                document.documentElement.getAttribute("data-theme");
+
+            setTheme(currentTheme === "dark" ? "light" : "dark");
+        });
+
+        document.getElementById("quiz-form").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            const selected = document.querySelector('input[name="answer"]:checked');
+            const result = document.getElementById("quiz-result");
+
+            if (!selected) {
+                result.textContent = "Please select an answer first.";
+                result.style.color = "var(--muted)";
+                return;
+            }
+
+            if (selected.value === "c") {
+                result.textContent = "Correct! Defer downloads the script while HTML parsing continues, then executes it after parsing.";
+                result.style.color = "#55D68B";
+            } else {
+                result.textContent = "Not quite. Defer allows HTML parsing to continue while the script downloads.";
+                result.style.color = "#FF8585";
+            }
+        });
+    </script>
+</body>
+
+</html>

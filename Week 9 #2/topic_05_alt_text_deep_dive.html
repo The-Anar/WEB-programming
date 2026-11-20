@@ -1,1 +1,313 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Topic 05 — alt Text Deep Dive · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Topic 05 — alt Text Deep Dive</h1><p>Explore WCAG levels, native controls, alternative text, ARIA and practical accessibility testing.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="panel"><h2>Concept</h2><p>Context determines alt text: describe informative images, link purpose for linked images, and empty alt for decoration.</p><h2>Why it matters</h2><p>alt Text Deep Dive Apply the idea consistently and test the result in a browser.</p><h2>Try it</h2><div class="demo"><p>Example image description: a student working at a laptop in a library.</p><label>Write useful alt text <input id="altInput" placeholder="Describe the meaningful information"></label><p id="altFeedback" class="status" aria-live="polite">Try describing the subject and purpose, not “image of”.</p></div><h2>Remember</h2><ul><li>Prefer native HTML before adding custom JavaScript or ARIA.</li><li>Test with keyboard navigation and browser developer tools.</li><li>Keep labels, instructions and feedback clear.</li></ul></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script><script>altInput.addEventListener('input',()=>{let v=altInput.value.trim();altFeedback.textContent=!v?'Add a description.':/^image of/i.test(v)?'Try removing “image of” and focus on the meaningful content.':v.length<12?'Add a little more context.':'Good start — check that it matches the image purpose.'});</script></body></html>
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#171D2E">
+<title>Topic 05 — Alt Text Deep Dive · Anar</title>
+
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;
+  --card:#222D43;--accent:#B7A2FF;--border:#8791C2;
+  --line:#34415D;--shadow:rgba(0,0,0,.4);
+  --hero1:#251D40;--hero2:#49366F;
+}
+body.light{
+  color-scheme:light;
+  --bg:#F0EBFF;--text:#292344;--muted:#655B80;
+  --card:#fff;--accent:#7957D5;--border:#B0A3D9;
+  --line:#DED5F1;--shadow:rgba(41,35,68,.13);
+  --hero1:#E6DCFF;--hero2:#CDBCF5;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}
+main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.brand{font-weight:900;letter-spacing:1px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial,sans-serif;text-decoration:none;cursor:pointer}
+.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}
+.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}
+h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}
+h2{line-height:1.25}
+.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}
+.section{margin:32px 0}
+.panel,.card{padding:20px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}
+.code-label{font-weight:900;margin-bottom:8px}
+pre{background:var(--bg);padding:16px;border-radius:12px;overflow:auto;font-size:13px;line-height:1.6}
+.muted{color:var(--muted)}
+.bad{color:#FF8888}.good{color:#70D9A0}
+.purple{border-left:6px solid #B7A2FF}
+.green{border-left:6px solid #70D9A0}
+.yellow{border-left:6px solid #FFD66B}
+.red{border-left:6px solid #FF8888}
+.blue{border-left:6px solid #8FCBFF}
+.status{padding:12px;border-radius:10px;background:var(--bg);margin-top:12px;min-height:45px}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px;z-index:10}
+.skip:focus{left:8px}
+table{width:100%;border-collapse:collapse;margin-top:12px}
+th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--accent)}
+.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+@media(max-width:520px){.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main-content">Skip to main content</a>
+<main>
+
+<nav class="top" aria-label="Page navigation">
+<div class="brand">ANAR · WEB PROGRAMMING</div>
+<div class="actions">
+<a class="btn" href="index.html">← Section home</a>
+<a class="btn" href="../index.html">Main portfolio</a>
+<button id="theme" type="button">☀️ Light mode</button>
+</div>
+</nav>
+
+<header class="hero">
+<p class="eyebrow">WEEK 9.2 · TOPIC 05</p>
+<h1>Alt Text Deep Dive</h1>
+<p>
+Alternative text describes the purpose or information of an image
+to people who cannot see it. Good alt text depends on the context
+in which the image is used.
+</p>
+<p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
+</header>
+
+<div id="main-content">
+
+<section class="section">
+<p class="eyebrow">THE BASIC RULE</p>
+<h2>Every Image Needs an Alt Attribute</h2>
+<div class="panel">
+<p>
+The <code>alt</code> attribute provides a text alternative for an image.
+Screen readers can announce this text to users who cannot see the image.
+</p>
+<pre><code>&lt;img src="campus.jpg" alt="Gachon University campus"&gt;</code></pre>
+<p class="muted">
+An image without an alt attribute may cause a screen reader
+to announce its filename or image URL instead.
+</p>
+</div>
+</section>
+
+<section class="section">
+<p class="eyebrow">FOUR IMAGE TYPES</p>
+<h2>Choose the Correct Alt Text</h2>
+
+<div class="grid">
+
+<article class="card blue">
+<h3>01. Decorative Images</h3>
+<p>These images do not add important information. They are only used for decoration.</p>
+<div class="demo">
+<div class="code-label">✓ Correct</div>
+<pre><code>&lt;img src="decoration.png" alt=""&gt;</code></pre>
+<p class="muted">An empty alt tells screen readers to ignore the decorative image.</p>
+</div>
+</article>
+
+<article class="card green">
+<h3>02. Images Inside Links</h3>
+<p>Describe the destination or action of the link, not just the appearance of the image.</p>
+<div class="demo">
+<div class="code-label">✓ Correct</div>
+<pre><code>&lt;a href="courses.html"&gt;
+  &lt;img src="book.png"
+       alt="Browse our courses"&gt;
+&lt;/a&gt;</code></pre>
+<p class="muted">The alt text communicates what happens when the user activates the link.</p>
+</div>
+</article>
+
+<article class="card yellow">
+<h3>03. Informational Images</h3>
+<p>Describe the important information that the image communicates.</p>
+<div class="demo">
+<div class="code-label">✓ Correct</div>
+<pre><code>&lt;img src="chart.png"
+     alt="Sales increased from 50
+     to 80 between January and June"&gt;</code></pre>
+<p class="muted">Focus on the meaning of the image, not every visual detail.</p>
+</div>
+</article>
+
+<article class="card red">
+<h3>04. Images Containing Text</h3>
+<p>If an image contains important words, provide those words in the alternative text.</p>
+<div class="demo">
+<div class="code-label">✓ Correct</div>
+<pre><code>&lt;img src="announcement.png"
+     alt="Registration closes
+     on December 15"&gt;</code></pre>
+<p class="muted">Whenever possible, use real HTML text instead of putting important text inside an image.</p>
+</div>
+</article>
+
+</div>
+</section>
+
+<section class="section">
+<p class="eyebrow">DECISION TREE</p>
+<h2>How Should You Describe an Image?</h2>
+<div class="panel">
+<div class="demo blue">
+<strong>Question 1: Is the image purely decorative?</strong>
+<p class="muted">Yes → Use <code>alt=""</code>.</p>
+</div>
+<div class="demo green">
+<strong>Question 2: Is the image the only content inside a link?</strong>
+<p class="muted">Yes → Describe the link's destination or action.</p>
+</div>
+<div class="demo yellow">
+<strong>Question 3: Does the image communicate information?</strong>
+<p class="muted">Yes → Describe its important information.</p>
+</div>
+<div class="demo red">
+<strong>Question 4: Does the image contain important text?</strong>
+<p class="muted">Yes → Include the text in the alternative description, or use real HTML text.</p>
+</div>
+</div>
+</section>
+
+<section class="section">
+<p class="eyebrow">COMMON MISTAKES</p>
+<h2>Bad vs Good Alt Text</h2>
+<div class="panel">
+<table>
+<thead>
+<tr><th>Bad example</th><th>Why it is bad</th><th>Better example</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><code>alt="image"</code></td>
+<td>Does not explain anything.</td>
+<td><code>alt="Student reading a book"</code></td>
+</tr>
+<tr>
+<td><code>alt="IMG_2045.jpg"</code></td>
+<td>Uses a filename instead of a description.</td>
+<td><code>alt="University library interior"</code></td>
+</tr>
+<tr>
+<td><code>alt="picture of a chart"</code></td>
+<td>Does not explain the chart's information.</td>
+<td><code>alt="Website visits increased in June"</code></td>
+</tr>
+<tr>
+<td>Missing alt attribute</td>
+<td>Provides no text alternative.</td>
+<td><code>alt="Gachon University logo"</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="section">
+<p class="eyebrow">COMPLEX IMAGES</p>
+<h2>Charts and Detailed Diagrams</h2>
+<div class="panel">
+<p>
+Sometimes a short alt description is not enough to explain a complex
+chart, graph, map, or diagram.
+</p>
+<p>Use a short alt description and provide the full explanation nearby.</p>
+<pre><code>&lt;figure&gt;
+  &lt;img src="results.png"
+       alt="Bar chart comparing sales over six months"
+       aria-describedby="chart-description"&gt;
+
+  &lt;figcaption id="chart-description"&gt;
+    Sales increased steadily from January
+    through June, reaching the highest value
+    in June.
+  &lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+<p class="muted">
+The short alt identifies the image. The longer description
+provides the details that a user needs to understand it.
+</p>
+</div>
+</section>
+
+<section class="section">
+<p class="eyebrow">INTERACTIVE PRACTICE</p>
+<h2>Choose the Right Alt Text</h2>
+<div class="panel">
+<p>
+Imagine an image used only as a decorative background.
+Which alt attribute should you choose?
+</p>
+<div class="demo">
+<button type="button" data-answer="a">alt="background image"</button>
+<button type="button" data-answer="b">alt="decoration"</button>
+<button type="button" data-answer="c">alt=""</button>
+<div class="status" id="quizResult" aria-live="polite">Choose an answer.</div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<p class="eyebrow">KEY POINTS</p>
+<h2>What We Learned</h2>
+<div class="panel">
+<ul>
+<li>Every image needs an alt attribute.</li>
+<li>Decorative images should use an empty alt attribute: <code>alt=""</code>.</li>
+<li>Images inside links should describe the link destination or action.</li>
+<li>Informational images should communicate their important meaning.</li>
+<li>Important text inside images should also be available as text.</li>
+<li>Complex charts may need a longer description.</li>
+<li>Good alt text depends on the image's context and purpose.</li>
+</ul>
+</div>
+</section>
+
+</div>
+
+<footer class="footer">
+BATSUREN ANAR · STUDENT ID: 202637018<br>
+GACHON UNIVERSITY · WEB PROGRAMMING
+</footer>
+</main>
+
+<script>
+const themeButton=document.getElementById("theme");
+
+function syncTheme(){
+themeButton.textContent=document.body.classList.contains("light")
+?"🌙 Dark mode":"☀️ Light mode";
+}
+
+themeButton.addEventListener("click",()=>{
+document.body.classList.toggle("light");
+syncTheme();
+});
+syncTheme();
+
+document.querySelectorAll("[data-answer]").forEach(button=>{
+button.addEventListener("click",()=>{
+const result=document.getElementById("quizResult");
+
+if(button.dataset.answer==="c"){
+result.textContent="Correct! An empty alt attribute tells screen readers to skip a purely decorative image.";
+}else{
+result.textContent="Not quite. Decorative images should use alt=\"\" so screen readers can ignore them.";
+}
+});
+});
+</script>
+</body>
+</html>

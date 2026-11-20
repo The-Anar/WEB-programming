@@ -1,20 +1,41 @@
-const STORAGE_KEY = 'finora_app_state_v1';
+const STORAGE_KEY = 'finora_app_state_v2';
 
 const DEFAULT_STATE = {
   user: {
     name: 'Minji Park',
     email: 'minji.park@gachon.ac.kr'
   },
-  baseBalance: 1698100, // Opening balance before November transactions
+  baseBalance: 1698100, // Opening balance before current month transactions
   transactions: [
+    // NOVEMBER 2026
     { id: 't1', name: 'Market groceries', category: 'Food', date: '2026-11-01', type: 'expense', amount: 42800, desc: 'Weekly grocery shopping' },
     { id: 't2', name: 'Salary · Studio North', category: 'Income', date: '2026-11-01', type: 'income', amount: 2850000, desc: 'Monthly part-time & studio stipend' },
-    { id: 't3', name: 'Seoul Metro', category: 'Transport', date: '2026-10-31', type: 'expense', amount: 1450, desc: 'Subway commute' },
-    { id: 't4', name: 'Design books & supplies', category: 'Education', date: '2026-10-28', type: 'expense', amount: 38200, desc: 'Web programming reference' },
-    { id: 't5', name: 'Studio Apartment Rent', category: 'Housing', date: '2026-10-25', type: 'expense', amount: 550000, desc: 'Monthly housing rent' },
-    { id: 't6', name: 'Campus Cafeteria & Coffee', category: 'Food', date: '2026-10-22', type: 'expense', amount: 185000, desc: 'October meals & coffee' },
-    { id: 't7', name: 'Autumn Jacket & Essentials', category: 'Shopping', date: '2026-10-18', type: 'expense', amount: 168000, desc: 'Seasonal clothing' },
-    { id: 't8', name: 'KTX & Transit Pass', category: 'Transport', date: '2026-10-14', type: 'expense', amount: 141650, desc: 'Monthly transit reload' }
+    { id: 't3', name: 'Studio Apartment Rent', category: 'Housing', date: '2026-11-02', type: 'expense', amount: 550000, desc: 'November housing rent' },
+    { id: 't4', name: 'Late Night Delivery & Cafes', category: 'Food', date: '2026-11-05', type: 'expense', amount: 198000, desc: 'Delivery orders & campus coffee' },
+    { id: 't5', name: 'Seoul Metro & Bus', category: 'Transport', date: '2026-11-08', type: 'expense', amount: 64000, desc: 'T-money reload' },
+    { id: 't6', name: 'Winter Sneakers & Hoodie', category: 'Shopping', date: '2026-11-12', type: 'expense', amount: 234600, desc: 'Seasonal apparel' },
+    { id: 't7', name: 'Algorithm & Web Textbooks', category: 'Education', date: '2026-11-15', type: 'expense', amount: 38200, desc: 'Course study materials' },
+
+    // OCTOBER 2026
+    { id: 't8', name: 'Salary · Studio North', category: 'Income', date: '2026-10-01', type: 'income', amount: 2120000, desc: 'October studio stipend' },
+    { id: 't9', name: 'Studio Apartment Rent', category: 'Housing', date: '2026-10-02', type: 'expense', amount: 550000, desc: 'October housing rent' },
+    { id: 't10', name: 'Campus Cafeteria & Coffee', category: 'Food', date: '2026-10-14', type: 'expense', amount: 185000, desc: 'October meals & coffee' },
+    { id: 't11', name: 'Autumn Jacket & Essentials', category: 'Shopping', date: '2026-10-18', type: 'expense', amount: 168000, desc: 'Seasonal clothing' },
+    { id: 't12', name: 'KTX & Transit Pass', category: 'Transport', date: '2026-10-24', type: 'expense', amount: 141650, desc: 'Monthly transit + weekend trip' },
+    { id: 't13', name: 'Seoul Metro', category: 'Transport', date: '2026-10-31', type: 'expense', amount: 1450, desc: 'Subway commute' },
+
+    // SEPTEMBER 2026
+    { id: 't14', name: 'Salary · Studio North', category: 'Income', date: '2026-09-01', type: 'income', amount: 2350000, desc: 'September studio stipend' },
+    { id: 't15', name: 'Studio Apartment Rent', category: 'Housing', date: '2026-09-02', type: 'expense', amount: 550000, desc: 'September housing rent' },
+    { id: 't16', name: 'Chuseok Dining & Groceries', category: 'Food', date: '2026-09-16', type: 'expense', amount: 310000, desc: 'Holiday food & gatherings' },
+    { id: 't17', name: 'Fall Semester Books', category: 'Education', date: '2026-09-05', type: 'expense', amount: 145000, desc: 'Semester textbooks' },
+    { id: 't18', name: 'Subway & Bus', category: 'Transport', date: '2026-09-20', type: 'expense', amount: 58000, desc: 'Monthly commute' },
+
+    // AUGUST 2026
+    { id: 't19', name: 'Summer Internship Stipend', category: 'Income', date: '2026-08-01', type: 'income', amount: 1810000, desc: 'August internship pay' },
+    { id: 't20', name: 'Studio Apartment Rent', category: 'Housing', date: '2026-08-02', type: 'expense', amount: 550000, desc: 'August housing rent' },
+    { id: 't21', name: 'Groceries & Summer Meals', category: 'Food', date: '2026-08-15', type: 'expense', amount: 215000, desc: 'August food spending' },
+    { id: 't22', name: 'Tech Accessories', category: 'Shopping', date: '2026-08-22', type: 'expense', amount: 195000, desc: 'USB-C hub & mouse' }
   ],
   budgets: [
     { category: 'Food', limit: 450000, color: '#19d396' },
@@ -68,11 +89,15 @@ function formatKRW(amount) {
 }
 
 function computeSummary(state) {
-  const totalIncome = state.transactions
+  // Focus Dashboard & Budgets on the latest active month (2026-11) while keeping full history for Analytics
+  const latestMonth = '2026-11';
+  const currentMonthTx = state.transactions.filter(t => (t.date || '').startsWith(latestMonth));
+
+  const totalIncome = currentMonthTx
     .filter(t => t.type === 'income')
     .reduce((sum, t) => sum + Number(t.amount), 0);
 
-  const totalExpenses = state.transactions
+  const totalExpenses = currentMonthTx
     .filter(t => t.type === 'expense')
     .reduce((sum, t) => sum + Number(t.amount), 0);
 
@@ -80,7 +105,7 @@ function computeSummary(state) {
   const totalBalance = state.baseBalance + netSavings;
 
   const categoryTotals = {};
-  state.transactions
+  currentMonthTx
     .filter(t => t.type === 'expense')
     .forEach(t => {
       categoryTotals[t.category] = (categoryTotals[t.category] || 0) + Number(t.amount);

@@ -1,1 +1,226 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Topic 02 — WCAG Levels · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Topic 02 — WCAG Levels</h1><p>Explore WCAG levels, native controls, alternative text, ARIA and practical accessibility testing.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="panel"><h2>Concept</h2><p>WCAG conformance levels are A, AA and AAA. Many organizations target AA.</p><h2>Why it matters</h2><p>WCAG Levels Apply the idea consistently and test the result in a browser.</p><h2>Try it</h2><h2>Remember</h2><ul><li>Prefer native HTML before adding custom JavaScript or ARIA.</li><li>Test with keyboard navigation and browser developer tools.</li><li>Keep labels, instructions and feedback clear.</li></ul></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script></body></html>
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#171D2E">
+<title>Topic 02 — WCAG Levels · Anar</title>
+
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;
+  --card:#222D43;--accent:#B7A2FF;--border:#8791C2;
+  --line:#34415D;--shadow:rgba(0,0,0,.4);
+  --hero1:#251D40;--hero2:#49366F;
+}
+body.light{
+  color-scheme:light;
+  --bg:#F0EBFF;--text:#292344;--muted:#655B80;
+  --card:#fff;--accent:#7957D5;--border:#B0A3D9;
+  --line:#DED5F1;--shadow:rgba(41,35,68,.13);
+  --hero1:#E6DCFF;--hero2:#CDBCF5;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}
+main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.brand{font-weight:900;letter-spacing:1px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial,sans-serif;text-decoration:none;cursor:pointer}
+.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}
+.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}
+h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}
+h2{line-height:1.25}
+.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}
+.section{margin:32px 0}
+.panel,.card{padding:20px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}
+.levels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.level{text-align:center;position:relative;overflow:hidden}
+.level-symbol{width:105px;height:105px;margin:8px auto 16px;display:flex;align-items:center;justify-content:center;clip-path:polygon(50% 0,100% 100%,0 100%);padding-top:27px;font-size:28px;font-weight:900;color:#fff}
+.a{background:#D92D36}
+.aa{background:#EAB936;color:#282344}
+.aaa{background:#269B58}
+.level h3{margin:8px 0}
+.level p{color:var(--muted);font-size:14px}
+table{width:100%;border-collapse:collapse;margin-top:12px}
+th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--accent)}
+.pour{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.pour-item{padding:16px;border:1px solid var(--border);border-radius:13px;background:var(--bg)}
+.pour-item strong{display:block;color:var(--accent);margin-bottom:5px}
+.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}
+.status{padding:12px;border-radius:10px;background:var(--bg);margin-top:12px;min-height:45px}
+.muted{color:var(--muted)}
+a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px;z-index:10}
+.skip:focus{left:8px}
+.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}
+@media(max-width:750px){.levels{grid-template-columns:1fr}.pour{grid-template-columns:1fr}}
+@media(max-width:520px){.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main-content">Skip to main content</a>
+<main>
+
+<nav class="top" aria-label="Page navigation">
+<div class="brand">ANAR · WEB PROGRAMMING</div>
+<div class="actions">
+<a class="btn" href="index.html">← Section home</a>
+<a class="btn" href="../index.html">Main portfolio</a>
+<button id="theme" type="button">☀️ Light mode</button>
+</div>
+</nav>
+
+<header class="hero">
+<p class="eyebrow">WEEK 9.2 · TOPIC 02</p>
+<h1>WCAG Levels</h1>
+<p>Understand the three accessibility conformance levels: A, AA, and AAA.</p>
+<p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
+</header>
+
+<div id="main-content">
+
+<section class="section">
+<p class="eyebrow">THREE CONFORMANCE LEVELS</p>
+<h2>Understanding A, AA, and AAA</h2>
+<p class="muted">WCAG uses three levels to describe how well a website meets accessibility requirements.</p>
+
+<div class="levels">
+
+<article class="panel level">
+<div class="level-symbol a">A</div>
+<h3>Level A</h3>
+<p><strong>Minimum — Required</strong></p>
+<p>Basic accessibility requirements. Without these, some users may be unable to access important content or functionality.</p>
+<p>Examples: image alternatives, keyboard access, and labels for form controls.</p>
+</article>
+
+<article class="panel level">
+<div class="level-symbol aa">AA</div>
+<h3>Level AA</h3>
+<p><strong>Standard — Recommended target</strong></p>
+<p>A widely used accessibility target that addresses common barriers for users with different disabilities.</p>
+<p>Examples: sufficient color contrast, text resizing, and visible keyboard focus.</p>
+</article>
+
+<article class="panel level">
+<div class="level-symbol aaa">AAA</div>
+<h3>Level AAA</h3>
+<p><strong>Enhanced — Highest level</strong></p>
+<p>More demanding accessibility requirements that provide additional support in specific situations.</p>
+<p>Examples: enhanced contrast and sign-language interpretation for prerecorded video.</p>
+</article>
+
+</div>
+</section>
+
+<section class="section">
+<p class="eyebrow">SUCCESS CRITERIA</p>
+<h2>Examples from WCAG</h2>
+<div class="panel">
+<table>
+<thead>
+<tr><th>Level</th><th>Criterion</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td>A</td><td>1.1.1 Non-text Content</td><td>Provide text alternatives for meaningful images.</td></tr>
+<tr><td>A</td><td>2.1.1 Keyboard</td><td>All functionality must be available through a keyboard.</td></tr>
+<tr><td>AA</td><td>1.4.3 Contrast (Minimum)</td><td>Normal text needs a contrast ratio of at least 4.5:1.</td></tr>
+<tr><td>AA</td><td>2.4.7 Focus Visible</td><td>Keyboard users must be able to see which element has focus.</td></tr>
+<tr><td>AAA</td><td>1.4.6 Contrast (Enhanced)</td><td>Normal text needs a contrast ratio of at least 7:1.</td></tr>
+<tr><td>AAA</td><td>2.4.9 Link Purpose (Link Only)</td><td>The purpose of a link should be understandable from its text alone.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section class="section">
+<p class="eyebrow">THE FOUR PRINCIPLES</p>
+<h2>POUR — The Foundation of WCAG</h2>
+<p class="muted">Accessible websites should follow four important principles.</p>
+
+<div class="pour">
+<div class="pour-item"><strong>01 · Perceivable</strong>Users must be able to perceive information through sight, hearing, or assistive alternatives.</div>
+<div class="pour-item"><strong>02 · Operable</strong>Users must be able to operate controls and navigate the website.</div>
+<div class="pour-item"><strong>03 · Understandable</strong>Information and website operation must be clear and predictable.</div>
+<div class="pour-item"><strong>04 · Robust</strong>Content must work reliably with browsers and assistive technologies.</div>
+</div>
+</section>
+
+<section class="section">
+<p class="eyebrow">INTERACTIVE KNOWLEDGE CHECK</p>
+<h2>Which WCAG Level?</h2>
+<div class="panel">
+<p>Normal text must have a contrast ratio of at least 4.5:1. Which level requires this?</p>
+<div class="demo">
+<button type="button" data-answer="A">Level A</button>
+<button type="button" data-answer="AA">Level AA</button>
+<button type="button" data-answer="AAA">Level AAA</button>
+<div class="status" id="answer" aria-live="polite">Choose an answer to check your understanding.</div>
+</div>
+</div>
+</section>
+
+<section class="section">
+<p class="eyebrow">CURRENT WEB STANDARD</p>
+<h2>WCAG 2.2</h2>
+<div class="panel">
+<p>
+WCAG 2.2 is the latest published W3C Web Content Accessibility Guidelines Recommendation.
+It builds on WCAG 2.1 and adds new success criteria, including requirements related to focus appearance, dragging movements, and target size.
+</p>
+<p class="muted">Remember: WCAG 2.2 includes the earlier WCAG 2.1 requirements, with additional criteria.</p>
+<a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noopener noreferrer">Read the official WCAG 2.2 Recommendation ↗</a>
+</div>
+</section>
+
+<section class="section">
+<p class="eyebrow">KEY POINTS</p>
+<h2>What We Learned</h2>
+<div class="panel">
+<ul>
+<li>Level A covers minimum accessibility requirements.</li>
+<li>Level AA is a common target for accessible websites.</li>
+<li>Level AAA provides enhanced accessibility requirements.</li>
+<li>POUR stands for Perceivable, Operable, Understandable, and Robust.</li>
+<li>WCAG 2.2 is the latest published W3C Recommendation.</li>
+</ul>
+</div>
+</section>
+
+</div>
+
+<footer class="footer">
+BATSUREN ANAR · STUDENT ID: 202637018<br>
+GACHON UNIVERSITY · WEB PROGRAMMING
+</footer>
+</main>
+
+<script>
+const themeButton=document.getElementById("theme");
+function syncTheme(){
+themeButton.textContent=document.body.classList.contains("light")?"🌙 Dark mode":"☀️ Light mode";
+}
+themeButton.addEventListener("click",()=>{
+document.body.classList.toggle("light");
+syncTheme();
+});
+syncTheme();
+
+document.querySelectorAll("[data-answer]").forEach(button=>{
+button.addEventListener("click",()=>{
+const answer=document.getElementById("answer");
+if(button.dataset.answer==="AA"){
+answer.textContent="Correct! WCAG Level AA requires a minimum contrast ratio of 4.5:1 for normal text.";
+}else{
+answer.textContent="Not quite. The correct answer is Level AA. Try again!";
+}
+});
+});
+</script>
+</body>
+</html>

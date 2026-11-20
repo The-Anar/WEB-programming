@@ -423,8 +423,238 @@ tr:hover td {
   .charts-grid { grid-template-columns: 1fr; }
   .activity-row { grid-template-columns: 1fr; }
 }
-
 @media (max-width: 640px) {
   .kpi-grid, .cards-2col, .form-grid-2 { grid-template-columns: 1fr; }
   .doughnut-layout { flex-direction: column; }
+}
+
+/* === MODERN FINTECH VISUAL & INTERACTIVE POLISH === */
+
+/* 1. Ambient radial glow on main background */
+.main-area {
+  background:
+    radial-gradient(circle at 15% 0%, rgba(25, 211, 150, 0.08), transparent 38%),
+    radial-gradient(circle at 85% 10%, rgba(79, 156, 249, 0.06), transparent 35%);
+}
+
+/* 2. Frosted glass & tactile hover lift on cards */
+.kpi-card, .panel-card {
+  background: linear-gradient(160deg, rgba(22, 34, 48, 0.92), rgba(15, 24, 34, 0.96));
+  backdrop-filter: blur(12px);
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.22s ease,
+              box-shadow 0.22s ease;
+}
+
+.kpi-card:hover, .panel-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(25, 211, 150, 0.32);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4), 0 0 24px rgba(25, 211, 150, 0.07);
+}
+
+.activity-pill {
+  transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.activity-pill:hover {
+  transform: translateX(4px);
+  background: rgba(25, 211, 150, 0.05);
+  border-color: rgba(25, 211, 150, 0.28);
+}
+
+/* 3. Smooth page entrance animation */
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.view-container > * {
+  animation: fadeSlideUp 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.view-container > *:nth-child(2) { animation-delay: 0.05s; }
+.view-container > *:nth-child(3) { animation-delay: 0.10s; }
+
+/* 4. Custom sleek range sliders (for Wealth Simulator) */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 0;
+  border: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--emerald-bright);
+  cursor: pointer;
+  box-shadow: 0 0 12px rgba(25, 211, 150, 0.65);
+  transition: transform 0.15s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* 5. Toast notification popup */
+.toast-stack {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 999;
+}
+
+.toast-item {
+  background: #13222f;
+  border: 1px solid var(--emerald-border);
+  color: var(--text-primary);
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: fadeSlideUp 0.25s ease;
+}
+
+/* 6. Quick-Action Strip */
+.quick-strip {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 12px 16px;
+  background: rgba(25, 211, 150, 0.05);
+  border: 1px dashed rgba(25, 211, 150, 0.25);
+  border-radius: var(--radius-md);
+}
+
+/* 7. Alternate Themes (Royal Blue & Light Mode) */
+body.theme-blue {
+  --emerald: #3b82f6;
+  --emerald-bright: #60a5fa;
+  --emerald-soft: rgba(59, 130, 246, 0.16);
+  --emerald-border: rgba(96, 165, 250, 0.35);
+}
+
+body.theme-light {
+  --bg-main: #f3f6fa;
+  --bg-sidebar: #ffffff;
+  --bg-card: #ffffff;
+  --bg-input: #eef2f7;
+  --border-subtle: rgba(15, 23, 42, 0.09);
+  --border-strong: rgba(15, 23, 42, 0.18);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+}
+
+body.theme-light .kpi-card,
+body.theme-light .panel-card {
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+/* === CURSOR SPOTLIGHT & INTERACTIVE KPI CARDS === */
+.kpi-card, .panel-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card::before, .panel-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    420px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(25, 211, 150, 0.11),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.kpi-card:hover::before, .panel-card:hover::before {
+  opacity: 1;
+}
+
+.kpi-card {
+  cursor: pointer;
+}
+
+@keyframes popCelebrate {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.04); border-color: var(--emerald-bright); }
+  100% { transform: scale(1); }
+}
+
+.goal-celebrate {
+  animation: popCelebrate 0.45s ease;
+}
+
+/* === CURSOR SPOTLIGHT, CELEBRATIONS & INTERACTIVE POLISH === */
+.kpi-card, .panel-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card::before, .panel-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    420px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(25, 211, 150, 0.12),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+}
+
+.kpi-card:hover::before, .panel-card:hover::before {
+  opacity: 1;
+}
+
+.kpi-card {
+  cursor: pointer;
+}
+
+@keyframes popCelebrate {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.03); border-color: var(--emerald-bright); box-shadow: 0 0 28px rgba(25, 211, 150, 0.35); }
+  100% { transform: scale(1); }
+}
+
+.goal-celebrate {
+  animation: popCelebrate 0.5s ease;
+}
+
+.kbd-hint {
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-strong);
+  border-radius: 5px;
+  color: var(--text-secondary);
+  margin-left: 6px;
 }

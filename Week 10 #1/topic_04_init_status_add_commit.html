@@ -1,1 +1,752 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Topic 04 — init, status, add &amp; commit · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Topic 04 — init, status, add &amp; commit</h1><p>Understand commits, the working tree, branches, remotes and collaboration workflows.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="panel"><h2>Concept</h2><p>Initialize a repository, inspect changes, stage selected files and create a commit with a message.</p><h2>Why it matters</h2><p>init, status, add & commit Apply the idea consistently and test the result in a browser.</p><h2>Try it</h2><h2>Remember</h2><ul><li>Prefer native HTML before adding custom JavaScript or ARIA.</li><li>Test with keyboard navigation and browser developer tools.</li><li>Keep labels, instructions and feedback clear.</li></ul></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script></body></html>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#171D2E">
+    <title>Topic 04 — Init, Status, Add & Commit · Anar</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --line: #34415D;
+            --shadow: rgba(0, 0, 0, .4);
+            --hero1: #251D40;
+            --hero2: #49366F
+        }
+
+        body.light {
+            color-scheme: light;
+            --bg: #F0EBFF;
+            --text: #292344;
+            --muted: #655B80;
+            --card: #fff;
+            --accent: #7957D5;
+            --border: #B0A3D9;
+            --line: #DED5F1;
+            --shadow: rgba(41, 35, 68, .13);
+            --hero1: #E6DCFF;
+            --hero2: #CDBCF5
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font: 16px/1.65 Arial, sans-serif;
+            transition: .2s
+        }
+
+        main {
+            max-width: 1180px;
+            width: calc(100% - 36px);
+            margin: auto;
+            padding-bottom: 45px
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            padding: 24px 2px 18px;
+            border-bottom: 1px solid var(--line);
+            flex-wrap: wrap
+        }
+
+        .brand {
+            font-weight: 900;
+            letter-spacing: 1px
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .btn,
+        button {
+            display: inline-block;
+            padding: 9px 15px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            background: var(--card);
+            color: var(--text);
+            font: 700 14px Arial;
+            text-decoration: none;
+            cursor: pointer
+        }
+
+        .hero {
+            margin: 28px 0;
+            padding: 28px 32px;
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            background: linear-gradient(120deg, var(--hero1), var(--hero2));
+            box-shadow: 7px 7px 0 var(--shadow)
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-weight: 900;
+            color: var(--muted)
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            line-height: 1.15;
+            margin: 10px 0
+        }
+
+        h2 {
+            line-height: 1.25
+        }
+
+        .student {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--muted)
+        }
+
+        .section {
+            margin: 28px 0
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px
+        }
+
+        .card,
+        .panel {
+            padding: 18px;
+            border: 2px solid var(--border);
+            border-radius: 19px;
+            background: var(--card);
+            box-shadow: 4px 5px 0 var(--shadow)
+        }
+
+        .card h3 {
+            margin: 0 0 10px;
+            font-size: 16px
+        }
+
+        .card p {
+            color: var(--muted);
+            font-size: 14px
+        }
+
+        .panel {
+            margin: 18px 0
+        }
+
+        .demo {
+            padding: 18px;
+            border: 1px dashed var(--border);
+            border-radius: 14px;
+            margin-top: 14px
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin: 12px 0 5px
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: var(--bg);
+            color: var(--text);
+            font: inherit
+        }
+
+        input:focus,
+        button:focus-visible,
+        a:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        .status {
+            padding: 10px;
+            border-radius: 9px;
+            background: var(--bg);
+            margin-top: 12px;
+            min-height: 24px
+        }
+
+        code,
+        pre {
+            background: var(--bg);
+            border-radius: 7px;
+            padding: 3px 6px
+        }
+
+        pre {
+            padding: 14px;
+            overflow: auto
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--muted);
+            border-top: 1px solid var(--line);
+            margin-top: 38px;
+            padding: 20px;
+            font-size: 13px
+        }
+
+        .skip {
+            position: absolute;
+            left: -9999px;
+            top: 8px;
+            background: var(--card);
+            padding: 10px;
+            z-index: 10
+        }
+
+        .skip:focus {
+            left: 8px
+        }
+
+        .quiz-option {
+            display: block;
+            margin: 9px 0;
+            font-weight: normal
+        }
+
+        .quiz-option input {
+            width: auto;
+            margin-right: 8px
+        }
+
+        .correct {
+            color: #75D99A;
+            font-weight: bold
+        }
+
+        .incorrect {
+            color: #F08D9B;
+            font-weight: bold
+        }
+
+        @media(max-width:800px) {
+            .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr))
+            }
+        }
+
+        @media(max-width:520px) {
+            .grid {
+                grid-template-columns: 1fr
+            }
+
+            .hero {
+                padding: 22px
+            }
+
+            .top {
+                align-items: flex-start;
+                flex-direction: column
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip" href="#main-content">Skip to main content</a>
+
+    <main>
+        <nav class="top" aria-label="Main navigation">
+            <div class="brand">ANAR · WEB PROGRAMMING</div>
+
+            <div class="actions">
+                <a class="btn" href="index.html">← Section home</a>
+                <a class="btn" href="../index.html">Main portfolio</a>
+                <button id="theme" type="button">☀️ Light mode</button>
+            </div>
+        </nav>
+
+        <header class="hero">
+            <p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p>
+            <h1>Topic 04 — Init, Status, Add & Commit</h1>
+            <p>
+                Learn the essential Git commands used to create a repository,
+                check file changes, stage files, and save commits.
+            </p>
+            <p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
+        </header>
+
+        <div id="main-content">
+
+            <section class="panel">
+                <h2>Starting a Git Repository</h2>
+
+                <p>
+                    Before Git can track changes in a project,
+                    you need to initialize a Git repository.
+                </p>
+
+                <p>
+                    The <code>git init</code> command creates a new
+                    Git repository in your current project folder.
+                    Git uses a hidden <code>.git</code> directory
+                    to store repository information and history.
+                </p>
+
+                <div class="demo">
+                    <pre><code>git init</code></pre>
+
+                    <p class="muted">
+                        Run this command inside the folder you want
+                        Git to track.
+                    </p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Four Essential Commands</h2>
+
+                <div class="grid">
+
+                    <article class="card">
+                        <h3>01. git init</h3>
+                        <p>
+                            Initializes a new Git repository
+                            in the current directory.
+                        </p>
+                        <pre><code>git init</code></pre>
+                    </article>
+
+                    <article class="card">
+                        <h3>02. git status</h3>
+                        <p>
+                            Displays the current state of your
+                            working directory and staging area.
+                        </p>
+                        <pre><code>git status</code></pre>
+                    </article>
+
+                    <article class="card">
+                        <h3>03. git add</h3>
+                        <p>
+                            Selects file changes and places them
+                            in the staging area.
+                        </p>
+                        <pre><code>git add index.html</code></pre>
+                    </article>
+
+                    <article class="card">
+                        <h3>04. git commit</h3>
+                        <p>
+                            Saves staged changes as a snapshot
+                            in your local Git history.
+                        </p>
+                        <pre><code>git commit -m "Add homepage"</code></pre>
+                    </article>
+
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Step 1 — Initialize the Repository</h2>
+
+                <p>
+                    Open your terminal in your project folder.
+                    Run <code>git init</code> to start tracking
+                    the project with Git.
+                </p>
+
+                <div class="demo">
+                    <pre><code>mkdir my-portfolio
+cd my-portfolio
+git init</code></pre>
+
+                    <p>
+                        <strong>Explanation:</strong>
+                    </p>
+
+                    <ul>
+                        <li><code>mkdir my-portfolio</code> creates a folder.</li>
+                        <li><code>cd my-portfolio</code> enters the folder.</li>
+                        <li><code>git init</code> initializes Git in that folder.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Step 2 — Check Repository Status</h2>
+
+                <p>
+                    Use <code>git status</code> to see which files
+                    Git is tracking and which files have changes.
+                </p>
+
+                <div class="demo">
+                    <pre><code>git status</code></pre>
+
+                    <p>
+                        Git can show:
+                    </p>
+
+                    <ul>
+                        <li>Untracked files that Git has not started tracking.</li>
+                        <li>Modified files that have changed.</li>
+                        <li>Staged changes ready to be committed.</li>
+                        <li>Whether your working directory is clean.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Step 3 — Add Files to the Staging Area</h2>
+
+                <p>
+                    Before making a commit, you must select which
+                    changes should be included.
+                </p>
+
+                <div class="demo">
+                    <h3>Add one specific file</h3>
+                    <pre><code>git add index.html</code></pre>
+
+                    <p>
+                        Stages changes from <code>index.html</code>.
+                    </p>
+                </div>
+
+                <div class="demo">
+                    <h3>Add all changes</h3>
+                    <pre><code>git add .</code></pre>
+
+                    <p>
+                        Stages all changes in the current directory
+                        and its subdirectories.
+                    </p>
+                </div>
+
+                <p class="muted">
+                    You can use <code>git status</code> again to
+                    confirm which files are staged.
+                </p>
+            </section>
+
+            <section class="panel">
+                <h2>Step 4 — Commit Your Changes</h2>
+
+                <p>
+                    A commit saves the staged changes as a snapshot
+                    in your local repository.
+                </p>
+
+                <div class="demo">
+                    <pre><code>git commit -m "Initial commit: add index.html"</code></pre>
+
+                    <p>
+                        The message after <code>-m</code> describes
+                        what the commit contains.
+                    </p>
+                </div>
+
+                <h3>Good Commit Messages</h3>
+
+                <ul>
+                    <li><code>Add homepage</code></li>
+                    <li><code>Fix navigation links</code></li>
+                    <li><code>Update profile section</code></li>
+                    <li><code>Add contact form</code></li>
+                </ul>
+
+                <p class="muted">
+                    A good commit message is short, clear, and
+                    explains what changed.
+                </p>
+            </section>
+
+            <section class="panel">
+                <h2>Complete Example</h2>
+
+                <p>
+                    This example creates a project, initializes Git,
+                    stages an HTML file, and saves the first commit.
+                </p>
+
+                <div class="demo">
+                    <pre><code># Create and enter the project folder
+mkdir my-portfolio
+cd my-portfolio
+
+# Initialize Git
+git init
+
+# Check repository status
+git status
+
+# Stage the homepage
+git add index.html
+
+# Save the first commit
+git commit -m "Initial commit: add index.html"
+
+# Check the status again
+git status</code></pre>
+
+                    <p>
+                        After a successful commit, Git should report
+                        that there are no staged or unstaged changes
+                        if everything has been saved.
+                    </p>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Important: Commit Does Not Mean Push</h2>
+
+                <p>
+                    A commit saves your changes in your local
+                    repository. It does not automatically upload
+                    them to GitHub.
+                </p>
+
+                <div class="grid">
+
+                    <article class="card">
+                        <h3>git commit</h3>
+                        <p>
+                            Saves a snapshot in your local
+                            Git repository.
+                        </p>
+                        <pre><code>git commit -m "Add homepage"</code></pre>
+                    </article>
+
+                    <article class="card">
+                        <h3>git push</h3>
+                        <p>
+                            Uploads your local commits to
+                            a remote repository such as GitHub.
+                        </p>
+                        <pre><code>git push</code></pre>
+                    </article>
+
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Knowledge Check</h2>
+
+                <p>
+                    Test your understanding of the essential
+                    Git commands.
+                </p>
+
+                <form id="quiz">
+
+                    <div class="demo">
+                        <p><strong>1. What does git init do?</strong></p>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="a">
+                            Uploads files to GitHub
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="b">
+                            Creates a new Git repository in the current folder
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="c">
+                            Deletes all project files
+                        </label>
+                    </div>
+
+                    <div class="demo">
+                        <p><strong>2. Which command shows the current repository status?</strong></p>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="a">
+                            git status
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="b">
+                            git commit
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="c">
+                            git push
+                        </label>
+                    </div>
+
+                    <div class="demo">
+                        <p><strong>3. What does git add index.html do?</strong></p>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="a">
+                            Deletes index.html
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="b">
+                            Uploads index.html to GitHub
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="c">
+                            Stages changes from index.html
+                        </label>
+                    </div>
+
+                    <div class="demo">
+                        <p><strong>4. What does git commit -m "add homepage" do?</strong></p>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="a">
+                            Saves staged changes in local Git history
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="b">
+                            Creates a GitHub account
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="c">
+                            Automatically publishes a website
+                        </label>
+                    </div>
+
+                    <button type="submit">Check Answers</button>
+
+                </form>
+
+                <div class="status" id="quiz-result" aria-live="polite">
+                    Your score will appear here.
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Remember</h2>
+
+                <ul>
+                    <li><code>git init</code> creates a new local repository.</li>
+                    <li><code>git status</code> shows the current state of files.</li>
+                    <li><code>git add index.html</code> stages one file.</li>
+                    <li><code>git add .</code> stages all changes in the current directory and its subdirectories.</li>
+                    <li><code>git commit -m "message"</code> saves staged changes locally.</li>
+                    <li>A commit is not the same as pushing changes to GitHub.</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <div class="actions">
+                    <a class="btn" href="topic_03_the_git_workflow_3_areas.html">
+                        ← Previous: The Git Workflow
+                    </a>
+
+                    <a class="btn" href="topic_05_log_diff.html">
+                        Next: Log & Diff →
+                    </a>
+                </div>
+            </section>
+
+        </div>
+
+        <footer class="footer">
+            BATSUREN ANAR · STUDENT ID: 202637018<br>
+            GACHON UNIVERSITY · WEB PROGRAMMING
+        </footer>
+    </main>
+
+    <script>
+        const t = document.getElementById('theme');
+
+        function sync() {
+            t.textContent = document.body.classList.contains('light')
+                ? '🌙 Dark mode'
+                : '☀️ Light mode';
+        }
+
+        t.addEventListener('click', () => {
+            document.body.classList.toggle('light');
+            sync();
+        });
+
+        sync();
+
+        const quiz = document.getElementById('quiz');
+        const result = document.getElementById('quiz-result');
+
+        quiz.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const answers = {
+                q1: 'b',
+                q2: 'a',
+                q3: 'c',
+                q4: 'a'
+            };
+
+            let score = 0;
+            let unanswered = 0;
+
+            for (const question in answers) {
+                const selected = quiz.querySelector(
+                    `input[name="${question}"]:checked`
+                );
+
+                if (!selected) {
+                    unanswered++;
+                } else if (selected.value === answers[question]) {
+                    score++;
+                }
+            }
+
+            if (unanswered > 0) {
+                result.textContent =
+                    `Please answer all questions. ${unanswered} remaining.`;
+                result.className = 'status incorrect';
+                return;
+            }
+
+            result.textContent =
+                `Your score: ${score} / 4. ` +
+                (score === 4
+                    ? 'Excellent work! All answers are correct.'
+                    : 'Review the topic and try again.');
+
+            result.className =
+                score === 4 ? 'status correct' : 'status incorrect';
+        });
+    </script>
+</body>
+
+</html>

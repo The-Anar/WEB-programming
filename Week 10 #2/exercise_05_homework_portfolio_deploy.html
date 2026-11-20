@@ -1,0 +1,446 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#171D2E">
+    <title>Homework — Deploy the Portfolio · Anar</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #171D2E;
+            --surface: #202941;
+            --surface2: #27334E;
+            --text: #EDF0FF;
+            --muted: #AAB4D0;
+            --accent: #A78BFA;
+            --border: #394663;
+            --success: #75D6A3;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        .wrap {
+            width: min(100% - 36px, 1000px);
+            margin: auto;
+        }
+
+        header {
+            padding: 22px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hero {
+            padding: 55px 0 30px;
+        }
+
+        .eyebrow {
+            color: var(--accent);
+            font-weight: bold;
+            letter-spacing: 2px;
+            font-size: 13px;
+        }
+
+        h1 {
+            font-size: clamp(30px, 6vw, 48px);
+            line-height: 1.2;
+            margin: 12px 0;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-top: 0;
+        }
+
+        h3 {
+            color: var(--accent);
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            margin: 22px 0;
+        }
+
+        .scores {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .score {
+            background: var(--surface2);
+            border-radius: 14px;
+            padding: 22px;
+            text-align: center;
+        }
+
+        .score strong {
+            display: block;
+            font-size: 48px;
+            color: var(--success);
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .metric {
+            background: var(--surface2);
+            border-radius: 10px;
+            padding: 15px;
+        }
+
+        .metric strong {
+            display: block;
+            font-size: 22px;
+            color: var(--accent);
+        }
+
+        .screenshot {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-top: 14px;
+        }
+
+        .checklist {
+            padding-left: 22px;
+        }
+
+        .checklist li {
+            margin: 12px 0;
+        }
+
+        .warning {
+            border-left: 4px solid #E9B86C;
+            padding: 14px 18px;
+            background: var(--surface2);
+            border-radius: 8px;
+        }
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 25px 0;
+            margin-top: 45px;
+            color: var(--muted);
+        }
+
+        button {
+            background: var(--surface2);
+            color: var(--text);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        body.light {
+            color-scheme: light;
+            --bg: #F5F3FF;
+            --surface: #FFFFFF;
+            --surface2: #EEE9FF;
+            --text: #24213A;
+            --muted: #625D78;
+            --accent: #7045C7;
+            --border: #D9D0F0;
+            --success: #16834D;
+        }
+
+        @media (max-width: 600px) {
+            .scores,
+            .metric-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <nav class="wrap">
+        <a href="../index.html">ANAR · WEB PROGRAMMING</a>
+        <div>
+            <a href="index.html">Week 10 #2</a>
+            &nbsp; | &nbsp;
+            <button id="theme-toggle" type="button">Toggle Theme</button>
+        </div>
+    </nav>
+</header>
+
+<main class="wrap">
+
+    <section class="hero">
+        <p class="eyebrow">WEEK 10 · PART 2 · EXERCISE 05</p>
+        <h1>Homework — Deploy the Portfolio</h1>
+        <p class="muted">
+            Final deployment checklist and Lighthouse evaluation
+        </p>
+        <p>
+            <strong>Student:</strong> Batsuren Anar<br>
+            <strong>Student ID:</strong> 202637018
+        </p>
+    </section>
+
+    <section class="card">
+        <h2>1. Project Links</h2>
+        <p>
+            <strong>GitHub Repository:</strong><br>
+            <a href="https://github.com/The-Anar/WEB-programming"
+               target="_blank" rel="noopener">
+                github.com/The-Anar/WEB-programming
+            </a>
+        </p>
+        <p>
+            <strong>Live Portfolio:</strong><br>
+            <a href="https://the-anar.github.io/WEB-programming/"
+               target="_blank" rel="noopener">
+                the-anar.github.io/WEB-programming/
+            </a>
+        </p>
+        <p class="muted">
+            My portfolio is hosted using GitHub Pages.
+        </p>
+    </section>
+
+    <section class="card">
+        <h2>2. Lighthouse Results</h2>
+        <p>
+            I tested my published portfolio using Google Lighthouse.
+            The report was generated on November 21, 2026.
+        </p>
+
+        <div class="scores">
+            <div class="score">
+                <strong>100</strong>
+                Performance
+            </div>
+            <div class="score">
+                <strong>100</strong>
+                Accessibility
+            </div>
+        </div>
+
+        <p class="muted">
+            Test environment: Lighthouse 13.5.0, mobile emulation
+            (Moto G Power), Slow 4G.
+        </p>
+    </section>
+
+    <section class="card">
+        <h2>3. Performance Details</h2>
+
+        <div class="metric-grid">
+            <div class="metric">
+                <strong>1.2 s</strong>
+                First Contentful Paint
+            </div>
+            <div class="metric">
+                <strong>1.2 s</strong>
+                Largest Contentful Paint
+            </div>
+            <div class="metric">
+                <strong>0 ms</strong>
+                Total Blocking Time
+            </div>
+            <div class="metric">
+                <strong>0</strong>
+                Cumulative Layout Shift
+            </div>
+            <div class="metric">
+                <strong>1.4 s</strong>
+                Speed Index
+            </div>
+        </div>
+
+        <h3>Performance Screenshot</h3>
+        <img class="screenshot"
+             src="lighthouse-performance.png"
+             alt="Lighthouse performance report showing a score of 100">
+    </section>
+
+    <section class="card">
+        <h2>4. Accessibility Details</h2>
+
+        <p>
+            Lighthouse gave my portfolio an accessibility score of 100.
+            The automated report passed checks including:
+        </p>
+
+        <ul class="checklist">
+            <li>Document title is present.</li>
+            <li>HTML language is correctly specified.</li>
+            <li>Heading levels follow a logical order.</li>
+            <li>Main landmark is present.</li>
+            <li>Buttons have accessible names.</li>
+            <li>Background and foreground contrast passed.</li>
+            <li>Links have discernible names.</li>
+            <li>Touch targets meet the tested requirements.</li>
+        </ul>
+
+        <h3>Accessibility Screenshot</h3>
+        <img class="screenshot"
+             src="lighthouse-accessibility.png"
+             alt="Lighthouse accessibility report showing a score of 100">
+    </section>
+
+    <section class="card">
+        <h2>5. Deployment Checklist</h2>
+
+        <ul class="checklist">
+            <li>
+                <strong>Semantic HTML:</strong>
+                Lighthouse confirmed the main landmark, document title,
+                language and sequential headings.
+            </li>
+            <li>
+                <strong>Responsive design:</strong>
+                The portfolio was tested using mobile device emulation.
+            </li>
+            <li>
+                <strong>JavaScript interaction:</strong>
+                The portfolio includes a light and dark theme toggle.
+            </li>
+            <li>
+                <strong>Lighthouse score:</strong>
+                Performance 100 and Accessibility 100, exceeding the
+                assignment target of 90.
+            </li>
+            <li>
+                <strong>Image alternative text:</strong>
+                I will manually check that meaningful images have
+                appropriate alt text. The automated image-alt audit
+                was not applicable in this report.
+            </li>
+            <li>
+                <strong>Color contrast:</strong>
+                Lighthouse passed the automated contrast audit.
+            </li>
+        </ul>
+    </section>
+
+    <section class="card">
+        <h2>6. Additional Accessibility Review</h2>
+
+        <p>
+            Lighthouse also reported four identical links under an
+            unscored best-practice check. I should review their purposes
+            to make sure repeated links are clear.
+        </p>
+
+        <div class="warning">
+            <strong>Manual review still required:</strong>
+            Keyboard navigation, focus order, visible focus indicators,
+            focus behavior, labels, landmarks and other accessibility
+            details should also be checked manually.
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>7. Portfolio Screenshots</h2>
+        <p class="muted">
+            Screenshots of my deployed portfolio in different themes
+            and on a mobile device.
+        </p>
+
+        <h3>Dark Mode</h3>
+        <img class="screenshot"
+             src="portfolio-dark.png"
+             alt="My portfolio homepage displayed in dark mode">
+
+        <h3>Light Mode</h3>
+        <img class="screenshot"
+             src="portfolio-light.png"
+             alt="My portfolio homepage displayed in light mode">
+
+        <h3>Mobile View</h3>
+        <img class="screenshot"
+             src="portfolio-mobile.png"
+             alt="My portfolio displayed on a mobile screen">
+    </section>
+
+    <section class="card">
+        <h2>8. Reflection</h2>
+
+        <p>
+            Through this assignment, I learned how to deploy a personal
+            portfolio using GitHub Pages and evaluate it with Lighthouse.
+            My portfolio achieved 100 in both Performance and Accessibility.
+        </p>
+
+        <p>
+            I learned how to publish my project online, check that the
+            deployed website works, and test its appearance on different
+            screen sizes. I also learned that a high automated score does
+            not replace manual accessibility testing.
+        </p>
+
+        <p>
+            I will continue improving the website's usability,
+            responsiveness and accessibility.
+        </p>
+    </section>
+
+</main>
+
+<footer>
+    <div class="wrap">
+        Batsuren Anar · Gachon University · Web Programming
+        <p><a href="index.html">Back to Week 10 #2</a></p>
+    </div>
+</footer>
+
+<script>
+    const themeButton = document.getElementById("theme-toggle");
+
+    themeButton.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+    });
+</script>
+
+</body>
+</html>

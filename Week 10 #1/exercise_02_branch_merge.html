@@ -1,1 +1,808 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Exercise 02 — Branch &amp; Merge · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Exercise 02 — Branch &amp; Merge</h1><p>Understand commits, the working tree, branches, remotes and collaboration workflows.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="panel"><h2>Practical activity</h2><p>Practice creating a feature branch and merging it into main.</p><ol><li>Open the relevant page or tool in your browser.</li><li>Test the behavior using keyboard and mouse.</li><li>Record what happened and identify one improvement.</li><li>Apply the change and test again.</li></ol><div class="demo"><label for="notes">Your test notes</label><textarea id="notes" rows="4" placeholder="What did you test? What changed?"></textarea><button id="save">Save notes in this page</button><p id="saved" class="status" aria-live="polite">Notes stay in this page only; copy them before closing.</p></div></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script><script>save.onclick=()=>{saved.textContent=notes.value.trim()?'Notes captured for this session. Copy them into your assignment record.':'Write a few observations first.'};</script></body></html>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#171D2E">
+    <title>Exercise 02 — Branch & Merge · Anar</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --line: #34415D;
+            --shadow: rgba(0, 0, 0, .4);
+            --hero1: #251D40;
+            --hero2: #49366F
+        }
+
+        body.light {
+            color-scheme: light;
+            --bg: #F0EBFF;
+            --text: #292344;
+            --muted: #655B80;
+            --card: #fff;
+            --accent: #7957D5;
+            --border: #B0A3D9;
+            --line: #DED5F1;
+            --shadow: rgba(41, 35, 68, .13);
+            --hero1: #E6DCFF;
+            --hero2: #CDBCF5
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font: 16px/1.65 Arial, sans-serif;
+            transition: .2s
+        }
+
+        main {
+            max-width: 1180px;
+            width: calc(100% - 36px);
+            margin: auto;
+            padding-bottom: 45px
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            padding: 24px 2px 18px;
+            border-bottom: 1px solid var(--line);
+            flex-wrap: wrap
+        }
+
+        .brand {
+            font-weight: 900;
+            letter-spacing: 1px
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .btn,
+        button {
+            display: inline-block;
+            padding: 9px 15px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            background: var(--card);
+            color: var(--text);
+            font: 700 14px Arial;
+            text-decoration: none;
+            cursor: pointer
+        }
+
+        .hero {
+            margin: 28px 0;
+            padding: 28px 32px;
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            background: linear-gradient(120deg, var(--hero1), var(--hero2));
+            box-shadow: 7px 7px 0 var(--shadow)
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-weight: 900;
+            color: var(--muted)
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            line-height: 1.15;
+            margin: 10px 0
+        }
+
+        h2 {
+            line-height: 1.25
+        }
+
+        .student {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--muted)
+        }
+
+        .section {
+            margin: 28px 0
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px
+        }
+
+        .card,
+        .panel {
+            padding: 18px;
+            border: 2px solid var(--border);
+            border-radius: 19px;
+            background: var(--card);
+            box-shadow: 4px 5px 0 var(--shadow)
+        }
+
+        .card h3 {
+            margin: 0 0 10px;
+            font-size: 16px
+        }
+
+        .card p {
+            color: var(--muted);
+            font-size: 14px
+        }
+
+        .panel {
+            margin: 18px 0
+        }
+
+        .demo {
+            padding: 18px;
+            border: 1px dashed var(--border);
+            border-radius: 14px;
+            margin-top: 14px
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        .status {
+            padding: 10px;
+            border-radius: 9px;
+            background: var(--bg);
+            margin-top: 12px;
+            min-height: 24px
+        }
+
+        code,
+        pre {
+            background: var(--bg);
+            border-radius: 7px;
+            padding: 3px 6px
+        }
+
+        pre {
+            padding: 14px;
+            overflow: auto
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--muted);
+            border-top: 1px solid var(--line);
+            margin-top: 38px;
+            padding: 20px;
+            font-size: 13px
+        }
+
+        .skip {
+            position: absolute;
+            left: -9999px;
+            top: 8px;
+            background: var(--card);
+            padding: 10px;
+            z-index: 10
+        }
+
+        .skip:focus {
+            left: 8px
+        }
+
+        .quiz-option {
+            display: block;
+            margin: 9px 0;
+            font-weight: normal
+        }
+
+        .quiz-option input {
+            width: auto;
+            margin-right: 8px
+        }
+
+        .correct {
+            color: #75D99A;
+            font-weight: bold
+        }
+
+        .incorrect {
+            color: #F08D9B;
+            font-weight: bold
+        }
+
+        .task-number {
+            display: inline-block;
+            padding: 4px 10px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--accent);
+            font-size: 12px;
+            font-weight: bold;
+            margin-bottom: 8px
+        }
+
+        @media(max-width:800px) {
+            .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr))
+            }
+        }
+
+        @media(max-width:520px) {
+            .grid {
+                grid-template-columns: 1fr
+            }
+
+            .hero {
+                padding: 22px
+            }
+
+            .top {
+                align-items: flex-start;
+                flex-direction: column
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip" href="#main-content">Skip to main content</a>
+
+    <main>
+        <nav class="top" aria-label="Main navigation">
+            <div class="brand">ANAR · WEB PROGRAMMING</div>
+
+            <div class="actions">
+                <a class="btn" href="index.html">← Section home</a>
+                <a class="btn" href="../index.html">Main portfolio</a>
+                <button id="theme" type="button">☀️ Light mode</button>
+            </div>
+        </nav>
+
+        <header class="hero">
+            <p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p>
+            <h1>Exercise 02 — Branch & Merge</h1>
+            <p>
+                Practice creating a feature branch, making separate commits,
+                switching branches, and merging your completed work into main.
+            </p>
+            <p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
+        </header>
+
+        <div id="main-content">
+
+            <section class="panel">
+                <h2>Exercise Overview</h2>
+
+                <p>
+                    In this exercise, you will simulate a real development task.
+                    You already have a simple website, and now you need to add
+                    a new About section without directly editing the main branch.
+                </p>
+
+                <div class="grid">
+                    <article class="card">
+                        <h3>Objective</h3>
+                        <p>
+                            Understand how branches isolate development
+                            and how merging combines completed changes.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <h3>Tools</h3>
+                        <p>
+                            VS Code, a terminal, Git,
+                            and a local project folder.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <h3>Final Result</h3>
+                        <p>
+                            A main branch containing the changes
+                            developed and committed on a feature branch.
+                        </p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Part 01 — Prepare Your Repository</h2>
+
+                <span class="task-number">TASK 01</span>
+
+                <p>
+                    Open an existing Git project that has at least
+                    one commit on its main branch.
+                </p>
+
+                <p>
+                    Check your current branch and repository status:
+                </p>
+
+                <pre><code>git branch
+git status</code></pre>
+
+                <p>
+                    If you do not have a project yet, create a new folder
+                    and initialize Git:
+                </p>
+
+                <pre><code>mkdir branch-practice
+cd branch-practice
+git init</code></pre>
+
+                <p>
+                    Create an <code>index.html</code> file and add
+                    a simple homepage:
+                </p>
+
+                <div class="demo">
+                    <pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="utf-8"&gt;
+    &lt;title&gt;Branch Practice&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;My Website&lt;/h1&gt;
+    &lt;p&gt;Welcome to my project.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+
+                <p>
+                    Save and create the starting commit:
+                </p>
+
+                <pre><code>git add index.html
+git commit -m "Create initial homepage"</code></pre>
+            </section>
+
+            <section class="panel">
+                <h2>Part 02 — Create a Feature Branch</h2>
+
+                <span class="task-number">TASK 02</span>
+
+                <p>
+                    Create a new branch named
+                    <code>feature/about</code>.
+                </p>
+
+                <pre><code>git checkout -b feature/about</code></pre>
+
+                <p>
+                    This command creates the branch and switches
+                    your working directory to it.
+                </p>
+
+                <p>
+                    Check the branches:
+                </p>
+
+                <pre><code>git branch</code></pre>
+
+                <p>
+                    The asterisk should appear next to
+                    <code>feature/about</code>.
+                </p>
+            </section>
+
+            <section class="panel">
+                <h2>Part 03 — Add an About Section</h2>
+
+                <span class="task-number">TASK 03</span>
+
+                <p>
+                    Open <code>index.html</code> and add an About section
+                    inside the body.
+                </p>
+
+                <div class="demo">
+                    <pre><code>&lt;section&gt;
+    &lt;h2&gt;About Me&lt;/h2&gt;
+    &lt;p&gt;I am a student learning web development.&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+                </div>
+
+                <p>
+                    Save the file. Then check the changes:
+                </p>
+
+                <pre><code>git status
+git diff</code></pre>
+
+                <p>
+                    Git should show the new lines added to your file.
+                </p>
+            </section>
+
+            <section class="panel">
+                <h2>Part 04 — Commit the Feature</h2>
+
+                <span class="task-number">TASK 04</span>
+
+                <p>
+                    Stage and commit your new About section.
+                </p>
+
+                <pre><code>git add index.html
+git commit -m "Add about section"</code></pre>
+
+                <p>
+                    Your feature branch now contains a commit
+                    that does not yet exist on main.
+                </p>
+
+                <p>
+                    Check the commit history:
+                </p>
+
+                <pre><code>git log --oneline</code></pre>
+            </section>
+
+            <section class="panel">
+                <h2>Part 05 — Switch Back to Main</h2>
+
+                <span class="task-number">TASK 05</span>
+
+                <p>
+                    Return to the main branch:
+                </p>
+
+                <pre><code>git checkout main</code></pre>
+
+                <p>
+                    Open <code>index.html</code> again.
+                    You should see the original homepage without
+                    the About section.
+                </p>
+
+                <p class="muted">
+                    The changes were committed on feature/about,
+                    so main has not received them yet.
+                </p>
+            </section>
+
+            <section class="panel">
+                <h2>Part 06 — Merge the Feature Branch</h2>
+
+                <span class="task-number">TASK 06</span>
+
+                <p>
+                    While you are on main, merge the feature branch:
+                </p>
+
+                <pre><code>git merge feature/about</code></pre>
+
+                <p>
+                    Git combines the changes from
+                    <code>feature/about</code> into the current branch.
+                </p>
+
+                <div class="demo">
+                    <h3>Check the Result</h3>
+
+                    <pre><code>git status
+git log --oneline</code></pre>
+
+                    <p>
+                        Open <code>index.html</code>.
+                        The About section should now be part of main.
+                    </p>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Part 07 — Delete the Completed Feature Branch</h2>
+
+                <span class="task-number">TASK 07</span>
+
+                <p>
+                    After successfully merging the feature,
+                    you can delete the old branch if you no longer need it.
+                </p>
+
+                <pre><code>git branch -d feature/about</code></pre>
+
+                <p>
+                    Check the remaining branches:
+                </p>
+
+                <pre><code>git branch</code></pre>
+
+                <p class="muted">
+                    The merged changes remain in main.
+                    Deleting the branch name does not undo the merge.
+                </p>
+            </section>
+
+            <section class="panel">
+                <h2>Complete Command Sequence</h2>
+
+                <p>
+                    Here is the full workflow in order:
+                </p>
+
+                <div class="demo">
+                    <pre><code># Create a feature branch
+git checkout -b feature/about
+
+# Edit index.html
+
+# Stage and commit changes
+git add index.html
+git commit -m "Add about section"
+
+# Return to main
+git checkout main
+
+# Merge the feature
+git merge feature/about
+
+# Delete the merged branch
+git branch -d feature/about
+
+# Review the history
+git log --oneline</code></pre>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Part 08 — Understand the Final Result</h2>
+
+                <p>
+                    Before merging, the About section existed only
+                    on the feature branch.
+                </p>
+
+                <p>
+                    After merging, main contains the new section too.
+                </p>
+
+                <div class="demo">
+                    <h3>Before Merge</h3>
+
+                    <pre><code>main
+  └── Initial homepage
+
+feature/about
+  └── Initial homepage
+      └── Add about section</code></pre>
+
+                    <h3>After Merge</h3>
+
+                    <pre><code>main
+  └── Initial homepage
+      └── Add about section</code></pre>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Submission Checklist</h2>
+
+                <div class="demo">
+                    <ul>
+                        <li>Create or open a Git repository.</li>
+                        <li>Create a branch named <code>feature/about</code>.</li>
+                        <li>Add an About section to <code>index.html</code>.</li>
+                        <li>Commit the changes on the feature branch.</li>
+                        <li>Switch back to main.</li>
+                        <li>Merge the feature branch into main.</li>
+                        <li>Confirm the About section appears in main.</li>
+                        <li>Review the commit history.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Knowledge Check</h2>
+
+                <p>
+                    Test your understanding of branching and merging.
+                </p>
+
+                <form id="quiz">
+
+                    <div class="demo">
+                        <p><strong>1. Which command creates and switches to a new branch?</strong></p>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="a">
+                            git branch
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="b">
+                            git checkout -b feature/about
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="c">
+                            git merge
+                        </label>
+                    </div>
+
+                    <div class="demo">
+                        <p><strong>2. What should you do before merging feature/about into main?</strong></p>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="a">
+                            Switch to main
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="b">
+                            Delete feature/about
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="c">
+                            Run git init again
+                        </label>
+                    </div>
+
+                    <div class="demo">
+                        <p><strong>3. What does git merge feature/about do when you are on main?</strong></p>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="a">
+                            Deletes main
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="b">
+                            Uploads the branch to GitHub
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="c">
+                            Combines feature/about changes into main
+                        </label>
+                    </div>
+
+                    <div class="demo">
+                        <p><strong>4. What happens when you delete a branch after merging it?</strong></p>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="a">
+                            All merged changes disappear
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="b">
+                            The branch name is removed, but merged changes remain
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="c">
+                            The entire repository is deleted
+                        </label>
+                    </div>
+
+                    <button type="submit">Check Answers</button>
+
+                </form>
+
+                <div class="status" id="quiz-result" aria-live="polite">
+                    Your score will appear here.
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Exercise Summary</h2>
+
+                <ul>
+                    <li>Branches allow independent development.</li>
+                    <li><code>git checkout -b</code> creates and switches to a branch.</li>
+                    <li>Commit your feature changes before merging.</li>
+                    <li>Switch to the target branch before merging.</li>
+                    <li><code>git merge</code> combines branch changes.</li>
+                    <li><code>git branch -d</code> deletes a merged branch.</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <div class="actions">
+                    <a class="btn" href="exercise_01_create_your_first_repository.html">
+                        ← Previous: First Repository
+                    </a>
+
+                    <a class="btn" href="exercise_03_push_to_github.html">
+                        Next: Push to GitHub →
+                    </a>
+                </div>
+            </section>
+
+        </div>
+
+        <footer class="footer">
+            BATSUREN ANAR · STUDENT ID: 202637018<br>
+            GACHON UNIVERSITY · WEB PROGRAMMING
+        </footer>
+    </main>
+
+    <script>
+        const t = document.getElementById('theme');
+
+        function sync() {
+            t.textContent = document.body.classList.contains('light')
+                ? '🌙 Dark mode'
+                : '☀️ Light mode';
+        }
+
+        t.addEventListener('click', () => {
+            document.body.classList.toggle('light');
+            sync();
+        });
+
+        sync();
+
+        const quiz = document.getElementById('quiz');
+        const result = document.getElementById('quiz-result');
+
+        quiz.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const answers = {
+                q1: 'b',
+                q2: 'a',
+                q3: 'c',
+                q4: 'b'
+            };
+
+            let score = 0;
+            let unanswered = 0;
+
+            for (const question in answers) {
+                const selected = quiz.querySelector(
+                    `input[name="${question}"]:checked`
+                );
+
+                if (!selected) {
+                    unanswered++;
+                } else if (selected.value === answers[question]) {
+                    score++;
+                }
+            }
+
+            if (unanswered > 0) {
+                result.textContent =
+                    `Please answer all questions. ${unanswered} remaining.`;
+                result.className = 'status incorrect';
+                return;
+            }
+
+            result.textContent =
+                `Your score: ${score} / 4. ` +
+                (score === 4
+                    ? 'Excellent work! All answers are correct.'
+                    : 'Review the exercise and try again.');
+
+            result.className =
+                score === 4 ? 'status correct' : 'status incorrect';
+        });
+    </script>
+</body>
+
+</html>

@@ -1,1 +1,799 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Topic 06 — Branching · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Topic 06 — Branching</h1><p>Understand commits, the working tree, branches, remotes and collaboration workflows.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="panel"><h2>Concept</h2><p>Branches isolate work so features can be developed without changing the main branch immediately.</p><h2>Why it matters</h2><p>Branching Apply the idea consistently and test the result in a browser.</p><h2>Try it</h2><h2>Remember</h2><ul><li>Prefer native HTML before adding custom JavaScript or ARIA.</li><li>Test with keyboard navigation and browser developer tools.</li><li>Keep labels, instructions and feedback clear.</li></ul></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script></body></html>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#171D2E">
+    <title>Topic 06 — Branching · Anar</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --line: #34415D;
+            --shadow: rgba(0, 0, 0, .4);
+            --hero1: #251D40;
+            --hero2: #49366F
+        }
+
+        body.light {
+            color-scheme: light;
+            --bg: #F0EBFF;
+            --text: #292344;
+            --muted: #655B80;
+            --card: #fff;
+            --accent: #7957D5;
+            --border: #B0A3D9;
+            --line: #DED5F1;
+            --shadow: rgba(41, 35, 68, .13);
+            --hero1: #E6DCFF;
+            --hero2: #CDBCF5
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font: 16px/1.65 Arial, sans-serif;
+            transition: .2s
+        }
+
+        main {
+            max-width: 1180px;
+            width: calc(100% - 36px);
+            margin: auto;
+            padding-bottom: 45px
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 14px;
+            padding: 24px 2px 18px;
+            border-bottom: 1px solid var(--line);
+            flex-wrap: wrap
+        }
+
+        .brand {
+            font-weight: 900;
+            letter-spacing: 1px
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap
+        }
+
+        .btn,
+        button {
+            display: inline-block;
+            padding: 9px 15px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            background: var(--card);
+            color: var(--text);
+            font: 700 14px Arial;
+            text-decoration: none;
+            cursor: pointer
+        }
+
+        .hero {
+            margin: 28px 0;
+            padding: 28px 32px;
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            background: linear-gradient(120deg, var(--hero1), var(--hero2));
+            box-shadow: 7px 7px 0 var(--shadow)
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-weight: 900;
+            color: var(--muted)
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 48px);
+            line-height: 1.15;
+            margin: 10px 0
+        }
+
+        h2 {
+            line-height: 1.25
+        }
+
+        .student {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: var(--muted)
+        }
+
+        .section {
+            margin: 28px 0
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px
+        }
+
+        .card,
+        .panel {
+            padding: 18px;
+            border: 2px solid var(--border);
+            border-radius: 19px;
+            background: var(--card);
+            box-shadow: 4px 5px 0 var(--shadow)
+        }
+
+        .card h3 {
+            margin: 0 0 10px;
+            font-size: 16px
+        }
+
+        .card p {
+            color: var(--muted);
+            font-size: 14px
+        }
+
+        .panel {
+            margin: 18px 0
+        }
+
+        .demo {
+            padding: 18px;
+            border: 1px dashed var(--border);
+            border-radius: 14px;
+            margin-top: 14px
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin: 12px 0 5px
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: var(--bg);
+            color: var(--text);
+            font: inherit
+        }
+
+        input:focus,
+        button:focus-visible,
+        a:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        .status {
+            padding: 10px;
+            border-radius: 9px;
+            background: var(--bg);
+            margin-top: 12px;
+            min-height: 24px
+        }
+
+        code,
+        pre {
+            background: var(--bg);
+            border-radius: 7px;
+            padding: 3px 6px
+        }
+
+        pre {
+            padding: 14px;
+            overflow: auto
+        }
+
+        .footer {
+            text-align: center;
+            color: var(--muted);
+            border-top: 1px solid var(--line);
+            margin-top: 38px;
+            padding: 20px;
+            font-size: 13px
+        }
+
+        .skip {
+            position: absolute;
+            left: -9999px;
+            top: 8px;
+            background: var(--card);
+            padding: 10px;
+            z-index: 10
+        }
+
+        .skip:focus {
+            left: 8px
+        }
+
+        .quiz-option {
+            display: block;
+            margin: 9px 0;
+            font-weight: normal
+        }
+
+        .quiz-option input {
+            width: auto;
+            margin-right: 8px
+        }
+
+        .correct {
+            color: #75D99A;
+            font-weight: bold
+        }
+
+        .incorrect {
+            color: #F08D9B;
+            font-weight: bold
+        }
+
+        .branch-diagram {
+            display: grid;
+            gap: 12px;
+            padding: 16px;
+            background: var(--bg);
+            border-radius: 12px;
+            overflow-x: auto
+        }
+
+        .branch-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 430px
+        }
+
+        .branch-name {
+            min-width: 105px;
+            font-weight: bold;
+            color: var(--accent)
+        }
+
+        .commit-dot {
+            width: 15px;
+            height: 15px;
+            border: 3px solid var(--accent);
+            border-radius: 50%;
+            flex-shrink: 0
+        }
+
+        .branch-track {
+            height: 3px;
+            background: var(--border);
+            min-width: 30px;
+            flex: 1
+        }
+
+        @media(max-width:800px) {
+            .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr))
+            }
+        }
+
+        @media(max-width:520px) {
+            .grid {
+                grid-template-columns: 1fr
+            }
+
+            .hero {
+                padding: 22px
+            }
+
+            .top {
+                align-items: flex-start;
+                flex-direction: column
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip" href="#main-content">Skip to main content</a>
+
+    <main>
+        <nav class="top" aria-label="Main navigation">
+            <div class="brand">ANAR · WEB PROGRAMMING</div>
+
+            <div class="actions">
+                <a class="btn" href="index.html">← Section home</a>
+                <a class="btn" href="../index.html">Main portfolio</a>
+                <button id="theme" type="button">☀️ Light mode</button>
+            </div>
+        </nav>
+
+        <header class="hero">
+            <p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p>
+            <h1>Topic 06 — Branching</h1>
+            <p>
+                Learn how Git branches let you develop new features,
+                experiment safely, and merge completed work into
+                your main project.
+            </p>
+            <p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
+        </header>
+
+        <div id="main-content">
+
+            <section class="panel">
+                <h2>What Is a Git Branch?</h2>
+
+                <p>
+                    A branch is an independent line of development
+                    in a Git repository. It allows you to work on
+                    a feature or fix without directly changing
+                    the main branch.
+                </p>
+
+                <p>
+                    For example, you can create a new branch to build
+                    a search feature while the main version of your
+                    website remains unchanged.
+                </p>
+
+                <div class="demo">
+                    <p><strong>Example project branches:</strong></p>
+                    <ul>
+                        <li><code>main</code> — the main project version.</li>
+                        <li><code>feature/search</code> — a new search feature.</li>
+                        <li><code>feature/login</code> — a login feature.</li>
+                        <li><code>fix/navigation</code> — a navigation bug fix.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Why Use Branches?</h2>
+
+                <div class="grid">
+
+                    <article class="card">
+                        <h3>01. Safe Development</h3>
+                        <p>
+                            Develop new features without directly
+                            changing the main project version.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <h3>02. Experimentation</h3>
+                        <p>
+                            Test ideas and try different solutions
+                            without affecting other work.
+                        </p>
+                    </article>
+
+                    <article class="card">
+                        <h3>03. Team Collaboration</h3>
+                        <p>
+                            Different developers can work on
+                            different features at the same time.
+                        </p>
+                    </article>
+
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Understanding Branch Structure</h2>
+
+                <p>
+                    A branch starts from an existing commit.
+                    New commits can then be added to that branch
+                    independently.
+                </p>
+
+                <div class="demo">
+                    <div class="branch-diagram">
+
+                        <div class="branch-line">
+                            <span class="branch-name">main</span>
+                            <span class="commit-dot"></span>
+                            <span class="branch-track"></span>
+                            <span class="commit-dot"></span>
+                            <span class="branch-track"></span>
+                            <span class="commit-dot"></span>
+                        </div>
+
+                        <div class="branch-line">
+                            <span class="branch-name">feature</span>
+                            <span style="width:25px"></span>
+                            <span class="commit-dot"></span>
+                            <span class="branch-track"></span>
+                            <span class="commit-dot"></span>
+                            <span class="branch-track"></span>
+                            <span class="commit-dot"></span>
+                        </div>
+
+                    </div>
+
+                    <p class="muted">
+                        Conceptual illustration: the feature branch
+                        can receive its own commits while the main
+                        branch continues separately.
+                    </p>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>01. Create and Switch to a Branch</h2>
+
+                <p>
+                    Use <code>git checkout -b</code> to create a new
+                    branch and immediately switch to it.
+                </p>
+
+                <div class="demo">
+                    <pre><code>git checkout -b feature/search</code></pre>
+
+                    <p>
+                        This command performs two actions:
+                    </p>
+
+                    <ol>
+                        <li>Creates a branch named <code>feature/search</code>.</li>
+                        <li>Switches your working directory to that branch.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>02. List Existing Branches</h2>
+
+                <p>
+                    Use <code>git branch</code> to see the local
+                    branches in your repository.
+                </p>
+
+                <div class="demo">
+                    <pre><code>git branch</code></pre>
+
+                    <h3>Example Output</h3>
+
+                    <pre><code>  feature/search
+* main</code></pre>
+
+                    <p>
+                        The asterisk <code>*</code> indicates
+                        the branch you are currently using.
+                    </p>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>03. Switch Between Branches</h2>
+
+                <p>
+                    Use <code>git checkout</code> followed by
+                    the branch name to switch to an existing branch.
+                </p>
+
+                <div class="demo">
+                    <pre><code>git checkout main</code></pre>
+
+                    <p>
+                        This switches your working directory
+                        to the <code>main</code> branch.
+                    </p>
+                </div>
+
+                <div class="demo">
+                    <h3>Alternative Modern Command</h3>
+
+                    <pre><code>git switch main</code></pre>
+
+                    <p class="muted">
+                        <code>git switch</code> is a modern command
+                        designed specifically for switching branches.
+                    </p>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>04. Merge a Branch</h2>
+
+                <p>
+                    After completing your feature, you can merge
+                    its changes into another branch.
+                </p>
+
+                <div class="demo">
+                    <pre><code># Switch to the branch receiving the changes
+git checkout main
+
+# Merge the feature branch into main
+git merge feature/search</code></pre>
+
+                    <p>
+                        The merge command combines the changes
+                        from <code>feature/search</code> into
+                        the currently checked-out branch.
+                    </p>
+
+                    <p class="muted">
+                        You normally switch to the target branch
+                        before running the merge command.
+                    </p>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Complete Branching Example</h2>
+
+                <p>
+                    Imagine you are adding a search box to
+                    your portfolio website.
+                </p>
+
+                <div class="demo">
+                    <pre><code># Create a new feature branch
+git checkout -b feature/search
+
+# Edit your project files
+
+# Stage the changes
+git add .
+
+# Commit the feature
+git commit -m "Add search feature"
+
+# Return to the main branch
+git checkout main
+
+# Merge the feature into main
+git merge feature/search</code></pre>
+                </div>
+
+                <p>
+                    Your search feature is now included in
+                    the main branch after a successful merge.
+                </p>
+            </section>
+
+            <section class="panel">
+                <h2>Common Branch Commands</h2>
+
+                <div class="demo">
+                    <pre><code># List branches
+git branch
+
+# Create and switch to a new branch
+git checkout -b feature/login
+
+# Switch to an existing branch
+git checkout main
+
+# Merge another branch into the current branch
+git merge feature/login
+
+# Delete a branch after merging
+git branch -d feature/login</code></pre>
+
+                    <p class="muted">
+                        Delete a branch only when you no longer need
+                        it. The <code>-d</code> option normally
+                        prevents deleting an unmerged branch.
+                    </p>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Knowledge Check</h2>
+
+                <p>
+                    Test your understanding of Git branching.
+                </p>
+
+                <form id="quiz">
+
+                    <div class="demo">
+                        <p><strong>1. What is a Git branch?</strong></p>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="a">
+                            A separate line of development
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="b">
+                            A type of computer hardware
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q1" value="c">
+                            A command that deletes a repository
+                        </label>
+                    </div>
+
+                    <div class="demo">
+                        <p><strong>2. What does git checkout -b feature-login do?</strong></p>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="a">
+                            Deletes the feature-login branch
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="b">
+                            Creates a new branch and switches to it
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q2" value="c">
+                            Uploads the branch to GitHub
+                        </label>
+                    </div>
+
+                    <div class="demo">
+                        <p><strong>3. Which command lists local branches?</strong></p>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="a">
+                            git status
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="b">
+                            git commit
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q3" value="c">
+                            git branch
+                        </label>
+                    </div>
+
+                    <div class="demo">
+                        <p><strong>4. What should you usually do before merging a feature branch into main?</strong></p>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="a">
+                            Switch to the main branch
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="b">
+                            Delete the main branch
+                        </label>
+
+                        <label class="quiz-option">
+                            <input type="radio" name="q4" value="c">
+                            Run git init again
+                        </label>
+                    </div>
+
+                    <button type="submit">Check Answers</button>
+
+                </form>
+
+                <div class="status" id="quiz-result" aria-live="polite">
+                    Your score will appear here.
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Remember</h2>
+
+                <ul>
+                    <li>A branch is an independent line of development.</li>
+                    <li>Branches allow you to work on features safely.</li>
+                    <li><code>git checkout -b feature-name</code> creates and switches to a branch.</li>
+                    <li><code>git branch</code> lists local branches.</li>
+                    <li><code>git checkout main</code> switches to the main branch.</li>
+                    <li><code>git merge feature-name</code> merges changes into the current branch.</li>
+                </ul>
+            </section>
+
+            <section class="section">
+                <div class="actions">
+                    <a class="btn" href="topic_05_log_diff.html">
+                        ← Previous: Log & Diff
+                    </a>
+
+                    <a class="btn" href="topic_07_remote_push_pull.html">
+                        Next: Remote, Push & Pull →
+                    </a>
+                </div>
+            </section>
+
+        </div>
+
+        <footer class="footer">
+            BATSUREN ANAR · STUDENT ID: 202637018<br>
+            GACHON UNIVERSITY · WEB PROGRAMMING
+        </footer>
+    </main>
+
+    <script>
+        const t = document.getElementById('theme');
+
+        function sync() {
+            t.textContent = document.body.classList.contains('light')
+                ? '🌙 Dark mode'
+                : '☀️ Light mode';
+        }
+
+        t.addEventListener('click', () => {
+            document.body.classList.toggle('light');
+            sync();
+        });
+
+        sync();
+
+        const quiz = document.getElementById('quiz');
+        const result = document.getElementById('quiz-result');
+
+        quiz.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            const answers = {
+                q1: 'a',
+                q2: 'b',
+                q3: 'c',
+                q4: 'a'
+            };
+
+            let score = 0;
+            let unanswered = 0;
+
+            for (const question in answers) {
+                const selected = quiz.querySelector(
+                    `input[name="${question}"]:checked`
+                );
+
+                if (!selected) {
+                    unanswered++;
+                } else if (selected.value === answers[question]) {
+                    score++;
+                }
+            }
+
+            if (unanswered > 0) {
+                result.textContent =
+                    `Please answer all questions. ${unanswered} remaining.`;
+                result.className = 'status incorrect';
+                return;
+            }
+
+            result.textContent =
+                `Your score: ${score} / 4. ` +
+                (score === 4
+                    ? 'Excellent work! All answers are correct.'
+                    : 'Review the topic and try again.');
+
+            result.className =
+                score === 4 ? 'status correct' : 'status incorrect';
+        });
+    </script>
+</body>
+
+</html>

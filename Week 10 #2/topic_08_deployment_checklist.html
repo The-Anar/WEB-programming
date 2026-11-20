@@ -1,1 +1,320 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Topic 08 — Deployment Checklist · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Topic 08 — Deployment Checklist</h1><p>Publish static websites, understand URL paths and troubleshoot deployment issues.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="panel"><h2>Concept</h2><p>Check paths, filenames, case, assets, console errors and the published URL after deployment.</p><h2>Why it matters</h2><p>Check paths, filenames, case, assets, console errors and the published URL after deployment. Apply the idea consistently and test the result in a browser.</p><h2>Try it</h2><h2>Remember</h2><ul><li>Prefer native HTML before adding custom JavaScript or ARIA.</li><li>Test with keyboard navigation and browser developer tools.</li><li>Keep labels, instructions and feedback clear.</li></ul></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script></body></html>
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#171D2E">
+<title>Topic 08 — Deployment Checklist · Anar</title>
+<style>
+:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}
+body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}
+main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.brand{font-weight:900;letter-spacing:1px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}
+.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}
+.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}
+h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}
+h2{line-height:1.25}
+.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}
+.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow);margin:18px 0}
+.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}
+.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.item{padding:16px;border:1px solid var(--border);border-radius:14px;background:var(--bg)}
+.item h3{margin-top:0}
+.checklist label{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid var(--border);border-radius:10px;margin:10px 0;background:var(--bg)}
+.checklist input{width:18px;height:18px;accent-color:var(--accent);flex-shrink:0;margin-top:3px}
+.progress{height:12px;background:var(--bg);border:1px solid var(--border);border-radius:20px;overflow:hidden;margin:12px 0}
+.progress-fill{height:100%;width:0;background:var(--accent);transition:width .2s}
+.status{padding:12px;border-radius:9px;background:var(--bg);margin-top:14px;min-height:50px}
+code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}
+.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}
+.skip:focus{left:8px}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main-content">Skip to main content</a>
+<main>
+<nav class="top">
+<div class="brand">ANAR · WEB PROGRAMMING</div>
+<div class="actions">
+<a class="btn" href="index.html">← Week 10.2 overview</a>
+<a class="btn" href="../index.html">Main portfolio</a>
+<button id="theme" type="button">☀️ Light mode</button>
+</div>
+</nav>
+
+<header class="hero">
+<p class="eyebrow">WEEK 10.2 · TOPIC 08</p>
+<h1>Website Deployment Checklist</h1>
+<p>Review the important steps before publishing a website with GitHub Pages.</p>
+<p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
+</header>
+
+<div id="main-content">
+<section class="panel">
+<p class="eyebrow">01 · INTRODUCTION</p>
+<h2>Why Use a Deployment Checklist?</h2>
+<p>
+Deploying a website involves more than uploading HTML files.
+Before publishing, developers should check the repository,
+website structure, links, accessibility, and final live version.
+</p>
+<p>
+A checklist helps prevent common mistakes and makes the
+deployment process easier to repeat.
+</p>
+</section>
+
+<section class="panel">
+<p class="eyebrow">02 · BEFORE DEPLOYMENT</p>
+<h2>Prepare Your Website</h2>
+<div class="grid">
+<article class="item">
+<h3>Repository</h3>
+<ul>
+<li>Repository exists on GitHub.</li>
+<li>Latest files are committed.</li>
+<li>Changes are pushed to the correct branch.</li>
+</ul>
+</article>
+<article class="item">
+<h3>File Structure</h3>
+<ul>
+<li>Correct <code>index.html</code> exists.</li>
+<li>Files are in the publishing folder.</li>
+<li>CSS, JavaScript, and images have correct paths.</li>
+</ul>
+</article>
+<article class="item">
+<h3>Website Quality</h3>
+<ul>
+<li>Pages have meaningful titles.</li>
+<li>Images have appropriate alt text.</li>
+<li>Navigation links work.</li>
+</ul>
+</article>
+<article class="item">
+<h3>Responsive Design</h3>
+<ul>
+<li>Layout works on mobile screens.</li>
+<li>Text is readable.</li>
+<li>Buttons are easy to use.</li>
+</ul>
+</article>
+</div>
+</section>
+
+<section class="panel">
+<p class="eyebrow">03 · ENABLE GITHUB PAGES</p>
+<h2>Publish Your Website</h2>
+<ol>
+<li>Open your GitHub repository.</li>
+<li>Go to <strong>Settings</strong>.</li>
+<li>Open the <strong>Pages</strong> section.</li>
+<li>Select <strong>Deploy from a branch</strong> if using branch-based publishing.</li>
+<li>Choose the correct branch, usually <code>main</code>.</li>
+<li>Choose the publishing folder, usually <code>/(root)</code>.</li>
+<li>Click <strong>Save</strong>.</li>
+<li>Wait for GitHub Pages to finish deploying.</li>
+</ol>
+<div class="demo">
+<p><strong>Important:</strong> Check the deployment status and the published URL in the Pages settings.</p>
+</div>
+</section>
+
+<section class="panel">
+<p class="eyebrow">04 · AFTER DEPLOYMENT</p>
+<h2>Test the Live Website</h2>
+<div class="grid">
+<article class="item">
+<h3>Open the URL</h3>
+<p>Visit the published GitHub Pages address and make sure the homepage loads.</p>
+</article>
+<article class="item">
+<h3>Test Navigation</h3>
+<p>Open each important page and check the navigation links.</p>
+</article>
+<article class="item">
+<h3>Check Assets</h3>
+<p>Confirm that images, CSS, fonts, and JavaScript load correctly.</p>
+</article>
+<article class="item">
+<h3>Test Different Screens</h3>
+<p>Check the website on desktop and mobile screen sizes.</p>
+</article>
+</div>
+</section>
+
+<section class="panel">
+<p class="eyebrow">05 · ACCESSIBILITY</p>
+<h2>Accessibility and Lighthouse</h2>
+<p>
+Accessibility helps more people use a website, including people
+who rely on assistive technologies.
+</p>
+<ul>
+<li>Use semantic HTML elements such as <code>header</code>, <code>nav</code>, <code>main</code>, and <code>footer</code>.</li>
+<li>Add meaningful alt text to informative images.</li>
+<li>Make sure text has sufficient contrast against its background.</li>
+<li>Make interactive elements usable with a keyboard.</li>
+<li>Use clear labels for form controls.</li>
+<li>Run a Lighthouse accessibility audit and review its results.</li>
+</ul>
+<div class="demo">
+<strong>Homework target:</strong>
+<p>Accessibility score of at least 90 in Lighthouse, with a screenshot of the result.</p>
+<p class="muted">A high score is useful, but it does not replace checking accessibility manually.</p>
+</div>
+</section>
+
+<section class="panel">
+<p class="eyebrow">06 · COMMON DEPLOYMENT PROBLEMS</p>
+<h2>What Should You Check?</h2>
+<div class="grid">
+<article class="item">
+<h3>404 Not Found</h3>
+<p>Check the homepage filename and publishing folder.</p>
+</article>
+<article class="item">
+<h3>Old Content</h3>
+<p>Check whether deployment finished, then refresh the browser.</p>
+</article>
+<article class="item">
+<h3>Missing Images</h3>
+<p>Check image paths, filenames, and letter capitalization.</p>
+</article>
+<article class="item">
+<h3>Broken Styles</h3>
+<p>Check stylesheet paths, especially when using a project-site URL.</p>
+</article>
+</div>
+</section>
+
+<section class="panel">
+<p class="eyebrow">07 · INTERACTIVE CHECKLIST</p>
+<h2>My Deployment Checklist</h2>
+<p class="muted">Check each item as you complete it. Your progress updates automatically.</p>
+<div class="demo checklist" id="checklist">
+<label><input type="checkbox"> My website files are committed and pushed to GitHub.</label>
+<label><input type="checkbox"> My index.html is in the correct publishing folder.</label>
+<label><input type="checkbox"> GitHub Pages is enabled with the correct branch and folder.</label>
+<label><input type="checkbox"> My published homepage opens successfully.</label>
+<label><input type="checkbox"> Navigation links, images, CSS, and JavaScript work.</label>
+<label><input type="checkbox"> My website works on mobile and desktop screens.</label>
+<label><input type="checkbox"> I checked semantic HTML, alt text, and color contrast.</label>
+<label><input type="checkbox"> I ran Lighthouse and saved my accessibility screenshot.</label>
+<div class="progress" role="progressbar" aria-label="Deployment checklist progress" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0" id="progress">
+<div class="progress-fill" id="progress-fill"></div>
+</div>
+<div class="status" id="progress-text" aria-live="polite">0 of 8 tasks completed.</div>
+<button type="button" id="reset">Reset Checklist</button>
+</div>
+</section>
+
+<section class="panel">
+<p class="eyebrow">08 · QUICK QUIZ</p>
+<h2>Check Your Understanding</h2>
+<p><strong>What should you do after enabling GitHub Pages?</strong></p>
+<div class="demo">
+<label><input type="radio" name="quiz" value="a"> A. Assume everything works without testing.</label>
+<label><input type="radio" name="quiz" value="b"> B. Delete your local project files.</label>
+<label><input type="radio" name="quiz" value="c"> C. Open the published URL and test the website.</label>
+<label><input type="radio" name="quiz" value="d"> D. Rename every HTML file.</label>
+<button type="button" id="check">Check Answer</button>
+<div class="status" id="quiz-result" aria-live="polite">Select an answer first.</div>
+</div>
+</section>
+
+<section class="panel">
+<p class="eyebrow">09 · FINAL SUMMARY</p>
+<h2>What I Learned in Week 10.2</h2>
+<p>
+I learned how GitHub Pages publishes static websites, how to
+enable deployment from a repository, and how URL structure
+depends on usernames and repository names.
+</p>
+<p>
+I also learned the importance of index.html, the difference
+between static and server-side applications, and how GitHub
+Actions can automate development tasks.
+</p>
+<div class="demo">
+<h3>Week 10.2 Topics Completed</h3>
+<ol>
+<li>What Is Deployment?</li>
+<li>GitHub Pages Overview</li>
+<li>Enable GitHub Pages</li>
+<li>URL Structure</li>
+<li>What Works and What Doesn't</li>
+<li>index.html Is Everything</li>
+<li>Introduction to GitHub Actions</li>
+<li>Website Deployment Checklist</li>
+</ol>
+<a class="btn" href="index.html">← Back to Week 10.2 overview</a>
+</div>
+</section>
+</div>
+
+<footer class="footer">
+BATSUREN ANAR · STUDENT ID: 202637018<br>
+GACHON UNIVERSITY · WEB PROGRAMMING
+</footer>
+</main>
+
+<script>
+const themeButton=document.getElementById('theme');
+function syncTheme(){
+themeButton.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode';
+}
+themeButton.addEventListener('click',()=>{
+document.body.classList.toggle('light');
+syncTheme();
+});
+syncTheme();
+
+const checks=[...document.querySelectorAll('#checklist input[type="checkbox"]')];
+const progressFill=document.getElementById('progress-fill');
+const progressText=document.getElementById('progress-text');
+const progress=document.getElementById('progress');
+
+function updateProgress(){
+const completed=checks.filter(item=>item.checked).length;
+const percentage=(completed/checks.length)*100;
+progressFill.style.width=percentage+'%';
+progressText.textContent=completed+' of '+checks.length+' tasks completed.';
+progress.setAttribute('aria-valuenow',completed);
+
+if(completed===checks.length){
+progressText.textContent='All tasks completed! Your deployment checklist is finished.';
+}
+}
+checks.forEach(item=>item.addEventListener('change',updateProgress));
+
+document.getElementById('reset').addEventListener('click',()=>{
+checks.forEach(item=>item.checked=false);
+updateProgress();
+});
+
+document.getElementById('check').addEventListener('click',()=>{
+const selected=document.querySelector('input[name="quiz"]:checked');
+const result=document.getElementById('quiz-result');
+if(!selected){
+result.textContent='Please select an answer first.';
+}else if(selected.value==='c'){
+result.textContent='Correct! Always visit and test the live website after deployment.';
+}else{
+result.textContent='Not quite. You should open the published URL and check that the website works.';
+}
+});
+</script>
+</body>
+</html>

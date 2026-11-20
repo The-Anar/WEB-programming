@@ -1,1 +1,247 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171D2E"><title>Topic 07 — GitHub Actions Intro · Anar</title><style>:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}.brand{font-weight:900;letter-spacing:1px}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{line-height:1.25}.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}.section{margin:28px 0}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow)}.card h3{margin:0 0 10px;font-size:16px}.card p{color:var(--muted);font-size:14px}.panel{margin:18px 0}.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}label{display:block;font-weight:bold;margin:12px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}input:focus,button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.muted{color:var(--muted)}.status{padding:10px;border-radius:9px;background:var(--bg);margin-top:12px;min-height:24px}code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}pre{padding:14px;overflow:auto}.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}.skip:focus{left:8px}@media(max-width:800px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}</style></head><body><main><nav class="top"><div class="brand">ANAR · WEB PROGRAMMING</div><div class="actions"><a class="btn" href="index.html">← Section home</a><a class="btn" href="../index.html">Main portfolio</a><button id="theme" type="button">☀️ Light mode</button></div></nav><header class="hero"><p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p><h1>Topic 07 — GitHub Actions Intro</h1><p>Publish static websites, understand URL paths and troubleshoot deployment issues.</p><p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p></header><div id="main-content"><section class="panel"><h2>Concept</h2><p>GitHub Actions automates workflows such as building and deploying a site.</p><h2>Why it matters</h2><p>GitHub Actions automates workflows such as building and deploying a site. Apply the idea consistently and test the result in a browser.</p><h2>Try it</h2><h2>Remember</h2><ul><li>Prefer native HTML before adding custom JavaScript or ARIA.</li><li>Test with keyboard navigation and browser developer tools.</li><li>Keep labels, instructions and feedback clear.</li></ul></section></div><footer class="footer">BATSUREN ANAR · STUDENT ID: 202637018<br>GACHON UNIVERSITY · WEB PROGRAMMING</footer></main><script>const t=document.getElementById('theme');function sync(){t.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode'}t.addEventListener('click',()=>{document.body.classList.toggle('light');sync()});sync();</script></body></html>
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#171D2E">
+<title>Topic 07 — GitHub Actions Introduction · Anar</title>
+<style>
+:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}
+body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Arial,sans-serif;transition:.2s}
+main{max-width:1180px;width:calc(100% - 36px);margin:auto;padding-bottom:45px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:24px 2px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.brand{font-weight:900;letter-spacing:1px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn,button{display:inline-block;padding:9px 15px;border:2px solid var(--border);border-radius:14px;background:var(--card);color:var(--text);font:700 14px Arial;text-decoration:none;cursor:pointer}
+.hero{margin:28px 0;padding:28px 32px;border:1px solid var(--border);border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:7px 7px 0 var(--shadow)}
+.eyebrow{font-size:12px;letter-spacing:2px;font-weight:900;color:var(--muted)}
+h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}
+h2{line-height:1.25}
+.student{font-size:13px;font-weight:800;letter-spacing:1px;color:var(--muted)}
+.panel{padding:18px;border:2px solid var(--border);border-radius:19px;background:var(--card);box-shadow:4px 5px 0 var(--shadow);margin:18px 0}
+.demo{padding:18px;border:1px dashed var(--border);border-radius:14px;margin-top:14px}
+.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.item{padding:16px;border:1px solid var(--border);border-radius:14px;background:var(--bg)}
+.item h3{margin-top:0}
+code,pre{background:var(--bg);border-radius:7px;padding:3px 6px}
+pre{padding:14px;overflow:auto}
+.status{padding:12px;border-radius:9px;background:var(--bg);margin-top:14px;min-height:50px}
+label{display:block;margin:12px 0}
+input[type=radio]{margin-right:8px}
+.footer{text-align:center;color:var(--muted);border-top:1px solid var(--line);margin-top:38px;padding:20px;font-size:13px}
+.skip{position:absolute;left:-9999px;top:8px;background:var(--card);padding:10px}
+.skip:focus{left:8px}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.hero{padding:22px}.top{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main-content">Skip to main content</a>
+<main>
+<nav class="top">
+<div class="brand">ANAR · WEB PROGRAMMING</div>
+<div class="actions">
+<a class="btn" href="index.html">← Week 10.2 overview</a>
+<a class="btn" href="../index.html">Main portfolio</a>
+<button id="theme" type="button">☀️ Light mode</button>
+</div>
+</nav>
+
+<header class="hero">
+<p class="eyebrow">WEEK 10.2 · TOPIC 07</p>
+<h1>Introduction to GitHub Actions</h1>
+<p>Learn how GitHub can automatically run tasks when changes are made to a repository.</p>
+<p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
+</header>
+
+<div id="main-content">
+<section class="panel">
+<p class="eyebrow">01 · INTRODUCTION</p>
+<h2>What Are GitHub Actions?</h2>
+<p>
+GitHub Actions is an automation platform built into GitHub.
+It allows developers to automatically run tasks when certain
+events happen in a repository.
+</p>
+<p>
+For example, a workflow can run when code is pushed to GitHub,
+when a pull request is opened, or when a scheduled event occurs.
+</p>
+<div class="demo">
+<h3>Simple example</h3>
+<p>When you push new website files to the main branch, a workflow can automatically build and deploy the website.</p>
+</div>
+</section>
+
+<section class="panel">
+<p class="eyebrow">02 · HOW IT WORKS</p>
+<h2>The Automation Process</h2>
+<div class="grid">
+<article class="item">
+<h3>1. Event</h3>
+<p>A repository event happens, such as pushing a commit.</p>
+</article>
+<article class="item">
+<h3>2. Workflow</h3>
+<p>GitHub reads the workflow instructions from a YAML file.</p>
+</article>
+<article class="item">
+<h3>3. Job and Steps</h3>
+<p>The workflow runs jobs containing individual steps.</p>
+</article>
+<article class="item">
+<h3>4. Result</h3>
+<p>The task completes, and GitHub shows whether it succeeded or failed.</p>
+</article>
+</div>
+</section>
+
+<section class="panel">
+<p class="eyebrow">03 · WORKFLOW FILES</p>
+<h2>Where Are Workflows Stored?</h2>
+<p>
+GitHub Actions workflow files are written in YAML and stored
+inside the <code>.github/workflows/</code> directory.
+</p>
+<div class="demo">
+<h3>Example repository structure</h3>
+<pre><code>portfolio/
+├── index.html
+├── style.css
+└── .github/
+    └── workflows/
+        └── deploy.yml</code></pre>
+<p class="muted">The workflow file tells GitHub which events should trigger automation and what tasks to perform.</p>
+</div>
+</section>
+
+<section class="panel">
+<p class="eyebrow">04 · YAML EXAMPLE</p>
+<h2>A Simple Workflow</h2>
+<p>
+The following example shows a workflow that runs whenever
+code is pushed to the main branch.
+</p>
+<div class="demo">
+<pre><code>name: Example Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  example:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print a message
+        run: echo "Hello from GitHub Actions!"</code></pre>
+<p class="muted">This is an educational example. It runs a simple command rather than deploying a website.</p>
+</div>
+</section>
+
+<section class="panel">
+<p class="eyebrow">05 · CI AND CD</p>
+<h2>What Do CI and CD Mean?</h2>
+<div class="grid">
+<article class="item">
+<h3>Continuous Integration (CI)</h3>
+<p>Automatically checks or tests code changes when developers push updates or open pull requests.</p>
+</article>
+<article class="item">
+<h3>Continuous Deployment (CD)</h3>
+<p>Automatically publishes approved changes to a live environment.</p>
+</article>
+</div>
+<div class="demo">
+<p><strong>Example workflow:</strong></p>
+<ol>
+<li>A developer updates a website.</li>
+<li>The developer pushes changes to GitHub.</li>
+<li>Automated checks run.</li>
+<li>If deployment is configured, the website is published.</li>
+</ol>
+</div>
+</section>
+
+<section class="panel">
+<p class="eyebrow">06 · WHY USE IT?</p>
+<h2>Benefits of Automation</h2>
+<ul>
+<li>Reduces repetitive manual work.</li>
+<li>Helps detect problems early.</li>
+<li>Makes testing more consistent.</li>
+<li>Can automate website deployment.</li>
+<li>Shows workflow results inside GitHub.</li>
+</ul>
+</section>
+
+<section class="panel">
+<p class="eyebrow">07 · QUICK QUIZ</p>
+<h2>Check Your Understanding</h2>
+<p><strong>Where should a GitHub Actions workflow file be stored?</strong></p>
+<div class="demo">
+<label><input type="radio" name="quiz" value="a"> A. In the images folder</label>
+<label><input type="radio" name="quiz" value="b"> B. In the .github/workflows/ directory</label>
+<label><input type="radio" name="quiz" value="c"> C. In the browser cache</label>
+<label><input type="radio" name="quiz" value="d"> D. In the website URL</label>
+<button type="button" id="check">Check Answer</button>
+<div class="status" id="quiz-result" aria-live="polite">Select an answer first.</div>
+</div>
+</section>
+
+<section class="panel">
+<p class="eyebrow">08 · SUMMARY</p>
+<h2>What I Learned</h2>
+<p>
+GitHub Actions automates tasks using workflows. Workflows are
+written in YAML and stored in the <code>.github/workflows/</code>
+directory.
+</p>
+<p>
+They can run tests, check code, and automate deployment.
+CI focuses on integrating and checking changes, while CD
+automates delivery or deployment.
+</p>
+<div class="demo">
+<strong>Next topic:</strong> Deployment checklist.
+<p><a class="btn" href="topic_08_deployment_checklist.html">Next topic →</a></p>
+</div>
+</section>
+</div>
+
+<footer class="footer">
+BATSUREN ANAR · STUDENT ID: 202637018<br>
+GACHON UNIVERSITY · WEB PROGRAMMING
+</footer>
+</main>
+
+<script>
+const themeButton=document.getElementById('theme');
+function syncTheme(){
+themeButton.textContent=document.body.classList.contains('light')?'🌙 Dark mode':'☀️ Light mode';
+}
+themeButton.addEventListener('click',()=>{
+document.body.classList.toggle('light');
+syncTheme();
+});
+syncTheme();
+
+document.getElementById('check').addEventListener('click',()=>{
+const selected=document.querySelector('input[name="quiz"]:checked');
+const result=document.getElementById('quiz-result');
+if(!selected){
+result.textContent='Please select an answer first.';
+}else if(selected.value==='b'){
+result.textContent='Correct! GitHub Actions workflows are stored in .github/workflows/.';
+}else{
+result.textContent='Not quite. Look for the .github/workflows/ directory in the repository.';
+}
+});
+</script>
+</body>
+</html>

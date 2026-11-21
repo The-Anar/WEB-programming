@@ -1,0 +1,507 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#171D2E">
+<title>Week 9.2 — Lighthouse Accessibility Report · Anar</title>
+
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#171D2E;
+  --text:#EDF0FF;
+  --muted:#C3C9E8;
+  --card:#222D43;
+  --accent:#B7A2FF;
+  --border:#8791C2;
+  --line:#34415D;
+  --shadow:rgba(0,0,0,.4);
+  --error:#FF858D;
+  --success:#65D6A0;
+}
+body.light{
+  color-scheme:light;
+  --bg:#F0EBFF;
+  --text:#292344;
+  --muted:#655B80;
+  --card:#FFFFFF;
+  --accent:#7957D5;
+  --border:#B0A3D9;
+  --line:#DED5F1;
+  --shadow:rgba(41,35,68,.13);
+  --error:#C52E43;
+  --success:#147A4C;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:16px/1.65 Arial,sans-serif;
+}
+main{
+  max-width:1180px;
+  width:calc(100% - 36px);
+  margin:auto;
+  padding-bottom:45px;
+}
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  padding:24px 2px 18px;
+  border-bottom:1px solid var(--line);
+  flex-wrap:wrap;
+}
+.brand{font-weight:900;letter-spacing:1px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn,button{
+  display:inline-block;
+  padding:9px 15px;
+  border:2px solid var(--border);
+  border-radius:14px;
+  background:var(--card);
+  color:var(--text);
+  font:700 14px Arial,sans-serif;
+  text-decoration:none;
+  cursor:pointer;
+}
+.hero{
+  margin:28px 0;
+  padding:28px 32px;
+  border:1px solid var(--border);
+  border-radius:26px;
+  background:linear-gradient(120deg,#251D40,#49366F);
+  box-shadow:7px 7px 0 var(--shadow);
+}
+.eyebrow{
+  font-size:12px;
+  letter-spacing:2px;
+  font-weight:900;
+  color:var(--muted);
+}
+h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}
+h2{line-height:1.25}
+h3{margin-top:0}
+.student{
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:1px;
+  color:var(--muted);
+}
+.section{margin:32px 0}
+.panel,.card{
+  padding:22px;
+  border:2px solid var(--border);
+  border-radius:19px;
+  background:var(--card);
+  box-shadow:4px 5px 0 var(--shadow);
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+}
+.result-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
+  margin:20px 0;
+}
+.result{
+  padding:20px;
+  border:2px solid var(--border);
+  border-radius:17px;
+  background:var(--card);
+  text-align:center;
+}
+.result strong{
+  display:block;
+  font-size:clamp(38px,6vw,54px);
+  line-height:1.2;
+  color:var(--success);
+}
+.result span{
+  color:var(--muted);
+  font-size:14px;
+  font-weight:700;
+}
+.tag{
+  display:inline-block;
+  padding:5px 11px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  font-size:12px;
+  font-weight:800;
+  color:var(--muted);
+}
+.screenshot{
+  margin:20px 0 28px;
+}
+.screenshot img{
+  display:block;
+  width:100%;
+  height:auto;
+  border:2px solid var(--border);
+  border-radius:14px;
+  box-shadow:4px 5px 0 var(--shadow);
+}
+.screenshot figcaption{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:13px;
+}
+pre{
+  background:var(--bg);
+  padding:16px;
+  border-radius:12px;
+  overflow:auto;
+  font-size:13px;
+  line-height:1.6;
+}
+code{
+  background:var(--bg);
+  padding:2px 5px;
+  border-radius:5px;
+}
+.note{
+  padding:16px 18px;
+  border-left:4px solid var(--accent);
+  border-radius:10px;
+  background:var(--bg);
+}
+.checklist{padding-left:22px}
+.checklist li{margin:8px 0}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible{
+  outline:3px solid var(--accent);
+  outline-offset:4px;
+}
+.skip{
+  position:absolute;
+  left:-9999px;
+  top:8px;
+  background:var(--card);
+  padding:10px;
+}
+.skip:focus{left:8px}
+.footer{
+  text-align:center;
+  color:var(--muted);
+  border-top:1px solid var(--line);
+  margin-top:38px;
+  padding:20px;
+  font-size:13px;
+}
+@media(max-width:700px){
+  .grid,.result-grid{grid-template-columns:1fr}
+  .hero{padding:24px 20px}
+}
+</style>
+</head>
+
+<body>
+<a class="skip" href="#main-content">Skip to main content</a>
+
+<main>
+<nav class="top" aria-label="Page navigation">
+  <div class="brand">ANAR · WEB PROGRAMMING</div>
+  <div class="actions">
+    <a class="btn" href="index.html">← Section home</a>
+    <a class="btn" href="../index.html">Main portfolio</a>
+    <button id="theme" type="button">☀️ Light mode</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <p class="eyebrow">WEEK 9.2 · ACCESSIBILITY REPORT</p>
+  <h1>Lighthouse Accessibility Audit</h1>
+  <p>
+    Testing a sign-up form, identifying accessibility issues,
+    applying corrections, and comparing real Lighthouse results.
+  </p>
+  <p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
+</header>
+
+<div id="main-content">
+
+<section class="section">
+  <p class="eyebrow">01 · OBJECTIVE</p>
+  <h2>About This Audit</h2>
+  <div class="panel">
+    <p>
+      The objective of this exercise was to evaluate the accessibility
+      of my Week 9 #2 sign-up form using Google Lighthouse. I tested
+      the page, reviewed the reported issue, corrected the form label,
+      and ran Lighthouse again to verify the result.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <p class="eyebrow">02 · AUDIT ENVIRONMENT</p>
+  <h2>Testing Information</h2>
+
+  <div class="grid">
+    <article class="card">
+      <h3>Testing Tools</h3>
+      <ul>
+        <li>Google Chrome DevTools</li>
+        <li>Google Lighthouse 13.5.0</li>
+        <li>Chromium 158.0.0.0</li>
+        <li>Desktop configuration</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h3>Test Method</h3>
+      <ul>
+        <li>Accessibility audit</li>
+        <li>Same local test URL</li>
+        <li>Before-and-after comparison</li>
+        <li>Manual accessibility review</li>
+      </ul>
+    </article>
+  </div>
+
+  <div class="panel" style="margin-top:16px">
+    <p><strong>Local test URL</strong></p>
+    <p>
+      <code>http://localhost:8000/Week%209%20%232/Week%209%20%232/lighthouse-week9-2-before.html</code>
+    </p>
+    <p class="muted">
+      The local test copy was used to demonstrate the effect of
+      correcting an intentionally modified form label.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <p class="eyebrow">03 · LIGHTHOUSE RESULTS</p>
+  <h2>Before and After Comparison</h2>
+
+  <div class="result-grid">
+    <div class="result">
+      <strong>94</strong>
+      <span>BEFORE · ACCESSIBILITY</span>
+    </div>
+    <div class="result">
+      <strong>100</strong>
+      <span>AFTER · ACCESSIBILITY</span>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>Before Correction</h3>
+    <p>
+      The first Lighthouse test produced an accessibility score
+      of 94. One failed audit was reported:
+      <strong>Form elements do not have associated labels.</strong>
+    </p>
+    <p>
+      Lighthouse identified the email field
+      (<code>input#email</code>) because its label was not correctly
+      associated with the input.
+    </p>
+
+    <figure class="screenshot">
+      <img
+        src="lighthouse-accessibility-before.png"
+        alt="Actual Lighthouse before result showing accessibility score 94 and one failed audit">
+      <figcaption>
+        Figure 1. Actual Lighthouse before result — 94 accessibility score,
+        23 passed audits, and one failed audit. Captured November 22, 2026.
+      </figcaption>
+    </figure>
+
+    <h3>Identified Issue and Correction</h3>
+    <p>
+      The email label was not associated with the email input.
+      I corrected the HTML by adding a matching <code>for</code>
+      attribute to the label and an <code>id</code> to the input.
+    </p>
+
+    <pre><code>&lt;label for="email"&gt;Email address&lt;/label&gt;
+
+&lt;input
+  type="email"
+  id="email"
+  name="email"&gt;</code></pre>
+
+    <h3>After Correction</h3>
+    <p>
+      I ran Lighthouse again using the same local test URL.
+      The accessibility score increased to 100, and Lighthouse
+      reported zero failed audits.
+    </p>
+
+    <figure class="screenshot">
+      <img
+        src="lighthouse-accessibility-after.png"
+        alt="Actual Lighthouse after result showing accessibility score 100 and zero failed audits">
+      <figcaption>
+        Figure 2. Actual Lighthouse after result — 100 accessibility score,
+        24 passed audits, and zero failed audits. Captured November 22, 2026.
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="section">
+  <p class="eyebrow">04 · ACCESSIBILITY IMPROVEMENTS</p>
+  <h2>Features Reviewed</h2>
+
+  <div class="grid">
+    <article class="card">
+      <h3>1. Form Labels</h3>
+      <p>
+        Each form input has a visible label connected using
+        matching <code>for</code> and <code>id</code> attributes.
+      </p>
+    </article>
+
+    <article class="card">
+      <h3>2. Accessible Buttons</h3>
+      <p>
+        The search icon button includes an accessible name through
+        <code>aria-label="Search"</code>.
+      </p>
+    </article>
+
+    <article class="card">
+      <h3>3. Error Descriptions</h3>
+      <p>
+        The <code>aria-describedby</code> attribute connects
+        form inputs to their corresponding error messages.
+      </p>
+    </article>
+
+    <article class="card">
+      <h3>4. Keyboard Focus</h3>
+      <p>
+        Visible focus indicators help keyboard users identify
+        the currently focused control.
+      </p>
+    </article>
+  </div>
+</section>
+
+<section class="section">
+  <p class="eyebrow">05 · PUBLISHED PAGE</p>
+  <h2>Live Website Verification</h2>
+
+  <div class="panel">
+    <p>
+      I also tested the published Week 9 #2 exercise page separately.
+      Its actual Lighthouse accessibility score was 100, with
+      24 passed audits and zero failed audits.
+    </p>
+
+    <p>
+      <a href="https://the-anar.github.io/WEB-programming/Week%209%20%232/exercise_03_run_lighthouse_fix_issues.html"
+         target="_blank"
+         rel="noopener noreferrer">
+        Open the published Week 9 #2 exercise page →
+      </a>
+    </p>
+
+    <p class="note">
+      <strong>Testing clarification:</strong>
+      The 94-to-100 comparison above comes from a controlled local
+      test copy with an intentionally modified email label. It is
+      not a historical score of the published website. The separate
+      published-page test already returned a score of 100.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <p class="eyebrow">06 · MANUAL REVIEW</p>
+  <h2>Accessibility Checklist</h2>
+
+  <div class="panel">
+    <ul class="checklist">
+      <li>Form inputs have associated labels.</li>
+      <li>Buttons have accessible names.</li>
+      <li>Error messages are connected to their inputs.</li>
+      <li>Keyboard focus indicators are visible.</li>
+      <li>A skip-to-main-content link is available.</li>
+      <li>Form validation provides understandable feedback.</li>
+      <li>Links describe their purpose or destination.</li>
+    </ul>
+
+    <p class="muted">
+      Lighthouse also reported items requiring manual review.
+      Automated testing cannot detect every accessibility issue,
+      so keyboard and screen-reader testing remain important.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <p class="eyebrow">07 · REFLECTION</p>
+  <h2>What I Learned</h2>
+
+  <div class="panel">
+    <p>
+      Through this exercise, I learned how form labels affect
+      accessibility and how Lighthouse can identify problems
+      in a web page. I understood that connecting a label to
+      its input helps users identify and interact with form fields.
+    </p>
+
+    <p>
+      I also learned that a high Lighthouse score alone does not
+      guarantee that a website is fully accessible. Manual testing,
+      keyboard navigation, clear error messages, and accessible
+      button names are also important.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <p class="eyebrow">08 · SUBMISSION</p>
+  <h2>Completed Work</h2>
+
+  <div class="panel">
+    <ul class="checklist">
+      <li>Completed the Week 9 #2 exercise page.</li>
+      <li>Ran actual Lighthouse accessibility audits.</li>
+      <li>Captured real before-and-after test results.</li>
+      <li>Identified and corrected the form-label issue.</li>
+      <li>Verified the published page separately.</li>
+      <li>Documented the testing process and results.</li>
+    </ul>
+    <p class="student">BATSUREN ANAR · 202637018</p>
+  </div>
+</section>
+
+</div>
+
+<footer class="footer">
+  BATSUREN ANAR · STUDENT ID: 202637018<br>
+  GACHON UNIVERSITY · WEB PROGRAMMING
+</footer>
+</main>
+
+<script>
+const themeButton=document.getElementById("theme");
+
+function syncTheme(){
+  themeButton.textContent=document.body.classList.contains("light")
+    ?"🌙 Dark mode":"☀️ Light mode";
+}
+
+themeButton.addEventListener("click",()=>{
+  document.body.classList.toggle("light");
+  syncTheme();
+});
+
+syncTheme();
+</script>
+</body>
+</html>

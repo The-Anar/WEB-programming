@@ -1288,7 +1288,26 @@ main section a:focus-visible {
     box-shadow: 0 6px 20px rgba(139, 92, 246, 0.45);
     color: #ffffff;
 }
+/* Skip to main content accessibility link */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 16px;
+    z-index: 9999;
+    padding: 12px 20px;
+    background: #8065c9;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+}
 
+.skip-link:focus {
+    top: 16px;
+    outline: 3px solid #ffcf70;
+    outline-offset: 3px;
+}
 </style>
 </style>
 <link rel="stylesheet" href="music-player.css">
@@ -1296,6 +1315,7 @@ main section a:focus-visible {
 </head>
 
 <body id="top">
+    <a class="skip-link" href="#coursework">Skip to main content</a>
 
 
 

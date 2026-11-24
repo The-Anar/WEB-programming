@@ -1,0 +1,453 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#171D2E">
+    <title>Task 11-A Submission · Anar</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --line: #34415D;
+            --shadow: rgba(0,0,0,.4);
+            --hero1: #251D40;
+            --hero2: #49366F;
+        }
+
+        body.light {
+            color-scheme: light;
+            --bg: #F0EBFF;
+            --text: #292344;
+            --muted: #655B80;
+            --card: #fff;
+            --accent: #7957D5;
+            --border: #B0A3D9;
+            --line: #DED5F1;
+            --shadow: rgba(41,35,68,.13);
+            --hero1: #E6DCFF;
+            --hero2: #CDBCF5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font: 16px/1.65 Arial, sans-serif;
+            transition: background .2s, color .2s;
+        }
+
+        main {
+            max-width: 1180px;
+            width: calc(100% - 36px);
+            margin: auto;
+        }
+
+        .skip {
+            position: absolute;
+            left: -9999px;
+            top: 10px;
+            padding: 10px;
+            background: var(--card);
+            color: var(--text);
+        }
+
+        .skip:focus {
+            left: 10px;
+        }
+
+        .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding: 17px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .brand {
+            font-weight: 800;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn, button {
+            display: inline-block;
+            padding: 9px 15px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            background: var(--card);
+            color: var(--text);
+            font: 700 14px Arial, sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn:hover, button:hover {
+            border-color: var(--accent);
+        }
+
+        .hero {
+            margin: 28px 0;
+            padding: 28px 32px;
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            background: linear-gradient(120deg,var(--hero1),var(--hero2));
+            box-shadow: 7px 7px 0 var(--shadow);
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-weight: 800;
+        }
+
+        h1 {
+            margin: 8px 0;
+            font-size: clamp(32px,5vw,48px);
+            line-height: 1.15;
+        }
+
+        .student {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--muted);
+        }
+
+        .section {
+            margin: 28px 0;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .panel {
+            margin: 18px 0;
+            padding: 20px;
+            border: 2px solid var(--border);
+            border-radius: 19px;
+            background: var(--card);
+            box-shadow: 4px 5px 0 var(--shadow);
+        }
+
+        .info-row {
+            display: grid;
+            grid-template-columns: 130px 1fr;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--line);
+            overflow-wrap: anywhere;
+        }
+
+        .info-row:last-child {
+            border-bottom: 0;
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        .preview {
+            width: 100%;
+            min-height: 480px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: white;
+        }
+
+        .screenshot {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 4px 5px 0 var(--shadow);
+        }
+
+        .screenshot-caption {
+            margin-top: 12px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .caption, .muted {
+            color: var(--muted);
+        }
+
+        pre {
+            padding: 18px;
+            overflow-x: auto;
+            border-radius: 14px;
+            background: #171D2E;
+            color: #EDF0FF;
+            font: 13px/1.8 Consolas, monospace;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 12px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 22px 0;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        @media(max-width:600px) {
+            .hero {
+                padding: 22px;
+            }
+
+            .info-row {
+                grid-template-columns: 1fr;
+                gap: 2px;
+            }
+
+            .preview {
+                min-height: 550px;
+            }
+
+            .top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<a class="skip" href="#main-content">Skip to content</a>
+
+<main>
+
+    <nav class="top">
+        <div class="brand">ANAR · WEB PROGRAMMING</div>
+
+        <div class="actions">
+            <a class="btn" href="index.html">← Week 11 #1</a>
+            <a class="btn" href="../index.html">Main Portfolio</a>
+            <button id="theme" type="button">☀️ Light mode</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</div>
+        <h1>Task 11-A · Submission</h1>
+
+        <p>
+            React StudentProfileCard component built with five props
+            and reusable components.
+        </p>
+
+        <div class="student">
+            BATSUREN ANAR · STUDENT ID: 202637018
+        </div>
+    </header>
+
+    <div id="main-content">
+
+        <section class="section">
+            <h2>Project Information</h2>
+
+            <div class="panel">
+
+                <div class="info-row">
+                    <strong>GitHub repo</strong>
+                    <a href="https://github.com/The-Anar/week11-react"
+                       target="_blank" rel="noopener">
+                        https://github.com/The-Anar/week11-react
+                    </a>
+                </div>
+
+                <div class="info-row">
+                    <strong>GitHub Pages</strong>
+                    <a href="https://the-anar.github.io/week11-react/"
+                       target="_blank" rel="noopener">
+                        https://the-anar.github.io/week11-react/
+                    </a>
+                </div>
+
+                <div class="info-row">
+                    <strong>Student ID</strong>
+                    <span>202637018</span>
+                </div>
+
+                <div class="info-row">
+                    <strong>Technology</strong>
+                    <span>React, JavaScript, Vite, CSS</span>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Live Application</h2>
+
+            <div class="panel">
+
+                <iframe
+                    class="preview"
+                    src="https://the-anar.github.io/week11-react/"
+                    title="Live Student Directory React application">
+                </iframe>
+
+                <p class="caption">
+                    The live React application displaying three
+                    StudentProfileCard components. Each card uses
+                    a hover effect.
+                </p>
+
+                <a class="btn"
+                   href="https://the-anar.github.io/week11-react/"
+                   target="_blank" rel="noopener">
+                    Open Live Application ↗
+                </a>
+
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Application Screenshot</h2>
+
+            <div class="panel">
+
+                <figure>
+                    <img
+                        class="screenshot"
+                        src="student-directory-all-cards.png"
+                        alt="Student Directory displaying Anar, Ankhorgil, and Nergui profile cards">
+
+                    <figcaption class="screenshot-caption">
+                        Screenshot of the deployed Student Directory
+                        displaying all three student profile cards.
+                    </figcaption>
+                </figure>
+
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Implementation</h2>
+
+            <div class="panel">
+
+                <p>
+                    The StudentProfileCard component receives five props:
+                </p>
+
+                <ul>
+                    <li><strong>name</strong> — student name</li>
+                    <li><strong>studentId</strong> — student identification number</li>
+                    <li><strong>major</strong> — academic major</li>
+                    <li><strong>year</strong> — study year</li>
+                    <li><strong>gpa</strong> — grade point average</li>
+                </ul>
+
+                <p>
+                    The App component stores student information in an
+                    array and uses <code>.map()</code> to render three
+                    reusable StudentProfileCard components. Each card
+                    has a unique key.
+                </p>
+
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Project Commits</h2>
+
+            <div class="panel">
+
+                <pre>5342394  Complete Week 11 React Student Profile Card
+c55a508  Update student directory profiles
+af1dc12  Add student directory documentation</pre>
+
+                <p class="muted">
+                    The project was built with Vite and React and
+                    deployed using GitHub Pages.
+                </p>
+
+                <a href="https://github.com/The-Anar/week11-react/commits/main"
+                   target="_blank" rel="noopener">
+                    View All GitHub Commits ↗
+                </a>
+
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Submission Status</h2>
+
+            <div class="panel">
+
+                <span class="status">Successfully Deployed</span>
+
+                <p>
+                    The GitHub repository and live application are
+                    available online.
+                </p>
+
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="footer">
+        BATSUREN ANAR · STUDENT ID: 202637018<br>
+        GACHON UNIVERSITY · WEB PROGRAMMING
+    </footer>
+
+</main>
+
+<script>
+    const themeButton = document.getElementById('theme');
+
+    function syncTheme() {
+        themeButton.textContent =
+            document.body.classList.contains('light')
+                ? '🌙 Dark mode'
+                : '☀️ Light mode';
+    }
+
+    themeButton.addEventListener('click', () => {
+        document.body.classList.toggle('light');
+        syncTheme();
+    });
+
+    syncTheme();
+</script>
+
+</body>
+</html>

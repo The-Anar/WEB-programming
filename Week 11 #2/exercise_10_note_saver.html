@@ -1,0 +1,451 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#171D2E">
+<title>Exercise 10 · Note Saver with useEffect · Anar</title>
+
+<style>
+:root {
+    color-scheme: dark;
+    --bg:#171D2E;
+    --text:#EDF0FF;
+    --muted:#C3C9E8;
+    --card:#222D43;
+    --accent:#B7A2FF;
+    --border:#8791C2;
+    --line:#34415D;
+    --shadow:rgba(0,0,0,.4);
+    --hero1:#251D40;
+    --hero2:#49366F;
+    --code:#111827;
+}
+body.light {
+    color-scheme:light;
+    --bg:#F0EBFF;
+    --text:#292344;
+    --muted:#655B80;
+    --card:#fff;
+    --accent:#7957D5;
+    --border:#B0A3D9;
+    --line:#DED5F1;
+    --shadow:rgba(41,35,68,.13);
+    --hero1:#E6DCFF;
+    --hero2:#CDBCF5;
+    --code:#F0EDFA;
+}
+* {box-sizing:border-box}
+body {
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font:16px/1.65 Arial,sans-serif;
+    transition:.2s;
+}
+main {
+    max-width:1180px;
+    width:calc(100% - 36px);
+    margin:auto;
+    padding-bottom:45px;
+}
+.top {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    padding:24px 2px 18px;
+    border-bottom:1px solid var(--line);
+    flex-wrap:wrap;
+}
+.brand {font-weight:900;letter-spacing:1px}
+.actions {display:flex;gap:10px;flex-wrap:wrap}
+.btn,button {
+    display:inline-block;
+    padding:9px 15px;
+    border:2px solid var(--border);
+    border-radius:14px;
+    background:var(--card);
+    color:var(--text);
+    font:700 14px Arial;
+    text-decoration:none;
+    cursor:pointer;
+}
+.hero {
+    margin:28px 0;
+    padding:28px 32px;
+    border:1px solid var(--border);
+    border-radius:26px;
+    background:linear-gradient(120deg,var(--hero1),var(--hero2));
+    box-shadow:7px 7px 0 var(--shadow);
+}
+.eyebrow {
+    font-size:12px;
+    letter-spacing:2px;
+    font-weight:900;
+    color:var(--muted);
+}
+h1 {font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}
+h2 {line-height:1.25}
+.student {
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:1px;
+    color:var(--muted);
+}
+.section {margin:32px 0}
+.panel {
+    padding:22px;
+    border:2px solid var(--border);
+    border-radius:19px;
+    background:var(--card);
+    box-shadow:4px 5px 0 var(--shadow);
+    margin-bottom:20px;
+}
+.panel h2 {margin-top:0}
+.panel p {color:var(--muted)}
+.requirements {
+    padding-left:22px;
+    color:var(--muted);
+}
+.requirements li {margin:8px 0}
+code {
+    color:var(--accent);
+    font-family:Consolas,monospace;
+}
+pre {
+    overflow-x:auto;
+    padding:20px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    background:var(--code);
+    color:var(--text);
+    font:13px/1.7 Consolas,monospace;
+    white-space:pre;
+}
+pre code {color:inherit}
+.note-demo {
+    max-width:720px;
+    margin:0 auto;
+    padding:25px;
+    border:2px solid var(--border);
+    border-radius:18px;
+    background:var(--card);
+    box-shadow:4px 5px 0 var(--shadow);
+}
+.note-demo label {
+    display:block;
+    margin-bottom:8px;
+    font-weight:700;
+}
+.note-demo textarea {
+    display:block;
+    width:100%;
+    min-height:140px;
+    padding:14px;
+    resize:vertical;
+    border:1px solid var(--border);
+    border-radius:10px;
+    background:var(--code);
+    color:var(--text);
+    font:16px/1.6 Arial,sans-serif;
+}
+.note-demo textarea:focus {
+    outline:3px solid var(--accent);
+    outline-offset:2px;
+}
+.clear-button {
+    margin-top:14px;
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#211A37;
+    padding:11px 18px;
+}
+.save-status {
+    min-height:27px;
+    margin:16px 0 0;
+    color:var(--muted);
+    font-size:14px;
+}
+.note {
+    padding:15px 18px;
+    border-left:4px solid var(--accent);
+    border-radius:8px;
+    background:var(--code);
+    color:var(--muted);
+}
+.footer {
+    text-align:center;
+    color:var(--muted);
+    border-top:1px solid var(--line);
+    margin-top:38px;
+    padding:20px;
+    font-size:13px;
+}
+button:focus-visible,a:focus-visible {
+    outline:3px solid var(--accent);
+    outline-offset:3px;
+}
+@media(max-width:520px) {
+    .hero {padding:22px}
+    .top {align-items:flex-start;flex-direction:column}
+    .note-demo {padding:18px}
+}
+</style>
+</head>
+
+<body>
+<main>
+
+<nav class="top">
+    <div class="brand">ANAR · WEB PROGRAMMING</div>
+    <div class="actions">
+        <a class="btn" href="index.html">← Week overview</a>
+        <a class="btn" href="../index.html">Main portfolio</a>
+        <button id="theme" type="button">☀️ Light mode</button>
+    </div>
+</nav>
+
+<header class="hero">
+    <p class="eyebrow">WEEK 11.2 · REACT STATE &amp; EVENTS</p>
+    <h1>E10 · Note Saver with useEffect</h1>
+    <p>Save a note automatically using React useEffect and browser localStorage.</p>
+    <p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
+</header>
+
+<section class="section">
+    <p class="eyebrow">EXERCISE OVERVIEW</p>
+    <h2>Challenge Description</h2>
+
+    <div class="panel">
+        <p>
+            Create a note-taking component that automatically saves
+            its text to localStorage whenever the note changes.
+            The saved note should remain available after reloading
+            the page.
+        </p>
+
+        <h3>Requirements</h3>
+        <ul class="requirements">
+            <li>Initialize the note state from localStorage.</li>
+            <li>Use a lazy initializer function with useState.</li>
+            <li>Use useEffect to save the note whenever it changes.</li>
+            <li>Use the storage key <code>week11-note</code>.</li>
+            <li>Provide a textarea for editing the note.</li>
+            <li>Provide a Clear note button.</li>
+            <li>Display a message depending on whether a note exists.</li>
+            <li>Handle cases where localStorage is unavailable.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="section">
+    <p class="eyebrow">IMPLEMENTATION</p>
+    <h2>React Code</h2>
+
+    <div class="panel">
+        <p>
+            The lazy initializer reads the saved note when the
+            component first renders. The effect then saves the
+            updated note whenever the <code>note</code> state changes.
+        </p>
+
+<pre><code>function NoteSaver() {
+  const [note, setNote] = useState(() => {
+    try {
+      return localStorage.getItem('week11-note') || '';
+    } catch {
+      return '';
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('week11-note', note);
+    } catch {
+      // Storage blocked: nothing saved.
+    }
+  }, [note]);
+
+  return (
+    &lt;section&gt;
+      &lt;label htmlFor="note"&gt;Note&lt;/label&gt;
+      &lt;br /&gt;
+
+      &lt;textarea
+        id="note"
+        rows="4"
+        cols="40"
+        value={note}
+        onChange={(e) =&gt; setNote(e.target.value)}
+      /&gt;
+
+      &lt;br /&gt;
+
+      &lt;button
+        type="button"
+        onClick={() =&gt; setNote('')}
+      &gt;
+        Clear note
+      &lt;/button&gt;
+
+      &lt;p aria-live="polite"&gt;
+        {note
+          ? 'Saved. Reload the page and it will still be here.'
+          : 'No note yet.'}
+      &lt;/p&gt;
+    &lt;/section&gt;
+  );
+}
+
+ReactDOM.createRoot(
+  document.getElementById('root')
+).render(&lt;NoteSaver /&gt;);</code></pre>
+    </div>
+</section>
+
+<section class="section">
+    <p class="eyebrow">LIVE RESULT</p>
+    <h2>Try Your Note Saver</h2>
+
+    <div class="panel">
+        <div id="root">
+            <p>Loading React example...</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <p class="eyebrow">KEY CONCEPTS</p>
+    <h2>What This Exercise Demonstrates</h2>
+
+    <div class="panel">
+        <h3>1. Lazy State Initialization</h3>
+        <p>
+            <code>useState(() =&gt; ...)</code> uses a function
+            to initialize the state. React calls this initializer
+            when the component is first rendered.
+        </p>
+
+        <h3>2. useEffect</h3>
+        <p>
+            <code>useEffect()</code> runs after rendering.
+            With <code>[note]</code> as its dependency array,
+            the effect runs when the note value changes.
+        </p>
+
+        <h3>3. localStorage</h3>
+        <p>
+            <code>localStorage.setItem()</code> stores the note
+            in the browser. <code>localStorage.getItem()</code>
+            retrieves it later, including after a page reload.
+        </p>
+
+        <h3>4. Controlled Textarea</h3>
+        <p>
+            The textarea uses <code>value={note}</code> and
+            <code>onChange</code> to keep its displayed text
+            synchronized with React state.
+        </p>
+
+        <h3>5. Error Handling</h3>
+        <p>
+            The try/catch blocks prevent storage errors from
+            breaking the component if browser storage is blocked.
+        </p>
+    </div>
+
+    <div class="note">
+        <strong>Key takeaway:</strong>
+        The function passed to <code>useState</code> runs only
+        during initialization, so localStorage is not read on
+        every keystroke. The <code>useEffect</code> saves the
+        note whenever its state changes.
+    </div>
+</section>
+
+<footer class="footer">
+    BATSUREN ANAR · STUDENT ID: 202637018<br>
+    GACHON UNIVERSITY · WEB PROGRAMMING
+</footer>
+
+</main>
+
+<script>
+const themeButton = document.getElementById('theme');
+
+function syncThemeButton() {
+    themeButton.textContent =
+        document.body.classList.contains('light')
+        ? '🌙 Dark mode'
+        : '☀️ Light mode';
+}
+
+themeButton.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    syncThemeButton();
+});
+
+syncThemeButton();
+</script>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+function NoteSaver() {
+    const [note, setNote] = useState(() => {
+        try {
+            return localStorage.getItem('week11-note') || '';
+        } catch {
+            return '';
+        }
+    });
+
+    useEffect(() => {
+        try {
+            localStorage.setItem('week11-note', note);
+        } catch {
+            // Storage blocked: nothing saved.
+        }
+    }, [note]);
+
+    return (
+        <section className="note-demo">
+            <label htmlFor="note">Note</label>
+
+            <textarea
+                id="note"
+                rows="4"
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+            />
+
+            <button
+                className="clear-button"
+                type="button"
+                onClick={() => setNote('')}
+            >
+                Clear note
+            </button>
+
+            <p className="save-status" aria-live="polite">
+                {note
+                    ? 'Saved. Reload the page and it will still be here.'
+                    : 'No note yet.'}
+            </p>
+        </section>
+    );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <NoteSaver />
+);
+</script>
+
+</body>
+</html>

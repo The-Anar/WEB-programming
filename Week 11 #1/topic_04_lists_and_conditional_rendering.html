@@ -1,0 +1,567 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#171D2E">
+    <title>Topic 04 — Lists & Conditional Rendering · Anar</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg:#171D2E;
+            --text:#EDF0FF;
+            --muted:#C3C9E8;
+            --card:#222D43;
+            --accent:#B7A2FF;
+            --border:#8791C2;
+            --line:#34415D;
+            --shadow:rgba(0,0,0,.4);
+            --hero1:#251D40;
+            --hero2:#49366F;
+        }
+
+        body.light {
+            color-scheme:light;
+            --bg:#F0EBFF;
+            --text:#292344;
+            --muted:#655B80;
+            --card:#fff;
+            --accent:#7957D5;
+            --border:#B0A3D9;
+            --line:#DED5F1;
+            --shadow:rgba(41,35,68,.13);
+            --hero1:#E6DCFF;
+            --hero2:#CDBCF5;
+        }
+
+        * { box-sizing:border-box; }
+
+        body {
+            margin:0;
+            background:var(--bg);
+            color:var(--text);
+            font:16px/1.65 Arial,sans-serif;
+        }
+
+        main {
+            max-width:1180px;
+            width:calc(100% - 36px);
+            margin:auto;
+        }
+
+        a { color:var(--accent); }
+
+        .skip {
+            position:absolute;
+            top:-100px;
+            left:15px;
+            padding:10px 15px;
+            background:var(--card);
+            color:var(--text);
+            border:2px solid var(--border);
+            border-radius:10px;
+            z-index:10;
+        }
+
+        .skip:focus { top:10px; }
+
+        .top {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+            gap:14px;
+            padding:18px 0;
+            border-bottom:1px solid var(--line);
+        }
+
+        .brand { font-weight:800; letter-spacing:1px; }
+        .actions { display:flex; flex-wrap:wrap; gap:10px; }
+
+        .btn, button {
+            display:inline-block;
+            padding:9px 15px;
+            border:2px solid var(--border);
+            border-radius:14px;
+            background:var(--card);
+            color:var(--text);
+            font:700 14px Arial,sans-serif;
+            text-decoration:none;
+            cursor:pointer;
+        }
+
+        .btn:hover, button:hover { border-color:var(--accent); }
+
+        .hero {
+            margin:28px 0;
+            padding:28px 32px;
+            border:1px solid var(--border);
+            border-radius:26px;
+            background:linear-gradient(120deg,var(--hero1),var(--hero2));
+            box-shadow:7px 7px 0 var(--shadow);
+        }
+
+        .eyebrow {
+            font-size:12px;
+            font-weight:800;
+            letter-spacing:2px;
+        }
+
+        h1 {
+            margin:12px 0;
+            font-size:clamp(32px,5vw,48px);
+            line-height:1.15;
+        }
+
+        h2 { margin-top:0; font-size:24px; }
+        h3 { margin-top:0; }
+
+        .student {
+            font-size:13px;
+            font-weight:700;
+            letter-spacing:1px;
+            color:var(--muted);
+        }
+
+        .section { margin:28px 0; }
+
+        .grid {
+            display:grid;
+            grid-template-columns:repeat(3,minmax(0,1fr));
+            gap:14px;
+        }
+
+        .card, .panel {
+            padding:18px;
+            border:2px solid var(--border);
+            border-radius:19px;
+            background:var(--card);
+            box-shadow:4px 5px 0 var(--shadow);
+        }
+
+        .panel { margin:18px 0; }
+        .muted { color:var(--muted); }
+
+        .status {
+            display:inline-block;
+            padding:4px 10px;
+            border:1px solid var(--border);
+            border-radius:20px;
+            color:var(--accent);
+            font-size:13px;
+            font-weight:bold;
+        }
+
+        code, pre { font-family:Consolas,monospace; }
+
+        pre {
+            overflow-x:auto;
+            padding:16px;
+            border:1px solid var(--line);
+            border-radius:12px;
+            background:rgba(0,0,0,.18);
+            color:var(--text);
+            line-height:1.6;
+        }
+
+        body.light pre { background:#F4F0FF; }
+
+        button:focus-visible, a:focus-visible {
+            outline:3px solid var(--accent);
+            outline-offset:3px;
+        }
+
+        .demo-list {
+            display:grid;
+            gap:10px;
+            margin-top:14px;
+        }
+
+        .demo-item {
+            padding:12px 14px;
+            border:1px solid var(--border);
+            border-radius:10px;
+            background:var(--bg);
+        }
+
+        .success { border-left:5px solid #58C78B; }
+        .warning { border-left:5px solid #E9B65C; }
+        .info { border-left:5px solid #75A9E8; }
+
+        .button-row {
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+            margin-top:12px;
+        }
+
+        .footer {
+            margin-top:40px;
+            padding:22px 0;
+            border-top:1px solid var(--line);
+            color:var(--muted);
+            text-align:center;
+            font-size:13px;
+            letter-spacing:1px;
+        }
+
+        @media(max-width:800px) {
+            .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+        }
+
+        @media(max-width:520px) {
+            .grid { grid-template-columns:1fr; }
+            .hero { padding:22px; }
+            .top { align-items:flex-start; flex-direction:column; }
+        }
+    </style>
+</head>
+
+<body>
+<a class="skip" href="#main-content">Skip to main content</a>
+
+<main>
+    <nav class="top" aria-label="Main navigation">
+        <div class="brand">ANAR · WEB PROGRAMMING</div>
+        <div class="actions">
+            <a class="btn" href="../index.html">Main Portfolio</a>
+            <button id="theme" type="button">☀️ Light mode</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="eyebrow">GACHON UNIVERSITY · WEEK 11 #1</div>
+        <h1>Lists & Conditional Rendering</h1>
+        <p>Learn how to display collections of data and show different content based on conditions in React.</p>
+        <div class="student">BATSUREN ANAR · STUDENT ID: 202637018</div>
+    </header>
+
+    <div id="main-content">
+
+        <section class="section">
+            <h2>1. Rendering Lists with map()</h2>
+
+            <div class="panel">
+                <p>
+                    React can display multiple items by using JavaScript's
+                    <strong>map()</strong> method. The method goes through an array
+                    and creates an element for each item.
+                </p>
+
+                <pre><code>const students = ["Anar", "Alex", "Sara"];
+
+function StudentList() {
+    return (
+        &lt;ul&gt;
+            {students.map((student) =&gt; (
+                &lt;li key={student}&gt;{student}&lt;/li&gt;
+            ))}
+        &lt;/ul&gt;
+    );
+}</code></pre>
+
+                <p class="muted">
+                    Each student in the array becomes a list item.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>2. Why is key Important?</h2>
+
+            <div class="panel">
+                <p>
+                    When rendering a list, React needs a unique
+                    <strong>key</strong> for each item. Keys help React identify
+                    which items have changed, been added, or been removed.
+                </p>
+
+                <pre><code>const courses = [
+    { id: 1, name: "Web Programming" },
+    { id: 2, name: "Discrete Mathematics" },
+    { id: 3, name: "Computer Science" }
+];
+
+function CourseList() {
+    return (
+        &lt;ul&gt;
+            {courses.map((course) =&gt; (
+                &lt;li key={course.id}&gt;
+                    {course.name}
+                &lt;/li&gt;
+            ))}
+        &lt;/ul&gt;
+    );
+}</code></pre>
+
+                <p>
+                    Use a stable and unique value, such as an item's ID.
+                    Avoid using an array index as a key when items can be reordered
+                    or removed.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>3. Conditional Rendering</h2>
+
+            <div class="panel">
+                <p>
+                    <strong>Conditional rendering</strong> means displaying different
+                    content depending on a condition. React uses normal JavaScript
+                    expressions to decide what appears on the screen.
+                </p>
+            </div>
+
+            <div class="grid">
+                <article class="card">
+                    <h3>Ternary Operator</h3>
+                    <p class="muted">Use a ternary when you want to choose between two results.</p>
+                    <pre><code>function LoginMessage({ isLoggedIn }) {
+    return (
+        &lt;p&gt;
+            {isLoggedIn
+                ? "Welcome back!"
+                : "Please log in."}
+        &lt;/p&gt;
+    );
+}</code></pre>
+                </article>
+
+                <article class="card">
+                    <h3>Logical AND (&&)</h3>
+                    <p class="muted">Use && when content should appear only if a condition is true.</p>
+                    <pre><code>function Notifications({ count }) {
+    return (
+        &lt;div&gt;
+            {count &gt; 0 &amp;&amp; (
+                &lt;p&gt;You have new messages.&lt;/p&gt;
+            )}
+        &lt;/div&gt;
+    );
+}</code></pre>
+                </article>
+
+                <article class="card">
+                    <h3>Early Return</h3>
+                    <p class="muted">Return early when a component should not display its normal content.</p>
+                    <pre><code>function Profile({ user }) {
+    if (!user) {
+        return &lt;p&gt;No user found.&lt;/p&gt;;
+    }
+
+    return &lt;h2&gt;{user.name}&lt;/h2&gt;;
+}</code></pre>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>4. Ternary Operator Example</h2>
+
+            <div class="panel">
+                <p>
+                    A ternary expression checks a condition and chooses one of two
+                    possible outputs.
+                </p>
+
+                <pre><code>const isLoggedIn = true;
+
+return (
+    &lt;div&gt;
+        {isLoggedIn
+            ? &lt;h2&gt;Welcome back!&lt;/h2&gt;
+            : &lt;h2&gt;Please log in.&lt;/h2&gt;}
+    &lt;/div&gt;
+);</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>5. Interactive List Demonstration</h2>
+
+            <div class="panel">
+                <span class="status">Live UI demonstration</span>
+                <p class="muted">
+                    This example uses JavaScript to display an array of course names.
+                    It demonstrates the list-rendering concept, not a React runtime.
+                </p>
+
+                <div id="course-list" class="demo-list" aria-live="polite"></div>
+                <button id="add-course" type="button">Add Course</button>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>6. Interactive Conditional Rendering</h2>
+
+            <div class="panel">
+                <span class="status">Live UI demonstration</span>
+                <p class="muted">
+                    Click the button to change the login condition and see different
+                    content appear. This is a JavaScript demonstration of conditional
+                    rendering concepts.
+                </p>
+
+                <div class="example-output" aria-live="polite">
+                    <h3 id="login-message">Please log in.</h3>
+                    <p id="login-description">You are currently logged out.</p>
+                </div>
+
+                <button id="login-toggle" type="button">Log In</button>
+            </div>
+
+            <div class="panel">
+                <h3>Notification Example</h3>
+                <p class="muted">
+                    The notification message appears only when the number of messages
+                    is greater than zero.
+                </p>
+
+                <div class="example-output" aria-live="polite">
+                    <p id="notification-message">No new notifications.</p>
+                </div>
+
+                <div class="button-row">
+                    <button id="add-notification" type="button">Add Notification</button>
+                    <button id="clear-notifications" type="button">Clear</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>7. Key Takeaways</h2>
+
+            <div class="panel">
+                <ul>
+                    <li>Use <code>map()</code> to render arrays into lists of elements.</li>
+                    <li>Give each rendered list item a unique and stable <code>key</code>.</li>
+                    <li>Use the ternary operator to choose between two outputs.</li>
+                    <li>Use <code>&amp;&amp;</code> to display content only when a condition is true.</li>
+                    <li>Use an early return when a component needs to display a different result.</li>
+                    <li>Conditional rendering uses ordinary JavaScript conditions.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Next Topic</h2>
+
+            <div class="panel">
+                <h3>Topic 05 — Component Composition</h3>
+                <p class="muted">
+                    Learn how to combine smaller components to build a larger interface.
+                </p>
+                <a class="btn" href="topic_05_component_composition.html">Next Topic →</a>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="footer">
+        BATSUREN ANAR · STUDENT ID: 202637018<br>
+        GACHON UNIVERSITY · WEB PROGRAMMING
+    </footer>
+</main>
+
+<script>
+    // Theme toggle
+    const themeButton = document.getElementById('theme');
+
+    function syncThemeButton() {
+        themeButton.textContent =
+            document.body.classList.contains('light')
+                ? '🌙 Dark mode'
+                : '☀️ Light mode';
+    }
+
+    themeButton.addEventListener('click', () => {
+        document.body.classList.toggle('light');
+        syncThemeButton();
+    });
+
+    syncThemeButton();
+
+    // List demonstration
+    const courses = [
+        "Web Programming",
+        "Discrete Mathematics",
+        "Computer Science"
+    ];
+
+    const courseList = document.getElementById('course-list');
+    const addCourseButton = document.getElementById('add-course');
+
+    function renderCourses() {
+        courseList.replaceChildren();
+
+        courses.forEach((course, index) => {
+            const item = document.createElement('div');
+            item.className = 'demo-item';
+            item.textContent = `${index + 1}. ${course}`;
+            courseList.appendChild(item);
+        });
+    }
+
+    addCourseButton.addEventListener('click', () => {
+        courses.push(`New Course ${courses.length - 2}`);
+        renderCourses();
+    });
+
+    renderCourses();
+
+    // Ternary-style conditional demonstration
+    let isLoggedIn = false;
+
+    const loginMessage = document.getElementById('login-message');
+    const loginDescription = document.getElementById('login-description');
+    const loginToggle = document.getElementById('login-toggle');
+
+    function renderLogin() {
+        loginMessage.textContent = isLoggedIn
+            ? 'Welcome back!'
+            : 'Please log in.';
+
+        loginDescription.textContent = isLoggedIn
+            ? 'You are currently logged in.'
+            : 'You are currently logged out.';
+
+        loginToggle.textContent = isLoggedIn ? 'Log Out' : 'Log In';
+    }
+
+    loginToggle.addEventListener('click', () => {
+        isLoggedIn = !isLoggedIn;
+        renderLogin();
+    });
+
+    renderLogin();
+
+    // Logical AND-style notification demonstration
+    let notificationCount = 0;
+
+    const notificationMessage = document.getElementById('notification-message');
+
+    function renderNotifications() {
+        notificationMessage.textContent =
+            notificationCount > 0
+                ? `You have ${notificationCount} new notification(s).`
+                : 'No new notifications.';
+    }
+
+    document.getElementById('add-notification').addEventListener('click', () => {
+        notificationCount++;
+        renderNotifications();
+    });
+
+    document.getElementById('clear-notifications').addEventListener('click', () => {
+        notificationCount = 0;
+        renderNotifications();
+    });
+
+    renderNotifications();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,509 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#171D2E">
+    <title>Topic 05 — Component Composition · Anar</title>
+
+    <style>
+        :root {
+            color-scheme:dark;
+            --bg:#171D2E;
+            --text:#EDF0FF;
+            --muted:#C3C9E8;
+            --card:#222D43;
+            --accent:#B7A2FF;
+            --border:#8791C2;
+            --line:#34415D;
+            --shadow:rgba(0,0,0,.4);
+            --hero1:#251D40;
+            --hero2:#49366F;
+        }
+
+        body.light {
+            color-scheme:light;
+            --bg:#F0EBFF;
+            --text:#292344;
+            --muted:#655B80;
+            --card:#fff;
+            --accent:#7957D5;
+            --border:#B0A3D9;
+            --line:#DED5F1;
+            --shadow:rgba(41,35,68,.13);
+            --hero1:#E6DCFF;
+            --hero2:#CDBCF5;
+        }
+
+        * { box-sizing:border-box; }
+
+        body {
+            margin:0;
+            background:var(--bg);
+            color:var(--text);
+            font:16px/1.65 Arial,sans-serif;
+        }
+
+        main {
+            max-width:1180px;
+            width:calc(100% - 36px);
+            margin:auto;
+        }
+
+        a { color:var(--accent); }
+
+        .skip {
+            position:absolute;
+            top:-100px;
+            left:15px;
+            padding:10px 15px;
+            background:var(--card);
+            color:var(--text);
+            border:2px solid var(--border);
+            border-radius:10px;
+            z-index:10;
+        }
+
+        .skip:focus { top:10px; }
+
+        .top {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+            gap:14px;
+            padding:18px 0;
+            border-bottom:1px solid var(--line);
+        }
+
+        .brand { font-weight:800; letter-spacing:1px; }
+        .actions { display:flex; flex-wrap:wrap; gap:10px; }
+
+        .btn, button {
+            display:inline-block;
+            padding:9px 15px;
+            border:2px solid var(--border);
+            border-radius:14px;
+            background:var(--card);
+            color:var(--text);
+            font:700 14px Arial,sans-serif;
+            text-decoration:none;
+            cursor:pointer;
+        }
+
+        .btn:hover, button:hover { border-color:var(--accent); }
+
+        .hero {
+            margin:28px 0;
+            padding:28px 32px;
+            border:1px solid var(--border);
+            border-radius:26px;
+            background:linear-gradient(120deg,var(--hero1),var(--hero2));
+            box-shadow:7px 7px 0 var(--shadow);
+        }
+
+        .eyebrow {
+            font-size:12px;
+            font-weight:800;
+            letter-spacing:2px;
+        }
+
+        h1 {
+            margin:12px 0;
+            font-size:clamp(32px,5vw,48px);
+            line-height:1.15;
+        }
+
+        h2 { margin-top:0; font-size:24px; }
+        h3 { margin-top:0; }
+
+        .student {
+            font-size:13px;
+            font-weight:700;
+            letter-spacing:1px;
+            color:var(--muted);
+        }
+
+        .section { margin:28px 0; }
+
+        .grid {
+            display:grid;
+            grid-template-columns:repeat(3,minmax(0,1fr));
+            gap:14px;
+        }
+
+        .card, .panel {
+            padding:18px;
+            border:2px solid var(--border);
+            border-radius:19px;
+            background:var(--card);
+            box-shadow:4px 5px 0 var(--shadow);
+        }
+
+        .panel { margin:18px 0; }
+        .muted { color:var(--muted); }
+
+        .status {
+            display:inline-block;
+            padding:4px 10px;
+            border:1px solid var(--border);
+            border-radius:20px;
+            color:var(--accent);
+            font-size:13px;
+            font-weight:bold;
+        }
+
+        code, pre { font-family:Consolas,monospace; }
+
+        pre {
+            overflow-x:auto;
+            padding:16px;
+            border:1px solid var(--line);
+            border-radius:12px;
+            background:rgba(0,0,0,.18);
+            color:var(--text);
+            line-height:1.6;
+        }
+
+        body.light pre { background:#F4F0FF; }
+
+        button:focus-visible, a:focus-visible {
+            outline:3px solid var(--accent);
+            outline-offset:3px;
+        }
+
+        .profile {
+            padding:18px;
+            border:1px solid var(--border);
+            border-radius:14px;
+            background:var(--bg);
+        }
+
+        .profile-header {
+            display:flex;
+            align-items:center;
+            gap:14px;
+            margin-bottom:14px;
+        }
+
+        .avatar {
+            width:55px;
+            height:55px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            border-radius:50%;
+            background:var(--hero2);
+            color:white;
+            font-size:22px;
+            font-weight:bold;
+        }
+
+        .tag {
+            display:inline-block;
+            padding:4px 10px;
+            border:1px solid var(--border);
+            border-radius:20px;
+            font-size:12px;
+            color:var(--accent);
+        }
+
+        .footer {
+            margin-top:40px;
+            padding:22px 0;
+            border-top:1px solid var(--line);
+            color:var(--muted);
+            text-align:center;
+            font-size:13px;
+            letter-spacing:1px;
+        }
+
+        @media(max-width:800px) {
+            .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+        }
+
+        @media(max-width:520px) {
+            .grid { grid-template-columns:1fr; }
+            .hero { padding:22px; }
+            .top { align-items:flex-start; flex-direction:column; }
+        }
+    </style>
+</head>
+
+<body>
+<a class="skip" href="#main-content">Skip to main content</a>
+
+<main>
+    <nav class="top" aria-label="Main navigation">
+        <div class="brand">ANAR · WEB PROGRAMMING</div>
+        <div class="actions">
+            <a class="btn" href="../index.html">Main Portfolio</a>
+            <button id="theme" type="button">☀️ Light mode</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="eyebrow">GACHON UNIVERSITY · WEEK 11 #1</div>
+        <h1>Component Composition</h1>
+        <p>Learn how to combine smaller React components to build organized and reusable user interfaces.</p>
+        <div class="student">BATSUREN ANAR · STUDENT ID: 202637018</div>
+    </header>
+
+    <div id="main-content">
+
+        <section class="section">
+            <h2>1. What is Component Composition?</h2>
+
+            <div class="panel">
+                <p>
+                    <strong>Component composition</strong> means building a larger user
+                    interface by combining smaller components.
+                </p>
+                <p>
+                    Instead of creating one large component, developers divide the
+                    interface into smaller parts. Each part has a specific responsibility.
+                </p>
+            </div>
+
+            <div class="grid">
+                <article class="card">
+                    <h3>Avatar</h3>
+                    <p class="muted">Displays a user's image or initials.</p>
+                </article>
+
+                <article class="card">
+                    <h3>Badge</h3>
+                    <p class="muted">Displays a small label, status, or category.</p>
+                </article>
+
+                <article class="card">
+                    <h3>StudentCard</h3>
+                    <p class="muted">Combines the avatar, name, and student information.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>2. Small Components</h2>
+
+            <div class="panel">
+                <p>
+                    A component should focus on one clear task. For example, an Avatar
+                    component can display a user's initials.
+                </p>
+
+                <pre><code>function Avatar({ name }) {
+    return (
+        &lt;div className="avatar"&gt;
+            {name.charAt(0)}
+        &lt;/div&gt;
+    );
+}</code></pre>
+
+                <p>
+                    A Badge component can display a user's role or status.
+                </p>
+
+                <pre><code>function Badge({ label }) {
+    return (
+        &lt;span className="badge"&gt;
+            {label}
+        &lt;/span&gt;
+    );
+}</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>3. Combining Components</h2>
+
+            <div class="panel">
+                <p>
+                    Smaller components can be combined inside a larger component.
+                    The StudentCard below uses Avatar and Badge.
+                </p>
+
+                <pre><code>function Avatar({ name }) {
+    return &lt;div className="avatar"&gt;
+        {name.charAt(0)}
+    &lt;/div&gt;;
+}
+
+function Badge({ label }) {
+    return &lt;span className="badge"&gt;
+        {label}
+    &lt;/span&gt;;
+}
+
+function StudentCard({ name, major, role }) {
+    return (
+        &lt;div className="student-card"&gt;
+            &lt;Avatar name={name} /&gt;
+            &lt;h2&gt;{name}&lt;/h2&gt;
+            &lt;p&gt;{major}&lt;/p&gt;
+            &lt;Badge label={role} /&gt;
+        &lt;/div&gt;
+    );
+}
+
+function App() {
+    return (
+        &lt;StudentCard
+            name="Anar"
+            major="Computer Engineering"
+            role="Student"
+        /&gt;
+    );
+}</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>4. The props.children Property</h2>
+
+            <div class="panel">
+                <p>
+                    React provides a special prop called <strong>children</strong>.
+                    It represents the content placed between a component's opening
+                    and closing tags.
+                </p>
+
+                <pre><code>function Card({ title, children }) {
+    return (
+        &lt;div className="card"&gt;
+            &lt;h2&gt;{title}&lt;/h2&gt;
+            &lt;div&gt;{children}&lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+
+function App() {
+    return (
+        &lt;Card title="About Me"&gt;
+            &lt;p&gt;I am a student at Gachon University.&lt;/p&gt;
+            &lt;p&gt;I study Computer Engineering.&lt;/p&gt;
+        &lt;/Card&gt;
+    );
+}</code></pre>
+
+                <p class="muted">
+                    The Card component controls the outer layout while its children
+                    provide the content inside it.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>5. Why Use Component Composition?</h2>
+
+            <div class="grid">
+                <article class="card">
+                    <h3>Reusability</h3>
+                    <p class="muted">The same small component can be used in many places.</p>
+                </article>
+
+                <article class="card">
+                    <h3>Organization</h3>
+                    <p class="muted">Smaller components make large interfaces easier to understand.</p>
+                </article>
+
+                <article class="card">
+                    <h3>Maintenance</h3>
+                    <p class="muted">A component can be updated without rewriting the entire page.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>6. Composed Student Profile Example</h2>
+
+            <div class="panel">
+                <span class="status">Component composition preview</span>
+                <p class="muted">
+                    This visual example shows how an Avatar, Badge, and StudentCard
+                    can work together. It is a static HTML demonstration of the
+                    component structure, not a React runtime.
+                </p>
+
+                <div class="profile">
+                    <div class="profile-header">
+                        <div class="avatar">A</div>
+                        <div>
+                            <h3 style="margin:0;">Batsuren Anar</h3>
+                            <span class="muted">Computer Engineering</span>
+                        </div>
+                    </div>
+
+                    <span class="tag">Gachon University Student</span>
+
+                    <p>
+                        Learning web development and building projects with HTML,
+                        CSS, JavaScript, and React.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>7. Key Takeaways</h2>
+
+            <div class="panel">
+                <ul>
+                    <li>Component composition combines smaller components into larger interfaces.</li>
+                    <li>Each component should have a clear responsibility.</li>
+                    <li>Components can be reused in different parts of an application.</li>
+                    <li>Props allow components to receive information from their parents.</li>
+                    <li><code>props.children</code> displays content placed between component tags.</li>
+                    <li>Composition makes applications easier to organize and maintain.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Week 11 #1 — Topics Completed</h2>
+
+            <div class="panel">
+                <p>You have reached the end of the five learning topics.</p>
+                <ul>
+                    <li>Topic 01 — What is React & JSX?</li>
+                    <li>Topic 02 — Functional Components</li>
+                    <li>Topic 03 — Props: Passing Data</li>
+                    <li>Topic 04 — Lists & Conditional Rendering</li>
+                    <li>Topic 05 — Component Composition</li>
+                </ul>
+                <p class="muted">
+                    Next, continue with the Week 11 #1 practical exercises.
+                </p>
+                <a class="btn" href="exercise_01_profile_card.html">Go to Exercise 01 →</a>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="footer">
+        BATSUREN ANAR · STUDENT ID: 202637018<br>
+        GACHON UNIVERSITY · WEB PROGRAMMING
+    </footer>
+</main>
+
+<script>
+    const themeButton = document.getElementById('theme');
+
+    function syncThemeButton() {
+        themeButton.textContent =
+            document.body.classList.contains('light')
+                ? '🌙 Dark mode'
+                : '☀️ Light mode';
+    }
+
+    themeButton.addEventListener('click', () => {
+        document.body.classList.toggle('light');
+        syncThemeButton();
+    });
+
+    syncThemeButton();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,461 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#171D2E">
+<title>Exercise 02 · Course Catalog · Anar</title>
+
+<style>
+:root {
+    color-scheme: dark;
+    --bg:#171D2E;
+    --text:#EDF0FF;
+    --muted:#C3C9E8;
+    --card:#222D43;
+    --accent:#B7A2FF;
+    --border:#8791C2;
+    --line:#34415D;
+    --shadow:rgba(0,0,0,.4);
+    --hero1:#251D40;
+    --hero2:#49366F;
+    --code:#111827;
+}
+body.light {
+    color-scheme:light;
+    --bg:#F0EBFF;
+    --text:#292344;
+    --muted:#655B80;
+    --card:#fff;
+    --accent:#7957D5;
+    --border:#B0A3D9;
+    --line:#DED5F1;
+    --shadow:rgba(41,35,68,.13);
+    --hero1:#E6DCFF;
+    --hero2:#CDBCF5;
+    --code:#F0EDFA;
+}
+* {box-sizing:border-box}
+body {
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font:16px/1.65 Arial,sans-serif;
+    transition:.2s;
+}
+main {
+    max-width:1180px;
+    width:calc(100% - 36px);
+    margin:auto;
+    padding-bottom:45px;
+}
+.top {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    padding:24px 2px 18px;
+    border-bottom:1px solid var(--line);
+    flex-wrap:wrap;
+}
+.brand {font-weight:900;letter-spacing:1px}
+.actions {display:flex;gap:10px;flex-wrap:wrap}
+.btn,button {
+    display:inline-block;
+    padding:9px 15px;
+    border:2px solid var(--border);
+    border-radius:14px;
+    background:var(--card);
+    color:var(--text);
+    font:700 14px Arial;
+    text-decoration:none;
+    cursor:pointer;
+}
+.hero {
+    margin:28px 0;
+    padding:28px 32px;
+    border:1px solid var(--border);
+    border-radius:26px;
+    background:linear-gradient(120deg,var(--hero1),var(--hero2));
+    box-shadow:7px 7px 0 var(--shadow);
+}
+.eyebrow {
+    font-size:12px;
+    letter-spacing:2px;
+    font-weight:900;
+    color:var(--muted);
+}
+h1 {font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}
+h2 {line-height:1.25}
+.student {
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:1px;
+    color:var(--muted);
+}
+.section {margin:32px 0}
+.panel {
+    padding:22px;
+    border:2px solid var(--border);
+    border-radius:19px;
+    background:var(--card);
+    box-shadow:4px 5px 0 var(--shadow);
+    margin-bottom:20px;
+}
+.panel h2 {margin-top:0}
+.panel p {color:var(--muted)}
+.requirements {
+    padding-left:22px;
+    color:var(--muted);
+}
+.requirements li {margin:8px 0}
+code {
+    color:var(--accent);
+    font-family:Consolas,monospace;
+}
+pre {
+    overflow-x:auto;
+    padding:20px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    background:var(--code);
+    color:var(--text);
+    font:13px/1.7 Consolas,monospace;
+    white-space:pre;
+}
+pre code {color:inherit}
+.course-grid {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:14px;
+}
+.course {
+    padding:20px;
+    border:2px solid var(--border);
+    border-radius:17px;
+    background:var(--card);
+    box-shadow:4px 5px 0 var(--shadow);
+}
+.course h3 {margin:0 0 12px;font-size:19px}
+.course p {color:var(--muted);margin:6px 0}
+.badge {
+    display:inline-block;
+    margin-top:12px;
+    padding:4px 11px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:800;
+}
+.required {
+    color:#fca5a5;
+    background:rgba(185,28,28,.2);
+    border:1px solid rgba(248,113,113,.5);
+}
+.elective {
+    color:#c4b5fd;
+    background:rgba(109,40,217,.2);
+    border:1px solid rgba(167,139,250,.5);
+}
+.note {
+    padding:15px 18px;
+    border-left:4px solid var(--accent);
+    border-radius:8px;
+    background:var(--code);
+    color:var(--muted);
+}
+.footer {
+    text-align:center;
+    color:var(--muted);
+    border-top:1px solid var(--line);
+    margin-top:38px;
+    padding:20px;
+    font-size:13px;
+}
+button:focus-visible,a:focus-visible {
+    outline:3px solid var(--accent);
+    outline-offset:3px;
+}
+@media(max-width:800px) {
+    .course-grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:520px) {
+    .course-grid {grid-template-columns:1fr}
+    .hero {padding:22px}
+    .top {align-items:flex-start;flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+<main>
+
+<nav class="top">
+    <div class="brand">ANAR · WEB PROGRAMMING</div>
+    <div class="actions">
+        <a class="btn" href="index.html">← Week overview</a>
+        <a class="btn" href="../index.html">Main portfolio</a>
+        <button id="theme" type="button">☀️ Light mode</button>
+    </div>
+</nav>
+
+<header class="hero">
+    <p class="eyebrow">WEEK 11.2 · REACT STATE &amp; EVENTS</p>
+    <h1>E2 · Course Catalog</h1>
+    <p>Create reusable course cards from an array of objects and display different badges depending on whether a course is required or elective.</p>
+    <p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
+</header>
+
+<div id="main-content">
+
+<section class="section">
+    <p class="eyebrow">EXERCISE OVERVIEW</p>
+    <h2>Challenge Description</h2>
+
+    <div class="panel">
+        <p>
+            Create a reusable <code>CourseCard</code> component that
+            receives course information through props. Render multiple
+            courses from an array and use the <code>required</code> prop
+            to display the correct course badge.
+        </p>
+
+        <h3>Required Props</h3>
+        <ul class="requirements">
+            <li><code>title</code> — The course name.</li>
+            <li><code>instructor</code> — The instructor's name.</li>
+            <li><code>credits</code> — The number of course credits.</li>
+            <li><code>required</code> — A boolean indicating whether the course is mandatory or elective.</li>
+        </ul>
+
+        <h3>Expected Behavior</h3>
+        <ul class="requirements">
+            <li>Render course cards using an array and the <code>map()</code> method.</li>
+            <li>Show "필수 · Required" when <code>required</code> is true.</li>
+            <li>Show "선택 · Elective" when <code>required</code> is false.</li>
+            <li>Use a unique key for each rendered course.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="section">
+    <p class="eyebrow">IMPLEMENTATION</p>
+    <h2>React Code</h2>
+
+    <div class="panel">
+        <p>
+            The <code>CourseCard</code> component receives four props.
+            The <code>CourseCatalog</code> component maps through the
+            courses array and passes each course's information into
+            a separate card.
+        </p>
+
+<pre><code>function CourseCard({ title, instructor, credits, required }) {
+  return (
+    &lt;article&gt;
+      &lt;h2&gt;{title}&lt;/h2&gt;
+      &lt;p&gt;Instructor: {instructor}&lt;/p&gt;
+      &lt;p&gt;Credits: {credits}&lt;/p&gt;
+
+      &lt;span&gt;
+        {required
+          ? '필수 · Required'
+          : '선택 · Elective'}
+      &lt;/span&gt;
+    &lt;/article&gt;
+  );
+}
+
+const courses = [
+  {
+    id: 1,
+    title: 'Web Programming',
+    instructor: 'Dr. Toshpulatov',
+    credits: 3,
+    required: true
+  },
+  {
+    id: 2,
+    title: 'Database Systems',
+    instructor: 'Dr. Kim',
+    credits: 3,
+    required: true
+  },
+  {
+    id: 3,
+    title: 'Mobile App Development',
+    instructor: 'Dr. Lee',
+    credits: 2,
+    required: false
+  }
+];
+
+function CourseCatalog() {
+  return (
+    &lt;div&gt;
+      {courses.map((c) =&gt; (
+        &lt;CourseCard
+          key={c.id}
+          title={c.title}
+          instructor={c.instructor}
+          credits={c.credits}
+          required={c.required}
+        /&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}
+
+ReactDOM.createRoot(
+  document.getElementById('root')
+).render(&lt;CourseCatalog /&gt;);</code></pre>
+    </div>
+</section>
+
+<section class="section">
+    <p class="eyebrow">LIVE RESULT</p>
+    <h2>Course Catalog</h2>
+
+    <div id="root">
+        <p>Loading React example...</p>
+    </div>
+</section>
+
+<section class="section">
+    <p class="eyebrow">KEY CONCEPTS</p>
+    <h2>What This Exercise Demonstrates</h2>
+
+    <div class="panel">
+        <h3>1. Reusable Components</h3>
+        <p>
+            CourseCard is written once and reused to display
+            different courses with different information.
+        </p>
+
+        <h3>2. Props</h3>
+        <p>
+            The component receives title, instructor, credits,
+            and required from its parent component.
+        </p>
+
+        <h3>3. Rendering Arrays with map()</h3>
+        <p>
+            The map() method creates a separate CourseCard
+            for every course object in the courses array.
+        </p>
+
+        <h3>4. Conditional Rendering</h3>
+        <p>
+            The required boolean determines which badge is displayed:
+            "필수 · Required" or "선택 · Elective".
+        </p>
+
+        <h3>5. Unique Keys</h3>
+        <p>
+            The key property uses each course's unique ID so
+            React can identify individual elements in the list.
+        </p>
+    </div>
+
+    <div class="note">
+        <strong>Key takeaway:</strong>
+        One reusable component can display different course
+        information, while a boolean prop controls which badge appears.
+    </div>
+</section>
+
+</div>
+
+<footer class="footer">
+    BATSUREN ANAR · STUDENT ID: 202637018<br>
+    GACHON UNIVERSITY · WEB PROGRAMMING
+</footer>
+
+</main>
+
+<script>
+const themeButton = document.getElementById('theme');
+
+function syncThemeButton() {
+    themeButton.textContent =
+        document.body.classList.contains('light')
+        ? '🌙 Dark mode'
+        : '☀️ Light mode';
+}
+
+themeButton.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    syncThemeButton();
+});
+
+syncThemeButton();
+</script>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+const { createRoot } = ReactDOM;
+
+function CourseCard({ title, instructor, credits, required }) {
+    return (
+        <article className="course">
+            <h3>{title}</h3>
+            <p>Instructor: {instructor}</p>
+            <p>Credits: {credits}</p>
+
+            <span className={`badge ${required ? 'required' : 'elective'}`}>
+                {required
+                    ? '필수 · Required'
+                    : '선택 · Elective'}
+            </span>
+        </article>
+    );
+}
+
+const courses = [
+    {
+        id: 1,
+        title: 'Web Programming',
+        instructor: 'Dr. Toshpulatov',
+        credits: 3,
+        required: true
+    },
+    {
+        id: 2,
+        title: 'Database Systems',
+        instructor: 'Dr. Kim',
+        credits: 3,
+        required: true
+    },
+    {
+        id: 3,
+        title: 'Mobile App Development',
+        instructor: 'Dr. Lee',
+        credits: 2,
+        required: false
+    }
+];
+
+function CourseCatalog() {
+    return (
+        <div className="course-grid">
+            {courses.map((c) => (
+                <CourseCard
+                    key={c.id}
+                    title={c.title}
+                    instructor={c.instructor}
+                    credits={c.credits}
+                    required={c.required}
+                />
+            ))}
+        </div>
+    );
+}
+
+createRoot(document.getElementById('root')).render(<CourseCatalog />);
+</script>
+
+</body>
+</html>

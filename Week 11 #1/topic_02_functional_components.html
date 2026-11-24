@@ -1,0 +1,468 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#171D2E">
+    <title>Topic 02 — Functional Components · Anar</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg:#171D2E;
+            --text:#EDF0FF;
+            --muted:#C3C9E8;
+            --card:#222D43;
+            --accent:#B7A2FF;
+            --border:#8791C2;
+            --line:#34415D;
+            --shadow:rgba(0,0,0,.4);
+            --hero1:#251D40;
+            --hero2:#49366F;
+        }
+
+        body.light {
+            color-scheme:light;
+            --bg:#F0EBFF;
+            --text:#292344;
+            --muted:#655B80;
+            --card:#fff;
+            --accent:#7957D5;
+            --border:#B0A3D9;
+            --line:#DED5F1;
+            --shadow:rgba(41,35,68,.13);
+            --hero1:#E6DCFF;
+            --hero2:#CDBCF5;
+        }
+
+        * { box-sizing:border-box; }
+
+        body {
+            margin:0;
+            background:var(--bg);
+            color:var(--text);
+            font:16px/1.65 Arial,sans-serif;
+        }
+
+        main {
+            max-width:1180px;
+            width:calc(100% - 36px);
+            margin:auto;
+        }
+
+        a { color:var(--accent); }
+
+        .skip {
+            position:absolute;
+            top:-100px;
+            left:15px;
+            padding:10px 15px;
+            background:var(--card);
+            color:var(--text);
+            border:2px solid var(--border);
+            border-radius:10px;
+            z-index:10;
+        }
+
+        .skip:focus { top:10px; }
+
+        .top {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+            gap:14px;
+            padding:18px 0;
+            border-bottom:1px solid var(--line);
+        }
+
+        .brand { font-weight:800; letter-spacing:1px; }
+
+        .actions { display:flex; flex-wrap:wrap; gap:10px; }
+
+        .btn, button {
+            display:inline-block;
+            padding:9px 15px;
+            border:2px solid var(--border);
+            border-radius:14px;
+            background:var(--card);
+            color:var(--text);
+            font:700 14px Arial,sans-serif;
+            text-decoration:none;
+            cursor:pointer;
+        }
+
+        .btn:hover, button:hover { border-color:var(--accent); }
+
+        .hero {
+            margin:28px 0;
+            padding:28px 32px;
+            border:1px solid var(--border);
+            border-radius:26px;
+            background:linear-gradient(120deg,var(--hero1),var(--hero2));
+            box-shadow:7px 7px 0 var(--shadow);
+        }
+
+        .eyebrow {
+            font-size:12px;
+            font-weight:800;
+            letter-spacing:2px;
+        }
+
+        h1 {
+            margin:12px 0;
+            font-size:clamp(32px,5vw,48px);
+            line-height:1.15;
+        }
+
+        h2 { margin-top:0; font-size:24px; }
+        h3 { margin-top:0; }
+
+        .student {
+            font-size:13px;
+            font-weight:700;
+            letter-spacing:1px;
+            color:var(--muted);
+        }
+
+        .section { margin:28px 0; }
+
+        .grid {
+            display:grid;
+            grid-template-columns:repeat(3,minmax(0,1fr));
+            gap:14px;
+        }
+
+        .card, .panel {
+            padding:18px;
+            border:2px solid var(--border);
+            border-radius:19px;
+            background:var(--card);
+            box-shadow:4px 5px 0 var(--shadow);
+        }
+
+        .panel { margin:18px 0; }
+
+        .demo {
+            padding:18px;
+            border:2px dashed var(--border);
+            border-radius:14px;
+        }
+
+        .muted { color:var(--muted); }
+
+        .status {
+            display:inline-block;
+            padding:4px 10px;
+            border:1px solid var(--border);
+            border-radius:20px;
+            color:var(--accent);
+            font-size:13px;
+            font-weight:bold;
+        }
+
+        code, pre { font-family:Consolas,monospace; }
+
+        pre {
+            overflow-x:auto;
+            padding:16px;
+            border:1px solid var(--line);
+            border-radius:12px;
+            background:rgba(0,0,0,.18);
+            color:var(--text);
+            line-height:1.6;
+        }
+
+        body.light pre { background:#F4F0FF; }
+
+        button:focus-visible, a:focus-visible {
+            outline:3px solid var(--accent);
+            outline-offset:3px;
+        }
+
+        .example-output {
+            margin-top:15px;
+            padding:16px;
+            border:1px solid var(--border);
+            border-radius:12px;
+            background:var(--bg);
+        }
+
+        .footer {
+            margin-top:40px;
+            padding:22px 0;
+            border-top:1px solid var(--line);
+            color:var(--muted);
+            text-align:center;
+            font-size:13px;
+            letter-spacing:1px;
+        }
+
+        @media(max-width:800px) {
+            .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+        }
+
+        @media(max-width:520px) {
+            .grid { grid-template-columns:1fr; }
+            .hero { padding:22px; }
+            .top { align-items:flex-start; flex-direction:column; }
+        }
+    </style>
+</head>
+
+<body>
+<a class="skip" href="#main-content">Skip to main content</a>
+
+<main>
+    <nav class="top" aria-label="Main navigation">
+        <div class="brand">ANAR · WEB PROGRAMMING</div>
+        <div class="actions">
+            <a class="btn" href="../index.html">Main Portfolio</a>
+            <button id="theme" type="button">☀️ Light mode</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="eyebrow">GACHON UNIVERSITY · WEEK 11 #1</div>
+        <h1>Functional Components</h1>
+        <p>Learn how to create reusable React components using JavaScript functions and JSX.</p>
+        <div class="student">BATSUREN ANAR · STUDENT ID: 202637018</div>
+    </header>
+
+    <div id="main-content">
+
+        <section class="section">
+            <h2>1. What is a Functional Component?</h2>
+
+            <div class="panel">
+                <p>
+                    A <strong>functional component</strong> is a JavaScript function that
+                    returns JSX. It describes a part of the user interface.
+                </p>
+                <p>
+                    Components help developers divide a website into smaller and reusable
+                    sections. Each component can have its own purpose.
+                </p>
+            </div>
+
+            <h3>Basic Example</h3>
+            <pre><code>function Greeting() {
+    return &lt;h2&gt;Hello, World!&lt;/h2&gt;;
+}</code></pre>
+
+            <p class="muted">
+                The Greeting function is a React component because it starts with a capital
+                letter and returns JSX.
+            </p>
+        </section>
+
+        <section class="section">
+            <h2>2. Component Naming Rules</h2>
+
+            <div class="grid">
+                <article class="card">
+                    <h3>Start with a capital letter</h3>
+                    <p>React component names should begin with an uppercase letter.</p>
+                    <pre><code>function Welcome() {
+    return &lt;h2&gt;Welcome!&lt;/h2&gt;;
+}</code></pre>
+                    <span class="status">Correct</span>
+                </article>
+
+                <article class="card">
+                    <h3>Use meaningful names</h3>
+                    <p>Choose names that explain what the component displays or does.</p>
+                    <pre><code>function StudentCard() {
+    return &lt;div&gt;Student&lt;/div&gt;;
+}</code></pre>
+                    <span class="status">Recommended</span>
+                </article>
+
+                <article class="card">
+                    <h3>Avoid lowercase names</h3>
+                    <p>Lowercase names are interpreted as regular HTML elements in JSX.</p>
+                    <pre><code>function greeting() {
+    return &lt;h2&gt;Hello&lt;/h2&gt;;
+}</code></pre>
+                    <span class="status">Avoid</span>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>3. Using a Component</h2>
+
+            <div class="panel">
+                <p>
+                    After creating a component, you can use it inside another component
+                    with JSX syntax. Write its name like a self-closing HTML element.
+                </p>
+
+                <pre><code>function Greeting() {
+    return &lt;h2&gt;Hello, World!&lt;/h2&gt;;
+}
+
+function App() {
+    return (
+        &lt;div&gt;
+            &lt;Greeting /&gt;
+            &lt;Greeting /&gt;
+        &lt;/div&gt;
+    );
+}</code></pre>
+
+                <p class="muted">
+                    The Greeting component is used twice inside App. This demonstrates
+                    component reusability.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>4. Arrow Function Components</h2>
+
+            <div class="panel">
+                <p>
+                    Functional components can also be written using arrow function syntax.
+                    Both examples below define a component that returns JSX.
+                </p>
+
+                <h3>Regular Function</h3>
+                <pre><code>function Welcome() {
+    return &lt;h2&gt;Welcome to React!&lt;/h2&gt;;
+}</code></pre>
+
+                <h3>Arrow Function</h3>
+                <pre><code>const Welcome = () =&gt; {
+    return &lt;h2&gt;Welcome to React!&lt;/h2&gt;;
+};</code></pre>
+
+                <p class="muted">
+                    Both styles are commonly used in React projects.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>5. Returning Multiple Elements</h2>
+
+            <div class="panel">
+                <p>
+                    A React component must return one parent element. If you want to return
+                    multiple elements without adding an extra HTML container, you can use
+                    a <strong>Fragment</strong>.
+                </p>
+
+                <pre><code>function StudentInfo() {
+    return (
+        &lt;&gt;
+            &lt;h2&gt;Student Information&lt;/h2&gt;
+            &lt;p&gt;Name: Anar&lt;/p&gt;
+            &lt;p&gt;University: Gachon University&lt;/p&gt;
+        &lt;/&gt;
+    );
+}</code></pre>
+
+                <p>
+                    The empty tags <code>&lt;&gt;</code> and <code>&lt;/&gt;</code>
+                    represent a React Fragment.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>6. Component Structure Example</h2>
+
+            <div class="panel">
+                <h3>Student Profile Components</h3>
+                <p class="muted">
+                    A page can be organized into smaller components, such as a header,
+                    student profile, and footer.
+                </p>
+
+                <pre><code>function Header() {
+    return &lt;h1&gt;My Student Page&lt;/h1&gt;;
+}
+
+function StudentProfile() {
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;Batsuren Anar&lt;/h2&gt;
+            &lt;p&gt;Computer Engineering Student&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+function Footer() {
+    return &lt;p&gt;Gachon University&lt;/p&gt;;
+}
+
+function App() {
+    return (
+        &lt;&gt;
+            &lt;Header /&gt;
+            &lt;StudentProfile /&gt;
+            &lt;Footer /&gt;
+        &lt;/&gt;
+    );
+}</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>7. Key Takeaways</h2>
+
+            <div class="panel">
+                <ul>
+                    <li>A functional component is a JavaScript function that returns JSX.</li>
+                    <li>Component names must start with an uppercase letter.</li>
+                    <li>Components can be reused in other components.</li>
+                    <li>Arrow functions are another way to write functional components.</li>
+                    <li>A component must return one parent element.</li>
+                    <li>React Fragments allow multiple elements without an extra container.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Next Topic</h2>
+
+            <div class="panel">
+                <h3>Topic 03 — Props: Passing Data</h3>
+                <p class="muted">
+                    Learn how components receive information from their parent components
+                    using props.
+                </p>
+                <a class="btn" href="topic_03_props.html">Next Topic →</a>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="footer">
+        BATSUREN ANAR · STUDENT ID: 202637018<br>
+        GACHON UNIVERSITY · WEB PROGRAMMING
+    </footer>
+</main>
+
+<script>
+    const themeButton = document.getElementById('theme');
+
+    function syncThemeButton() {
+        themeButton.textContent =
+            document.body.classList.contains('light')
+                ? '🌙 Dark mode'
+                : '☀️ Light mode';
+    }
+
+    themeButton.addEventListener('click', () => {
+        document.body.classList.toggle('light');
+        syncThemeButton();
+    });
+
+    syncThemeButton();
+</script>
+
+</body>
+</html>

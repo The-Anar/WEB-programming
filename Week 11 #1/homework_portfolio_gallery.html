@@ -1,0 +1,342 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#171D2E">
+    <title>Portfolio Gallery · Week 11 · Anar</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --line: #34415D;
+        }
+
+        body.light {
+            color-scheme: light;
+            --bg: #F0EBFF;
+            --text: #292344;
+            --muted: #655B80;
+            --card: #FFFFFF;
+            --accent: #7957D5;
+            --border: #B0A3D9;
+            --line: #DED5F1;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font: 16px/1.7 Arial, sans-serif;
+        }
+
+        main {
+            max-width: 1100px;
+            width: calc(100% - 36px);
+            margin: auto;
+        }
+
+        .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .brand { font-weight: 800; }
+
+        button, .btn {
+            display: inline-block;
+            padding: 9px 15px;
+            border: 2px solid var(--border);
+            border-radius: 13px;
+            background: var(--card);
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        a { color: var(--accent); }
+
+        .hero {
+            margin: 28px 0;
+            padding: 28px;
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            background: linear-gradient(120deg,#251D40,#49366F);
+        }
+
+        .hero h1 {
+            margin: 8px 0;
+            font-size: clamp(30px,5vw,44px);
+            color: #FFFFFF;
+        }
+
+        .eyebrow {
+            color: #D5C8FF;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+        }
+
+        .student {
+            color: #D5C8FF;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        section { margin: 30px 0; }
+
+        h2 { font-size: 24px; }
+
+        .panel {
+            padding: 22px;
+            margin: 16px 0;
+            border: 2px solid var(--border);
+            border-radius: 18px;
+            background: var(--card);
+        }
+
+        .info-row {
+            display: grid;
+            grid-template-columns: 130px 1fr;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--line);
+            overflow-wrap: anywhere;
+        }
+
+        .info-row:last-child { border-bottom: 0; }
+
+        .screenshot {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin: 15px 0;
+        }
+
+        .caption {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 12px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        pre {
+            padding: 18px;
+            overflow-x: auto;
+            border-radius: 12px;
+            background: #171D2E;
+            color: #EDF0FF;
+            font-size: 14px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 22px 0;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        @media(max-width:600px) {
+            .info-row { grid-template-columns: 1fr; gap: 2px; }
+            .hero { padding: 22px; }
+        }
+    </style>
+</head>
+
+<body>
+<main>
+
+    <nav class="top">
+        <div class="brand">ANAR · WEB PROGRAMMING</div>
+        <div>
+            <a class="btn" href="index.html">← Week 11 #1</a>
+            <button id="theme" type="button">☀️ Light mode</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</div>
+        <h1>Portfolio Gallery Component</h1>
+        <p>Week 11 Homework · React Components, State and Filtering</p>
+        <div class="student">BATSUREN ANAR · STUDENT ID: 202637018</div>
+    </header>
+
+    <section>
+        <h2>Project Information</h2>
+
+        <div class="panel">
+            <div class="info-row">
+                <strong>GitHub Repository</strong>
+                <a href="https://github.com/The-Anar/portfolio-gallery"
+                   target="_blank" rel="noopener">
+                    The-Anar/portfolio-gallery
+                </a>
+            </div>
+
+            <div class="info-row">
+                <strong>Live Website</strong>
+                <a href="https://the-anar.github.io/portfolio-gallery/"
+                   target="_blank" rel="noopener">
+                    Open Portfolio Gallery ↗
+                </a>
+            </div>
+
+            <div class="info-row">
+                <strong>Framework</strong>
+                <span>React + Vite</span>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>Project Overview</h2>
+
+        <div class="panel">
+            <p>
+                This project is a React-based Portfolio Gallery that displays
+                four web development projects. Users can filter the projects
+                by technology using interactive filter buttons.
+            </p>
+
+            <p>
+                The application uses React components, props, arrays,
+                the map() method, conditional rendering, and useState
+                to manage the selected technology filter.
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Component Structure</h2>
+
+        <div class="panel">
+            <pre>App
+├── FilterBar
+└── ProjectList
+    └── ProjectCard</pre>
+
+            <ul>
+                <li><strong>App:</strong> Manages the selected filter using useState and filters project data.</li>
+                <li><strong>FilterBar:</strong> Displays technology buttons and indicates the active filter using aria-pressed.</li>
+                <li><strong>ProjectList:</strong> Renders the filtered projects using map() and stable keys.</li>
+                <li><strong>ProjectCard:</strong> Displays project titles, descriptions, technology tags, GitHub links, and live demos.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>Screenshot 1 — All Projects</h2>
+
+        <div class="panel">
+            <img
+                class="screenshot"
+                src="portfolio-gallery-all.png"
+                alt="Portfolio Gallery displaying all four projects and their technology tags">
+
+            <p class="caption">
+                All four projects are displayed when the All filter is selected.
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Screenshot 2 — React Filter</h2>
+
+        <div class="panel">
+            <img
+                class="screenshot"
+                src="portfolio-gallery-react-filter.png"
+                alt="Portfolio Gallery filtered to show only the Student Directory React project">
+
+            <p class="caption">
+                Selecting React filters the gallery and displays only the
+                Student Directory project. The counter shows 1 of 4 projects.
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Project Features</h2>
+
+        <div class="panel">
+            <ul>
+                <li>Four project cards displayed in a responsive grid.</li>
+                <li>Technology filters generated from a predefined list.</li>
+                <li>Interactive filtering using React useState.</li>
+                <li>Active filter indication using aria-pressed.</li>
+                <li>GitHub and live demo links for every project.</li>
+                <li>Responsive layout for mobile and desktop screens.</li>
+                <li>Empty-state message when no projects match a filter.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section>
+        <h2>Submission Status</h2>
+
+        <div class="panel">
+            <span class="status">Successfully Deployed</span>
+            <p>
+                The Portfolio Gallery is published using GitHub Pages.
+                Both the source code and live application are available online.
+            </p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        BATSUREN ANAR · STUDENT ID: 202637018<br>
+        GACHON UNIVERSITY · WEB PROGRAMMING
+    </footer>
+
+</main>
+
+<script>
+    const themeButton = document.getElementById('theme');
+
+    function syncTheme() {
+        themeButton.textContent =
+            document.body.classList.contains('light')
+                ? '🌙 Dark mode'
+                : '☀️ Light mode';
+    }
+
+    themeButton.addEventListener('click', () => {
+        document.body.classList.toggle('light');
+        syncTheme();
+    });
+
+    syncTheme();
+</script>
+
+</body>
+</html>

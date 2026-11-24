@@ -1,0 +1,639 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#171D2E">
+    <title>What is React & JSX? — Week 11 · Anar</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --code: #131B2B;
+            --shadow: 0 12px 30px rgba(0,0,0,.22);
+        }
+
+        [data-theme="light"] {
+            color-scheme: light;
+            --bg: #F3F1FA;
+            --text: #25233A;
+            --muted: #625F7C;
+            --card: #FFFFFF;
+            --accent: #7054C8;
+            --border: #C9C3DF;
+            --code: #EFEDF6;
+            --shadow: 0 12px 30px rgba(40,30,80,.09);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.7;
+            transition: background .2s, color .2s;
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -60px;
+            left: 12px;
+            padding: 10px 16px;
+            background: var(--accent);
+            color: #171D2E;
+            border-radius: 8px;
+            z-index: 10;
+        }
+
+        .skip-link:focus {
+            top: 12px;
+        }
+
+        header {
+            border-bottom: 1px solid var(--border);
+            background: var(--card);
+        }
+
+        .nav {
+            max-width: 1100px;
+            margin: auto;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .brand {
+            color: var(--accent);
+            font-weight: 800;
+            font-size: 20px;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        button {
+            font: inherit;
+            cursor: pointer;
+        }
+
+        .theme-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+            border-radius: 9px;
+            padding: 7px 12px;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: auto;
+            padding: 35px 24px 70px;
+        }
+
+        .hero {
+            padding: 35px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--card), #332C55);
+            box-shadow: var(--shadow);
+            margin-bottom: 28px;
+        }
+
+        .hero-label {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: clamp(30px, 5vw, 44px);
+            line-height: 1.2;
+            margin: 12px 0;
+        }
+
+        .hero p {
+            color: #E0DDF5;
+            max-width: 700px;
+        }
+
+        .section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 26px;
+            margin: 22px 0;
+            box-shadow: var(--shadow);
+        }
+
+        h2 {
+            font-size: 23px;
+            margin-top: 0;
+            color: var(--accent);
+        }
+
+        h3 {
+            font-size: 18px;
+            margin-top: 25px;
+        }
+
+        p, li {
+            color: var(--muted);
+        }
+
+        strong {
+            color: var(--text);
+        }
+
+        .code-block {
+            background: var(--code);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+            overflow-x: auto;
+            margin: 16px 0;
+        }
+
+        pre {
+            margin: 0;
+            color: var(--text);
+            font-family: Consolas, Monaco, monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            white-space: pre;
+        }
+
+        code {
+            font-family: Consolas, Monaco, monospace;
+            color: var(--accent);
+        }
+
+        .info {
+            border-left: 4px solid var(--accent);
+            background: rgba(183,162,255,.09);
+            border-radius: 8px;
+            padding: 15px 18px;
+            margin: 18px 0;
+        }
+
+        .demo {
+            background: var(--code);
+            border: 1px dashed var(--accent);
+            padding: 22px;
+            border-radius: 12px;
+            margin-top: 18px;
+        }
+
+        .demo-preview {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 12px;
+        }
+
+        .demo-preview h3 {
+            margin-top: 0;
+            color: var(--accent);
+        }
+
+        .demo-btn {
+            background: var(--accent);
+            color: #171D2E;
+            border: none;
+            padding: 9px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+
+        .demo-btn:hover {
+            opacity: .85;
+        }
+
+        .toc a {
+            text-decoration: none;
+        }
+
+        .toc li {
+            margin: 7px 0;
+        }
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .comparison > div {
+            background: var(--code);
+            padding: 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .comparison h3 {
+            margin-top: 0;
+        }
+
+        .page-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-top: 28px;
+        }
+
+        .page-nav a {
+            text-decoration: none;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 15px;
+            font-weight: 600;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 4px;
+        }
+
+        @media (max-width: 650px) {
+            .nav {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            main {
+                padding: 22px 14px 45px;
+            }
+
+            .hero, .section {
+                padding: 21px;
+            }
+
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .page-nav {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+
+    <header>
+        <nav class="nav" aria-label="Main navigation">
+            <a class="brand" href="../index.html">⚛ ANAR</a>
+
+            <div class="nav-links">
+                <a href="../index.html">Portfolio</a>
+                <a href="index.html">Week 11 #1</a>
+                <button class="theme-btn" id="themeToggle" type="button">
+                    ☀️ Light
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main">
+        <section class="hero">
+            <div class="hero-label">Web Programming · Week 11 #1 · Topic 01</div>
+            <h1>⚛ What is React & JSX?</h1>
+            <p>
+                Learn what React is, understand how JSX works, and discover
+                how JavaScript and HTML-like syntax come together to build
+                interactive user interfaces.
+            </p>
+        </section>
+
+        <section class="section toc">
+            <h2>Table of Contents</h2>
+            <ol>
+                <li><a href="#react">What is React?</a></li>
+                <li><a href="#jsx">What is JSX?</a></li>
+                <li><a href="#compilation">How JSX Works</a></li>
+                <li><a href="#rules">JSX Rules</a></li>
+                <li><a href="#example">Complete Example</a></li>
+                <li><a href="#demo">Interactive Demonstration</a></li>
+                <li><a href="#summary">Key Takeaways</a></li>
+            </ol>
+        </section>
+
+        <section class="section" id="react">
+            <h2>1. What is React?</h2>
+
+            <p>
+                <strong>React</strong> is a JavaScript library used to build
+                user interfaces. It allows developers to create websites
+                using small, reusable pieces called components.
+            </p>
+
+            <p>
+                Instead of writing one large page, developers can divide
+                the interface into smaller parts, such as a navigation bar,
+                profile card, button, or notification list.
+            </p>
+
+            <div class="info">
+                💡 <strong>In simple words:</strong> React helps developers
+                build websites by combining reusable components.
+            </div>
+
+            <h3>Why use React?</h3>
+            <ul>
+                <li>Build reusable user interface components.</li>
+                <li>Organize large applications into smaller parts.</li>
+                <li>Update the interface when data changes.</li>
+                <li>Make complex interfaces easier to manage.</li>
+            </ul>
+        </section>
+
+        <section class="section" id="jsx">
+            <h2>2. What is JSX?</h2>
+
+            <p>
+                <strong>JSX</strong> stands for JavaScript XML. It is a syntax
+                extension that allows developers to write HTML-like markup
+                directly inside JavaScript code.
+            </p>
+
+            <p>
+                JSX makes React components easier to read because the
+                interface structure can be written in a familiar format.
+            </p>
+
+            <div class="code-block">
+<pre>// JSX example
+
+const name = "Anar";
+
+const element = (
+    &lt;h1&gt;Hello, {name}!&lt;/h1&gt;
+);</pre>
+            </div>
+
+            <div class="info">
+                💡 JavaScript expressions can be inserted inside JSX
+                using curly braces <code>{ }</code>.
+            </div>
+        </section>
+
+        <section class="section" id="compilation">
+            <h2>3. How JSX Works</h2>
+
+            <p>
+                Browsers do not directly understand JSX. Before the code
+                runs, a compiler or build tool transforms JSX into
+                JavaScript function calls.
+            </p>
+
+            <h3>What developers write:</h3>
+            <div class="code-block">
+<pre>const element = (
+    &lt;h1 className="title"&gt;
+        Hello, Anar!
+    &lt;/h1&gt;
+);</pre>
+            </div>
+
+            <h3>Conceptually, it becomes:</h3>
+            <div class="code-block">
+<pre>const element = React.createElement(
+    'h1',
+    { className: 'title' },
+    'Hello, Anar!'
+);</pre>
+            </div>
+
+            <p>
+                You normally write JSX, while tools such as Babel or a
+                framework's build system handle the transformation.
+            </p>
+        </section>
+
+        <section class="section" id="rules">
+            <h2>4. Important JSX Rules</h2>
+
+            <div class="comparison">
+                <div>
+                    <h3>HTML</h3>
+                    <div class="code-block">
+<pre>&lt;div class="app"&gt;
+    &lt;label for="email"&gt;
+        Email
+    &lt;/label&gt;
+&lt;/div&gt;</pre>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>JSX</h3>
+                    <div class="code-block">
+<pre>&lt;div className="app"&gt;
+    &lt;label htmlFor="email"&gt;
+        Email
+    &lt;/label&gt;
+&lt;/div&gt;</pre>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Remember these rules:</h3>
+            <ul>
+                <li>
+                    Use <code>className</code> instead of
+                    <code>class</code>.
+                </li>
+                <li>
+                    Use <code>htmlFor</code> instead of
+                    <code>for</code> on labels.
+                </li>
+                <li>
+                    Close all elements, including
+                    <code>&lt;img /&gt;</code>,
+                    <code>&lt;input /&gt;</code>, and
+                    <code>&lt;br /&gt;</code>.
+                </li>
+                <li>
+                    Return one parent element, or use a Fragment.
+                </li>
+                <li>
+                    Put JavaScript expressions inside curly braces.
+                </li>
+            </ul>
+
+            <h3>Using a Fragment</h3>
+            <p>
+                A Fragment allows a component to return multiple elements
+                without adding an unnecessary HTML container.
+            </p>
+
+            <div class="code-block">
+<pre>function Welcome() {
+    return (
+        &lt;&gt;
+            &lt;h1&gt;Welcome!&lt;/h1&gt;
+            &lt;p&gt;Learning React and JSX.&lt;/p&gt;
+        &lt;/&gt;
+    );
+}</pre>
+            </div>
+        </section>
+
+        <section class="section" id="example">
+            <h2>5. Complete JSX Example</h2>
+
+            <p>
+                The following example combines a JavaScript variable,
+                JSX markup, and a JavaScript expression.
+            </p>
+
+            <div class="code-block">
+<pre>function App() {
+    const user = 'Anar';
+
+    return (
+        &lt;div className="app"&gt;
+            &lt;h1&gt;Welcome, {user}!&lt;/h1&gt;
+            &lt;p&gt;Today: {new Date().toDateString()}&lt;/p&gt;
+            &lt;img
+                src="photo.jpg"
+                alt="Profile"
+            /&gt;
+        &lt;/div&gt;
+    );
+}</pre>
+            </div>
+
+            <p>
+                In this example, <code>user</code> is a JavaScript variable.
+                The curly braces insert its value into the JSX heading.
+            </p>
+        </section>
+
+        <section class="section" id="demo">
+            <h2>6. Interactive Demonstration</h2>
+
+            <p>
+                This small demonstration shows how JavaScript values can
+                change the content displayed on a page.
+            </p>
+
+            <div class="demo">
+                <label for="nameInput"><strong>Enter your name:</strong></label>
+                <br><br>
+
+                <input
+                    id="nameInput"
+                    type="text"
+                    value="Anar"
+                    placeholder="Enter a name"
+                    style="padding:10px; border-radius:8px; width:100%; max-width:300px;"
+                >
+
+                <div class="demo-preview">
+                    <h3 id="greeting">Hello, Anar!</h3>
+                    <p>This is a simple live UI update demonstration.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="summary">
+            <h2>7. Key Takeaways</h2>
+
+            <ul>
+                <li>React is a JavaScript library for building user interfaces.</li>
+                <li>Components are reusable parts of a user interface.</li>
+                <li>JSX lets developers write HTML-like markup inside JavaScript.</li>
+                <li>JSX is transformed into JavaScript before execution.</li>
+                <li>Use <code>className</code> instead of <code>class</code>.</li>
+                <li>Use curly braces to insert JavaScript expressions.</li>
+                <li>Return one root element or use a Fragment.</li>
+            </ul>
+
+            <div class="info">
+                ✅ <strong>Next lesson:</strong> Functional Components —
+                learn how to create and reuse React components.
+            </div>
+        </section>
+
+        <div class="page-nav">
+            <a href="index.html">← Week 11 #1 Home</a>
+            <a href="topic_02_functional_components.html">
+                Next: Functional Components →
+            </a>
+        </div>
+    </main>
+
+    <footer>
+        Web Programming · Week 11 #1 · Topic 01<br>
+        Created by Batsuren Anar · 2026
+    </footer>
+
+    <script>
+        const themeToggle = document.getElementById("themeToggle");
+
+        themeToggle.addEventListener("click", () => {
+            const isLight =
+                document.documentElement.getAttribute("data-theme") === "light";
+
+            document.documentElement.setAttribute(
+                "data-theme",
+                isLight ? "dark" : "light"
+            );
+
+            themeToggle.textContent = isLight ? "☀️ Light" : "🌙 Dark";
+        });
+
+        const nameInput = document.getElementById("nameInput");
+        const greeting = document.getElementById("greeting");
+
+        nameInput.addEventListener("input", () => {
+            const name = nameInput.value.trim();
+            greeting.textContent = name ? `Hello, ${name}!` : "Hello!";
+        });
+    </script>
+</body>
+</html>

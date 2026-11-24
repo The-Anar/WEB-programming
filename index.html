@@ -10,685 +10,112 @@
 
     <title>Anar's Web Programming</title>
 
-<style>
+    <style>
+        :root {
 
+            color-scheme: light;
 
+            --hero-shadow: #DED5F1;
 
-:root {
+            --page-bg: #F0EBFF;
 
-    color-scheme: light;
+            --text-color: #292344;
 
-    --hero-shadow: #DED5F1;
+            --card-border: #292344;
 
-   --page-bg: #F0EBFF;
+            --card-shadow: #292344;
 
-    --text-color: #292344;
+            --nav-border: #e3dced;
 
-    --card-border: #292344;
+            --button-bg: #fffaf0;
 
-    --card-shadow: #292344;
-
-    --nav-border: #e3dced;
-
-    --button-bg: #fffaf0;
-
-    --button-text: #292344;
-
-}
-
-
-
-body.dark-mode {
-
-    color-scheme: dark;
-
-    --hero-shadow: #29213F;
-
-   --page-bg: #171D2E;
-
-    --text-color: #edf0ff;
-
-    --card-border: #8990bd;
-
-    --card-shadow: #080d19;
-
-    --nav-border: #343d55;
-
-    --button-bg: #222d43;
-
-    --button-text: #f0edff;
-
-}
-
-
-
-html {
-
-    min-height: 100%;
-
-    background: var(--page-bg);
-
-}
-
-
-
-body {
-
-    min-height: 100vh;
-
-    background: var(--page-bg);
-
-    color: var(--text-color);
-
-    transition: background 0.3s ease, color 0.3s ease;
-
-}
-
-.site-nav {
-
-    border-bottom-color: var(--nav-border);
-
-}
-
-
-
-.nav-links a,
-
-.nav-brand {
-
-    color: var(--text-color);
-
-}
-
-
-
-.theme-toggle {
-
-    background: var(--button-bg);
-
-    color: var(--button-text);
-
-    border-color: var(--card-border);
-
-    box-shadow: 4px 4px 0 var(--card-shadow);
-
-}
-
-
-
-.theme-toggle:hover {
-
-    box-shadow: 6px 6px 0 var(--card-shadow);
-
-}
-
-
-
-main section {
-
-    border-color: var(--card-border);
-
-    box-shadow: 4px 4px 0 var(--card-shadow);
-
-}
-
-
-
-main section:hover {
-
-    box-shadow: 6px 6px 0 var(--card-shadow);
-
-}
-
-
-
-    * {
-
-        box-sizing: border-box;
-
-    }
-
-body {
-
-    margin: 0;
-
-    padding: 32px;
-
-    font-family: Arial, sans-serif;
-
-    background: var(--page-bg);
-
-    color: var(--text-color);
-
-}
-
-
-
-
-
-
-
-header {
-
-    position: relative;
-
-    overflow: hidden;
-
-    background: linear-gradient(125deg, #211b3b 0%, #33265b 58%, #493b79 100%);
-
-    color: #fffdf8;
-
-    padding: 38px 42px 24px;
-
-    border: 1px solid #493b79;
-
-    border-radius: 24px;
-
-    box-shadow: 7px 7px 0 var(--hero-shadow);
-
-    margin-bottom: 36px;
-
-}
-
-
-
-header::after {
-
-    content: "";
-
-    position: absolute;
-
-    width: 260px;
-
-    height: 260px;
-
-    right: -70px;
-
-    top: -100px;
-
-    border-radius: 50%;
-
-    background: radial-gradient(circle, rgba(194, 171, 255, 0.22), transparent 70%);
-
-    pointer-events: none;
-
-}
-
-
-
-header p {
-
-    color: #ded5f4;
-
-}
-
-
-
-.university-label {
-
-    margin: 0 0 28px;
-
-    font-size: 0.82rem;
-
-    font-weight: 700;
-
-    letter-spacing: 2px;
-
-}
-
-
-
-.university-label span {
-
-    color: #ffcf70;
-
-    padding: 0 5px;
-
-}
-
-
-
-.hero-content {
-
-    position: relative;
-
-    z-index: 1;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 32px;
-
-}
-
-
-
-.eyebrow {
-
-    margin: 0 0 12px;
-
-    color: #d0bfff;
-
-    font-size: 0.8rem;
-
-    font-weight: 700;
-
-    letter-spacing: 2px;
-
-}
-
-
-
-header h1 {
-
-    margin: 0;
-
-    max-width: 800px;
-
-    font-size: clamp(2rem, 4.5vw, 3.8rem);
-
-    line-height: 1.12;
-
-    letter-spacing: -1.5px;
-
-}
-
-
-
-.sparkle {
-
-    color: #ffcf70;
-
-}
-
-
-
-.hero-description {
-
-    margin: 18px 0 0;
-
-    color: #e0daef;
-
-    font-size: 1.05rem;
-
-    line-height: 1.7;
-
-}
-
-
-
-.student-badge {
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 8px;
-
-    min-width: 175px;
-
-    padding: 20px;
-
-    border: 1px solid rgba(255, 255, 255, 0.2);
-
-    border-radius: 18px;
-
-    background: rgba(255, 255, 255, 0.08);
-
-    backdrop-filter: blur(8px);
-
-}
-
-
-
-.badge-icon {
-
-    font-size: 1.5rem;
-
-}
-
-
-
-.badge-label {
-
-    color: #d0bfff;
-
-    font-size: 0.72rem;
-
-    font-weight: 700;
-
-    letter-spacing: 1.5px;
-
-}
-
-
-
-.student-badge strong {
-
-    font-size: 1.25rem;
-
-    letter-spacing: 1px;
-
-}
-
-
-
-.hero-footer {
-
-    position: relative;
-
-    z-index: 1;
-
-    display: flex;
-
-    align-items: center;
-
-    flex-wrap: wrap;
-
-    gap: 10px;
-
-    margin-top: 32px;
-
-    padding-top: 20px;
-
-    border-top: 1px solid rgba(255, 255, 255, 0.18);
-
-}
-
-
-
-.hero-footer > span:not(.hero-status) {
-
-    padding: 7px 12px;
-
-    border: 1px solid rgba(255, 255, 255, 0.25);
-
-    border-radius: 30px;
-
-    background: rgba(255, 255, 255, 0.07);
-
-    color: #f3efff;
-
-    font-size: 0.8rem;
-
-    font-weight: 700;
-
-}
-
-
-
-.hero-status {
-
-    margin-left: auto;
-
-    color: #c8efb9;
-
-    font-size: 0.85rem;
-
-}
-
-
-
-@media (max-width: 700px) {
-
-    header {
-
-        padding: 26px 22px 20px;
-
-    }
-
-
-
-    .hero-content {
-
-        align-items: flex-start;
-
-        flex-direction: column;
-
-        gap: 24px;
-
-    }
-
-
-
-    .student-badge {
-
-        min-width: 0;
-
-        width: 100%;
-
-    }
-
-
-
-    .university-label {
-
-        font-size: 0.7rem;
-
-        letter-spacing: 1px;
-
-    }
-
-
-
-    .hero-status {
-
-        margin-left: 0;
-
-        width: 100%;
-
-    }
-
-}
-
-
-
-
-
-
-
-main {
-
-    max-width: 1200px;
-
-    margin: 0 auto;
-
-}
-
-
-
-main > h2 {
-
-    font-size: 2rem;
-
-    margin-bottom: 8px;
-
-}
-
-
-
-main > p {
-
-    margin-bottom: 28px;
-
-}
-
-
-
-main {
-
-    display: grid;
-
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    gap: 22px;
-
-}
-
-
-
-main > h2,
-
-main > p {
-
-    grid-column: 1 / -1;
-
-}
-
-
-
-main section {
-
-    padding: 22px 24px;
-
-    margin: 0;
-
-    border: 2px solid #292344;
-
-    border-radius: 18px;
-
-    box-shadow: 4px 4px 0 #292344;
-
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-}
-
-
-
-main section:hover {
-
-    transform: translateY(-3px);
-
-    box-shadow: 6px 6px 0 #292344;
-
-}
-
-
-
-main section:nth-of-type(1) {
-
-    background: #f4edda;
-
-}
-
-
-
-main section:nth-of-type(2) {
-
-    background: #e8e3f5;
-
-}
-
-
-
-main section:nth-of-type(3) {
-
-    background: #dcecf0;
-
-}
-
-
-
-main section:nth-of-type(4) {
-
-    background: #e2ecdf;
-
-}
-
-
-
-main section:nth-of-type(5) {
-
-    background: #f0e4d8;
-
-}
-
-
-
-main section h3 {
-
-    font-size: 1.25rem;
-
-    margin: 0 0 8px;
-
-}
-
-
-
-main section p {
-
-    margin: 0 0 16px;
-
-}
-
-
-
-main section a {
-
-    display: inline-block;
-
-    background: white;
-
-    color: #292344;
-
-    text-decoration: none;
-
-    font-weight: bold;
-
-    padding: 9px 15px;
-
-    border: 2px solid #292344;
-
-    border-radius: 30px;
-
-    transition: background 0.2s ease;
-
-}
-
-
-
-main section a:hover {
-
-    background: #e8e3f5;
-
-}
-
-
-
-@media (max-width: 700px) {
-
-    main {
-
-        grid-template-columns: 1fr;
-
-    }
-
-}
-
-
-
-
-
-
-
-    @media (max-width: 600px) {
-
-        body {
-
-            padding: 16px;
+            --button-text: #292344;
 
         }
 
 
 
-        header {
+        body.dark-mode {
 
-            padding: 24px;
+            color-scheme: dark;
+
+            --hero-shadow: #29213F;
+
+            --page-bg: #171D2E;
+
+            --text-color: #edf0ff;
+
+            --card-border: #8990bd;
+
+            --card-shadow: #080d19;
+
+            --nav-border: #343d55;
+
+            --button-bg: #222d43;
+
+            --button-text: #f0edff;
+
+        }
+
+
+
+        html {
+
+            min-height: 100%;
+
+            background: var(--page-bg);
+
+        }
+
+
+
+        body {
+
+            min-height: 100vh;
+
+            background: var(--page-bg);
+
+            color: var(--text-color);
+
+            transition: background 0.3s ease, color 0.3s ease;
+
+        }
+
+        .site-nav {
+
+            border-bottom-color: var(--nav-border);
+
+        }
+
+
+
+        .nav-links a,
+
+        .nav-brand {
+
+            color: var(--text-color);
+
+        }
+
+
+
+        .theme-toggle {
+
+            background: var(--button-bg);
+
+            color: var(--button-text);
+
+            border-color: var(--card-border);
+
+            box-shadow: 4px 4px 0 var(--card-shadow);
+
+        }
+
+
+
+        .theme-toggle:hover {
+
+            box-shadow: 6px 6px 0 var(--card-shadow);
 
         }
 
@@ -696,622 +123,1194 @@ main section a:hover {
 
         main section {
 
-            padding: 20px;
+            border-color: var(--card-border);
+
+            box-shadow: 4px 4px 0 var(--card-shadow);
 
         }
 
-    }
 
 
+        main section:hover {
 
-.site-nav {
+            box-shadow: 6px 6px 0 var(--card-shadow);
 
-    display: flex;
+        }
 
-    align-items: center;
 
-    justify-content: space-between;
 
-    gap: 20px;
+        * {
 
-    padding: 18px 8px;
+            box-sizing: border-box;
 
-    margin: 0 4px 38px;
+        }
 
-    border-bottom: 1px solid var(--nav-border);
+        body {
 
-}
+            margin: 0;
 
+            padding: 32px;
 
+            font-family: Arial, sans-serif;
 
-.nav-brand {
+            background: var(--page-bg);
 
-    color: #292344;
+            color: var(--text-color);
 
-    font-size: 1.25rem;
+        }
 
-    font-weight: 800;
 
-    letter-spacing: -0.5px;
 
-    text-decoration: none;
 
-}
 
 
 
-.nav-brand span {
+        header {
 
-    color: #8065c9;
+            position: relative;
 
-}
+            overflow: hidden;
 
+            background: linear-gradient(125deg, #211b3b 0%, #33265b 58%, #493b79 100%);
 
+            color: #fffdf8;
 
-.nav-links {
+            padding: 38px 42px 24px;
 
-    display: flex;
+            border: 1px solid #493b79;
 
-    flex-wrap: wrap;
+            border-radius: 24px;
 
-    gap: 10px;
+            box-shadow: 7px 7px 0 var(--hero-shadow);
 
-}
+            margin-bottom: 36px;
 
+        }
 
 
-.nav-links a {
 
-    padding: 10px 15px;
+        header::after {
 
-    border-radius: 30px;
+            content: "";
 
-    color: var(--text-color);
+            position: absolute;
 
-    font-size: 0.9rem;
+            width: 260px;
 
-    font-weight: 700;
+            height: 260px;
 
-    text-decoration: none;
+            right: -70px;
 
-    transition: background 0.2s ease, color 0.2s ease;
+            top: -100px;
 
-}
+            border-radius: 50%;
 
+            background: radial-gradient(circle, rgba(194, 171, 255, 0.22), transparent 70%);
 
+            pointer-events: none;
 
-.nav-links a:hover {
+        }
 
-    background: var(--button-bg);
 
-    color: var(--button-text);
 
-}
+        header p {
 
+            color: #ded5f4;
 
+        }
 
-@media (max-width: 500px) {
 
-    .site-nav {
 
-        align-items: flex-start;
+        .university-label {
 
-        flex-direction: column;
+            margin: 0 0 28px;
 
-    }
+            font-size: 0.82rem;
 
-}
+            font-weight: 700;
 
+            letter-spacing: 2px;
 
+        }
 
-.coursework-heading {
 
-    display: flex;
 
-    align-items: end;
+        .university-label span {
 
-    justify-content: space-between;
+            color: #ffcf70;
 
-    gap: 20px;
+            padding: 0 5px;
 
-    margin-bottom: 24px;
+        }
 
-    padding: 0 4px;
 
-}
 
+        .hero-content {
 
+            position: relative;
 
-.section-kicker {
+            z-index: 1;
 
-    margin: 0 0 8px;
+            display: flex;
 
-    color: #8065c9;
+            align-items: center;
 
-    font-size: 0.75rem;
+            justify-content: space-between;
 
-    font-weight: 800;
+            gap: 32px;
 
-    letter-spacing: 2px;
+        }
 
-}
 
 
+        .eyebrow {
 
-.coursework-heading h2 {
+            margin: 0 0 12px;
 
-    margin: 0;
+            color: #d0bfff;
 
-    color: var(--text-color);
+            font-size: 0.8rem;
 
-    font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 700;
 
-    letter-spacing: -1px;
+            letter-spacing: 2px;
 
-}
+        }
 
 
 
-.coursework-heading h2 span {
+        header h1 {
 
-    color: #8065c9;
+            margin: 0;
 
-}
+            max-width: 800px;
 
+            font-size: clamp(2rem, 4.5vw, 3.8rem);
 
+            line-height: 1.12;
 
-.coursework-count {
+            letter-spacing: -1.5px;
 
-    margin: 0 0 5px;
+        }
 
-    padding: 8px 12px;
 
-    border: 1px solid #ded5f1;
 
-    border-radius: 30px;
+        .sparkle {
 
-    color: #51486c;
+            color: #ffcf70;
 
-    font-size: 0.75rem;
+        }
 
-    font-weight: 800;
 
-    letter-spacing: 1px;
 
-    white-space: nowrap;
+        .hero-description {
 
-    background: var(--page-bg);
+            margin: 18px 0 0;
 
-}
+            color: #e0daef;
 
+            font-size: 1.05rem;
 
+            line-height: 1.7;
 
-@media (max-width: 500px) {
+        }
 
-    .coursework-heading {
 
-        align-items: flex-start;
 
-        flex-direction: column;
+        .student-badge {
 
-    }
+            flex-shrink: 0;
 
-}
+            display: flex;
 
+            flex-direction: column;
 
+            gap: 8px;
 
+            min-width: 175px;
 
+            padding: 20px;
 
-main {
+            border: 1px solid rgba(255, 255, 255, 0.2);
 
-    display: block;
+            border-radius: 18px;
 
-    max-width: 1200px;
+            background: rgba(255, 255, 255, 0.08);
 
-    margin: 0 auto;
+            backdrop-filter: blur(8px);
 
-}
+        }
 
 
 
-.coursework-heading {
+        .badge-icon {
 
-    display: flex;
+            font-size: 1.5rem;
 
-    align-items: end;
+        }
 
-    justify-content: space-between;
 
-    gap: 20px;
 
-    margin-bottom: 28px;
+        .badge-label {
 
-}
+            color: #d0bfff;
 
+            font-size: 0.72rem;
 
+            font-weight: 700;
 
-main section {
+            letter-spacing: 1.5px;
 
-    width: calc(50% - 11px);
+        }
 
-    display: inline-block;
 
-    vertical-align: top;
 
-    margin: 0 0 22px;
+        .student-badge strong {
 
-}
+            font-size: 1.25rem;
 
+            letter-spacing: 1px;
 
+        }
 
-@media (max-width: 700px) {
 
-    main section {
 
-        width: 100%;
+        .hero-footer {
 
-        display: block;
+            position: relative;
 
-    }
+            z-index: 1;
 
-}
+            display: flex;
 
+            align-items: center;
 
+            flex-wrap: wrap;
 
+            gap: 10px;
 
+            margin-top: 32px;
 
-.coursework-heading {
+            padding-top: 20px;
 
-    margin-bottom: 28px;
+            border-top: 1px solid rgba(255, 255, 255, 0.18);
 
-}
+        }
 
 
 
-main section {
+        .hero-footer>span:not(.hero-status) {
 
-    margin-bottom: 22px;
+            padding: 7px 12px;
 
-}
+            border: 1px solid rgba(255, 255, 255, 0.25);
 
+            border-radius: 30px;
 
+            background: rgba(255, 255, 255, 0.07);
 
-.site-nav {
+            color: #f3efff;
 
-    min-height: 88px;
+            font-size: 0.8rem;
 
-    padding: 20px 12px;
+            font-weight: 700;
 
-}
+        }
 
 
 
-.theme-toggle {
+        .hero-status {
 
-    display: inline-flex;
+            margin-left: auto;
 
-    align-items: center;
+            color: #c8efb9;
 
-    justify-content: center;
+            font-size: 0.85rem;
 
-    gap: 12px;
+        }
 
-    min-width: 190px;
 
-    padding: 16px 24px;
 
-   border: 2px solid var(--card-border);
+        @media (max-width: 700px) {
 
-    border-radius: 16px;
+            header {
 
-  background: var(--button-bg);
+                padding: 26px 22px 20px;
 
-color: var(--button-text);
+            }
 
-    box-shadow: 4px 4px 0 #292344;
 
-    font-family: inherit;
 
-    font-size: 1.05rem;
+            .hero-content {
 
-    font-weight: 700;
+                align-items: flex-start;
 
-    cursor: pointer;
+                flex-direction: column;
 
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+                gap: 24px;
 
-}
+            }
 
 
 
-.theme-toggle:hover {
+            .student-badge {
 
-    transform: translate(-2px, -2px);
+                min-width: 0;
 
-    box-shadow: 6px 6px 0 #292344;
+                width: 100%;
 
-}
+            }
 
 
 
-.theme-toggle:active {
+            .university-label {
 
-    transform: translate(2px, 2px);
+                font-size: 0.7rem;
 
-    box-shadow: 2px 2px 0 #292344;
+                letter-spacing: 1px;
 
-}
+            }
 
 
 
-#themeIcon {
+            .hero-status {
 
-    font-size: 1.3rem;
+                margin-left: 0;
 
-}
+                width: 100%;
 
+            }
 
+        }
 
-@media (max-width: 500px) {
 
-    .theme-toggle {
 
-        min-width: 170px;
 
-        padding: 13px 18px;
 
-    }
 
-}
 
+        main {
 
+            max-width: 1200px;
 
-body.dark-mode main section:nth-of-type(1) {
+            margin: 0 auto;
 
-    background: #263149;
+        }
 
-}
 
 
+        main>h2 {
 
-body.dark-mode main section:nth-of-type(2) {
+            font-size: 2rem;
 
-    background: #302b49;
+            margin-bottom: 8px;
 
-}
+        }
 
 
 
-body.dark-mode main section:nth-of-type(3) {
+        main>p {
 
-    background: #223746;
+            margin-bottom: 28px;
 
-}
+        }
 
 
 
-body.dark-mode main section:nth-of-type(4) {
+        main {
 
-    background: #293b38;
+            display: grid;
 
-}
+            grid-template-columns: repeat(2, minmax(0, 1fr));
 
+            gap: 22px;
 
+        }
 
-body.dark-mode main section:nth-of-type(5) {
 
-    background: #3b3042;
 
-}
+        main>h2,
 
+        main>p {
 
+            grid-column: 1 / -1;
 
-body.dark-mode main section h3,
+        }
 
-body.dark-mode main section p {
 
-    color: #f0edff;
 
-}
+        main section {
 
+            padding: 22px 24px;
 
+            margin: 0;
 
-body.dark-mode main section a {
+            border: 2px solid #292344;
 
-    background: #182235;
+            border-radius: 18px;
 
-    color: #f0edff;
+            box-shadow: 4px 4px 0 #292344;
 
-    border-color: #8990bd;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
 
-}
+        }
 
 
 
-body.dark-mode main section a:hover {
+        main section:hover {
 
-    background: #39435e;
+            transform: translateY(-3px);
 
-}
+            box-shadow: 6px 6px 0 #292344;
 
+        }
 
 
-body.dark-mode .coursework-count {
 
-    color: #edf0ff;
+        main section:nth-of-type(1) {
 
-    border-color: #454d6b;
+            background: #f4edda;
 
-}
+        }
 
 
 
-body.dark-mode .section-kicker,
+        main section:nth-of-type(2) {
 
-body.dark-mode .coursework-heading h2 span {
+            background: #e8e3f5;
 
-    color: #D8CCF5;
+        }
 
-}
 
 
+        main section:nth-of-type(3) {
 
-main section {
+            background: #dcecf0;
 
-    width: calc(50% - 18px);
+        }
 
-    margin-right: 12px;
 
-    margin-bottom: 28px;
 
-    vertical-align: top;
+        main section:nth-of-type(4) {
 
-}
+            background: #e2ecdf;
 
+        }
 
 
-@media (max-width: 700px) {
 
-    main section {
+        main section:nth-of-type(5) {
 
-        width: 100%;
+            background: #f0e4d8;
 
-        margin-right: 0;
+        }
 
-    }
 
-}
 
+        main section h3 {
 
+            font-size: 1.25rem;
 
+            margin: 0 0 8px;
 
-/* Theme consistency and accessibility refinements */
-.site-nav {
-    border-bottom-color: var(--nav-border);
-}
+        }
 
-.nav-brand,
-.nav-links a,
-.coursework-heading h2,
-.coursework-count {
-    color: var(--text-color);
-}
 
-.nav-brand span,
-.section-kicker,
-.coursework-heading h2 span {
-    color: #8065c9;
-}
 
-.coursework-count {
-    background: var(--page-bg);
-    border-color: var(--nav-border);
-}
+        main section p {
 
-.theme-toggle,
-main section {
-    border-color: var(--card-border);
-}
+            margin: 0 0 16px;
 
-.theme-toggle {
-    background: var(--button-bg);
-    color: var(--button-text);
-    box-shadow: 4px 4px 0 var(--card-shadow);
-}
+        }
 
-.theme-toggle:hover {
-    box-shadow: 6px 6px 0 var(--card-shadow);
-}
 
-.theme-toggle:active {
-    box-shadow: 2px 2px 0 var(--card-shadow);
-}
 
-main section {
-    box-shadow: 4px 4px 0 var(--card-shadow);
-}
+        main section a {
 
-main section:hover {
-    box-shadow: 6px 6px 0 var(--card-shadow);
-}
+            display: inline-block;
 
-main section a {
-    background: var(--button-bg);
-    color: var(--button-text);
-    border-color: var(--card-border);
-}
+            background: white;
 
-main section a:hover,
-.nav-links a:hover {
-    background: var(--button-bg);
-    color: var(--button-text);
-}
+            color: #292344;
 
-body.dark-mode .section-kicker,
-body.dark-mode .coursework-heading h2 span,
-body.dark-mode .nav-brand span {
-    color: #D8CCF5;
-}
+            text-decoration: none;
 
-.nav-links a:focus-visible,
-.theme-toggle:focus-visible,
-main section a:focus-visible {
-    outline: 3px solid #8065c9;
-    outline-offset: 3px;
-}
+            font-weight: bold;
 
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-    }
-}
+            padding: 9px 15px;
 
-/* FINORA featured navigation link */
-.site-nav .nav-links a.finora-link {
-    background: linear-gradient(135deg, #8b5cf6, #6366f1);
-    color: #ffffff;
-    padding: 9px 18px;
-    border-radius: 999px;
-    font-weight: 700;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
-    transition: all 0.25s ease;
-}
+            border: 2px solid #292344;
 
-.site-nav .nav-links a.finora-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.45);
-    color: #ffffff;
-}
-/* Skip to main content accessibility link */
-.skip-link {
-    position: absolute;
-    top: -100px;
-    left: 16px;
-    z-index: 9999;
-    padding: 12px 20px;
-    background: #8065c9;
-    color: #ffffff;
-    border: 2px solid #ffffff;
-    border-radius: 8px;
-    font-weight: 700;
-    text-decoration: none;
-}
+            border-radius: 30px;
 
-.skip-link:focus {
-    top: 16px;
-    outline: 3px solid #ffcf70;
-    outline-offset: 3px;
-}
-</style>
-</style>
-<link rel="stylesheet" href="music-player.css">
-<meta name="referrer" content="strict-origin-when-cross-origin">
+            transition: background 0.2s ease;
+
+        }
+
+
+
+        main section a:hover {
+
+            background: #e8e3f5;
+
+        }
+
+
+
+        @media (max-width: 700px) {
+
+            main {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+
+
+
+
+
+        @media (max-width: 600px) {
+
+            body {
+
+                padding: 16px;
+
+            }
+
+
+
+            header {
+
+                padding: 24px;
+
+            }
+
+
+
+            main section {
+
+                padding: 20px;
+
+            }
+
+        }
+
+
+
+        .site-nav {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 18px 8px;
+
+            margin: 0 4px 38px;
+
+            border-bottom: 1px solid var(--nav-border);
+
+        }
+
+
+
+        .nav-brand {
+
+            color: #292344;
+
+            font-size: 1.25rem;
+
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+
+            text-decoration: none;
+
+        }
+
+
+
+        .nav-brand span {
+
+            color: #8065c9;
+
+        }
+
+
+
+        .nav-links {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+        }
+
+
+
+        .nav-links a {
+
+            padding: 10px 15px;
+
+            border-radius: 30px;
+
+            color: var(--text-color);
+
+            font-size: 0.9rem;
+
+            font-weight: 700;
+
+            text-decoration: none;
+
+            transition: background 0.2s ease, color 0.2s ease;
+
+        }
+
+
+
+        .nav-links a:hover {
+
+            background: var(--button-bg);
+
+            color: var(--button-text);
+
+        }
+
+
+
+        @media (max-width: 500px) {
+
+            .site-nav {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+            }
+
+        }
+
+
+
+        .coursework-heading {
+
+            display: flex;
+
+            align-items: end;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-bottom: 24px;
+
+            padding: 0 4px;
+
+        }
+
+
+
+        .section-kicker {
+
+            margin: 0 0 8px;
+
+            color: #8065c9;
+
+            font-size: 0.75rem;
+
+            font-weight: 800;
+
+            letter-spacing: 2px;
+
+        }
+
+
+
+        .coursework-heading h2 {
+
+            margin: 0;
+
+            color: var(--text-color);
+
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+
+            letter-spacing: -1px;
+
+        }
+
+
+
+        .coursework-heading h2 span {
+
+            color: #8065c9;
+
+        }
+
+
+
+        .coursework-count {
+
+            margin: 0 0 5px;
+
+            padding: 8px 12px;
+
+            border: 1px solid #ded5f1;
+
+            border-radius: 30px;
+
+            color: #51486c;
+
+            font-size: 0.75rem;
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            white-space: nowrap;
+
+            background: var(--page-bg);
+
+        }
+
+
+
+        @media (max-width: 500px) {
+
+            .coursework-heading {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+            }
+
+        }
+
+
+
+
+
+        main {
+
+            display: block;
+
+            max-width: 1200px;
+
+            margin: 0 auto;
+
+        }
+
+
+
+        .coursework-heading {
+
+            display: flex;
+
+            align-items: end;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            margin-bottom: 28px;
+
+        }
+
+
+
+        main section {
+
+            width: calc(50% - 11px);
+
+            display: inline-block;
+
+            vertical-align: top;
+
+            margin: 0 0 22px;
+
+        }
+
+
+
+        @media (max-width: 700px) {
+
+            main section {
+
+                width: 100%;
+
+                display: block;
+
+            }
+
+        }
+
+
+
+
+
+        .coursework-heading {
+
+            margin-bottom: 28px;
+
+        }
+
+
+
+        main section {
+
+            margin-bottom: 22px;
+
+        }
+
+
+
+        .site-nav {
+
+            min-height: 88px;
+
+            padding: 20px 12px;
+
+        }
+
+
+
+        .theme-toggle {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            min-width: 190px;
+
+            padding: 16px 24px;
+
+            border: 2px solid var(--card-border);
+
+            border-radius: 16px;
+
+            background: var(--button-bg);
+
+            color: var(--button-text);
+
+            box-shadow: 4px 4px 0 #292344;
+
+            font-family: inherit;
+
+            font-size: 1.05rem;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        }
+
+
+
+        .theme-toggle:hover {
+
+            transform: translate(-2px, -2px);
+
+            box-shadow: 6px 6px 0 #292344;
+
+        }
+
+
+
+        .theme-toggle:active {
+
+            transform: translate(2px, 2px);
+
+            box-shadow: 2px 2px 0 #292344;
+
+        }
+
+
+
+        #themeIcon {
+
+            font-size: 1.3rem;
+
+        }
+
+
+
+        @media (max-width: 500px) {
+
+            .theme-toggle {
+
+                min-width: 170px;
+
+                padding: 13px 18px;
+
+            }
+
+        }
+
+
+
+        body.dark-mode main section:nth-of-type(1) {
+
+            background: #263149;
+
+        }
+
+
+
+        body.dark-mode main section:nth-of-type(2) {
+
+            background: #302b49;
+
+        }
+
+
+
+        body.dark-mode main section:nth-of-type(3) {
+
+            background: #223746;
+
+        }
+
+
+
+        body.dark-mode main section:nth-of-type(4) {
+
+            background: #293b38;
+
+        }
+
+
+
+        body.dark-mode main section:nth-of-type(5) {
+
+            background: #3b3042;
+
+        }
+
+
+
+        body.dark-mode main section h3,
+
+        body.dark-mode main section p {
+
+            color: #f0edff;
+
+        }
+
+
+
+        body.dark-mode main section a {
+
+            background: #182235;
+
+            color: #f0edff;
+
+            border-color: #8990bd;
+
+        }
+
+
+
+        body.dark-mode main section a:hover {
+
+            background: #39435e;
+
+        }
+
+
+
+        body.dark-mode .coursework-count {
+
+            color: #edf0ff;
+
+            border-color: #454d6b;
+
+        }
+
+
+
+        body.dark-mode .section-kicker,
+
+        body.dark-mode .coursework-heading h2 span {
+
+            color: #D8CCF5;
+
+        }
+
+
+
+        main section {
+
+            width: calc(50% - 18px);
+
+            margin-right: 12px;
+
+            margin-bottom: 28px;
+
+            vertical-align: top;
+
+        }
+
+
+
+        @media (max-width: 700px) {
+
+            main section {
+
+                width: 100%;
+
+                margin-right: 0;
+
+            }
+
+        }
+
+
+
+
+        /* Theme consistency and accessibility refinements */
+        .site-nav {
+            border-bottom-color: var(--nav-border);
+        }
+
+        .nav-brand,
+        .nav-links a,
+        .coursework-heading h2,
+        .coursework-count {
+            color: var(--text-color);
+        }
+
+        .nav-brand span,
+        .section-kicker,
+        .coursework-heading h2 span {
+            color: #8065c9;
+        }
+
+        .coursework-count {
+            background: var(--page-bg);
+            border-color: var(--nav-border);
+        }
+
+        .theme-toggle,
+        main section {
+            border-color: var(--card-border);
+        }
+
+        .theme-toggle {
+            background: var(--button-bg);
+            color: var(--button-text);
+            box-shadow: 4px 4px 0 var(--card-shadow);
+        }
+
+        .theme-toggle:hover {
+            box-shadow: 6px 6px 0 var(--card-shadow);
+        }
+
+        .theme-toggle:active {
+            box-shadow: 2px 2px 0 var(--card-shadow);
+        }
+
+        main section {
+            box-shadow: 4px 4px 0 var(--card-shadow);
+        }
+
+        main section:hover {
+            box-shadow: 6px 6px 0 var(--card-shadow);
+        }
+
+        main section a {
+            background: var(--button-bg);
+            color: var(--button-text);
+            border-color: var(--card-border);
+        }
+
+        main section a:hover,
+        .nav-links a:hover {
+            background: var(--button-bg);
+            color: var(--button-text);
+        }
+
+        body.dark-mode .section-kicker,
+        body.dark-mode .coursework-heading h2 span,
+        body.dark-mode .nav-brand span {
+            color: #D8CCF5;
+        }
+
+        .nav-links a:focus-visible,
+        .theme-toggle:focus-visible,
+        main section a:focus-visible {
+            outline: 3px solid #8065c9;
+            outline-offset: 3px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+            }
+        }
+
+        /* FINORA featured navigation link */
+        .site-nav .nav-links a.finora-link {
+            background: linear-gradient(135deg, #8b5cf6, #6366f1);
+            color: #ffffff;
+            padding: 9px 18px;
+            border-radius: 999px;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+            transition: all 0.25s ease;
+        }
+
+        .site-nav .nav-links a.finora-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.45);
+            color: #ffffff;
+        }
+
+        /* Skip to main content accessibility link */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 16px;
+            z-index: 9999;
+            padding: 12px 20px;
+            background: #8065c9;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .skip-link:focus {
+            top: 16px;
+            outline: 3px solid #ffcf70;
+            outline-offset: 3px;
+        }
+    </style>
+    </style>
+    <link rel="stylesheet" href="music-player.css">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
 </head>
 
 <body id="top">
@@ -1320,92 +1319,92 @@ main section a:focus-visible {
 
 
 
-<header>
+    <header>
 
-    <p class="university-label">GACHON UNIVERSITY <span>·</span> WEB PROGRAMMING</p>
+        <p class="university-label">GACHON UNIVERSITY <span>·</span> WEB PROGRAMMING</p>
 
 
 
-    <div class="hero-content">
+        <div class="hero-content">
 
-        <div>
+            <div>
 
-            <p class="eyebrow">MY LEARNING JOURNEY · 2026</p>
+                <p class="eyebrow">MY LEARNING JOURNEY · 2026</p>
 
-            <h1>Batsuren Anar's Web Programming <span class="sparkle">✦</span></h1>
+                <h1>Batsuren Anar's Web Programming <span class="sparkle">✦</span></h1>
 
-            <p class="hero-description">
+                <p class="hero-description">
 
-                From HTML basics to building interactive web projects.
+                    From HTML basics to building interactive web projects.
 
-            </p>
+                </p>
+
+            </div>
+
+
+
+            <div class="student-badge">
+
+                <span class="badge-icon">🎓</span>
+
+                <span class="badge-label">STUDENT ID</span>
+
+                <strong>202637018</strong>
+
+            </div>
 
         </div>
 
 
 
-        <div class="student-badge">
+        <div class="hero-footer">
 
-            <span class="badge-icon">🎓</span>
+            <span>HTML</span>
 
-            <span class="badge-label">STUDENT ID</span>
+            <span>CSS</span>
 
-            <strong>202637018</strong>
+            <span>JavaScript</span>
+
+            <span class="hero-status">● Learning in progress</span>
 
         </div>
 
-    </div>
-
-
-
-    <div class="hero-footer">
-
-        <span>HTML</span>
-
-        <span>CSS</span>
-
-        <span>JavaScript</span>
-
-        <span class="hero-status">● Learning in progress</span>
-
-    </div>
-
-</header>
+    </header>
 
 
 
 
 
-<nav class="site-nav">
+    <nav class="site-nav">
 
-    <div class="nav-links">
+        <div class="nav-links">
 
-        <a href="#top">Home</a>
+            <a href="#top">Home</a>
 
-        <a href="#coursework">Coursework</a>
+            <a href="#coursework">Coursework</a>
 
-        <a href="games.html">Mini Games</a>
+            <a href="games.html">Mini Games</a>
 
-        <a href="about.html">About</a>
+            <a href="about.html">About</a>
 
-        <a href="FINORA/index.html" class="finora-link">💰 FINORA ↗</a>
+            <a href="FINORA/index.html" class="finora-link">💰 FINORA ↗</a>
 
-        <a href="FINORA-PROJECT/app/index.html" class="finora-link">📊 FINORA App ↗</a>
-        
-
-    </div>
+            <a href="FINORA-PROJECT/app/index.html" class="finora-link">📊 FINORA App ↗</a>
 
 
+        </div>
 
-    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode">
 
-        <span id="themeIcon">🌙</span>
 
-        <span id="themeLabel">Dark mode</span>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode">
 
-    </button>
+            <span id="themeIcon">🌙</span>
 
-</nav>
+            <span id="themeLabel">Dark mode</span>
+
+        </button>
+
+    </nav>
 
 
 
@@ -1417,25 +1416,25 @@ main section a:focus-visible {
 
 
 
-<main id="coursework">
+    <main id="coursework">
 
 
 
 
 
-<div class="coursework-heading">
+        <div class="coursework-heading">
 
-    <div>
+            <div>
 
-        <p class="section-kicker">THE JOURNEY SO FAR</p>
+                <p class="section-kicker">THE JOURNEY SO FAR</p>
 
-        <h2>My Coursework <span>↘</span></h2>
+                <h2>My Coursework <span>↘</span></h2>
 
-    </div>
+            </div>
 
-    <p class="coursework-count">09 MODULES</p>
+            <p class="coursework-count">11 MODULES</p>
 
-</div>
+        </div>
 
 
 
@@ -1488,21 +1487,21 @@ main section a:focus-visible {
 
 
 
-<section>
-    <h3>🧪 Week 4 — JavaScript and DOM Manipulation</h3>
-    <p>JavaScript Fundamentals · DOM Manipulation</p>
-    <a href="Week%204%20%231/index.html">Explore coursework ↗</a>
-</section>
-
-        
-<section>
-    <h3>💻 Week 5 — JavaScript Practice</h3>
-    <p>Conditions, Loops &amp; Interactive Programs</p>
-    <a href="Week%205%20%231/index.html">Explore coursework ↗</a>
-</section>
+        <section>
+            <h3>🧪 Week 4 — JavaScript and DOM Manipulation</h3>
+            <p>JavaScript Fundamentals · DOM Manipulation</p>
+            <a href="Week%204%20%231/index.html">Explore coursework ↗</a>
+        </section>
 
 
-        
+        <section>
+            <h3>💻 Week 5 — JavaScript Practice</h3>
+            <p>Conditions, Loops &amp; Interactive Programs</p>
+            <a href="Week%205%20%231/index.html">Explore coursework ↗</a>
+        </section>
+
+
+
         <section>
 
             <h3>📝 Week 6 — Part 1</h3>
@@ -1512,28 +1511,72 @@ main section a:focus-visible {
             <a href="Week%206%20%231/index.html">Explore coursework ↗</a>
 
         </section>
-        
+
+        <section>
+            <h3>🌐 Week 6 — Part 2</h3>
+            <p>Fetch API &amp; Async/Await</p>
+            <a href="Week%206%20%232/index.html">Explore coursework ↗</a>
+        </section>
+
+
+        <section>
+            <h3>📚 Week 7 — Book Search App</h3>
+            <p>Open Library API · Fetch · Async/Await</p>
+            <a href="Week%207%20%231/index.html">Explore coursework ↗</a>
+        </section>
+
+
+        <section>
+            <h3>📝 Week 8 #1 — HTML Forms &amp; Validation</h3>
+            <p>Form elements · Input types · HTML5 validation · Accessible labels</p><a
+                href="Week%208%20%231/index.html">Explore coursework ↗</a>
+        </section>
+        <section>
+            <h3>🧩 Week 8 #2 — JavaScript Form Validation</h3>
+            <p>Validity API · Custom messages · Accessible errors</p><a href="Week%208%20%232/index.html">Explore
+                coursework ↗</a>
+        </section>
+        <section>
+            <h3>♿ Week 9 #1 — Web Accessibility</h3>
+            <p>Semantic HTML · Native elements · ARIA · Keyboard · Contrast</p><a
+                href="Week%209%20%231/index.html">Explore coursework ↗</a>
+        </section>
+        <section>
+            <h3>♿ Week 9 #2 — Accessibility in Depth</h3>
+            <p>WCAG · Buttons vs divs · Alt text · Lighthouse</p><a href="Week%209%20%232/index.html">Explore coursework
+                ↗</a>
+        </section>
+        <section>
+            <h3>⚡ Week 9 #3 — Web Performance</h3>
+            <p>Measurement · Images · Lazy loading · Scripts · Caching · CDN</p><a
+                href="Week%209%20%233/index.html">Explore coursework ↗</a>
+        </section>
+        <section>
+            <h3>🌿 Week 10 #1 — Git &amp; Version Control</h3>
+            <p>Git workflow · Commits · Branches · Remotes · Collaboration</p><a
+                href="Week%2010%20%231/index.html">Explore coursework ↗</a>
+        </section>
+        <section>
+            <h3>🚀 Week 10 #2 — GitHub Pages &amp; Deployment</h3>
+            <p>Static hosting · URL structure · Actions · 404 · Deployment</p><a
+                href="Week%2010%20%232/index.html">Explore coursework ↗</a>
+        </section>
+
+
+<!-- Week 11 #1 -->
 <section>
-    <h3>🌐 Week 6 — Part 2</h3>
-    <p>Fetch API &amp; Async/Await</p>
-    <a href="Week%206%20%232/index.html">Explore coursework ↗</a>
+    <h3>⚛️ Week 11 #1 — React Components &amp; Props</h3>
+    <p>React Fundamentals · JSX · Functional Components · Props · Lists · Component Composition</p>
+    <a href="Week%2011%20%231/index.html">Explore coursework ↗</a>
 </section>
 
-
+<!-- Week 11 #2 -->
 <section>
-    <h3>📚 Week 7 — Book Search App</h3>
-    <p>Open Library API · Fetch · Async/Await</p>
-    <a href="Week%207%20%231/index.html">Explore coursework ↗</a>
+    <h3>🔄 Week 11 #2 — React State &amp; Events</h3>
+    <p>useState · Event Handlers · Controlled Inputs · Conditional Rendering · useEffect · Local Storage</p>
+    <a href="Week%2011%20%232/index.html">Explore coursework ↗</a>
 </section>
 
-
-<section><h3>📝 Week 8 #1 — HTML Forms &amp; Validation</h3><p>Form elements · Input types · HTML5 validation · Accessible labels</p><a href="Week%208%20%231/index.html">Explore coursework ↗</a></section>
-<section><h3>🧩 Week 8 #2 — JavaScript Form Validation</h3><p>Validity API · Custom messages · Accessible errors</p><a href="Week%208%20%232/index.html">Explore coursework ↗</a></section>
-<section><h3>♿ Week 9 #1 — Web Accessibility</h3><p>Semantic HTML · Native elements · ARIA · Keyboard · Contrast</p><a href="Week%209%20%231/index.html">Explore coursework ↗</a></section>
-<section><h3>♿ Week 9 #2 — Accessibility in Depth</h3><p>WCAG · Buttons vs divs · Alt text · Lighthouse</p><a href="Week%209%20%232/index.html">Explore coursework ↗</a></section>
-<section><h3>⚡ Week 9 #3 — Web Performance</h3><p>Measurement · Images · Lazy loading · Scripts · Caching · CDN</p><a href="Week%209%20%233/index.html">Explore coursework ↗</a></section>
-<section><h3>🌿 Week 10 #1 — Git &amp; Version Control</h3><p>Git workflow · Commits · Branches · Remotes · Collaboration</p><a href="Week%2010%20%231/index.html">Explore coursework ↗</a></section>
-<section><h3>🚀 Week 10 #2 — GitHub Pages &amp; Deployment</h3><p>Static hosting · URL structure · Actions · 404 · Deployment</p><a href="Week%2010%20%232/index.html">Explore coursework ↗</a></section>
 
 
 
@@ -1554,68 +1597,68 @@ main section a:focus-visible {
 
 
 
-<script>
+    <script>
 
-    const themeToggle = document.getElementById("themeToggle");
+        const themeToggle = document.getElementById("themeToggle");
 
-    const themeIcon = document.getElementById("themeIcon");
+        const themeIcon = document.getElementById("themeIcon");
 
-    const themeLabel = document.getElementById("themeLabel");
-
-
-
-    function setTheme(isDark) {
-
-        document.body.classList.toggle("dark-mode", isDark);
+        const themeLabel = document.getElementById("themeLabel");
 
 
 
-        themeIcon.textContent = isDark ? "☀️" : "🌙";
+        function setTheme(isDark) {
 
-        themeLabel.textContent = isDark ? "Light mode" : "Dark mode";
-
-
-
-        themeToggle.setAttribute(
-
-            "aria-label",
-
-            isDark ? "Switch to light mode" : "Switch to dark mode"
-
-        );
-
-    }
+            document.body.classList.toggle("dark-mode", isDark);
 
 
 
-    // Restore the saved theme when the page opens
+            themeIcon.textContent = isDark ? "☀️" : "🌙";
 
-    const savedTheme = localStorage.getItem("anar-theme");
-
-    setTheme(savedTheme === "dark");
+            themeLabel.textContent = isDark ? "Light mode" : "Dark mode";
 
 
 
-    // Save the theme whenever the button is clicked
+            themeToggle.setAttribute(
 
-    themeToggle.addEventListener("click", function () {
+                "aria-label",
 
-        const isDark = !document.body.classList.contains("dark-mode");
+                isDark ? "Switch to light mode" : "Switch to dark mode"
 
+            );
 
-
-        setTheme(isDark);
-
-        localStorage.setItem("anar-theme", isDark ? "dark" : "light");
-
-    });
-
-</script>
+        }
 
 
 
+        // Restore the saved theme when the page opens
 
-<script src="music-player.js" defer></script>
+        const savedTheme = localStorage.getItem("anar-theme");
+
+        setTheme(savedTheme === "dark");
+
+
+
+        // Save the theme whenever the button is clicked
+
+        themeToggle.addEventListener("click", function () {
+
+            const isDark = !document.body.classList.contains("dark-mode");
+
+
+
+            setTheme(isDark);
+
+            localStorage.setItem("anar-theme", isDark ? "dark" : "light");
+
+        });
+
+    </script>
+
+
+
+
+    <script src="music-player.js" defer></script>
 </body>
 
 </html>

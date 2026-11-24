@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#171D2E">
+    <title>Exercise 02 — Notification List · Anar</title>
+
+    <style>
+        :root {
+            color-scheme:dark;
+            --bg:#171D2E; --text:#EDF0FF; --muted:#C3C9E8;
+            --card:#222D43; --accent:#B7A2FF; --border:#8791C2;
+            --line:#34415D; --shadow:rgba(0,0,0,.4);
+            --hero1:#251D40; --hero2:#49366F;
+        }
+        body.light {
+            color-scheme:light;
+            --bg:#F0EBFF; --text:#292344; --muted:#655B80;
+            --card:#fff; --accent:#7957D5; --border:#B0A3D9;
+            --line:#DED5F1; --shadow:rgba(41,35,68,.13);
+            --hero1:#E6DCFF; --hero2:#CDBCF5;
+        }
+        * { box-sizing:border-box; }
+        body { margin:0; background:var(--bg); color:var(--text); font:16px/1.65 Arial,sans-serif; }
+        main { max-width:1180px; width:calc(100% - 36px); margin:auto; }
+        a { color:var(--accent); }
+        .skip { position:absolute; top:-100px; left:15px; padding:10px 15px; background:var(--card); color:var(--text); border:2px solid var(--border); border-radius:10px; z-index:10; }
+        .skip:focus { top:10px; }
+        .top { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; padding:18px 0; border-bottom:1px solid var(--line); }
+        .brand { font-weight:800; letter-spacing:1px; }
+        .actions { display:flex; flex-wrap:wrap; gap:10px; }
+        .btn, button { display:inline-block; padding:9px 15px; border:2px solid var(--border); border-radius:14px; background:var(--card); color:var(--text); font:700 14px Arial,sans-serif; text-decoration:none; cursor:pointer; }
+        .btn:hover, button:hover { border-color:var(--accent); }
+        .hero { margin:28px 0; padding:28px 32px; border:1px solid var(--border); border-radius:26px; background:linear-gradient(120deg,var(--hero1),var(--hero2)); box-shadow:7px 7px 0 var(--shadow); }
+        .eyebrow { font-size:12px; font-weight:800; letter-spacing:2px; }
+        h1 { margin:12px 0; font-size:clamp(32px,5vw,48px); line-height:1.15; }
+        h2 { margin-top:0; font-size:24px; }
+        h3 { margin-top:0; }
+        .student { font-size:13px; font-weight:700; letter-spacing:1px; color:var(--muted); }
+        .section { margin:28px 0; }
+        .panel, .card { padding:18px; border:2px solid var(--border); border-radius:19px; background:var(--card); box-shadow:4px 5px 0 var(--shadow); }
+        .panel { margin:18px 0; }
+        .muted { color:var(--muted); }
+        .status { display:inline-block; padding:4px 10px; border:1px solid var(--border); border-radius:20px; color:var(--accent); font-size:13px; font-weight:bold; }
+        pre { overflow-x:auto; padding:16px; border:1px solid var(--line); border-radius:12px; background:rgba(0,0,0,.18); color:var(--text); line-height:1.6; }
+        body.light pre { background:#F4F0FF; }
+        code, pre { font-family:Consolas,monospace; }
+        .notification { display:flex; align-items:flex-start; gap:14px; margin:12px 0; padding:15px; border:1px solid var(--line); border-radius:13px; background:var(--bg); }
+        .notification-icon { font-size:24px; }
+        .notification p { margin:3px 0 0; }
+        .notification strong { display:block; }
+        label { display:block; margin:12px 0 6px; font-weight:bold; }
+        input, select { width:100%; padding:11px; border:2px solid var(--border); border-radius:10px; background:var(--bg); color:var(--text); font:inherit; }
+        input:focus-visible, select:focus-visible, button:focus-visible, a:focus-visible { outline:3px solid var(--accent); outline-offset:3px; }
+        .form-grid { display:grid; grid-template-columns:2fr 1fr; gap:12px; }
+        .footer { margin-top:40px; padding:22px 0; border-top:1px solid var(--line); color:var(--muted); text-align:center; font-size:13px; letter-spacing:1px; }
+        @media(max-width:600px) {
+            .hero { padding:22px; }
+            .top { align-items:flex-start; flex-direction:column; }
+            .form-grid { grid-template-columns:1fr; }
+        }
+    </style>
+</head>
+
+<body>
+<a class="skip" href="#main-content">Skip to main content</a>
+
+<main>
+    <nav class="top" aria-label="Main navigation">
+        <div class="brand">ANAR · WEB PROGRAMMING</div>
+        <div class="actions">
+            <a class="btn" href="../index.html">Main Portfolio</a>
+            <button id="theme" type="button">☀️ Light mode</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="eyebrow">GACHON UNIVERSITY · WEEK 11 #1 · EXERCISE 02</div>
+        <h1>Notification List</h1>
+        <p>Render notification data using arrays, map(), keys, and conditional rendering.</p>
+        <div class="student">BATSUREN ANAR · STUDENT ID: 202637018</div>
+    </header>
+
+    <div id="main-content">
+        <section class="section">
+            <h2>1. Exercise Objective</h2>
+            <div class="panel">
+                <p>Build a notification list that displays multiple notification objects. Each notification has a message and a type.</p>
+                <ul>
+                    <li>Store notifications in an array of objects.</li>
+                    <li>Use <code>.map()</code> to render each notification.</li>
+                    <li>Use a unique <code>key</code> for every React list item.</li>
+                    <li>Use conditional rendering to show different icons.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>2. React Implementation</h2>
+            <div class="panel">
+                <h3>Notification Data</h3>
+                <pre><code>const notifications = [
+    { id: 1, type: "success", message: "Assignment submitted!" },
+    { id: 2, type: "warning", message: "Deadline is tomorrow." },
+    { id: 3, type: "info", message: "A new course is available." }
+];</code></pre>
+            </div>
+
+            <div class="panel">
+                <h3>Notification Component</h3>
+                <pre><code>function NotificationItem({ notification }) {
+    let icon = "ℹ️";
+
+    if (notification.type === "success") {
+        icon = "✅";
+    } else if (notification.type === "warning") {
+        icon = "⚠️";
+    }
+
+    return (
+        &lt;div className="notification"&gt;
+            &lt;span&gt;{icon}&lt;/span&gt;
+            &lt;p&gt;{notification.message}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+function NotificationList() {
+    return (
+        &lt;div&gt;
+            {notifications.map((item) =&gt; (
+                &lt;NotificationItem
+                    key={item.id}
+                    notification={item}
+                /&gt;
+            ))}
+        &lt;/div&gt;
+    );
+}</code></pre>
+                <p class="muted">The key uses each notification's unique id. This helps React identify list items when the list changes.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>3. Live Notification Demo</h2>
+            <div class="panel">
+                <span class="status">Interactive demonstration</span>
+                <p class="muted">Add notifications and choose their type. The list updates immediately. This is a working JavaScript demonstration of the React concepts, not a React runtime.</p>
+
+                <form id="notification-form">
+                    <div class="form-grid">
+                        <div>
+                            <label for="message">Notification message</label>
+                            <input id="message" type="text" placeholder="Enter a notification..." required>
+                        </div>
+                        <div>
+                            <label for="type">Notification type</label>
+                            <select id="type">
+                                <option value="success">Success</option>
+                                <option value="warning">Warning</option>
+                                <option value="info">Info</option>
+                            </select>
+                        </div>
+                    </div>
+                    <p><button type="submit">Add Notification</button></p>
+                </form>
+
+                <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <h3>Notifications</h3>
+                    <button type="button" id="clear">Clear All</button>
+                </div>
+
+                <div id="notification-list" aria-live="polite">
+                    <p class="muted">No notifications yet.</p>
+                </div>
+                <p id="count" class="muted">Total notifications: 0</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>4. Requirements Checklist</h2>
+            <div class="panel">
+                <ul>
+                    <li>Notifications are stored as objects in an array.</li>
+                    <li>Each notification has an id, type, and message.</li>
+                    <li>The list is rendered using map().</li>
+                    <li>Each React list item has a unique key.</li>
+                    <li>Different notification types display different icons.</li>
+                    <li>The list can display multiple notifications.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>5. What I Learned</h2>
+            <div class="panel">
+                <p>I learned how to render an array of objects using <code>.map()</code> and why React needs a unique key for each item.</p>
+                <p>I also practiced conditional rendering by displaying different icons depending on the notification type.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Next Exercise</h2>
+            <div class="panel">
+                <h3>Exercise 03 — Card with props.children</h3>
+                <p class="muted">Create a reusable Card component that can wrap different content using props.children.</p>
+                <a class="btn" href="exercise_03_card_with_children.html">Next Exercise →</a>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        BATSUREN ANAR · STUDENT ID: 202637018<br>
+        GACHON UNIVERSITY · WEB PROGRAMMING
+    </footer>
+</main>
+
+<script>
+    // Theme toggle
+    const themeButton = document.getElementById('theme');
+
+    function syncThemeButton() {
+        themeButton.textContent = document.body.classList.contains('light')
+            ? '🌙 Dark mode'
+            : '☀️ Light mode';
+    }
+
+    themeButton.addEventListener('click', () => {
+        document.body.classList.toggle('light');
+        syncThemeButton();
+    });
+
+    syncThemeButton();
+
+    // Notification list demonstration
+    let notifications = [
+        { id: 1, type: 'success', message: 'Assignment submitted!' },
+        { id: 2, type: 'warning', message: 'Deadline is tomorrow.' },
+        { id: 3, type: 'info', message: 'A new course is available.' }
+    ];
+
+    const form = document.getElementById('notification-form');
+    const messageInput = document.getElementById('message');
+    const typeInput = document.getElementById('type');
+    const list = document.getElementById('notification-list');
+    const count = document.getElementById('count');
+
+    function getIcon(type) {
+        if (type === 'success') return '✅';
+        if (type === 'warning') return '⚠️';
+        return 'ℹ️';
+    }
+
+    function renderNotifications() {
+        list.replaceChildren();
+
+        if (notifications.length === 0) {
+            const emptyMessage = document.createElement('p');
+            emptyMessage.className = 'muted';
+            emptyMessage.textContent = 'No notifications yet.';
+            list.appendChild(emptyMessage);
+        }
+
+        notifications.forEach(notification => {
+            const item = document.createElement('div');
+            item.className = 'notification';
+
+            const icon = document.createElement('span');
+            icon.className = 'notification-icon';
+            icon.textContent = getIcon(notification.type);
+
+            const content = document.createElement('div');
+
+            const heading = document.createElement('strong');
+            heading.textContent = notification.type.toUpperCase();
+
+            const message = document.createElement('p');
+            message.textContent = notification.message;
+
+            content.append(heading, message);
+            item.append(icon, content);
+            list.appendChild(item);
+        });
+
+        count.textContent = `Total notifications: ${notifications.length}`;
+    }
+
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+
+        const message = messageInput.value.trim();
+        if (!message) return;
+
+        notifications.push({
+            id: Date.now(),
+            type: typeInput.value,
+            message: message
+        });
+
+        messageInput.value = '';
+        renderNotifications();
+        messageInput.focus();
+    });
+
+    document.getElementById('clear').addEventListener('click', () => {
+        notifications = [];
+        renderNotifications();
+    });
+
+    renderNotifications();
+</script>
+</body>
+</html>

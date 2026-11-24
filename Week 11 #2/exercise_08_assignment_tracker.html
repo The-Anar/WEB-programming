@@ -1,0 +1,553 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#171D2E">
+<title>Exercise 08 · Assignment Tracker · Anar</title>
+
+<style>
+:root {
+    color-scheme: dark;
+    --bg:#171D2E;
+    --text:#EDF0FF;
+    --muted:#C3C9E8;
+    --card:#222D43;
+    --accent:#B7A2FF;
+    --border:#8791C2;
+    --line:#34415D;
+    --shadow:rgba(0,0,0,.4);
+    --hero1:#251D40;
+    --hero2:#49366F;
+    --code:#111827;
+}
+body.light {
+    color-scheme:light;
+    --bg:#F0EBFF;
+    --text:#292344;
+    --muted:#655B80;
+    --card:#fff;
+    --accent:#7957D5;
+    --border:#B0A3D9;
+    --line:#DED5F1;
+    --shadow:rgba(41,35,68,.13);
+    --hero1:#E6DCFF;
+    --hero2:#CDBCF5;
+    --code:#F0EDFA;
+}
+* {box-sizing:border-box}
+body {
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font:16px/1.65 Arial,sans-serif;
+    transition:.2s;
+}
+main {
+    max-width:1180px;
+    width:calc(100% - 36px);
+    margin:auto;
+    padding-bottom:45px;
+}
+.top {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    padding:24px 2px 18px;
+    border-bottom:1px solid var(--line);
+    flex-wrap:wrap;
+}
+.brand {font-weight:900;letter-spacing:1px}
+.actions {display:flex;gap:10px;flex-wrap:wrap}
+.btn,button {
+    display:inline-block;
+    padding:9px 15px;
+    border:2px solid var(--border);
+    border-radius:14px;
+    background:var(--card);
+    color:var(--text);
+    font:700 14px Arial;
+    text-decoration:none;
+    cursor:pointer;
+}
+.hero {
+    margin:28px 0;
+    padding:28px 32px;
+    border:1px solid var(--border);
+    border-radius:26px;
+    background:linear-gradient(120deg,var(--hero1),var(--hero2));
+    box-shadow:7px 7px 0 var(--shadow);
+}
+.eyebrow {
+    font-size:12px;
+    letter-spacing:2px;
+    font-weight:900;
+    color:var(--muted);
+}
+h1 {font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}
+h2 {line-height:1.25}
+.student {
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:1px;
+    color:var(--muted);
+}
+.section {margin:32px 0}
+.panel {
+    padding:22px;
+    border:2px solid var(--border);
+    border-radius:19px;
+    background:var(--card);
+    box-shadow:4px 5px 0 var(--shadow);
+    margin-bottom:20px;
+}
+.panel h2 {margin-top:0}
+.panel p {color:var(--muted)}
+.requirements {
+    padding-left:22px;
+    color:var(--muted);
+}
+.requirements li {margin:8px 0}
+code {
+    color:var(--accent);
+    font-family:Consolas,monospace;
+}
+pre {
+    overflow-x:auto;
+    padding:20px;
+    border:1px solid var(--border);
+    border-radius:14px;
+    background:var(--code);
+    color:var(--text);
+    font:13px/1.7 Consolas,monospace;
+    white-space:pre;
+}
+pre code {color:inherit}
+.tracker {
+    max-width:720px;
+    margin:0 auto;
+    padding:25px;
+    border:2px solid var(--border);
+    border-radius:18px;
+    background:var(--card);
+    box-shadow:4px 5px 0 var(--shadow);
+}
+.filter-group {
+    display:flex;
+    gap:9px;
+    flex-wrap:wrap;
+    margin-bottom:20px;
+}
+.filter-button {
+    min-width:85px;
+    text-transform:capitalize;
+}
+.filter-button.active {
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#211A37;
+}
+.task-list {
+    display:grid;
+    gap:10px;
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+.task-item {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:14px 15px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:var(--code);
+}
+.task-item label {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    width:100%;
+    cursor:pointer;
+    font-weight:700;
+}
+.task-item input {
+    width:19px;
+    height:19px;
+    flex-shrink:0;
+    accent-color:var(--accent);
+    cursor:pointer;
+}
+.task-item.done span {
+    color:var(--muted);
+    text-decoration:line-through;
+}
+.empty-message {
+    padding:18px;
+    border-radius:12px;
+    background:var(--code);
+    color:var(--muted);
+    text-align:center;
+}
+.tracker-bottom {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-top:22px;
+}
+.task-count {
+    color:var(--muted);
+    font-size:14px;
+}
+.clear-button {
+    color:#FCA5A5;
+    border-color:#A45C70;
+}
+.clear-button:hover {
+    background:#542D43;
+}
+.note {
+    padding:15px 18px;
+    border-left:4px solid var(--accent);
+    border-radius:8px;
+    background:var(--code);
+    color:var(--muted);
+}
+.footer {
+    text-align:center;
+    color:var(--muted);
+    border-top:1px solid var(--line);
+    margin-top:38px;
+    padding:20px;
+    font-size:13px;
+}
+button:focus-visible,a:focus-visible,input:focus-visible {
+    outline:3px solid var(--accent);
+    outline-offset:3px;
+}
+@media(max-width:520px) {
+    .hero {padding:22px}
+    .top {align-items:flex-start;flex-direction:column}
+    .tracker {padding:18px}
+    .tracker-bottom {align-items:flex-start;flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+<main>
+
+<nav class="top">
+    <div class="brand">ANAR · WEB PROGRAMMING</div>
+    <div class="actions">
+        <a class="btn" href="index.html">← Week overview</a>
+        <a class="btn" href="../index.html">Main portfolio</a>
+        <button id="theme" type="button">☀️ Light mode</button>
+    </div>
+</nav>
+
+<header class="hero">
+    <p class="eyebrow">WEEK 11.2 · REACT STATE &amp; EVENTS</p>
+    <h1>E8 · Assignment Tracker</h1>
+    <p>Manage assignment status, filter tasks, and clear completed work using React state.</p>
+    <p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
+</header>
+
+<section class="section">
+    <p class="eyebrow">EXERCISE OVERVIEW</p>
+    <h2>Challenge Description</h2>
+
+    <div class="panel">
+        <p>
+            Build an assignment tracker that allows users to mark
+            tasks as completed, filter the list by status, and remove
+            all completed assignments.
+        </p>
+
+        <h3>Requirements</h3>
+        <ul class="requirements">
+            <li>Initialize the task array with three assignments.</li>
+            <li>Use a checkbox to toggle each task's completed status.</li>
+            <li>Provide All, Pending, and Done filters.</li>
+            <li>Display only tasks matching the selected filter.</li>
+            <li>Show a message when the filtered list is empty.</li>
+            <li>Provide a button to clear all completed assignments.</li>
+            <li>Update objects and arrays without mutating the original state.</li>
+            <li>Derive the filtered list instead of storing it in state.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="section">
+    <p class="eyebrow">IMPLEMENTATION</p>
+    <h2>React Code</h2>
+
+    <div class="panel">
+        <p>
+            The <code>tasks</code> array stores assignment data.
+            The <code>filter</code> state controls which assignments
+            are displayed. The visible list is calculated from
+            these two state values.
+        </p>
+
+<pre><code>function AssignmentTracker() {
+  const [tasks, setTasks] = useState([
+    { id: 1, title: 'Finish Task 11-A', done: false },
+    { id: 2, title: 'Practise useState', done: true },
+    { id: 3, title: 'Deploy the portfolio', done: false },
+  ]);
+
+  const [filter, setFilter] = useState('all');
+
+  const toggle = (id) => setTasks(
+    tasks.map((t) =>
+      t.id === id ? { ...t, done: !t.done } : t
+    )
+  );
+
+  const clearDone = () =>
+    setTasks(tasks.filter((t) => !t.done));
+
+  const shown = tasks.filter((t) =>
+    filter === 'pending' ? !t.done :
+    filter === 'done' ? t.done : true
+  );
+
+  return (
+    &lt;section&gt;
+      &lt;div role="group" aria-label="Filter assignments"&gt;
+        {['all', 'pending', 'done'].map((f) =&gt; (
+          &lt;button
+            key={f}
+            type="button"
+            aria-pressed={filter === f}
+            onClick={() =&gt; setFilter(f)}
+          &gt;
+            {f}
+          &lt;/button&gt;
+        ))}
+      &lt;/div&gt;
+
+      &lt;ul&gt;
+        {shown.map((t) =&gt; (
+          &lt;li key={t.id}&gt;
+            &lt;label&gt;
+              &lt;input
+                type="checkbox"
+                checked={t.done}
+                onChange={() =&gt; toggle(t.id)}
+              /&gt;
+              {t.title}
+            &lt;/label&gt;
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+
+      {shown.length === 0 && (
+        &lt;p&gt;No assignments here.&lt;/p&gt;
+      )}
+
+      &lt;button type="button" onClick={clearDone}&gt;
+        Clear completed
+      &lt;/button&gt;
+    &lt;/section&gt;
+  );
+}
+
+ReactDOM.createRoot(
+  document.getElementById('root')
+).render(&lt;AssignmentTracker /&gt;);</code></pre>
+    </div>
+</section>
+
+<section class="section">
+    <p class="eyebrow">LIVE RESULT</p>
+    <h2>Try Your Assignment Tracker</h2>
+
+    <div class="panel">
+        <div id="root">
+            <p>Loading React example...</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <p class="eyebrow">KEY CONCEPTS</p>
+    <h2>What This Exercise Demonstrates</h2>
+
+    <div class="panel">
+        <h3>1. Updating Objects in an Array</h3>
+        <p>
+            <code>{ '{ ...t, done: !t.done }' }</code> creates
+            a copy of the selected task and changes its done property.
+        </p>
+
+        <h3>2. Array map()</h3>
+        <p>
+            <code>map()</code> creates a new array while updating
+            the selected task.
+        </p>
+
+        <h3>3. Filtering with filter()</h3>
+        <p>
+            <code>filter()</code> creates a list containing only
+            the assignments that match the selected status.
+        </p>
+
+        <h3>4. Derived State</h3>
+        <p>
+            The <code>shown</code> variable is calculated from
+            <code>tasks</code> and <code>filter</code>.
+            It does not need its own useState variable.
+        </p>
+
+        <h3>5. Conditional Rendering</h3>
+        <p>
+            The empty-state message appears when
+            <code>shown.length === 0</code>.
+        </p>
+    </div>
+
+    <div class="note">
+        <strong>Key takeaway:</strong>
+        <code>{ '{ ...t, done: !t.done }' }</code> copies the task
+        and changes one field, so the original object is never modified.
+        The filtered list is derived from state instead of stored separately.
+    </div>
+</section>
+
+<footer class="footer">
+    BATSUREN ANAR · STUDENT ID: 202637018<br>
+    GACHON UNIVERSITY · WEB PROGRAMMING
+</footer>
+
+</main>
+
+<script>
+const themeButton = document.getElementById('theme');
+
+function syncThemeButton() {
+    themeButton.textContent =
+        document.body.classList.contains('light')
+        ? '🌙 Dark mode'
+        : '☀️ Light mode';
+}
+
+themeButton.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    syncThemeButton();
+});
+
+syncThemeButton();
+</script>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+const { useState } = React;
+
+function AssignmentTracker() {
+    const [tasks, setTasks] = useState([
+        { id: 1, title: 'Finish Task 11-A', done: false },
+        { id: 2, title: 'Practise useState', done: true },
+        { id: 3, title: 'Deploy the portfolio', done: false },
+    ]);
+
+    const [filter, setFilter] = useState('all');
+
+    const toggle = (id) => {
+        setTasks(
+            tasks.map((t) =>
+                t.id === id ? { ...t, done: !t.done } : t
+            )
+        );
+    };
+
+    const clearDone = () => {
+        setTasks(tasks.filter((t) => !t.done));
+    };
+
+    const shown = tasks.filter((t) => (
+        filter === 'pending'
+            ? !t.done
+            : filter === 'done'
+                ? t.done
+                : true
+    ));
+
+    const completedCount = tasks.filter((t) => t.done).length;
+
+    return (
+        <section className="tracker">
+            <div
+                className="filter-group"
+                role="group"
+                aria-label="Filter assignments"
+            >
+                {['all', 'pending', 'done'].map((f) => (
+                    <button
+                        className={`filter-button ${filter === f ? 'active' : ''}`}
+                        key={f}
+                        type="button"
+                        aria-pressed={filter === f}
+                        onClick={() => setFilter(f)}
+                    >
+                        {f}
+                    </button>
+                ))}
+            </div>
+
+            <ul className="task-list">
+                {shown.map((t) => (
+                    <li
+                        className={`task-item ${t.done ? 'done' : ''}`}
+                        key={t.id}
+                    >
+                        <label>
+                            <input
+                                type="checkbox"
+                                checked={t.done}
+                                onChange={() => toggle(t.id)}
+                            />
+                            <span>{t.title}</span>
+                        </label>
+                    </li>
+                ))}
+            </ul>
+
+            {shown.length === 0 && (
+                <p className="empty-message" aria-live="polite">
+                    No assignments here.
+                </p>
+            )}
+
+            <div className="tracker-bottom">
+                <span className="task-count">
+                    {completedCount} of {tasks.length} completed
+                </span>
+
+                <button
+                    className="clear-button"
+                    type="button"
+                    onClick={clearDone}
+                >
+                    Clear completed
+                </button>
+            </div>
+        </section>
+    );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <AssignmentTracker />
+);
+</script>
+
+</body>
+</html>

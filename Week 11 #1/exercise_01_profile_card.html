@@ -1,0 +1,509 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#171D2E">
+    <title>Exercise 01 — ProfileCard Component · Anar</title>
+
+    <style>
+        :root {
+            color-scheme:dark;
+            --bg:#171D2E;
+            --text:#EDF0FF;
+            --muted:#C3C9E8;
+            --card:#222D43;
+            --accent:#B7A2FF;
+            --border:#8791C2;
+            --line:#34415D;
+            --shadow:rgba(0,0,0,.4);
+            --hero1:#251D40;
+            --hero2:#49366F;
+        }
+
+        body.light {
+            color-scheme:light;
+            --bg:#F0EBFF;
+            --text:#292344;
+            --muted:#655B80;
+            --card:#fff;
+            --accent:#7957D5;
+            --border:#B0A3D9;
+            --line:#DED5F1;
+            --shadow:rgba(41,35,68,.13);
+            --hero1:#E6DCFF;
+            --hero2:#CDBCF5;
+        }
+
+        * { box-sizing:border-box; }
+
+        body {
+            margin:0;
+            background:var(--bg);
+            color:var(--text);
+            font:16px/1.65 Arial,sans-serif;
+        }
+
+        main {
+            max-width:1180px;
+            width:calc(100% - 36px);
+            margin:auto;
+        }
+
+        a { color:var(--accent); }
+
+        .skip {
+            position:absolute;
+            top:-100px;
+            left:15px;
+            padding:10px 15px;
+            background:var(--card);
+            color:var(--text);
+            border:2px solid var(--border);
+            border-radius:10px;
+            z-index:10;
+        }
+
+        .skip:focus { top:10px; }
+
+        .top {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+            gap:14px;
+            padding:18px 0;
+            border-bottom:1px solid var(--line);
+        }
+
+        .brand { font-weight:800; letter-spacing:1px; }
+        .actions { display:flex; flex-wrap:wrap; gap:10px; }
+
+        .btn, button {
+            display:inline-block;
+            padding:9px 15px;
+            border:2px solid var(--border);
+            border-radius:14px;
+            background:var(--card);
+            color:var(--text);
+            font:700 14px Arial,sans-serif;
+            text-decoration:none;
+            cursor:pointer;
+        }
+
+        .btn:hover, button:hover { border-color:var(--accent); }
+
+        .hero {
+            margin:28px 0;
+            padding:28px 32px;
+            border:1px solid var(--border);
+            border-radius:26px;
+            background:linear-gradient(120deg,var(--hero1),var(--hero2));
+            box-shadow:7px 7px 0 var(--shadow);
+        }
+
+        .eyebrow {
+            font-size:12px;
+            font-weight:800;
+            letter-spacing:2px;
+        }
+
+        h1 {
+            margin:12px 0;
+            font-size:clamp(32px,5vw,48px);
+            line-height:1.15;
+        }
+
+        h2 { margin-top:0; font-size:24px; }
+        h3 { margin-top:0; }
+
+        .student {
+            font-size:13px;
+            font-weight:700;
+            letter-spacing:1px;
+            color:var(--muted);
+        }
+
+        .section { margin:28px 0; }
+
+        .grid {
+            display:grid;
+            grid-template-columns:repeat(2,minmax(0,1fr));
+            gap:14px;
+        }
+
+        .card, .panel {
+            padding:18px;
+            border:2px solid var(--border);
+            border-radius:19px;
+            background:var(--card);
+            box-shadow:4px 5px 0 var(--shadow);
+        }
+
+        .panel { margin:18px 0; }
+        .muted { color:var(--muted); }
+
+        .status {
+            display:inline-block;
+            padding:4px 10px;
+            border:1px solid var(--border);
+            border-radius:20px;
+            color:var(--accent);
+            font-size:13px;
+            font-weight:bold;
+        }
+
+        code, pre { font-family:Consolas,monospace; }
+
+        pre {
+            overflow-x:auto;
+            padding:16px;
+            border:1px solid var(--line);
+            border-radius:12px;
+            background:rgba(0,0,0,.18);
+            color:var(--text);
+            line-height:1.6;
+        }
+
+        body.light pre { background:#F4F0FF; }
+
+        label {
+            display:block;
+            margin:12px 0 6px;
+            font-weight:bold;
+        }
+
+        input {
+            width:100%;
+            padding:11px;
+            border:2px solid var(--border);
+            border-radius:10px;
+            background:var(--bg);
+            color:var(--text);
+            font:inherit;
+        }
+
+        input:focus-visible, button:focus-visible, a:focus-visible {
+            outline:3px solid var(--accent);
+            outline-offset:3px;
+        }
+
+        .profile-preview {
+            display:flex;
+            align-items:center;
+            gap:16px;
+            margin-top:18px;
+            padding:20px;
+            border:2px solid var(--border);
+            border-radius:15px;
+            background:var(--bg);
+        }
+
+        .avatar {
+            width:65px;
+            height:65px;
+            flex-shrink:0;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            border-radius:50%;
+            background:var(--hero2);
+            color:white;
+            font-size:25px;
+            font-weight:bold;
+        }
+
+        .role-badge {
+            display:inline-block;
+            padding:4px 10px;
+            border:1px solid var(--border);
+            border-radius:20px;
+            color:var(--accent);
+            font-size:12px;
+            font-weight:bold;
+        }
+
+        .footer {
+            margin-top:40px;
+            padding:22px 0;
+            border-top:1px solid var(--line);
+            color:var(--muted);
+            text-align:center;
+            font-size:13px;
+            letter-spacing:1px;
+        }
+
+        @media(max-width:700px) {
+            .grid { grid-template-columns:1fr; }
+        }
+
+        @media(max-width:520px) {
+            .hero { padding:22px; }
+            .top { align-items:flex-start; flex-direction:column; }
+            .profile-preview { align-items:flex-start; }
+        }
+    </style>
+</head>
+
+<body>
+<a class="skip" href="#main-content">Skip to main content</a>
+
+<main>
+    <nav class="top" aria-label="Main navigation">
+        <div class="brand">ANAR · WEB PROGRAMMING</div>
+        <div class="actions">
+            <a class="btn" href="../index.html">Main Portfolio</a>
+            <button id="theme" type="button">☀️ Light mode</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="eyebrow">GACHON UNIVERSITY · WEEK 11 #1 · EXERCISE 01</div>
+        <h1>ProfileCard Component</h1>
+        <p>Create a reusable student profile card using React components and props.</p>
+        <div class="student">BATSUREN ANAR · STUDENT ID: 202637018</div>
+    </header>
+
+    <div id="main-content">
+
+        <section class="section">
+            <h2>1. Exercise Objective</h2>
+
+            <div class="panel">
+                <p>
+                    The goal of this exercise is to create a reusable
+                    <strong>ProfileCard</strong> component that receives information
+                    through props and displays a person's profile.
+                </p>
+
+                <ul>
+                    <li>Create a ProfileCard functional component.</li>
+                    <li>Receive name, role, and email through props.</li>
+                    <li>Display the user's profile information.</li>
+                    <li>Use a default avatar when no avatar URL is provided.</li>
+                    <li>Make the component reusable with different information.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>2. React Implementation</h2>
+
+            <div class="panel">
+                <h3>ProfileCard Component</h3>
+
+                <pre><code>function ProfileCard({
+    name,
+    role,
+    email,
+    avatarUrl = "https://via.placeholder.com/80"
+}) {
+    return (
+        &lt;div className="profile-card"&gt;
+            &lt;img src={avatarUrl} alt={`${name}'s avatar`} /&gt;
+            &lt;h2&gt;{name}&lt;/h2&gt;
+            &lt;p&gt;{role}&lt;/p&gt;
+            &lt;a href={`mailto:${email}`}&gt;
+                {email}
+            &lt;/a&gt;
+        &lt;/div&gt;
+    );
+}</code></pre>
+
+                <p class="muted">
+                    The component receives four props. The avatarUrl prop has a
+                    default value, so the component can still work when no image
+                    URL is provided.
+                </p>
+            </div>
+
+            <div class="panel">
+                <h3>Using the Component</h3>
+
+                <pre><code>function App() {
+    return (
+        &lt;div&gt;
+            &lt;ProfileCard
+                name="Anar"
+                role="Computer Engineering Student"
+                email="anar@example.com"
+            /&gt;
+
+            &lt;ProfileCard
+                name="Alex"
+                role="Web Developer"
+                email="alex@example.com"
+                avatarUrl="/images/alex.jpg"
+            /&gt;
+        &lt;/div&gt;
+    );
+}</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>3. Live ProfileCard Demo</h2>
+
+            <div class="panel">
+                <span class="status">Interactive demonstration</span>
+                <p class="muted">
+                    Edit the fields to change the profile card. This is a working
+                    HTML and JavaScript demonstration of the React props concept,
+                    not a React runtime.
+                </p>
+
+                <div class="grid">
+                    <div>
+                        <label for="name">Name</label>
+                        <input id="name" type="text" value="Batsuren Anar">
+
+                        <label for="role">Role</label>
+                        <input id="role" type="text" value="Computer Engineering Student">
+
+                        <label for="email">Email</label>
+                        <input id="email" type="email" value="anar@example.com">
+                    </div>
+
+                    <div>
+                        <label for="avatar-url">Avatar URL (optional)</label>
+                        <input id="avatar-url" type="url" placeholder="Leave empty for default avatar">
+
+                        <p class="muted">
+                            Leave the avatar URL empty to use the default initials avatar.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="profile-preview" aria-live="polite">
+                    <div class="avatar" id="preview-avatar">A</div>
+                    <div>
+                        <h3 id="preview-name" style="margin:0 0 5px;">Batsuren Anar</h3>
+                        <p class="muted" id="preview-role" style="margin:0 0 8px;">
+                            Computer Engineering Student
+                        </p>
+                        <span class="role-badge">ProfileCard</span>
+                        <p style="margin:8px 0 0;">
+                            <a id="preview-email" href="mailto:anar@example.com">anar@example.com</a>
+                        </p>
+                    </div>
+                </div>
+
+                <p id="avatar-status" class="muted" aria-live="polite">
+                    Using the default avatar.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>4. Requirements Checklist</h2>
+
+            <div class="panel">
+                <ul>
+                    <li>ProfileCard is a functional component.</li>
+                    <li>Name, role, and email are received through props.</li>
+                    <li>Avatar URL is optional.</li>
+                    <li>A default avatar is used when the URL is missing.</li>
+                    <li>The component displays all profile information.</li>
+                    <li>The component can be reused with different prop values.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>5. What I Learned</h2>
+
+            <div class="panel">
+                <p>
+                    Through this exercise, I practiced creating a reusable functional
+                    component and passing information through props.
+                </p>
+                <p>
+                    I also learned how default prop values help prevent missing
+                    information and make components more flexible.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Next Exercise</h2>
+
+            <div class="panel">
+                <h3>Exercise 02 — Notification List</h3>
+                <p class="muted">
+                    Create a notification list by rendering an array of notification
+                    objects and displaying different icons based on their types.
+                </p>
+                <a class="btn" href="exercise_02_notification_list.html">Next Exercise →</a>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="footer">
+        BATSUREN ANAR · STUDENT ID: 202637018<br>
+        GACHON UNIVERSITY · WEB PROGRAMMING
+    </footer>
+</main>
+
+<script>
+    // Theme toggle
+    const themeButton = document.getElementById('theme');
+
+    function syncThemeButton() {
+        themeButton.textContent =
+            document.body.classList.contains('light')
+                ? '🌙 Dark mode'
+                : '☀️ Light mode';
+    }
+
+    themeButton.addEventListener('click', () => {
+        document.body.classList.toggle('light');
+        syncThemeButton();
+    });
+
+    syncThemeButton();
+
+    // ProfileCard demonstration
+    const nameInput = document.getElementById('name');
+    const roleInput = document.getElementById('role');
+    const emailInput = document.getElementById('email');
+    const avatarInput = document.getElementById('avatar-url');
+
+    const previewName = document.getElementById('preview-name');
+    const previewRole = document.getElementById('preview-role');
+    const previewEmail = document.getElementById('preview-email');
+    const previewAvatar = document.getElementById('preview-avatar');
+    const avatarStatus = document.getElementById('avatar-status');
+
+    function updateProfile() {
+        const name = nameInput.value.trim() || 'Unknown Student';
+        const role = roleInput.value.trim() || 'Student';
+        const email = emailInput.value.trim();
+        const avatarUrl = avatarInput.value.trim();
+
+        previewName.textContent = name;
+        previewRole.textContent = role;
+
+        previewEmail.textContent = email || 'No email provided';
+        previewEmail.href = email ? `mailto:${email}` : '#';
+
+        previewAvatar.textContent = name.charAt(0).toUpperCase();
+
+        if (avatarUrl) {
+            previewAvatar.textContent = '✓';
+            avatarStatus.textContent = 'Avatar URL provided. In a React implementation, this URL would be displayed as the profile image.';
+        } else {
+            avatarStatus.textContent = 'Using the default initials avatar.';
+        }
+    }
+
+    [nameInput, roleInput, emailInput, avatarInput].forEach(input => {
+        input.addEventListener('input', updateProfile);
+    });
+
+    updateProfile();
+</script>
+
+</body>
+</html>

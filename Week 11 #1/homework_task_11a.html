@@ -1,0 +1,674 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#171D2E">
+    <title>Task 11-A Requirements & Rubric · Anar</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #171D2E;
+            --text: #EDF0FF;
+            --muted: #C3C9E8;
+            --card: #222D43;
+            --accent: #B7A2FF;
+            --border: #8791C2;
+            --line: #34415D;
+            --shadow: rgba(0,0,0,.4);
+            --hero1: #251D40;
+            --hero2: #49366F;
+        }
+
+        body.light {
+            color-scheme: light;
+            --bg: #F0EBFF;
+            --text: #292344;
+            --muted: #655B80;
+            --card: #fff;
+            --accent: #7957D5;
+            --border: #B0A3D9;
+            --line: #DED5F1;
+            --shadow: rgba(41,35,68,.13);
+            --hero1: #E6DCFF;
+            --hero2: #CDBCF5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font: 16px/1.65 Arial, sans-serif;
+            transition: background .2s, color .2s;
+        }
+
+        main {
+            max-width: 1180px;
+            width: calc(100% - 36px);
+            margin: auto;
+        }
+
+        .skip {
+            position: absolute;
+            left: -9999px;
+            top: 10px;
+            padding: 10px;
+            background: var(--card);
+            color: var(--text);
+        }
+
+        .skip:focus {
+            left: 10px;
+        }
+
+        .top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            padding: 17px 0;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .brand {
+            font-weight: 800;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn, button {
+            display: inline-block;
+            padding: 9px 15px;
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            background: var(--card);
+            color: var(--text);
+            font: 700 14px Arial, sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn:hover, button:hover {
+            border-color: var(--accent);
+        }
+
+        .hero {
+            margin: 28px 0;
+            padding: 28px 32px;
+            border: 1px solid var(--border);
+            border-radius: 26px;
+            background: linear-gradient(120deg,var(--hero1),var(--hero2));
+            box-shadow: 7px 7px 0 var(--shadow);
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-weight: 800;
+        }
+
+        h1 {
+            margin: 8px 0;
+            font-size: clamp(32px,5vw,48px);
+            line-height: 1.15;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        h3 {
+            margin-top: 0;
+        }
+
+        .student {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--muted);
+        }
+
+        .section {
+            margin: 32px 0;
+        }
+
+        .panel {
+            margin: 18px 0;
+            padding: 22px;
+            border: 2px solid var(--border);
+            border-radius: 19px;
+            background: var(--card);
+            box-shadow: 4px 5px 0 var(--shadow);
+        }
+
+        .info-row {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--line);
+            overflow-wrap: anywhere;
+        }
+
+        .info-row:last-child {
+            border-bottom: 0;
+        }
+
+        a {
+            color: var(--accent);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .feature {
+            padding: 18px;
+            border: 1px solid var(--line);
+            border-radius: 15px;
+            background: var(--bg);
+        }
+
+        .number {
+            display: inline-block;
+            margin-bottom: 8px;
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .code {
+            padding: 16px;
+            overflow-x: auto;
+            border-radius: 14px;
+            background: #171D2E;
+            color: #EDF0FF;
+            font: 13px/1.8 Consolas, monospace;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px;
+        }
+
+        th, td {
+            padding: 13px;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+        }
+
+        th {
+            color: var(--accent);
+        }
+
+        td:last-child, th:last-child {
+            text-align: center;
+        }
+
+        tfoot td {
+            font-weight: 800;
+            border-bottom: 0;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 12px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 22px 0;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        @media(max-width:650px) {
+            .hero {
+                padding: 22px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-row {
+                grid-template-columns: 1fr;
+                gap: 2px;
+            }
+
+            .top {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<a class="skip" href="#main-content">Skip to content</a>
+
+<main>
+
+    <nav class="top">
+        <div class="brand">ANAR · WEB PROGRAMMING</div>
+
+        <div class="actions">
+            <a class="btn" href="index.html">← Week 11 #1</a>
+            <a class="btn" href="../index.html">Main Portfolio</a>
+            <button id="theme" type="button">☀️ Light mode</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</div>
+        <h1>Task 11-A · Requirements & Rubric</h1>
+
+        <p>
+            React components, props, reusable student profile cards,
+            and GitHub Pages deployment.
+        </p>
+
+        <div class="student">
+            BATSUREN ANAR · STUDENT ID: 202637018
+        </div>
+    </header>
+
+    <div id="main-content">
+
+        <section class="section">
+            <h2>1. Assignment Overview</h2>
+
+            <div class="panel">
+                <p>
+                    Task 11-A focuses on building a reusable React
+                    StudentProfileCard component using props.
+                </p>
+
+                <p>
+                    The application displays multiple student profiles
+                    using one reusable component. Student information
+                    is passed into the component through five props.
+                </p>
+
+                <div class="info-row">
+                    <strong>Project</strong>
+                    <span>Student Directory</span>
+                </div>
+
+                <div class="info-row">
+                    <strong>Framework</strong>
+                    <span>React</span>
+                </div>
+
+                <div class="info-row">
+                    <strong>Build tool</strong>
+                    <span>Vite</span>
+                </div>
+
+                <div class="info-row">
+                    <strong>Deployment</strong>
+                    <span>GitHub Pages</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>2. Learning Objectives</h2>
+
+            <div class="grid">
+
+                <article class="feature">
+                    <span class="number">OBJECTIVE 01</span>
+                    <h3>Reusable Components</h3>
+                    <p>
+                        Create a separate functional React component
+                        that can be reused throughout the application.
+                    </p>
+                </article>
+
+                <article class="feature">
+                    <span class="number">OBJECTIVE 02</span>
+                    <h3>Props</h3>
+                    <p>
+                        Pass student information into a component
+                        using props and display the received values.
+                    </p>
+                </article>
+
+                <article class="feature">
+                    <span class="number">OBJECTIVE 03</span>
+                    <h3>Rendering Lists</h3>
+                    <p>
+                        Use JavaScript map() to render multiple
+                        student cards from an array of student objects.
+                    </p>
+                </article>
+
+                <article class="feature">
+                    <span class="number">OBJECTIVE 04</span>
+                    <h3>Component Composition</h3>
+                    <p>
+                        Organize the application into smaller,
+                        reusable components with clear responsibilities.
+                    </p>
+                </article>
+
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>3. Component Requirements</h2>
+
+            <div class="panel">
+                <p>
+                    The StudentProfileCard component uses exactly
+                    five props to receive student information:
+                </p>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Prop</th>
+                                <th>Purpose</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td><strong>name</strong></td>
+                                <td>Student's name</td>
+                            </tr>
+                            <tr>
+                                <td><strong>studentId</strong></td>
+                                <td>Student identification number</td>
+                            </tr>
+                            <tr>
+                                <td><strong>major</strong></td>
+                                <td>Academic major</td>
+                            </tr>
+                            <tr>
+                                <td><strong>year</strong></td>
+                                <td>Current study year</td>
+                            </tr>
+                            <tr>
+                                <td><strong>gpa</strong></td>
+                                <td>Grade point average</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>Component Structure</h3>
+
+                <pre class="code">function StudentProfileCard({
+    name,
+    studentId,
+    major,
+    year,
+    gpa
+}) {
+    return (
+        &lt;div className="student-card"&gt;
+            &lt;h2&gt;{name}&lt;/h2&gt;
+            &lt;p&gt;Student ID: {studentId}&lt;/p&gt;
+            &lt;p&gt;Major: {major}&lt;/p&gt;
+            &lt;p&gt;Year: {year}&lt;/p&gt;
+            &lt;p&gt;GPA: {gpa}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}</pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>4. Student Directory Requirements</h2>
+
+            <div class="panel">
+                <p>
+                    The application renders three student profile cards
+                    using the reusable StudentProfileCard component.
+                </p>
+
+                <ul>
+                    <li>Display the student's name.</li>
+                    <li>Display the student ID.</li>
+                    <li>Display the academic major.</li>
+                    <li>Display the study year.</li>
+                    <li>Display the GPA.</li>
+                    <li>Render the student list using map().</li>
+                    <li>Provide a unique key for each rendered card.</li>
+                </ul>
+
+                <h3>Student Profiles</h3>
+
+                <div class="info-row">
+                    <strong>Batsuren Anar</strong>
+                    <span>202637018 · Computer Engineering</span>
+                </div>
+
+                <div class="info-row">
+                    <strong>Ankhorgil</strong>
+                    <span>202637470 · Computer Engineering</span>
+                </div>
+
+                <div class="info-row">
+                    <strong>Nergui</strong>
+                    <span>Sample student profile</span>
+                </div>
+
+                <p class="muted">
+                    Nergui is used as a sample student profile.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>5. Styling Requirements</h2>
+
+            <div class="panel">
+                <p>
+                    The student cards use custom CSS styling to make
+                    the directory clear and visually consistent.
+                </p>
+
+                <ul>
+                    <li>Card borders</li>
+                    <li>Internal padding</li>
+                    <li>Rounded corners</li>
+                    <li>Hover effect</li>
+                    <li>Consistent spacing and layout</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>6. Grading Rubric</h2>
+
+            <div class="panel">
+                <p>
+                    The following is the 30-point grading breakdown
+                    we used to track the project requirements.
+                </p>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Evaluation Criteria</th>
+                                <th>Points</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Component structure and five props</td>
+                                <td>8</td>
+                            </tr>
+                            <tr>
+                                <td>Student ID</td>
+                                <td>5</td>
+                            </tr>
+                            <tr>
+                                <td>Three student cards</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>Custom CSS styling</td>
+                                <td>6</td>
+                            </tr>
+                            <tr>
+                                <td>Working GitHub Pages deployment</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>At least three meaningful commits</td>
+                                <td>3</td>
+                            </tr>
+                        </tbody>
+
+                        <tfoot>
+                            <tr>
+                                <td>Total</td>
+                                <td>30</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <p class="muted">
+                    Note: This is our working checklist based on the
+                    assignment details discussed, not a verified
+                    reproduction of the professor's original rubric.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>7. GitHub Repository & Deployment</h2>
+
+            <div class="panel">
+
+                <div class="info-row">
+                    <strong>Repository</strong>
+                    <a href="https://github.com/The-Anar/week11-react"
+                       target="_blank" rel="noopener">
+                        The-Anar/week11-react ↗
+                    </a>
+                </div>
+
+                <div class="info-row">
+                    <strong>Live website</strong>
+                    <a href="https://the-anar.github.io/week11-react/"
+                       target="_blank" rel="noopener">
+                        Student Directory ↗
+                    </a>
+                </div>
+
+                <div class="info-row">
+                    <strong>Deployment</strong>
+                    <span>GitHub Pages</span>
+                </div>
+
+                <div class="info-row">
+                    <strong>Build tool</strong>
+                    <span>Vite</span>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>8. Git Commit History</h2>
+
+            <div class="panel">
+                <pre class="code">5342394  Complete Week 11 React Student Profile Card
+c55a508  Update student directory profiles
+af1dc12  Add student directory documentation</pre>
+
+                <a href="https://github.com/The-Anar/week11-react/commits/main"
+                   target="_blank" rel="noopener">
+                    View GitHub Commit History ↗
+                </a>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>9. Project Completion</h2>
+
+            <div class="panel">
+                <span class="status">Project Deployed</span>
+
+                <p>
+                    The Student Directory React application has been
+                    built, pushed to GitHub, and deployed using
+                    GitHub Pages.
+                </p>
+
+                <a class="btn"
+                   href="homework_task_11a_submission.html">
+                    View Task 11-A Submission ↗
+                </a>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="footer">
+        BATSUREN ANAR · STUDENT ID: 202637018<br>
+        GACHON UNIVERSITY · WEB PROGRAMMING
+    </footer>
+
+</main>
+
+<script>
+    const themeButton = document.getElementById('theme');
+
+    function syncTheme() {
+        themeButton.textContent =
+            document.body.classList.contains('light')
+                ? '🌙 Dark mode'
+                : '☀️ Light mode';
+    }
+
+    themeButton.addEventListener('click', () => {
+        document.body.classList.toggle('light');
+        syncTheme();
+    });
+
+    syncTheme();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,528 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#171D2E">
+    <title>Topic 03 — Props: Passing Data · Anar</title>
+
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg:#171D2E;
+            --text:#EDF0FF;
+            --muted:#C3C9E8;
+            --card:#222D43;
+            --accent:#B7A2FF;
+            --border:#8791C2;
+            --line:#34415D;
+            --shadow:rgba(0,0,0,.4);
+            --hero1:#251D40;
+            --hero2:#49366F;
+        }
+
+        body.light {
+            color-scheme:light;
+            --bg:#F0EBFF;
+            --text:#292344;
+            --muted:#655B80;
+            --card:#fff;
+            --accent:#7957D5;
+            --border:#B0A3D9;
+            --line:#DED5F1;
+            --shadow:rgba(41,35,68,.13);
+            --hero1:#E6DCFF;
+            --hero2:#CDBCF5;
+        }
+
+        * { box-sizing:border-box; }
+
+        body {
+            margin:0;
+            background:var(--bg);
+            color:var(--text);
+            font:16px/1.65 Arial,sans-serif;
+        }
+
+        main {
+            max-width:1180px;
+            width:calc(100% - 36px);
+            margin:auto;
+        }
+
+        a { color:var(--accent); }
+
+        .skip {
+            position:absolute;
+            top:-100px;
+            left:15px;
+            padding:10px 15px;
+            background:var(--card);
+            color:var(--text);
+            border:2px solid var(--border);
+            border-radius:10px;
+            z-index:10;
+        }
+
+        .skip:focus { top:10px; }
+
+        .top {
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            flex-wrap:wrap;
+            gap:14px;
+            padding:18px 0;
+            border-bottom:1px solid var(--line);
+        }
+
+        .brand { font-weight:800; letter-spacing:1px; }
+        .actions { display:flex; flex-wrap:wrap; gap:10px; }
+
+        .btn, button {
+            display:inline-block;
+            padding:9px 15px;
+            border:2px solid var(--border);
+            border-radius:14px;
+            background:var(--card);
+            color:var(--text);
+            font:700 14px Arial,sans-serif;
+            text-decoration:none;
+            cursor:pointer;
+        }
+
+        .btn:hover, button:hover { border-color:var(--accent); }
+
+        .hero {
+            margin:28px 0;
+            padding:28px 32px;
+            border:1px solid var(--border);
+            border-radius:26px;
+            background:linear-gradient(120deg,var(--hero1),var(--hero2));
+            box-shadow:7px 7px 0 var(--shadow);
+        }
+
+        .eyebrow {
+            font-size:12px;
+            font-weight:800;
+            letter-spacing:2px;
+        }
+
+        h1 {
+            margin:12px 0;
+            font-size:clamp(32px,5vw,48px);
+            line-height:1.15;
+        }
+
+        h2 { margin-top:0; font-size:24px; }
+        h3 { margin-top:0; }
+
+        .student {
+            font-size:13px;
+            font-weight:700;
+            letter-spacing:1px;
+            color:var(--muted);
+        }
+
+        .section { margin:28px 0; }
+
+        .grid {
+            display:grid;
+            grid-template-columns:repeat(3,minmax(0,1fr));
+            gap:14px;
+        }
+
+        .card, .panel {
+            padding:18px;
+            border:2px solid var(--border);
+            border-radius:19px;
+            background:var(--card);
+            box-shadow:4px 5px 0 var(--shadow);
+        }
+
+        .panel { margin:18px 0; }
+        .muted { color:var(--muted); }
+
+        .status {
+            display:inline-block;
+            padding:4px 10px;
+            border:1px solid var(--border);
+            border-radius:20px;
+            color:var(--accent);
+            font-size:13px;
+            font-weight:bold;
+        }
+
+        code, pre { font-family:Consolas,monospace; }
+
+        pre {
+            overflow-x:auto;
+            padding:16px;
+            border:1px solid var(--line);
+            border-radius:12px;
+            background:rgba(0,0,0,.18);
+            color:var(--text);
+            line-height:1.6;
+        }
+
+        body.light pre { background:#F4F0FF; }
+
+        label {
+            display:block;
+            margin-bottom:6px;
+            font-weight:bold;
+        }
+
+        input {
+            width:100%;
+            max-width:400px;
+            padding:11px;
+            border:2px solid var(--border);
+            border-radius:10px;
+            background:var(--bg);
+            color:var(--text);
+            font:inherit;
+        }
+
+        button:focus-visible, a:focus-visible, input:focus-visible {
+            outline:3px solid var(--accent);
+            outline-offset:3px;
+        }
+
+        .profile-preview {
+            display:flex;
+            align-items:center;
+            gap:15px;
+            margin-top:15px;
+            padding:18px;
+            border:1px solid var(--border);
+            border-radius:14px;
+            background:var(--bg);
+        }
+
+        .avatar {
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            width:58px;
+            height:58px;
+            flex-shrink:0;
+            border-radius:50%;
+            background:var(--hero2);
+            color:white;
+            font-size:22px;
+            font-weight:bold;
+        }
+
+        .footer {
+            margin-top:40px;
+            padding:22px 0;
+            border-top:1px solid var(--line);
+            color:var(--muted);
+            text-align:center;
+            font-size:13px;
+            letter-spacing:1px;
+        }
+
+        @media(max-width:800px) {
+            .grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+        }
+
+        @media(max-width:520px) {
+            .grid { grid-template-columns:1fr; }
+            .hero { padding:22px; }
+            .top { align-items:flex-start; flex-direction:column; }
+        }
+    </style>
+</head>
+
+<body>
+<a class="skip" href="#main-content">Skip to main content</a>
+
+<main>
+    <nav class="top" aria-label="Main navigation">
+        <div class="brand">ANAR · WEB PROGRAMMING</div>
+        <div class="actions">
+            <a class="btn" href="../index.html">Main Portfolio</a>
+            <button id="theme" type="button">☀️ Light mode</button>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="eyebrow">GACHON UNIVERSITY · WEEK 11 #1</div>
+        <h1>Props: Passing Data</h1>
+        <p>Learn how React components receive and display information using props.</p>
+        <div class="student">BATSUREN ANAR · STUDENT ID: 202637018</div>
+    </header>
+
+    <div id="main-content">
+
+        <section class="section">
+            <h2>1. What are Props?</h2>
+
+            <div class="panel">
+                <p>
+                    <strong>Props</strong> is short for properties. They allow a parent
+                    component to pass information to a child component.
+                </p>
+                <p>
+                    Props make components reusable because the same component can display
+                    different information depending on the values it receives.
+                </p>
+            </div>
+
+            <div class="grid">
+                <article class="card">
+                    <h3>Parent Component</h3>
+                    <p class="muted">Sends information to another component.</p>
+                </article>
+
+                <article class="card">
+                    <h3>Props</h3>
+                    <p class="muted">Carry information from the parent to the child.</p>
+                </article>
+
+                <article class="card">
+                    <h3>Child Component</h3>
+                    <p class="muted">Receives and displays the information.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>2. Passing Props to a Component</h2>
+
+            <div class="panel">
+                <p>
+                    Props are passed to a component using attributes in JSX.
+                    The child component receives these values through its props parameter.
+                </p>
+
+                <pre><code>function Greeting(props) {
+    return &lt;h2&gt;Hello, {props.name}!&lt;/h2&gt;;
+}
+
+function App() {
+    return (
+        &lt;div&gt;
+            &lt;Greeting name="Anar" /&gt;
+            &lt;Greeting name="Alex" /&gt;
+        &lt;/div&gt;
+    );
+}</code></pre>
+
+                <p class="muted">
+                    The Greeting component receives a different name each time it is used.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>3. Accessing Props</h2>
+
+            <div class="panel">
+                <p>
+                    A component can access a prop using the <code>props</code> object.
+                    Each property is available through its name.
+                </p>
+
+                <pre><code>function StudentCard(props) {
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;{props.name}&lt;/h2&gt;
+            &lt;p&gt;Major: {props.major}&lt;/p&gt;
+            &lt;p&gt;Year: {props.year}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+function App() {
+    return (
+        &lt;StudentCard
+            name="Anar"
+            major="Computer Engineering"
+            year={2026}
+        /&gt;
+    );
+}</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>4. Props Destructuring</h2>
+
+            <div class="panel">
+                <p>
+                    Instead of writing <code>props.name</code> repeatedly, you can use
+                    <strong>destructuring</strong> to extract the values directly from props.
+                </p>
+
+                <h3>Without Destructuring</h3>
+                <pre><code>function Greeting(props) {
+    return &lt;h2&gt;Hello, {props.name}!&lt;/h2&gt;;
+}</code></pre>
+
+                <h3>With Destructuring</h3>
+                <pre><code>function Greeting({ name }) {
+    return &lt;h2&gt;Hello, {name}!&lt;/h2&gt;;
+}</code></pre>
+
+                <p class="muted">
+                    Both examples work. Destructuring makes the code shorter and easier to read.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>5. Default Prop Values</h2>
+
+            <div class="panel">
+                <p>
+                    A component can provide a default value for a prop.
+                    The default value is used when the parent does not provide that prop.
+                </p>
+
+                <pre><code>function StudentCard({
+    name = "Unknown Student",
+    role = "Student"
+}) {
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;{name}&lt;/h2&gt;
+            &lt;p&gt;{role}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Uses the default values
+&lt;StudentCard /&gt;
+
+// Uses the provided values
+&lt;StudentCard name="Anar" role="Developer" /&gt;</code></pre>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>6. Props are Read-Only</h2>
+
+            <div class="panel">
+                <p>
+                    Props should not be changed by the child component.
+                    They are <strong>read-only</strong> values passed from the parent.
+                </p>
+
+                <pre><code>function Greeting({ name }) {
+    // Correct: use the received value
+    return &lt;h2&gt;Hello, {name}!&lt;/h2&gt;;
+}</code></pre>
+
+                <p>
+                    If information needs to change, React uses other features such as
+                    state. Props themselves should not be modified.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>7. Interactive Student Profile Preview</h2>
+
+            <div class="panel">
+                <span class="status">Live UI demonstration</span>
+                <p class="muted">
+                    Change the information below to see how a reusable profile card
+                    can display different prop values. This is a JavaScript preview
+                    demonstrating the concept, not a React runtime.
+                </p>
+
+                <label for="profile-name">Student name</label>
+                <input id="profile-name" type="text" value="Anar">
+
+                <label for="profile-role" style="margin-top:12px;">Student role</label>
+                <input id="profile-role" type="text" value="Computer Engineering Student">
+
+                <div class="profile-preview" aria-live="polite">
+                    <div class="avatar" id="avatar">A</div>
+                    <div>
+                        <h3 id="preview-name" style="margin-bottom:4px;">Anar</h3>
+                        <p class="muted" id="preview-role" style="margin:0;">
+                            Computer Engineering Student
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>8. Key Takeaways</h2>
+
+            <div class="panel">
+                <ul>
+                    <li>Props allow parent components to pass data to child components.</li>
+                    <li>Props are received through the component's parameter.</li>
+                    <li>Use <code>props.name</code> to access a property.</li>
+                    <li>Destructuring provides a shorter way to access props.</li>
+                    <li>Default values can be provided when props are missing.</li>
+                    <li>Props are read-only and should not be modified by child components.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Next Topic</h2>
+
+            <div class="panel">
+                <h3>Topic 04 — Lists & Conditional Rendering</h3>
+                <p class="muted">
+                    Learn how to display lists with map() and show content conditionally.
+                </p>
+                <a class="btn" href="topic_04_lists_and_conditional_rendering.html">Next Topic →</a>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="footer">
+        BATSUREN ANAR · STUDENT ID: 202637018<br>
+        GACHON UNIVERSITY · WEB PROGRAMMING
+    </footer>
+</main>
+
+<script>
+    const themeButton = document.getElementById('theme');
+
+    function syncThemeButton() {
+        themeButton.textContent =
+            document.body.classList.contains('light')
+                ? '🌙 Dark mode'
+                : '☀️ Light mode';
+    }
+
+    themeButton.addEventListener('click', () => {
+        document.body.classList.toggle('light');
+        syncThemeButton();
+    });
+
+    syncThemeButton();
+
+    const nameInput = document.getElementById('profile-name');
+    const roleInput = document.getElementById('profile-role');
+    const previewName = document.getElementById('preview-name');
+    const previewRole = document.getElementById('preview-role');
+    const avatar = document.getElementById('avatar');
+
+    function updateProfile() {
+        const name = nameInput.value.trim();
+        const role = roleInput.value.trim();
+
+        previewName.textContent = name || 'Unknown Student';
+        previewRole.textContent = role || 'Student';
+        avatar.textContent = name ? name.charAt(0).toUpperCase() : '?';
+    }
+
+    nameInput.addEventListener('input', updateProfile);
+    roleInput.addEventListener('input', updateProfile);
+</script>
+
+</body>
+</html>

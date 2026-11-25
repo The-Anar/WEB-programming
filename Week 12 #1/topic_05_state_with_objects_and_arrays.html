@@ -1,0 +1,292 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#171D2E">
+<title>State with Objects & Arrays · Anar</title>
+<style>
+:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}
+body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}
+*{box-sizing:border-box}body{margin:0;font:16px/1.65 Arial,sans-serif;background:var(--bg);color:var(--text);transition:.2s}
+main{max-width:1180px;width:calc(100% - 36px);margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:22px 0}
+.brand{font-weight:bold;letter-spacing:1px}.actions{display:flex;gap:9px;flex-wrap:wrap}
+button,.nav-link{border:1px solid var(--border);background:var(--card);color:var(--text);padding:9px 14px;border-radius:10px;text-decoration:none;font-size:14px;cursor:pointer}
+button:hover,.nav-link:hover{border-color:var(--accent)}
+.hero{margin:28px 0;padding:28px 32px;border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:0 12px 30px var(--shadow)}
+.eyebrow{color:var(--accent);font-size:13px;font-weight:bold;letter-spacing:2px;text-transform:uppercase}
+h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{font-size:25px;margin:0 0 14px}h3{font-size:19px;margin:0 0 10px}
+.student{color:var(--muted);font-size:13px;letter-spacing:1px}.section{margin:32px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:19px;padding:22px;box-shadow:0 8px 22px var(--shadow);margin:16px 0}
+.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+code{color:var(--accent);background:rgba(127,110,190,.15);padding:2px 6px;border-radius:5px}
+pre{background:#101725;color:#E8EAF6;padding:18px;border-radius:12px;overflow-x:auto;line-height:1.6;font-size:14px}
+pre code{background:none;color:inherit;padding:0}
+.callout{border-left:4px solid var(--accent);padding:12px 16px;background:rgba(127,110,190,.12);border-radius:0 10px 10px 0;margin:16px 0}
+.demo-button{background:var(--accent);color:#211936;border:0;font-weight:bold;padding:10px 18px;border-radius:9px}
+.output{font-size:20px;font-weight:bold;color:var(--accent);margin:12px 0}
+input{width:100%;padding:11px;margin:7px 0 13px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font-size:15px}
+.item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}
+footer{border-top:1px solid var(--line);margin-top:50px;padding:25px 0;color:var(--muted);font-size:13px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.hero{padding:23px}.top{align-items:flex-start}}
+</style>
+</head>
+<body>
+<main>
+
+<nav class="top">
+<div class="brand">ANAR · WEB PROGRAMMING</div>
+<div class="actions">
+<a class="nav-link" href="index.html">← Week 12 #1</a>
+<a class="nav-link" href="../index.html">Main Portfolio</a>
+<button id="themeToggle">☀️ Light mode</button>
+</div>
+</nav>
+
+<header class="hero">
+<div class="eyebrow">Week 12 · Topic 05</div>
+<h1>State with Objects & Arrays</h1>
+<p>Learn how to manage complex data using objects and arrays in React state.</p>
+<div class="student">BATSUREN ANAR · STUDENT ID: 202637018</div>
+</header>
+
+<section class="section">
+<h2>1. State with Objects</h2>
+<div class="card">
+<p>Objects allow you to group related information into one state variable.</p>
+<pre><code>const [profile, setProfile] = useState({
+    name: "Anar",
+    email: "anar@example.com",
+    age: 22
+});</code></pre>
+<p>Instead of creating separate state variables, you can keep related profile information together.</p>
+</div>
+</section>
+
+<section class="section">
+<h2>2. Updating Objects Correctly</h2>
+<div class="card">
+<p>Never change an existing state object directly. Create a new object using the spread operator.</p>
+<pre><code>// Incorrect
+profile.name = "Alex";
+setProfile(profile);
+
+// Correct
+setProfile(prev => ({
+    ...prev,
+    name: "Alex"
+}));</code></pre>
+<div class="callout">
+The spread operator <code>...</code> copies the existing properties.
+Then the new value replaces the property you want to change.
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2>3. Updating a Dynamic Object Property</h2>
+<div class="card">
+<p>You can use a variable as the property name with computed property syntax.</p>
+<pre><code>function handleChange(event) {
+    const { name, value } = event.target;
+
+    setProfile(prev => ({
+        ...prev,
+        [name]: value
+    }));
+}</code></pre>
+<p>This pattern is useful when several form inputs update different properties of the same object.</p>
+</div>
+</section>
+
+<section class="section">
+<h2>4. State with Arrays</h2>
+<div class="card">
+<p>Arrays are useful when a component needs to store a list of items, such as tasks, products, or messages.</p>
+<pre><code>const [todos, setTodos] = useState([
+    "Study React",
+    "Complete homework"
+]);</code></pre>
+<p>When updating an array, create a new array instead of changing the original one.</p>
+</div>
+</section>
+
+<section class="section">
+<h2>5. Common Array Updates</h2>
+<div class="grid">
+<div class="card">
+<h3>Add an item</h3>
+<pre><code>setTodos(prev => [
+    ...prev,
+    "New task"
+]);</code></pre>
+</div>
+<div class="card">
+<h3>Remove an item</h3>
+<pre><code>setTodos(prev =>
+    prev.filter((todo, index) =>
+        index !== removeIndex
+    )
+);</code></pre>
+</div>
+<div class="card">
+<h3>Update an item</h3>
+<pre><code>setTodos(prev =>
+    prev.map(todo =>
+        todo === "Study React"
+            ? "Practice React"
+            : todo
+    )
+);</code></pre>
+</div>
+<div class="card">
+<h3>What to avoid</h3>
+<pre><code>// Avoid direct mutation
+todos.push("New task");
+todos.splice(0, 1);</code></pre>
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2>6. Interactive Profile Editor</h2>
+<div class="grid">
+<div class="card">
+<h3>Edit Profile</h3>
+<label for="profileName">Name</label>
+<input id="profileName" value="Anar">
+<label for="profileEmail">Email</label>
+<input id="profileEmail" value="anar@example.com">
+<label for="profileBio">Bio</label>
+<input id="profileBio" value="Computer Engineering Student">
+</div>
+<div class="card">
+<h3>Current Profile State</h3>
+<div class="output" id="profileOutput"></div>
+<pre id="profileJSON"></pre>
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2>7. Interactive Todo List</h2>
+<div class="card">
+<h3>My Tasks</h3>
+<div class="actions">
+<input id="todoInput" placeholder="Enter a new task" style="flex:1;min-width:180px">
+<button class="demo-button" id="addTodo">Add Task</button>
+</div>
+<div id="todoList"></div>
+<p class="muted" id="todoCount"></p>
+</div>
+</section>
+
+<section class="section">
+<h2>8. Key Takeaways</h2>
+<div class="card">
+<ul>
+<li>Objects group related information into one state variable.</li>
+<li>Use the spread operator to copy existing object properties.</li>
+<li>Use computed property names to update dynamic object fields.</li>
+<li>Arrays store collections of data.</li>
+<li>Use <code>map()</code> to update array items.</li>
+<li>Use <code>filter()</code> to remove array items.</li>
+<li>Use the spread operator to add new array items.</li>
+<li>Avoid direct mutation methods such as <code>push()</code> and <code>splice()</code> on state arrays.</li>
+</ul>
+</div>
+</section>
+
+<footer>
+<strong>BATSUREN ANAR · STUDENT ID: 202637018</strong><br>
+GACHON UNIVERSITY · WEB PROGRAMMING
+</footer>
+</main>
+
+<script>
+document.getElementById("themeToggle").addEventListener("click",function(){
+document.body.classList.toggle("light");
+this.textContent=document.body.classList.contains("light")?"🌙 Dark mode":"☀️ Light mode";
+});
+
+// Object state demonstration
+let profile={
+name:"Anar",
+email:"anar@example.com",
+bio:"Computer Engineering Student"
+};
+
+const profileFields={
+name:document.getElementById("profileName"),
+email:document.getElementById("profileEmail"),
+bio:document.getElementById("profileBio")
+};
+
+function updateProfile(field,value){
+profile={...profile,[field]:value};
+renderProfile();
+}
+
+function renderProfile(){
+document.getElementById("profileOutput").textContent=profile.name;
+document.getElementById("profileJSON").textContent=JSON.stringify(profile,null,2);
+}
+
+Object.entries(profileFields).forEach(([field,input])=>{
+input.addEventListener("input",event=>{
+updateProfile(field,event.target.value);
+});
+});
+
+renderProfile();
+
+// Array state demonstration
+let todos=["Study React","Complete homework"];
+
+function renderTodos(){
+const list=document.getElementById("todoList");
+list.replaceChildren();
+
+todos.forEach((todo,index)=>{
+const item=document.createElement("div");
+item.className="item";
+
+const text=document.createElement("span");
+text.textContent=todo;
+
+const remove=document.createElement("button");
+remove.textContent="Remove";
+remove.addEventListener("click",()=>{
+todos=todos.filter((_,i)=>i!==index);
+renderTodos();
+});
+
+item.append(text,remove);
+list.append(item);
+});
+
+document.getElementById("todoCount").textContent=
+todos.length+" task(s) remaining";
+}
+
+function addTodo(){
+const input=document.getElementById("todoInput");
+const value=input.value.trim();
+if(!value)return;
+
+todos=[...todos,value];
+input.value="";
+renderTodos();
+}
+
+document.getElementById("addTodo").addEventListener("click",addTodo);
+document.getElementById("todoInput").addEventListener("keydown",event=>{
+if(event.key==="Enter")addTodo();
+});
+
+renderTodos();
+</script>
+</body>
+</html>

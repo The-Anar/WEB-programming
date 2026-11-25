@@ -1,0 +1,353 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#171D2E">
+<title>Week 12 Part 1 · React State &amp; useState · Anar</title>
+
+<style>
+:root {
+    color-scheme: dark;
+    --bg:#171D2E;
+    --text:#EDF0FF;
+    --muted:#C3C9E8;
+    --card:#222D43;
+    --accent:#B7A2FF;
+    --border:#8791C2;
+    --line:#34415D;
+    --shadow:rgba(0,0,0,.4);
+    --hero1:#251D40;
+    --hero2:#49366F;
+}
+body.light {
+    color-scheme:light;
+    --bg:#F0EBFF;
+    --text:#292344;
+    --muted:#655B80;
+    --card:#fff;
+    --accent:#7957D5;
+    --border:#B0A3D9;
+    --line:#DED5F1;
+    --shadow:rgba(41,35,68,.13);
+    --hero1:#E6DCFF;
+    --hero2:#CDBCF5;
+}
+* {box-sizing:border-box}
+body {
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+    font:16px/1.65 Arial,sans-serif;
+    transition:.2s;
+}
+main {
+    max-width:1180px;
+    width:calc(100% - 36px);
+    margin:auto;
+    padding-bottom:45px;
+}
+.top {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    padding:24px 2px 18px;
+    border-bottom:1px solid var(--line);
+    flex-wrap:wrap;
+}
+.brand {font-weight:900;letter-spacing:1px}
+.actions {display:flex;gap:10px;flex-wrap:wrap}
+.btn,button {
+    display:inline-block;
+    padding:9px 15px;
+    border:2px solid var(--border);
+    border-radius:14px;
+    background:var(--card);
+    color:var(--text);
+    font:700 14px Arial;
+    text-decoration:none;
+    cursor:pointer;
+}
+.hero {
+    margin:28px 0;
+    padding:28px 32px;
+    border:1px solid var(--border);
+    border-radius:26px;
+    background:linear-gradient(120deg,var(--hero1),var(--hero2));
+    box-shadow:7px 7px 0 var(--shadow);
+}
+.eyebrow {
+    font-size:12px;
+    letter-spacing:2px;
+    font-weight:900;
+    color:var(--muted);
+}
+h1 {font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}
+h2 {line-height:1.25}
+.student {
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:1px;
+    color:var(--muted);
+}
+.section {margin:28px 0}
+.grid {
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:14px;
+}
+.card {
+    padding:18px;
+    border:2px solid var(--border);
+    border-radius:19px;
+    background:var(--card);
+    box-shadow:4px 5px 0 var(--shadow);
+}
+.card h3 {margin:0 0 10px;font-size:16px}
+.card p {color:var(--muted);font-size:14px}
+.card .btn {margin-top:5px}
+.card .btn:hover,.actions .btn:hover,button:hover {
+    border-color:var(--accent);
+}
+.footer {
+    text-align:center;
+    color:var(--muted);
+    border-top:1px solid var(--line);
+    margin-top:38px;
+    padding:20px;
+    font-size:13px;
+}
+button:focus-visible,a:focus-visible {
+    outline:3px solid var(--accent);
+    outline-offset:3px;
+}
+.homework {
+    border-color:var(--accent);
+    background:linear-gradient(120deg,var(--hero1),var(--card));
+}
+@media(max-width:800px) {
+    .grid {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:520px) {
+    .grid {grid-template-columns:1fr}
+    .hero {padding:22px}
+    .top {align-items:flex-start;flex-direction:column}
+}
+</style>
+</head>
+
+<body>
+<main>
+
+<nav class="top">
+    <div class="brand">ANAR · WEB PROGRAMMING</div>
+    <div class="actions">
+        <a class="btn" href="../index.html">← Section home</a>
+        <a class="btn" href="../index.html">Main portfolio</a>
+        <button id="theme" type="button">☀️ Light mode</button>
+    </div>
+</nav>
+
+<header class="hero">
+    <p class="eyebrow">GACHON UNIVERSITY · WEB PROGRAMMING</p>
+    <h1>Week 12 Part 1 · React State &amp; useState</h1>
+    <p>Learn how React manages changing data using state, the useState Hook, functional updates, objects, arrays, and component communication.</p>
+    <p class="student">BATSUREN ANAR · STUDENT ID: 202637018</p>
+</header>
+
+<div id="main-content">
+
+<section class="section">
+    <p class="eyebrow">WHAT I LEARNED</p>
+    <h2>Learning Objectives</h2>
+
+    <div class="grid">
+        <article class="card">
+            <h3>State vs Props</h3>
+            <p>Understand what state is and how it differs from props in React components.</p>
+        </article>
+
+        <article class="card">
+            <h3>useState Hook</h3>
+            <p>Learn the useState syntax, initialization, and the rules of using React Hooks.</p>
+        </article>
+
+        <article class="card">
+            <h3>Updating State</h3>
+            <p>Understand how to update state correctly using previous values and functional updates.</p>
+        </article>
+
+        <article class="card">
+            <h3>Multiple State Variables</h3>
+            <p>Manage different pieces of information using multiple useState declarations.</p>
+        </article>
+
+        <article class="card">
+            <h3>Objects &amp; Arrays</h3>
+            <p>Update object and array state immutably using spread syntax, map(), and filter().</p>
+        </article>
+
+        <article class="card">
+            <h3>Lifting State Up</h3>
+            <p>Share state between components by moving it to their common parent component.</p>
+        </article>
+    </div>
+</section>
+
+<section class="section">
+    <p class="eyebrow">CONCEPTS &amp; EXPLANATIONS</p>
+    <h2>Learning Topics</h2>
+
+    <div class="grid">
+
+        <article class="card">
+            <h3>Topic 01 — State vs Props</h3>
+            <p>Understand the difference between component state and props, and how each is used.</p>
+            <a class="btn" href="topic_01_state_vs_props.html">Open topic ↗</a>
+        </article>
+
+        <article class="card">
+            <h3>Topic 02 — useState Syntax &amp; Rules</h3>
+            <p>Learn how to declare state variables and follow the rules of React Hooks.</p>
+            <a class="btn" href="topic_02_usestate_syntax_and_rules.html">Open topic ↗</a>
+        </article>
+
+        <article class="card">
+            <h3>Topic 03 — Updating State Correctly</h3>
+            <p>Explore state updates, previous values, and functional update patterns.</p>
+            <a class="btn" href="topic_03_updating_state_correctly.html">Open topic ↗</a>
+        </article>
+
+        <article class="card">
+            <h3>Topic 04 — Multiple State Variables</h3>
+            <p>Learn how to manage multiple independent state variables in one component.</p>
+            <a class="btn" href="topic_04_multiple_state_variables.html">Open topic ↗</a>
+        </article>
+
+        <article class="card">
+            <h3>Topic 05 — State with Objects &amp; Arrays</h3>
+            <p>Understand immutable updates for objects and arrays using JavaScript methods.</p>
+            <a class="btn" href="topic_05_state_with_objects_and_arrays.html">Open topic ↗</a>
+        </article>
+
+        <article class="card">
+            <h3>Topic 06 — Lifting State Up</h3>
+            <p>Learn how parent components share state with child components through props.</p>
+            <a class="btn" href="topic_06_lifting_state_up.html">Open topic ↗</a>
+        </article>
+
+    </div>
+</section>
+
+<section class="section">
+    <p class="eyebrow">PRACTICE &amp; IMPLEMENTATION</p>
+    <h2>Exercises</h2>
+
+    <div class="grid">
+
+        <article class="card">
+            <h3>Exercise 01 — Counter Bug</h3>
+            <p>Discover why changing a regular JavaScript variable does not automatically update the React interface.</p>
+            <a class="btn" href="exercise_01_counter_bug.html">Open exercise ↗</a>
+        </article>
+
+        <article class="card">
+            <h3>Exercise 02 — Counter with State</h3>
+            <p>Build a functional counter using useState and compare normal updates with functional updates.</p>
+            <a class="btn" href="exercise_02_counter_state.html">Open exercise ↗</a>
+        </article>
+
+        <article class="card">
+            <h3>Exercise 03 — User Form</h3>
+            <p>Manage name, email, and age using multiple useState variables.</p>
+            <a class="btn" href="exercise_03_user_form.html">Open exercise ↗</a>
+        </article>
+
+        <article class="card">
+            <h3>Exercise 04 — Profile Form</h3>
+            <p>Build a profile editor using object state and the spread operator.</p>
+            <a class="btn" href="exercise_04_profile_form.html">Open exercise ↗</a>
+        </article>
+
+        <article class="card">
+            <h3>Exercise 05 — Todo List</h3>
+            <p>Create a task manager with add, complete, and delete functionality using array state.</p>
+            <a class="btn" href="exercise_05_todo_list.html">Open exercise ↗</a>
+        </article>
+
+        <article class="card">
+            <h3>Exercise 06 — Search Page</h3>
+            <p>Build a search interface where a parent component manages the search results.</p>
+            <a class="btn" href="exercise_06_search_page.html">Open exercise ↗</a>
+        </article>
+
+        <article class="card">
+            <h3>Exercise 07 — Counter with History</h3>
+            <p>Create a counter that stores previous values and supports undo functionality.</p>
+            <a class="btn" href="exercise_07_counter_with_history.html">Open exercise ↗</a>
+        </article>
+
+    </div>
+</section>
+
+<section class="section">
+    <p class="eyebrow">FINAL IMPLEMENTATION</p>
+    <h2>Homework</h2>
+
+    <div class="grid">
+        <article class="card homework">
+            <h3>Interactive Shopping Cart</h3>
+            <p>Build a shopping cart that allows users to add products, manage quantities, remove items, and calculate the total price dynamically.</p>
+            <a class="btn" href="homework_shopping_cart.html">Open homework ↗</a>
+        </article>
+    </div>
+</section>
+
+<section class="section">
+    <p class="eyebrow">KEY REACT CONCEPTS</p>
+    <h2>Skills Practised</h2>
+
+    <div class="card">
+        <ul>
+            <li>Managing component state with useState.</li>
+            <li>Understanding the difference between state and props.</li>
+            <li>Updating state with functional updates.</li>
+            <li>Managing multiple state variables.</li>
+            <li>Updating arrays and objects immutably.</li>
+            <li>Using map(), filter(), and spread syntax.</li>
+            <li>Lifting state up to share data between components.</li>
+        </ul>
+    </div>
+</section>
+
+</div>
+
+<footer class="footer">
+    BATSUREN ANAR · STUDENT ID: 202637018<br>
+    GACHON UNIVERSITY · WEB PROGRAMMING
+</footer>
+
+</main>
+
+<script>
+const themeButton = document.getElementById('theme');
+
+function syncThemeButton() {
+    themeButton.textContent =
+        document.body.classList.contains('light')
+        ? '🌙 Dark mode'
+        : '☀️ Light mode';
+}
+
+themeButton.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    syncThemeButton();
+});
+
+syncThemeButton();
+</script>
+
+</body>
+</html>

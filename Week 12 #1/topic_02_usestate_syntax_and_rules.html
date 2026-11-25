@@ -1,0 +1,270 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#171D2E">
+<title>useState Syntax & Rules · Anar</title>
+
+<style>
+:root {
+    color-scheme:dark;
+    --bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;
+    --card:#222D43;--accent:#B7A2FF;--border:#8791C2;
+    --line:#34415D;--shadow:rgba(0,0,0,.4);
+    --hero1:#251D40;--hero2:#49366F;
+}
+body.light {
+    color-scheme:light;
+    --bg:#F0EBFF;--text:#292344;--muted:#655B80;
+    --card:#fff;--accent:#7957D5;--border:#B0A3D9;
+    --line:#DED5F1;--shadow:rgba(41,35,68,.13);
+    --hero1:#E6DCFF;--hero2:#CDBCF5;
+}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.65 Arial,sans-serif;background:var(--bg);color:var(--text);transition:.2s}
+main{max-width:1180px;width:calc(100% - 36px);margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:22px 0}
+.brand{font-weight:bold;letter-spacing:1px}
+.actions{display:flex;gap:9px;flex-wrap:wrap}
+button,.nav-link{border:1px solid var(--border);background:var(--card);color:var(--text);padding:9px 14px;border-radius:10px;text-decoration:none;font-size:14px;cursor:pointer}
+button:hover,.nav-link:hover{border-color:var(--accent)}
+.hero{margin:28px 0;padding:28px 32px;border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:0 12px 30px var(--shadow)}
+.eyebrow{color:var(--accent);font-size:13px;font-weight:bold;letter-spacing:2px;text-transform:uppercase}
+h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}
+h2{font-size:25px;margin:0 0 14px}
+h3{font-size:19px;margin:0 0 10px}
+.student{color:var(--muted);font-size:13px;letter-spacing:1px}
+.section{margin:32px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:19px;padding:22px;box-shadow:0 8px 22px var(--shadow);margin:16px 0}
+.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+code{color:var(--accent);background:rgba(127,110,190,.15);padding:2px 6px;border-radius:5px}
+pre{background:#101725;color:#E8EAF6;padding:18px;border-radius:12px;overflow-x:auto;line-height:1.6;font-size:14px}
+pre code{background:none;color:inherit;padding:0}
+.callout{border-left:4px solid var(--accent);padding:12px 16px;background:rgba(127,110,190,.12);border-radius:0 10px 10px 0;margin:16px 0}
+.demo-button{background:var(--accent);color:#211936;border:0;font-weight:bold;padding:10px 18px;border-radius:9px}
+.output{font-size:26px;font-weight:bold;color:var(--accent);margin:12px 0}
+footer{border-top:1px solid var(--line);margin-top:50px;padding:25px 0;color:var(--muted);font-size:13px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.hero{padding:23px}.top{align-items:flex-start}}
+</style>
+</head>
+
+<body>
+<main>
+
+<nav class="top">
+    <div class="brand">ANAR · WEB PROGRAMMING</div>
+    <div class="actions">
+        <a class="nav-link" href="index.html">← Week 12 #1</a>
+        <a class="nav-link" href="../index.html">Main Portfolio</a>
+        <button id="themeToggle">☀️ Light mode</button>
+    </div>
+</nav>
+
+<header class="hero">
+    <div class="eyebrow">Week 12 · Topic 02</div>
+    <h1>useState Syntax & Rules of Hooks</h1>
+    <p>Learn how to create, read, and update state in React.</p>
+    <div class="student">BATSUREN ANAR · STUDENT ID: 202637018</div>
+</header>
+
+<section class="section">
+    <h2>1. What Is useState?</h2>
+    <div class="card">
+        <p>
+            <code>useState</code> is a React Hook that allows a function component
+            to remember information between renders.
+        </p>
+        <p>
+            It returns two things: the current state value and a function
+            that updates that value.
+        </p>
+        <div class="callout">
+            When you update state using its setter function, React schedules
+            a re-render so the user interface can show the new value.
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <h2>2. useState Syntax</h2>
+    <div class="card">
+        <pre><code>import { useState } from "react";
+
+function Counter() {
+    const [count, setCount] = useState(0);
+
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {count}&lt;/p&gt;
+            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+                Increase
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+}</code></pre>
+        <p>The three important parts are:</p>
+        <ul>
+            <li><code>count</code> — the current state value.</li>
+            <li><code>setCount</code> — the function used to update the state.</li>
+            <li><code>useState(0)</code> — initializes the state with the value 0.</li>
+        </ul>
+    </div>
+</section>
+
+<section class="section">
+    <h2>3. How the Setter Works</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>Read the state</h3>
+            <pre><code>const [count, setCount] = useState(0);
+
+console.log(count);</code></pre>
+            <p class="muted">The variable contains the current state value for this render.</p>
+        </div>
+        <div class="card">
+            <h3>Update the state</h3>
+            <pre><code>setCount(count + 1);</code></pre>
+            <p class="muted">The setter requests a state update and React re-renders the component.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <h2>4. Initial State Values</h2>
+    <div class="card">
+        <p>State can store different types of JavaScript values.</p>
+        <pre><code>const [name, setName] = useState("Anar");
+const [age, setAge] = useState(22);
+const [isOnline, setIsOnline] = useState(true);
+const [items, setItems] = useState([]);
+const [user, setUser] = useState({
+    name: "Anar",
+    email: "anar@example.com"
+});</code></pre>
+        <p>Common initial values include:</p>
+        <ul>
+            <li>String: <code>"Anar"</code></li>
+            <li>Number: <code>0</code></li>
+            <li>Boolean: <code>true</code> or <code>false</code></li>
+            <li>Array: <code>[]</code></li>
+            <li>Object: <code>{ name: "Anar" }</code></li>
+        </ul>
+    </div>
+</section>
+
+<section class="section">
+    <h2>5. Rules of Hooks</h2>
+    <div class="card">
+        <p>React Hooks must follow specific rules to work correctly.</p>
+        <h3>Rule 1 — Call Hooks at the Top Level</h3>
+        <p>Do not call Hooks inside loops, conditions, or nested functions.</p>
+        <pre><code>// Correct
+function Counter() {
+    const [count, setCount] = useState(0);
+
+    if (count > 5) {
+        console.log("More than five");
+    }
+
+    return &lt;p&gt;{count}&lt;/p&gt;;
+}</code></pre>
+        <pre><code>// Incorrect
+function Counter() {
+    if (true) {
+        const [count, setCount] = useState(0);
+    }
+}</code></pre>
+
+        <h3>Rule 2 — Only Call Hooks from React Functions</h3>
+        <p>
+            Call Hooks inside React function components or custom Hooks,
+            not ordinary JavaScript functions.
+        </p>
+        <h3>Rule 3 — Keep Hook Calls in the Same Order</h3>
+        <p>
+            React relies on the order of Hook calls to keep track of each
+            component's state.
+        </p>
+        <div class="callout">
+            Remember: Hooks should be called at the top level of a component,
+            before conditional returns.
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <h2>6. Interactive Example</h2>
+    <div class="card">
+        <h3>React useState Counter Simulation</h3>
+        <p class="muted">Practice how a state value changes when its setter is called.</p>
+        <div class="output" id="countDisplay">Count: 0</div>
+        <div class="actions">
+            <button class="demo-button" id="increase">Increase +1</button>
+            <button id="decrease">Decrease -1</button>
+            <button id="reset">Reset</button>
+        </div>
+        <p class="muted" id="message">Initial state: 0</p>
+    </div>
+</section>
+
+<section class="section">
+    <h2>7. Key Takeaways</h2>
+    <div class="card">
+        <ul>
+            <li><code>useState</code> is a React Hook for storing component state.</li>
+            <li>It returns the current state and a setter function.</li>
+            <li>The initial value is passed to <code>useState()</code>.</li>
+            <li>Use the setter function to request state updates.</li>
+            <li>Hooks must be called at the top level of React components or custom Hooks.</li>
+            <li>Do not call Hooks inside conditions, loops, or nested functions.</li>
+            <li>Keep Hook calls in a consistent order between renders.</li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+    <strong>BATSUREN ANAR · STUDENT ID: 202637018</strong><br>
+    GACHON UNIVERSITY · WEB PROGRAMMING
+</footer>
+
+</main>
+
+<script>
+const themeToggle = document.getElementById("themeToggle");
+
+themeToggle.addEventListener("click", function () {
+    document.body.classList.toggle("light");
+    themeToggle.textContent = document.body.classList.contains("light")
+        ? "🌙 Dark mode"
+        : "☀️ Light mode";
+});
+
+let count = 0;
+
+function updateCounter() {
+    document.getElementById("countDisplay").textContent = "Count: " + count;
+    document.getElementById("message").textContent =
+        "Current state value: " + count;
+}
+
+document.getElementById("increase").addEventListener("click", function () {
+    count++;
+    updateCounter();
+});
+
+document.getElementById("decrease").addEventListener("click", function () {
+    count--;
+    updateCounter();
+});
+
+document.getElementById("reset").addEventListener("click", function () {
+    count = 0;
+    updateCounter();
+});
+</script>
+
+</body>
+</html>

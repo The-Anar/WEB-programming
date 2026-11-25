@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#171D2E">
+<title>Lifting State Up · Anar</title>
+<style>
+:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}
+body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}
+*{box-sizing:border-box}body{margin:0;font:16px/1.65 Arial,sans-serif;background:var(--bg);color:var(--text);transition:.2s}
+main{max-width:1180px;width:calc(100% - 36px);margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:22px 0}
+.brand{font-weight:bold;letter-spacing:1px}.actions{display:flex;gap:9px;flex-wrap:wrap}
+button,.nav-link{border:1px solid var(--border);background:var(--card);color:var(--text);padding:9px 14px;border-radius:10px;text-decoration:none;font-size:14px;cursor:pointer}
+button:hover,.nav-link:hover{border-color:var(--accent)}
+.hero{margin:28px 0;padding:28px 32px;border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:0 12px 30px var(--shadow)}
+.eyebrow{color:var(--accent);font-size:13px;font-weight:bold;letter-spacing:2px;text-transform:uppercase}
+h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}h2{font-size:25px;margin:0 0 14px}h3{font-size:19px;margin:0 0 10px}
+.student{color:var(--muted);font-size:13px;letter-spacing:1px}.section{margin:32px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:19px;padding:22px;box-shadow:0 8px 22px var(--shadow);margin:16px 0}
+.muted{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+code{color:var(--accent);background:rgba(127,110,190,.15);padding:2px 6px;border-radius:5px}
+pre{background:#101725;color:#E8EAF6;padding:18px;border-radius:12px;overflow-x:auto;line-height:1.6;font-size:14px}
+pre code{background:none;color:inherit;padding:0}
+.callout{border-left:4px solid var(--accent);padding:12px 16px;background:rgba(127,110,190,.12);border-radius:0 10px 10px 0;margin:16px 0}
+.demo-button{background:var(--accent);color:#211936;border:0;font-weight:bold;padding:10px 18px;border-radius:9px}
+.output{font-size:22px;font-weight:bold;color:var(--accent);margin:12px 0}
+input{width:100%;padding:11px;margin:7px 0 13px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font-size:15px}
+footer{border-top:1px solid var(--line);margin-top:50px;padding:25px 0;color:var(--muted);font-size:13px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.hero{padding:23px}.top{align-items:flex-start}}
+</style>
+</head>
+<body>
+<main>
+
+<nav class="top">
+<div class="brand">ANAR · WEB PROGRAMMING</div>
+<div class="actions">
+<a class="nav-link" href="index.html">← Week 12 #1</a>
+<a class="nav-link" href="../index.html">Main Portfolio</a>
+<button id="themeToggle">☀️ Light mode</button>
+</div>
+</nav>
+
+<header class="hero">
+<div class="eyebrow">Week 12 · Topic 06</div>
+<h1>Lifting State Up</h1>
+<p>Learn how to share state between components using a common parent component.</p>
+<div class="student">BATSUREN ANAR · STUDENT ID: 202637018</div>
+</header>
+
+<section class="section">
+<h2>1. What Is Lifting State Up?</h2>
+<div class="card">
+<p>Lifting state up means moving shared state from child components into their nearest common parent component.</p>
+<p>When multiple components need the same information, keeping separate copies of that information can cause problems.</p>
+<div class="callout">The parent owns the shared state and passes the data to children through props.</div>
+</div>
+</section>
+
+<section class="section">
+<h2>2. Why Do We Need It?</h2>
+<div class="grid">
+<div class="card">
+<h3>Without Lifting State</h3>
+<p>Two child components keep their own separate copies of the same information.</p>
+<ul>
+<li>Values can become inconsistent.</li>
+<li>Components may show different information.</li>
+<li>Sharing updates becomes difficult.</li>
+</ul>
+</div>
+<div class="card">
+<h3>With Lifting State</h3>
+<p>The parent stores one shared state value and gives it to both children.</p>
+<ul>
+<li>One source of truth.</li>
+<li>Children stay synchronized.</li>
+<li>Updates are easier to manage.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2>3. How Data Flows</h2>
+<div class="card">
+<h3>Parent → Child → Parent</h3>
+<pre><code>function Parent() {
+    const [count, setCount] = useState(0);
+
+    return (
+        &lt;div&gt;
+            &lt;Display count={count} /&gt;
+            &lt;CounterButton
+                onIncrease={() => setCount(count + 1)}
+            /&gt;
+        &lt;/div&gt;
+    );
+}</code></pre>
+<p>The parent passes the current value down as a prop and passes a callback function down so the child can request an update.</p>
+<div class="callout">
+Data flows down through props. Events and update requests flow up through callback functions.
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2>4. Child Components Receive Props</h2>
+<div class="grid">
+<div class="card">
+<h3>Display Component</h3>
+<pre><code>function Display({ count }) {
+    return &lt;h2&gt;Count: {count}&lt;/h2&gt;;
+}</code></pre>
+<p class="muted">The child receives the count value from its parent.</p>
+</div>
+<div class="card">
+<h3>Button Component</h3>
+<pre><code>function CounterButton({ onIncrease }) {
+    return (
+        &lt;button onClick={onIncrease}&gt;
+            Increase
+        &lt;/button&gt;
+    );
+}</code></pre>
+<p class="muted">The child calls the callback when the user clicks the button.</p>
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2>5. Interactive Lifting State Up Demo</h2>
+<div class="card">
+<p class="muted">This simulation represents a parent sharing one state value with two child components.</p>
+<div class="grid">
+<div class="card">
+<h3>Child A — Display</h3>
+<div class="output" id="childA">Count: 0</div>
+</div>
+<div class="card">
+<h3>Child B — Display</h3>
+<div class="output" id="childB">Count: 0</div>
+</div>
+</div>
+<h3>Parent Component Controls</h3>
+<div class="output" id="parentCount">Parent state: 0</div>
+<div class="actions">
+<button class="demo-button" id="increase">Increase</button>
+<button id="decrease">Decrease</button>
+<button id="reset">Reset</button>
+</div>
+<p class="muted">Both children display the same value because they receive it from one shared parent state.</p>
+</div>
+</section>
+
+<section class="section">
+<h2>6. Example: Search Components</h2>
+<div class="card">
+<p>Imagine a search page with three components:</p>
+<ul>
+<li><strong>SearchPage:</strong> owns the search query and results.</li>
+<li><strong>SearchBar:</strong> accepts user input and sends the search request to its parent.</li>
+<li><strong>ResultList:</strong> receives and displays results from its parent.</li>
+</ul>
+<pre><code>function SearchPage() {
+    const [query, setQuery] = useState("");
+    const [results, setResults] = useState([]);
+
+    function handleSearch(value) {
+        setQuery(value);
+        // Update results here
+    }
+
+    return (
+        &lt;&gt;
+            &lt;SearchBar onSearch={handleSearch} /&gt;
+            &lt;ResultList results={results} /&gt;
+        &lt;/&gt;
+    );
+}</code></pre>
+</div>
+</section>
+
+<section class="section">
+<h2>7. Key Takeaways</h2>
+<div class="card">
+<ul>
+<li>Lift state up when multiple components need the same data.</li>
+<li>Move shared state into the nearest common parent.</li>
+<li>Pass state values down through props.</li>
+<li>Pass callback functions down to allow children to request updates.</li>
+<li>The parent becomes the single source of truth.</li>
+<li>Data flows down, while events flow up through callbacks.</li>
+</ul>
+</div>
+</section>
+
+<footer>
+<strong>BATSUREN ANAR · STUDENT ID: 202637018</strong><br>
+GACHON UNIVERSITY · WEB PROGRAMMING
+</footer>
+</main>
+
+<script>
+document.getElementById("themeToggle").addEventListener("click",function(){
+document.body.classList.toggle("light");
+this.textContent=document.body.classList.contains("light")?"🌙 Dark mode":"☀️ Light mode";
+});
+
+// Simulated parent state
+let parentState=0;
+
+function render(){
+document.getElementById("parentCount").textContent="Parent state: "+parentState;
+document.getElementById("childA").textContent="Count: "+parentState;
+document.getElementById("childB").textContent="Count: "+parentState;
+}
+
+document.getElementById("increase").addEventListener("click",function(){
+parentState++;
+render();
+});
+
+document.getElementById("decrease").addEventListener("click",function(){
+parentState--;
+render();
+});
+
+document.getElementById("reset").addEventListener("click",function(){
+parentState=0;
+render();
+});
+
+render();
+</script>
+</body>
+</html>

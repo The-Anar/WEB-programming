@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#171D2E">
+<title>Exercise 04 · Profile Form · Anar</title>
+<style>
+:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}
+body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.65 Arial,sans-serif;background:var(--bg);color:var(--text);transition:.2s}
+main{max-width:1180px;width:calc(100% - 36px);margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:22px 0}
+.brand{font-weight:bold;letter-spacing:1px}
+.actions{display:flex;gap:9px;flex-wrap:wrap}
+button,.nav-link{border:1px solid var(--border);background:var(--card);color:var(--text);padding:9px 14px;border-radius:10px;text-decoration:none;font-size:14px;cursor:pointer}
+button:hover,.nav-link:hover{border-color:var(--accent)}
+.hero{margin:28px 0;padding:28px 32px;border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:0 12px 30px var(--shadow)}
+.eyebrow{color:var(--accent);font-size:13px;font-weight:bold;letter-spacing:2px;text-transform:uppercase}
+h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}
+h2{font-size:25px;margin:0 0 14px}
+h3{font-size:19px;margin:0 0 10px}
+.student{color:var(--muted);font-size:13px;letter-spacing:1px}
+.section{margin:32px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:19px;padding:22px;box-shadow:0 8px 22px var(--shadow);margin:16px 0}
+.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+code{color:var(--accent);background:rgba(127,110,190,.15);padding:2px 6px;border-radius:5px}
+pre{background:#101725;color:#E8EAF6;padding:18px;border-radius:12px;overflow-x:auto;line-height:1.6;font-size:14px}
+pre code{background:none;color:inherit;padding:0}
+.callout{border-left:4px solid var(--accent);padding:12px 16px;background:rgba(127,110,190,.12);border-radius:0 10px 10px 0;margin:16px 0}
+.field{margin:15px 0}
+.field label{display:block;font-weight:bold;margin-bottom:6px}
+.field input,.field textarea{width:100%;padding:12px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}
+.field textarea{min-height:90px;resize:vertical}
+.field input:focus,.field textarea:focus{outline:2px solid var(--accent)}
+.primary{background:var(--accent);color:#211936;border:0;font-weight:bold}
+.form-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.profile-preview{padding:18px;background:rgba(127,110,190,.12);border-radius:12px}
+.profile-preview p{margin:8px 0;overflow-wrap:anywhere}
+.json{white-space:pre-wrap;overflow-wrap:anywhere;background:#101725;color:#BDE7C7;padding:15px;border-radius:10px;font:14px/1.6 monospace}
+footer{border-top:1px solid var(--line);margin-top:50px;padding:25px 0;color:var(--muted);font-size:13px}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.hero{padding:23px}.top{align-items:flex-start}}
+</style>
+</head>
+<body>
+<main>
+
+<nav class="top">
+<div class="brand">ANAR · WEB PROGRAMMING</div>
+<div class="actions">
+<a class="nav-link" href="index.html">← Week 12 #1</a>
+<a class="nav-link" href="../index.html">Main Portfolio</a>
+<button id="themeToggle">☀️ Light mode</button>
+</div>
+</nav>
+
+<header class="hero">
+<div class="eyebrow">Week 12 · Exercise 04</div>
+<h1>Profile Form</h1>
+<p>Manage a user's profile information with a single object state and update individual properties without losing other values.</p>
+<div class="student">BATSUREN ANAR · STUDENT ID: 202637018</div>
+</header>
+
+<section class="section">
+<h2>1. Exercise Objective</h2>
+<div class="card">
+<p>Instead of creating separate state variables for every field, we can store related information inside one JavaScript object.</p>
+<ul>
+<li>Create one profile object with name, email, and bio.</li>
+<li>Update individual properties using the spread operator.</li>
+<li>Keep the other properties unchanged.</li>
+<li>Display the current profile and its JSON state.</li>
+</ul>
+</div>
+</section>
+
+<section class="section">
+<h2>2. Object State</h2>
+<div class="card">
+<pre><code>function ProfileForm() {
+    const [profile, setProfile] = React.useState({
+        name: "",
+        email: "",
+        bio: ""
+    });
+
+    function updateField(field, value) {
+        setProfile({
+            ...profile,
+            [field]: value
+        });
+    }
+
+    return (
+        &lt;input
+            value={profile.name}
+            onChange={e =&gt;
+                updateField("name", e.target.value)
+            }
+        /&gt;
+    );
+}</code></pre>
+<div class="callout">
+The spread operator <code>...profile</code> copies the existing properties. The new value replaces only the property being edited.
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2>3. Live Profile Editor</h2>
+<div id="profile-demo" class="card">
+<p class="muted">Loading React profile editor...</p>
+</div>
+</section>
+
+<section class="section">
+<h2>4. Why Use the Spread Operator?</h2>
+<div class="grid">
+<div class="card">
+<h3>Incorrect update</h3>
+<pre><code>setProfile({
+    name: "Anar"
+});</code></pre>
+<p class="muted">This replaces the entire object. The previous email and bio properties are lost.</p>
+</div>
+<div class="card">
+<h3>Correct update</h3>
+<pre><code>setProfile({
+    ...profile,
+    name: "Anar"
+});</code></pre>
+<p class="muted">This keeps the existing properties and changes only the name.</p>
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2>5. Dynamic Property Updates</h2>
+<div class="card">
+<p>We can use a computed property name to update different fields with one function.</p>
+<pre><code>function updateField(field, value) {
+    setProfile(previousProfile => ({
+        ...previousProfile,
+        [field]: value
+    }));
+}</code></pre>
+<p class="muted">For example, <code>updateField("email", "hello@example.com")</code> updates the email property while preserving the other fields.</p>
+</div>
+</section>
+
+<section class="section">
+<h2>6. Key Takeaways</h2>
+<div class="card">
+<ul>
+<li>Objects can store related information in one state variable.</li>
+<li>React state should be updated immutably.</li>
+<li>The spread operator copies existing object properties.</li>
+<li>Computed property names allow reusable update functions.</li>
+<li>Functional updates are useful when the next state depends on the previous state.</li>
+</ul>
+</div>
+</section>
+
+<footer>
+<strong>BATSUREN ANAR · STUDENT ID: 202637018</strong><br>
+GACHON UNIVERSITY · WEB PROGRAMMING
+</footer>
+</main>
+
+<script>
+document.getElementById("themeToggle").addEventListener("click",function(){
+document.body.classList.toggle("light");
+this.textContent=document.body.classList.contains("light")?"🌙 Dark mode":"☀️ Light mode";
+});
+</script>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+const {useState} = React;
+
+function ProfileForm(){
+    const [profile,setProfile] = useState({
+        name:"Anar",
+        email:"anar@example.com",
+        bio:"Computer Engineering student at Gachon University."
+    });
+
+    function updateField(field,value){
+        setProfile(previousProfile => ({
+            ...previousProfile,
+            [field]:value
+        }));
+    }
+
+    function resetProfile(){
+        setProfile({
+            name:"Anar",
+            email:"anar@example.com",
+            bio:"Computer Engineering student at Gachon University."
+        });
+    }
+
+    return (
+        <div className="grid">
+            <div>
+                <h3>Edit Your Profile</h3>
+
+                <div className="field">
+                    <label htmlFor="profile-name">Name</label>
+                    <input
+                        id="profile-name"
+                        value={profile.name}
+                        onChange={event => updateField("name",event.target.value)}
+                        placeholder="Enter your name"
+                    />
+                </div>
+
+                <div className="field">
+                    <label htmlFor="profile-email">Email</label>
+                    <input
+                        id="profile-email"
+                        type="email"
+                        value={profile.email}
+                        onChange={event => updateField("email",event.target.value)}
+                        placeholder="Enter your email"
+                    />
+                </div>
+
+                <div className="field">
+                    <label htmlFor="profile-bio">Bio</label>
+                    <textarea
+                        id="profile-bio"
+                        value={profile.bio}
+                        onChange={event => updateField("bio",event.target.value)}
+                        placeholder="Write a short bio"
+                    />
+                </div>
+
+                <button className="primary" onClick={resetProfile}>Reset Profile</button>
+            </div>
+
+            <div>
+                <h3>Live Profile Preview</h3>
+                <div className="profile-preview">
+                    <h2>{profile.name || "Your Name"}</h2>
+                    <p><strong>Email:</strong> {profile.email || "Not provided"}</p>
+                    <p><strong>Bio:</strong> {profile.bio || "No bio yet."}</p>
+                </div>
+
+                <h3 style={{marginTop:"22px"}}>Current Object State</h3>
+                <pre className="json">{JSON.stringify(profile,null,2)}</pre>
+            </div>
+        </div>
+    );
+}
+
+ReactDOM.createRoot(document.getElementById("profile-demo")).render(<ProfileForm />);
+</script>
+
+</body>
+</html>

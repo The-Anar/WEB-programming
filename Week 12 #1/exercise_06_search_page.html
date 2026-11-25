@@ -1,0 +1,285 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#171D2E">
+<title>Exercise 06 · Search Page · Anar</title>
+<style>
+:root{color-scheme:dark;--bg:#171D2E;--text:#EDF0FF;--muted:#C3C9E8;--card:#222D43;--accent:#B7A2FF;--border:#8791C2;--line:#34415D;--shadow:rgba(0,0,0,.4);--hero1:#251D40;--hero2:#49366F}
+body.light{color-scheme:light;--bg:#F0EBFF;--text:#292344;--muted:#655B80;--card:#fff;--accent:#7957D5;--border:#B0A3D9;--line:#DED5F1;--shadow:rgba(41,35,68,.13);--hero1:#E6DCFF;--hero2:#CDBCF5}
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.65 Arial,sans-serif;background:var(--bg);color:var(--text);transition:.2s}
+main{max-width:1180px;width:calc(100% - 36px);margin:auto}
+.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;padding:22px 0}
+.brand{font-weight:bold;letter-spacing:1px}
+.actions{display:flex;gap:9px;flex-wrap:wrap}
+button,.nav-link{border:1px solid var(--border);background:var(--card);color:var(--text);padding:9px 14px;border-radius:10px;text-decoration:none;font-size:14px;cursor:pointer}
+button:hover,.nav-link:hover{border-color:var(--accent)}
+.hero{margin:28px 0;padding:28px 32px;border-radius:26px;background:linear-gradient(120deg,var(--hero1),var(--hero2));box-shadow:0 12px 30px var(--shadow)}
+.eyebrow{color:var(--accent);font-size:13px;font-weight:bold;letter-spacing:2px;text-transform:uppercase}
+h1{font-size:clamp(32px,5vw,48px);line-height:1.15;margin:10px 0}
+h2{font-size:25px;margin:0 0 14px}
+h3{font-size:19px;margin:0 0 10px}
+.student{color:var(--muted);font-size:13px;letter-spacing:1px}
+.section{margin:32px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:19px;padding:22px;box-shadow:0 8px 22px var(--shadow);margin:16px 0}
+.muted{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+code{color:var(--accent);background:rgba(127,110,190,.15);padding:2px 6px;border-radius:5px}
+pre{background:#101725;color:#E8EAF6;padding:18px;border-radius:12px;overflow-x:auto;line-height:1.6;font-size:14px}
+pre code{background:none;color:inherit;padding:0}
+.callout{border-left:4px solid var(--accent);padding:12px 16px;background:rgba(127,110,190,.12);border-radius:0 10px 10px 0;margin:16px 0}
+.search-row{display:flex;gap:10px;margin:16px 0}
+.search-row input{flex:1;min-width:0;padding:12px;border:1px solid var(--border);border-radius:9px;background:var(--bg);color:var(--text);font:inherit}
+.primary{background:var(--accent);color:#211936;border:0;font-weight:bold}
+.result-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
+.result-item{padding:13px;background:rgba(127,110,190,.12);border:1px solid var(--line);border-radius:10px}
+.result-item strong{display:block}
+.empty{padding:20px;text-align:center;color:var(--muted)}
+.component-box{border:1px dashed var(--border);border-radius:12px;padding:15px;margin-top:12px}
+footer{border-top:1px solid var(--line);margin-top:50px;padding:25px 0;color:var(--muted);font-size:13px}
+@media(max-width:700px){.grid,.result-list{grid-template-columns:1fr}.hero{padding:23px}.top{align-items:flex-start}.search-row{flex-direction:column}}
+</style>
+</head>
+<body>
+<main>
+
+<nav class="top">
+<div class="brand">ANAR · WEB PROGRAMMING</div>
+<div class="actions">
+<a class="nav-link" href="index.html">← Week 12 #1</a>
+<a class="nav-link" href="../index.html">Main Portfolio</a>
+<button id="themeToggle">☀️ Light mode</button>
+</div>
+</nav>
+
+<header class="hero">
+<div class="eyebrow">Week 12 · Exercise 06</div>
+<h1>Search Page</h1>
+<p>Learn how to lift state up so multiple React components can share and use the same data.</p>
+<div class="student">BATSUREN ANAR · STUDENT ID: 202637018</div>
+</header>
+
+<section class="section">
+<h2>1. Exercise Objective</h2>
+<div class="card">
+<p>In this exercise, we create a search page with three components:</p>
+<ul>
+<li><strong>SearchPage:</strong> The parent component that owns the search state.</li>
+<li><strong>SearchBar:</strong> A child component where the user enters a search term.</li>
+<li><strong>ResultList:</strong> A child component that displays matching results.</li>
+</ul>
+<p>The parent shares data and functions with its children using props.</p>
+</div>
+</section>
+
+<section class="section">
+<h2>2. What Is Lifting State Up?</h2>
+<div class="card">
+<p>When multiple components need the same information, we move that state to their closest common parent.</p>
+<pre><code>function SearchPage() {
+    const [query, setQuery] = useState("");
+    const [results, setResults] = useState([]);
+
+    function handleSearch(searchTerm) {
+        const filtered = FRUITS.filter(fruit =>
+            fruit.toLowerCase().includes(
+                searchTerm.toLowerCase()
+            )
+        );
+        setResults(filtered);
+    }
+
+    return (
+        &lt;&gt;
+            &lt;SearchBar onSearch={handleSearch} /&gt;
+            &lt;ResultList results={results} /&gt;
+        &lt;/&gt;
+    );
+}</code></pre>
+<div class="callout">
+The parent owns the state. The children receive the information and functions they need through props.
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2>3. Component Structure</h2>
+<div class="card">
+<pre><code>SearchPage (Parent)
+│
+├── SearchBar (Child)
+│   └── Receives onSearch function
+│
+└── ResultList (Child)
+    └── Receives results array</code></pre>
+<p class="muted">SearchBar sends the search term to its parent. SearchPage updates its state and passes the matching results to ResultList.</p>
+</div>
+</section>
+
+<section class="section">
+<h2>4. Live Search Demonstration</h2>
+<div id="search-demo" class="card">
+<p class="muted">Loading React search page...</p>
+</div>
+</section>
+
+<section class="section">
+<h2>5. How Props Connect Components</h2>
+<div class="grid">
+<div class="card">
+<h3>Passing a function</h3>
+<pre><code>&lt;SearchBar
+    onSearch={handleSearch}
+/&gt;</code></pre>
+<p class="muted">The parent passes a function to the SearchBar child.</p>
+</div>
+<div class="card">
+<h3>Passing data</h3>
+<pre><code>&lt;ResultList
+    results={results}
+/&gt;</code></pre>
+<p class="muted">The parent passes the search results to the ResultList child.</p>
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2>6. Key Takeaways</h2>
+<div class="card">
+<ul>
+<li>Lifting state up means moving state to a common parent component.</li>
+<li>The parent becomes the owner of shared data.</li>
+<li>Props allow a parent to pass data to child components.</li>
+<li>Callback functions allow children to communicate events to their parent.</li>
+<li>Sharing state this way keeps related components synchronized.</li>
+</ul>
+</div>
+</section>
+
+<footer>
+<strong>BATSUREN ANAR · STUDENT ID: 202637018</strong><br>
+GACHON UNIVERSITY · WEB PROGRAMMING
+</footer>
+</main>
+
+<script>
+document.getElementById("themeToggle").addEventListener("click",function(){
+document.body.classList.toggle("light");
+this.textContent=document.body.classList.contains("light")?"🌙 Dark mode":"☀️ Light mode";
+});
+</script>
+
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<script type="text/babel">
+const {useState} = React;
+
+const FRUITS = [
+    "Apple",
+    "Apricot",
+    "Banana",
+    "Blueberry",
+    "Cherry",
+    "Grape",
+    "Kiwi",
+    "Lemon",
+    "Mango",
+    "Orange",
+    "Peach",
+    "Pear",
+    "Strawberry",
+    "Watermelon"
+];
+
+function SearchBar({onSearch}){
+    const [input,setInput] = useState("");
+
+    function handleSubmit(event){
+        event.preventDefault();
+        onSearch(input);
+    }
+
+    return (
+        <div className="component-box">
+            <h3>SearchBar Component</h3>
+            <form className="search-row" onSubmit={handleSubmit}>
+                <input
+                    value={input}
+                    onChange={event => setInput(event.target.value)}
+                    placeholder="Search for a fruit..."
+                    aria-label="Search for a fruit"
+                />
+                <button className="primary" type="submit">Search</button>
+                <button type="button" onClick={() => {
+                    setInput("");
+                    onSearch("");
+                }}>Clear</button>
+            </form>
+            <p className="muted">This child component manages its input and calls the parent's onSearch function.</p>
+        </div>
+    );
+}
+
+function ResultList({results,query}){
+    return (
+        <div className="component-box">
+            <h3>ResultList Component</h3>
+            <p className="muted">
+                {query
+                    ? "Results for: " + query
+                    : "Showing all fruits"}
+            </p>
+
+            {results.length === 0 ? (
+                <div className="empty">No matching fruits found.</div>
+            ) : (
+                <div className="result-list">
+                    {results.map((fruit,index) => (
+                        <div className="result-item" key={fruit}>
+                            <strong>{fruit}</strong>
+                            <span className="muted">Fruit #{index + 1}</span>
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
+}
+
+function SearchPage(){
+    const [query,setQuery] = useState("");
+    const [results,setResults] = useState(FRUITS);
+
+    function handleSearch(searchTerm){
+        setQuery(searchTerm);
+        const filtered = FRUITS.filter(fruit =>
+            fruit.toLowerCase().includes(searchTerm.trim().toLowerCase())
+        );
+        setResults(filtered);
+    }
+
+    return (
+        <div>
+            <div className="callout">
+                <strong>Parent: SearchPage</strong><br/>
+                Current query: {query || "(empty)"}<br/>
+                Number of results: {results.length}
+            </div>
+
+            <SearchBar onSearch={handleSearch}/>
+
+            <ResultList results={results} query={query}/>
+        </div>
+    );
+}
+
+ReactDOM.createRoot(document.getElementById("search-demo")).render(<SearchPage/>);
+</script>
+
+</body>
+</html>

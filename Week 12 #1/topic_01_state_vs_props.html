@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#171D2E">
+<title>What Is State? · Anar Web Programming</title>
+
+<style>
+:root {
+    color-scheme: dark;
+    --bg:#171D2E;
+    --text:#EDF0FF;
+    --muted:#C3C9E8;
+    --card:#222D43;
+    --accent:#B7A2FF;
+    --border:#8791C2;
+    --line:#34415D;
+    --shadow:rgba(0,0,0,.4);
+    --hero1:#251D40;
+    --hero2:#49366F;
+}
+body.light {
+    color-scheme:light;
+    --bg:#F0EBFF;
+    --text:#292344;
+    --muted:#655B80;
+    --card:#fff;
+    --accent:#7957D5;
+    --border:#B0A3D9;
+    --line:#DED5F1;
+    --shadow:rgba(41,35,68,.13);
+    --hero1:#E6DCFF;
+    --hero2:#CDBCF5;
+}
+* { box-sizing:border-box; }
+body {
+    margin:0;
+    font-family:Arial,sans-serif;
+    font-size:16px;
+    line-height:1.65;
+    background:var(--bg);
+    color:var(--text);
+    transition:background .2s,color .2s;
+}
+main {
+    max-width:1180px;
+    width:calc(100% - 36px);
+    margin:auto;
+}
+.top {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:12px;
+    padding:22px 0;
+}
+.brand { font-weight:bold; letter-spacing:1px; }
+.actions { display:flex; flex-wrap:wrap; gap:9px; }
+button,.nav-link {
+    border:1px solid var(--border);
+    background:var(--card);
+    color:var(--text);
+    padding:9px 14px;
+    border-radius:10px;
+    text-decoration:none;
+    font-size:14px;
+    cursor:pointer;
+}
+button:hover,.nav-link:hover { border-color:var(--accent); }
+.hero {
+    margin:28px 0;
+    padding:28px 32px;
+    border-radius:26px;
+    background:linear-gradient(120deg,var(--hero1),var(--hero2));
+    box-shadow:0 12px 30px var(--shadow);
+}
+.eyebrow {
+    color:var(--accent);
+    font-size:13px;
+    font-weight:bold;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+h1 { font-size:clamp(32px,5vw,48px); line-height:1.15; margin:10px 0; }
+h2 { font-size:25px; margin:0 0 14px; }
+h3 { font-size:19px; margin:0 0 10px; }
+.student { color:var(--muted); font-size:13px; letter-spacing:1px; }
+.section { margin:32px 0; }
+.card {
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:19px;
+    padding:22px;
+    box-shadow:0 8px 22px var(--shadow);
+    margin:16px 0;
+}
+.muted { color:var(--muted); }
+.grid {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:16px;
+}
+code {
+    color:var(--accent);
+    background:rgba(127,110,190,.15);
+    padding:2px 6px;
+    border-radius:5px;
+}
+pre {
+    background:#101725;
+    color:#E8EAF6;
+    padding:18px;
+    border-radius:12px;
+    overflow-x:auto;
+    line-height:1.6;
+    font-size:14px;
+}
+pre code { background:none; color:inherit; padding:0; }
+.callout {
+    border-left:4px solid var(--accent);
+    padding:12px 16px;
+    background:rgba(127,110,190,.12);
+    border-radius:0 10px 10px 0;
+    margin:16px 0;
+}
+table { width:100%; border-collapse:collapse; margin-top:12px; }
+th,td { text-align:left; padding:12px; border-bottom:1px solid var(--line); }
+th { color:var(--accent); }
+.demo-button {
+    background:var(--accent);
+    color:#211936;
+    border:0;
+    font-weight:bold;
+    padding:10px 18px;
+    border-radius:9px;
+    cursor:pointer;
+}
+.demo-output {
+    font-size:24px;
+    font-weight:bold;
+    color:var(--accent);
+    margin:12px 0;
+}
+footer {
+    border-top:1px solid var(--line);
+    margin-top:50px;
+    padding:25px 0;
+    color:var(--muted);
+    font-size:13px;
+}
+@media(max-width:700px) {
+    .grid { grid-template-columns:1fr; }
+    .hero { padding:23px; }
+    .top { align-items:flex-start; }
+    table { font-size:14px; }
+}
+</style>
+</head>
+
+<body>
+<main>
+
+<nav class="top">
+    <div class="brand">ANAR · WEB PROGRAMMING</div>
+    <div class="actions">
+        <a class="nav-link" href="index.html">← Week 12 #1</a>
+        <a class="nav-link" href="../index.html">Main Portfolio</a>
+        <button id="themeToggle">☀️ Light mode</button>
+    </div>
+</nav>
+
+<header class="hero">
+    <div class="eyebrow">Week 12 · Topic 01</div>
+    <h1>What Is State?</h1>
+    <p>Understanding the difference between State and Props in React.</p>
+    <div class="student">BATSUREN ANAR · STUDENT ID: 202637018</div>
+</header>
+
+<section class="section">
+    <h2>1. What Is State?</h2>
+    <div class="card">
+        <p>
+            <strong>State</strong> is data that a React component remembers and manages
+            by itself. It allows a component to keep information between renders
+            and update its user interface when that information changes.
+        </p>
+        <p>
+            For example, a counter needs to remember its current number.
+            A form needs to remember what the user has typed.
+            State makes these updates possible.
+        </p>
+        <div class="callout">
+            When state changes, React re-renders the component so the screen
+            can display the updated information.
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <h2>2. State vs Props</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>State</h3>
+            <p>State is data owned and managed by a component.</p>
+            <ul>
+                <li>Managed inside the component.</li>
+                <li>Can change over time.</li>
+                <li>Updated using a state setter.</li>
+                <li>Changing state causes a re-render.</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Props</h3>
+            <p>Props are data passed from a parent component to a child component.</p>
+            <ul>
+                <li>Received from a parent component.</li>
+                <li>Read-only inside the child.</li>
+                <li>Used to customize child components.</li>
+                <li>New props can cause a re-render.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="card">
+        <table>
+            <thead>
+                <tr><th>Feature</th><th>State</th><th>Props</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Ownership</td><td>Component itself</td><td>Parent component</td></tr>
+                <tr><td>Can be changed?</td><td>Yes, with setter</td><td>Not directly by child</td></tr>
+                <tr><td>Purpose</td><td>Remember changing data</td><td>Pass data between components</td></tr>
+                <tr><td>Example</td><td>Counter value</td><td>User name passed to a card</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="section">
+    <h2>3. Understanding State in Code</h2>
+    <div class="card">
+        <p>Here is a simple React counter using state:</p>
+        <pre><code>function Counter() {
+    const [count, setCount] = React.useState(0);
+
+    function increase() {
+        setCount(count + 1);
+    }
+
+    return (
+        &lt;div&gt;
+            &lt;h2&gt;Count: {count}&lt;/h2&gt;
+            &lt;button onClick={increase}&gt;
+                Increase
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+}</code></pre>
+        <p>
+            <code>count</code> stores the current value.
+            <code>setCount</code> updates that value.
+            <code>useState(0)</code> sets the initial value to zero.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <h2>4. Why Regular Variables Do Not Work</h2>
+    <div class="card">
+        <p>
+            A regular JavaScript variable does not tell React when its value changes.
+            React also does not preserve that variable's value between renders.
+        </p>
+        <pre><code>function Counter() {
+    let count = 0;
+
+    function increase() {
+        count = count + 1;
+        console.log(count);
+    }
+
+    return (
+        &lt;button onClick={increase}&gt;
+            Count: {count}
+        &lt;/button&gt;
+    );
+}</code></pre>
+        <div class="callout">
+            The console may show an increasing number, but the displayed button
+            stays at zero. React does not know that the regular variable changed.
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <h2>5. Try It Yourself</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>Regular JavaScript Variable</h3>
+            <p class="muted">The console value changes, but the displayed value does not.</p>
+            <div class="demo-output" id="regularDisplay">Count: 0</div>
+            <button class="demo-button" id="regularButton">Increase Regular Variable</button>
+            <p class="muted" id="regularMessage">Click the button to test it.</p>
+        </div>
+        <div class="card">
+            <h3>React State Concept</h3>
+            <p class="muted">This simple simulation updates the displayed value.</p>
+            <div class="demo-output" id="stateDisplay">Count: 0</div>
+            <button class="demo-button" id="stateButton">Increase State</button>
+            <p class="muted">In React, a state setter triggers a re-render.</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <h2>6. Key Takeaways</h2>
+    <div class="card">
+        <ul>
+            <li>State is data that a component remembers and manages.</li>
+            <li>Props are passed from a parent component to a child.</li>
+            <li>State changes trigger a React re-render.</li>
+            <li>Props should not be directly modified by the receiving component.</li>
+            <li>Regular variables do not provide React with persistent, reactive state.</li>
+            <li>Use <code>useState</code> when a component needs to remember changing data.</li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+    <strong>BATSUREN ANAR · STUDENT ID: 202637018</strong><br>
+    GACHON UNIVERSITY · WEB PROGRAMMING
+</footer>
+
+</main>
+
+<script>
+document.getElementById("themeToggle").addEventListener("click", function () {
+    document.body.classList.toggle("light");
+    this.textContent = document.body.classList.contains("light")
+        ? "🌙 Dark mode"
+        : "☀️ Light mode";
+});
+
+let regularCount = 0;
+document.getElementById("regularButton").addEventListener("click", function () {
+    regularCount++;
+    console.log("Regular variable:", regularCount);
+    document.getElementById("regularMessage").textContent =
+        "JavaScript variable value: " + regularCount +
+        " (the displayed count stays at 0)";
+});
+
+let simulatedState = 0;
+document.getElementById("stateButton").addEventListener("click", function () {
+    simulatedState++;
+    document.getElementById("stateDisplay").textContent =
+        "Count: " + simulatedState;
+});
+</script>
+
+</body>
+</html>
